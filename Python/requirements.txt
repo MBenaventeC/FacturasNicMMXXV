@@ -1,0 +1,36 @@
+# === BASTANTE NECESARIOS ===
+
+# Definición de ORM (Object-Relational Mapping) para usar objetos Python en vez de SQL crudo
+sqlalchemy==2.0.23
+
+# Trabajar con queries de MySQL en Python
+pymysql==1.1.0
+
+# Procesamiento y trabajo de archivos XML
+lxml==4.9.3
+
+# Validar XML con esquemas XSD
+xmlschema==2.5.0
+
+# Validación de datos
+pydantic==2.5.0
+
+# Para trabajar con variables de entorno .env
+python-dotenv==1.0.0
+
+# Testing en Python
+pytest==7.4.3
+
+# Extensión para Coverage (% de código que está siendo testeado)
+pytest-cov==4.1.0
+
+# ============ OPCIONAL: MATEMÁTICA Y FORMATO DE DATOS ============
+
+# Matemáticas
+# numpy==1.24.3           # Arrays y cálculos numéricos
+# pandas==2.0.3           # Manipulación de datos
+# scipy==1.11.1           # Algoritmos científicos
+
+# Fechas y formatos
+# python-dateutil==2.8.2         # Parsing de fechas
+# babel==2.12.1           # Localización y formatos
