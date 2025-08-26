@@ -34,7 +34,7 @@ git clone https://github.com/MBenaventeC/FacturasNicMMXXV
     ...
     ```
 
-2. Abrir un terminal, posicionarse en el directorio del repositorio clonado y  descargar las librerías presentes en `requirements.txt`:
+2. Abrir un terminal, posicionarse en el directorio del repositorio clonado y descargar las librerías presentes en `requirements.txt`:
     ```
     pip install -r Python/requirements.txt
 
