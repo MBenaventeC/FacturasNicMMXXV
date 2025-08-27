@@ -1,6 +1,7 @@
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 import base64
+from validations import *
 
 def build_dd(datos, caf):
     """
@@ -85,3 +86,47 @@ def build_ted(dd_text: str, frmt_sign: str) -> str:
     # Aquí hay que corroborar que sea así, o si falta agregar tabs para que quede con la estructura 
     # presentada en el ejemplo del documento.
     return f'<TED version="1.0">{dd_text}<FRMT algoritmo="SHA1withRSA">{frmt_sign}</FRMT></TED>'
+
+def build_caf(RE: str, TD: int, RNG: tuple[int], FA: str, RSAPK: tuple[str] , IDK: int):
+    """
+    -RUT Empresa (< RE >): 
+        formato XXXXXXXX-X
+
+    -Razón Social de la Empresa (< RS >): 
+        máximo de 40 caracteres.
+
+    -Tipo DTE (< TD >): 
+        caracteres ASCII, Este valor está conforme a la definición de tipos de DTE impuesta por SII. 
+        (Ej: Factura corresponde a ASCII "33").
+
+    -Rango de Folios (< RNG >): par de valores indicando el rango de folios autorizados en estructura “Desde-Hasta”.
+
+    -Fecha (< FA >): 
+        cadena de caracteres ASCII indica fecha en que fue autorizado 
+        el rango de folios en formato AAAA-MM-DD, ej: “2004-02-29”.
+
+    -Llave Pública del contribuyente (< RSAPK >): 
+        cadena de caracteres ASCII con el valor de la llave pública, 
+        generada por el SII. (el SII entregará sólo llaves correspondientes al algoritmo 
+        criptográfico de llave pública RSA.) 
+
+        Una llave pública RSA tiene dos valores numéricos que la definen, un módulo y un exponente. 
+
+        -Módulo < M >: 
+            Indica el valor del módulo de la llave. Este valor es la codificación en Base64 
+            del arreglo de bytes en orden Big-Endian (el byte más significativo es el elemento 0 del arreglo) 
+            que contiene el valor entero sin signo (unsigned integer) del módulo.
+
+        -Exponente < E >: 
+            Indica el valor del exponente de la llave. Este valor es la codificación en Base64 del arreglo 
+            de bytes en orden Big-Endian (el byte más significativo es el elemento 0 del arreglo) que contiene el valor 
+            entero sin signo (unsigned integer) del exponente.
+    
+    -Identificación llave pública del SII (< IDK >): 
+        Se trata de un identificador de la llave y no de la llave.
+    """
+
+    if not validar_rut(RE):
+        return False
+    
+    

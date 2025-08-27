@@ -38,6 +38,9 @@ requests==2.32.3
 xmlsec==1.3.14
 cryptography==43.0.3
 
+# Genera codigo python a partir de un archivo .xsd
+xsdata==25.7
+
 # ============ OPCIONAL: MATEMATICA Y FORMATO DE DATOS ============
 
 # Matematicas
