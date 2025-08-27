@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Factura>
+  <Emisor>Juan</Emisor>
+  <Receptor>Pedro</Receptor>
+  <Fecha>2025-08-27</Fecha>
+  <Total>5000</Total>
+</Factura>

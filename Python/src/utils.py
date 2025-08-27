@@ -27,7 +27,7 @@ def build_dd(datos, caf):
     if faltan:
         raise ValueError(f"Faltan los datos {faltan} requeridos")
     
-    # Bloque <DD>
+    # Bloque <DD>. Aparentemente habría que quitar los \t y \n.
     dd = (
         "<DD>\n"
         f"\t<RE>{datos['RE']}</RE>\n"
