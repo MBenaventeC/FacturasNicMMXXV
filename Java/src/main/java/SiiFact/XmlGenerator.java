@@ -33,8 +33,8 @@ public class XmlGenerator {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         // 4. Marshal to a file or System.out
-        new File("out2").mkdirs();
-        File output = new File("out2/FacturaOutXD.xml");
+        new File("src/out").mkdirs();
+        File output = new File("src/out/FacturaOutXD.xml");
         marshaller.marshal(obj, output);
         // or: marshaller.marshal(obj, System.out);
     }

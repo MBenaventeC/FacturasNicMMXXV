@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Factura>
-    <Emisor>NIC</Emisor>
-    <Receptor>SII</Receptor>
-    <Fecha>2025-08-29-04:00</Fecha>
-    <Total>1234.5678</Total>
-</Factura>
