@@ -28,9 +28,10 @@ public class XmlGenerator {
         // 3. Create marshaller and enable pretty-print
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         // 4. Marshal to a file or System.out
-        File output = new File("Java/out/FacturaOutXD.xml");
+        File output = new File("Java/out/FacturaOutXD3.xml");
         marshaller.marshal(obj, output);
         // or: marshaller.marshal(obj, System.out);
     }
