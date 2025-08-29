@@ -1,0 +1,4 @@
+SiiFact\Factura.class
+SiiFact\MiniRecibo.xsd
+SiiFact\XmlGenerator.class
+SiiFact\ObjectFactory.class

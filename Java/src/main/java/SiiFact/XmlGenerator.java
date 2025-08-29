@@ -1,3 +1,4 @@
+package SiiFact;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -21,7 +22,7 @@ public class XmlGenerator {
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         obj.setFecha(xmlDate);
-        obj.setTotal(new BigDecimal("1234.56789"));
+        obj.setTotal(new BigDecimal("1234.5678"));
         // ...set other fields...
 
         // 2. Initialize JAXBContext
@@ -32,7 +33,8 @@ public class XmlGenerator {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         // 4. Marshal to a file or System.out
-        File output = new File("Java/out/FacturaOutXD.xml");
+        new File("out2").mkdirs();
+        File output = new File("out2/FacturaOutXD.xml");
         marshaller.marshal(obj, output);
         // or: marshaller.marshal(obj, System.out);
     }
