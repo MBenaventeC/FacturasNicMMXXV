@@ -4470,9 +4470,9 @@ public class DTEDefType {
         protected List<DTEDefType.Documento.SubTotInfo> subTotInfo;
         @XmlElement(name = "DscRcgGlobal", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Documento.DscRcgGlobal> dscRcgGlobal;
-        @XmlElement(name = "Referencia", namespace = "http://www.sii.cl/SiiDte")
+        @XmlElement(name = "Referencia", namespace = "http://www.sii.cl/SiiDte")//omitir
         protected List<DTEDefType.Documento.Referencia> referencia;
-        @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")
+        @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")//omitir
         protected List<DTEDefType.Documento.Comisiones> comisiones;
         @XmlElement(name = "TED", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Documento.TED ted;
@@ -13242,7 +13242,7 @@ public class DTEDefType {
         })
         public static class SubTotInfo {
 
-            @XmlElement(name = "NroSTI", namespace = "http://www.sii.cl/SiiDte")
+            @XmlElement(name = "NroSTI", namespace = "http://www.sii.cl/SiiDte")//req
             protected int nroSTI;
             @XmlElement(name = "GlosaSTI", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosaSTI;
