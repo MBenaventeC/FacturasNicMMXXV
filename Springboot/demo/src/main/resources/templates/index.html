@@ -6,11 +6,13 @@
     <link rel="stylesheet" type ="text/css" href="/css/style.css"></link>
 </head>
 <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
     <h1>Bienvenido a NicFacturasDemo</h1>
     <p>Portal Formulario Pago</p>
     <div class = "form-container">
         <form action = "/guardarDatos" method = "post">
-            <div class = "div-col">
+            <div class="div-col">
                 <div class = "col-1">
                     <label for="name-input">Nombre</label>
                     <input id="name-input" name="name-input" type="text" maxlength="50" required>
@@ -57,34 +59,31 @@
                     <label for = "venc-input">Vencimiento</label>
                     <input id = "venc-input" name = "venc-input" type= "text" maxlength="50" required>
                 </div>
+                
+                <div class = "col-3">
+                    <label for = "cant-input">Cantidad</label>
+                    <input id = "cant-input" name = "cant-input" type= "text" maxlength="50" required>
+
+                    <label for = "tipo-input">Tipo</select>
+                    <select id = "tipo-input" name = "tipo-input" type= "text" maxlength="50" required>
+                        <option>D1</option>
+                        <option>D2</option>
+                        <option>D3</option>
+                        <option>D4</option>
+                    </select>
+
+                    <label for = "detalle-input">Detalle</label>
+                    <input id = "detalle-input" name = "detalle-input" type= "text" maxlength="50" required>
+
+                    <label for = "desc-input">Descripción</label>
+                    <input id = "desc-input" name = "desc-input" type= "text" maxlength="50" required>
+
+                    <label for = "precioU-input">Precio Unitario</label>
+                    <input id = "precioU-input" name = "precioU-input" type= "text" maxlength="50" required>
+
+                    <h3>Precio total por item</h3>
+                </div>
             </div>
-            
-            <div class = "col-3">
-                <label for = "cant-input">Cantidad</label>
-                <input id = "cant-input" name = "cant-input" type= "text" maxlength="50" required>
-
-                <label for = "tipo-input">Tipo</select>
-                <select id = "tipo-input" name = "tipo-input" type= "text" maxlength="50" required>
-                    <option>D1</option>
-                    <option>D2</option>
-                    <option>D3</option>
-                    <option>D4</option>
-                </select>
-
-                <label for = "detalle-input">Detalle</label>
-                <input id = "detalle-input" name = "detalle-input" type= "text" maxlength="50" required>
-
-                <label for = "desc-input">Descripción</label>
-                <input id = "desc-input" name = "desc-input" type= "text" maxlength="50" required>
-
-                <label for = "precioU-input">Precio Unitario</label>
-                <input id = "precioU-input" name = "precioU-input" type= "text" maxlength="50" required>
-
-                <h3>Precio total por item</h3>
-            </div>
-
-            
-
             <button type="submit">Ver Facturas</button>  
         </form>
     </div>
