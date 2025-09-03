@@ -8,7 +8,7 @@
 <!--Variable (según tipo de documento) [33: Factura Electrónica, 34: Factura Exenta Electrónica]-->
 <TipoDTE>33</TipoDTE>
 <!--Variable [máx: 10 dígitos]-->
-<Folio>1234567890</Folio>
+<Folio>994321</Folio>
 <!--Variable (fecha de emisión) [AAAA-MM-DD]-->
 <FchEmis>2025-09-01</FchEmis>
 <!--Variable (según tipo de servicio) [2: Otros Servicios Periódicos]-->
@@ -87,7 +87,7 @@
 <!--Variable (TipoDTE)-->
 <TD>33</TD>
 <!--Variable (Folio)-->
-<F>1234567890</F>
+<F>994321</F>
 <!--Variable (FchEmis)-->
 <FE>2025-09-01</FE>
 <!--Variable (RUTRecep)-->
@@ -107,37 +107,35 @@
 <RS>UNIVERSIDAD DE CHILE</RS>
 <!--Variable (TipoDTE)-->
 <TD>33</TD>
-<!--// (donde confirmo si es variable, generado o fijo - CAF) //-->
-<RNG> 
-<!--Variable (desde folio)-->
-<D>1</D>
-<!--Variable (hasta folio)-->
-<H>99999999</H>
+<RNG>
+<!--Fijo (desde folio) [Primer Folio a revisar]-->
+<D>992776</D>
+<!--Fijo (hasta folio) [Último Folio a revisar]-->
+<H>1002775</H>
 </RNG>
 <!--Variable (fecha de autorización del SII)-->
 <FA>2025-01-01</FA>
 <RSAPK>
-<!--Generado (modulo clave pública) ?-->
+<!--Fijo (modulo clave pública)-->
 <M>0zi/zsPW4uJLazJscD4P1yoge4DF1nxMM3YadV+BAJV4fTHusWAtygDDHotN6mq9yBySaOvAT3Vnkx8a+R7l2w==</M>
-<!--Generado (exponente clave pública) ?-->
+<!--Fijo (exponente clave pública)-->
 <E>Aw==</E>
 </RSAPK>
-<!--Variable (identificador CAF)-->
+<!--Fijo (identificador CAF)-->
 <IDK>300</IDK>
 </DA>
-<!--Algoritmo Fijo, Contenido Generado (firma electrónica) ?-->
+<!--Fijo (firma electrónica)-->
 <FRMA algoritmo="SHA1withRSA">mtMel/DKOyqMfqUOb76bn/QDgkbNU1HUioUhOAcWtphumygxeRLlos48JdhHgZMK4IIuzd5ZGItPH3KHdaQ1uw==</FRMA>
 </CAF>
 <!--Variable (timestamp de generación del TED) [AAAA-MM-DDTHH:MM:SS]-->
 <TSTED>2025-09-01T10:00:00</TSTED>
 </DD>
-<!--Algoritmo Fijo, Contenido Generado (firma electrónica del TED) ?-->
+<!--Fijo (firma electrónica del TED)-->
 <FRMT algoritmo="SHA1withRSA">S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==</FRMT>
 </TED>
 <!--Variable (timestamp de firma del DTE) [AAAA-MM-DDTHH:MM:SS]-->
 <TmstFirma>2025-09-01T10:00:01</TmstFirma>
-<!--// (hasta aquí tengo dudas) //-->
-</Documento> 
+</Documento>
 <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
