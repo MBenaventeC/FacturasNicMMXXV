@@ -11,8 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
 
 import com.NicFacturas.NicFacturasDemo.services.AppService;
+
+import SiiFact.XmlGenerator;
 
 @Controller
 public class AppController {
@@ -27,6 +35,26 @@ public class AppController {
         model.addAttribute("data", modelData);
         System.out.println("////////////////////////////////////////////");
         return "index";
+    }
+
+    @GetMapping("/factura_end")
+    public String facturaEndRoute(Model model) {
+        List<Map<String, String>> modelData = null;
+        model.addAttribute("data", modelData);
+        System.out.println("////////////////////////////////////////////");
+
+        // Recupera los datos del modelo (FlashAttributes)
+        String nombre = (String) model.asMap().get("nombre");
+        String emitido_por = (String) model.asMap().get("emit");
+        String precio_unitario = (String) model.asMap().get("precioU");
+
+        // Genera el XML con los datos del formulario
+        try {
+            XmlGenerator.generateFacturaXML(emitido_por, nombre, precio_unitario);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "factura_end";
     }
 
     @PostMapping("/guardarDatos")
@@ -94,7 +122,25 @@ public class AppController {
         redirectAttributes.addFlashAttribute("desc", descripcion);
         redirectAttributes.addFlashAttribute("precioU", precio_unitario);
 
-        return "redirect:/vistafinal";
+        return "redirect:/factura_end";
+    }
+
+    @GetMapping("/descargarXML")
+    public ResponseEntity<Resource> descargarXML() {
+        Resource resource = new FileSystemResource("test_files/test_xml2.xml");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_xml2.xml")
+            .contentType(MediaType.APPLICATION_XML)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDF")
+    public ResponseEntity<Resource> descargarPDF() {
+        Resource resource = new ClassPathResource("test_files/test_pdf.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
     }
 
 }

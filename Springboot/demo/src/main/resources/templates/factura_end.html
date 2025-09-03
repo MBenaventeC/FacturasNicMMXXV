@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link rel="stylesheet" type ="text/css" href="/css/style.css"></link>
+</head>
+<body>
+    <div class="factura-container">
+        <h1>Bienvenido a NicFacturasDemo</h1>
+        <p>Portal Post-Pago</p>
+        <p th:text="'Muchas gracias ' + ${nombre} + ', su compra ha sido realizada con éxito.'"></p>
+        <div class="button-container">
+            <a href="/descargarPDF" class="button">Descargar PDF</a>
+            <a href="/descargarXML" class="button">Descargar XML</a>
+        </div>
+        <a href="/" class="volver-btn">Volver al inicio</a>
+    </div>
+</body>
+</html>
