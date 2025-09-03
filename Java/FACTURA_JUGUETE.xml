@@ -2,7 +2,7 @@
 <!--Fijo-->
 <DTE version="1.0"> // Fijo 
 <!--Variable [ID="DTE-TipoDTE-Folio"]-->
-<Documento ID="DTE-33-1234567890"> 
+<Documento ID="DTE-33-994321"> 
 <Encabezado>
 <IdDoc>
 <!--Variable (según tipo de documento) [33: Factura Electrónica, 34: Factura Exenta Electrónica]-->
