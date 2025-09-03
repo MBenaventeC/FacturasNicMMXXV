@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--Fijo-->
+<DTE version="1.0"> // Fijo 
+<!--Variable [ID="DTE-TipoDTE-Folio"]-->
+<Documento ID="DTE-33-1234567890"> 
+<Encabezado>
+<IdDoc>
+<!--Variable (según tipo de documento) [33: Factura Electrónica, 34: Factura Exenta Electrónica]-->
+<TipoDTE>33</TipoDTE>
+<!--Variable [máx: 10 dígitos]-->
+<Folio>1234567890</Folio>
+<!--Variable (fecha de emisión) [AAAA-MM-DD]-->
+<FchEmis>2025-09-01</FchEmis>
+<!--Variable (según tipo de servicio) [2: Otros Servicios Periódicos]-->
+<IndServicio>2</IndServicio>
+<!--Variable (según forma de pago) [2: Crédito]-->
+<FmaPago>2</FmaPago>
+<!--Variable (fecha de cancelación) [AAAA-MM-DD]-->
+<FchCancel>2025-09-30</FchCancel>
+<!--Variable (según medio de pago) [TC: Tarjeta de Crédito]-->
+<MedioPago>TC</MedioPago>
+<!--Variable (fecha de vencimiento) [AAAA-MM-DD]-->
+<FchVenc>2025-09-30</FchVenc>
+</IdDoc>
+<Emisor>
+<!--Fijo (RUT del emisor) [caso cliente]-->
+<RUTEmisor>60910000-1</RUTEmisor>
+<!--Fijo (nombre o razón social del emisor) [caso cliente]-->
+<RznSoc>Universidad de Chile</RznSoc>
+<!--Fijo (giro del emisor) [caso cliente]-->
+<GiroEmis>Corporaci�n Educacional y Servicios                 Profesionales</GiroEmis>
+<!--Fijo (código de actividad económica) [803010: Universidades]-->
+<Acteco>803010</Acteco>
+<!--Fijo [caso cliente]-->
+<Sucursal>NIC Chile</Sucursal>
+<!--Fijo (código SII de la sucursal que emite) [caso cliente]-->
+<CdgSIISucur>67051191</CdgSIISucur>
+<!--Fijo (dirección origen sucursal que emite) [caso cliente]-->
+<DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+<!--Fijo (análogo a DirOrigen) [caso cliente]-->
+<CmnaOrigen>Santiago</CmnaOrigen>
+<!--Fijo (análogo a DirOrigen) [caso cliente]-->
+<CiudadOrigen>Santiago</CiudadOrigen>
+</Emisor>
+<Receptor>
+<!--Variable (RUT del receptor) [máx: 10 dígitos]-->
+<RUTRecep>12345678-9</RUTRecep>
+<!--Variable (nombre o razón social del receptor)-->
+<RznSocRecep>Empresa Ejemplo S.A.</RznSocRecep>
+<!--Variable (giro del receptor)-->
+<GiroRecep>Comercio al por mayor</GiroRecep>
+<!--Variable (persona de contacto en el receptor)-->
+<Contacto>Juan Pérez</Contacto>
+<!--Variable (dirección del receptor)-->
+<DirRecep>Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444</DirRecep>
+<!--Variable (análogo a DirRecep)-->
+<CmnaRecep>Providencia</CmnaRecep>
+<!--Variable (análogo a DirRecep)-->
+<CiudadRecep>Santiago</CiudadRecep>
+</Receptor>
+<Totales>
+<!--Variable (monto neto sin IVA) [largo máx: 18 dígitos]-->
+<MntNeto>100000</MntNeto>
+<!--Variable (monto total con IVA si alguno) [largo máx: 18 dígitos]-->
+<MntTotal>100000</MntTotal>
+</Totales>
+</Encabezado>
+<Detalle>
+<!--Variable (número de línea del detalle) [Desde 1 al 60]-->
+<NroLinDet>1</NroLinDet>
+<!--Variable (nombre del ítem o servicio) [máx: 80 caracteres]-->
+<NmbItem>Servicio de Consultoría en TI</NmbItem>
+<!--Variable (descripción del ítem o servicio) [máx: 200 caracteres]-->
+<DscItem/>
+<!--Variable (cantidad del ítem o servicio) [largo máx: 12 enteros y 6 decimales]-->
+<QtyItem>1.0</QtyItem>
+<!--Variable (precio unitario del ítem o servicio) [largo máx: 12 enteros y 6 decimales]-->
+<PrcItem>100000.0</PrcItem>
+<!--Variable ({precio unario}*{cantidad}-descuento+recargo) [largo máx: 18 dígitos]-->
+<MontoItem>100000</MontoItem>
+</Detalle>
+<!--Fijo (DTE)-->
+<TED version="1.0">
+<DD>
+<!--Fijo (RUTEmisor)-->
+<RE>60910000-1</RE>
+<!--Variable (TipoDTE)-->
+<TD>33</TD>
+<!--Variable (Folio)-->
+<F>1234567890</F>
+<!--Variable (FchEmis)-->
+<FE>2025-09-01</FE>
+<!--Variable (RUTRecep)-->
+<RR>12345678-9</RR>
+<!--Variable (RznSocRecep)-->
+<RSR>Empresa Ejemplo S.A.</RSR>
+<!--Variable (MntTotal ?)-->
+<MNT>100000</MNT>
+<!--Variable (NmbItem)-->
+<IT1>Servicio de Consultoría en TI</IT1>
+<!--Fijo (CAF)-->
+<CAF version="1.0">
+<DA>
+<!--Fijo (RUTEmisor)-->
+<RE>60910000-1</RE>
+<!--Fijo (RznSoc)-->
+<RS>UNIVERSIDAD DE CHILE</RS>
+<!--Variable (TipoDTE)-->
+<TD>33</TD>
+<!--// (donde confirmo si es variable, generado o fijo - CAF) //-->
+<RNG> 
+<!--Variable (desde folio)-->
+<D>1</D>
+<!--Variable (hasta folio)-->
+<H>99999999</H>
+</RNG>
+<!--Variable (fecha de autorización del SII)-->
+<FA>2025-01-01</FA>
+<RSAPK>
+<!--Generado (modulo clave pública) ?-->
+<M>0zi/zsPW4uJLazJscD4P1yoge4DF1nxMM3YadV+BAJV4fTHusWAtygDDHotN6mq9yBySaOvAT3Vnkx8a+R7l2w==</M>
+<!--Generado (exponente clave pública) ?-->
+<E>Aw==</E>
+</RSAPK>
+<!--Variable (identificador CAF)-->
+<IDK>300</IDK>
+</DA>
+<!--Algoritmo Fijo, Contenido Generado (firma electrónica) ?-->
+<FRMA algoritmo="SHA1withRSA">mtMel/DKOyqMfqUOb76bn/QDgkbNU1HUioUhOAcWtphumygxeRLlos48JdhHgZMK4IIuzd5ZGItPH3KHdaQ1uw==</FRMA>
+</CAF>
+<!--Variable (timestamp de generación del TED) [AAAA-MM-DDTHH:MM:SS]-->
+<TSTED>2025-09-01T10:00:00</TSTED>
+</DD>
+<!--Algoritmo Fijo, Contenido Generado (firma electrónica del TED) ?-->
+<FRMT algoritmo="SHA1withRSA">S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==</FRMT>
+</TED>
+<!--Variable (timestamp de firma del DTE) [AAAA-MM-DDTHH:MM:SS]-->
+<TmstFirma>2025-09-01T10:00:01</TmstFirma>
+<!--// (hasta aquí tengo dudas) //-->
+</Documento> 
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<Reference URI="#DTE-34-993263">
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<DigestValue>ZS1DZOGVmfXpKrsEBBXxz8QvPp0=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>
+Duk6RUL4J5btgV5ZsLUftiO71rPv+X/Z4pbDypIOZwzin4lYhsoH/LD3hMuSVSTVMoW4ci4QojGV
+3EnRIaynGhGc5SjyNLRwzj+3vGwQiGtBS67cxePcu8m3uJ/c3n3vM0iRJXIoeHVHEl4Imjf9RNBA
+CMAIuRcGgLDQCGHu5Bg3HQr1UJTj1Fmn7l1nkD8rOLJLTOIDB5vrLimw9Z5CJ5HWjrfUxT4Myu8i
+49VELl8tYNaGrWDZoWU8SqF/DKtEneqXjwAxR5Re+CkUyokmUNY8Kv+TM/k7H3Rn1CDPvDTYJt8D
+m9N6YzoKjk084aJ/sXqLQ4X9rXK4jNIBkoNieg==
+</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>
+wc9AnpNLgyjT856QefAdQHjXxOFUstg2ebvplwljR7VTgDiy3stD/qRSSRmM9b9b3KfAoXsIACPS
+TNvYtiE0VJytTaCjdk5cwRbTRxCuxnPOAh+GxgHD5R+tSkEvKak4aLVqR0XeQhTykBfBAa4rXWoI
+9VyorPsFMPWGC886aiTNuHmkSrbp7fqvDvLr/j7S+D5vQh70dMRMxRPx+vCeihKqwigdL/dBJZI+
+AjXlBIm7goQ04JPLToRMW71hXtpDc8te4rgLX8nej6nIq3gsrOyjNt7iaZntDcMkUgNbMFiI/1qF
+Ojd14xXVRkX8hCOSWAmca/+YSUL6x7fwdVa6BQ==
+</Modulus>
+<Exponent>AQAB</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+MIIHsjCCBZqgAwIBAgIKSBYcZwABAAXXnTANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTIzMDUwOTEzNDkzOFoXDTI2MDUwODEzNDkzOFowga4xCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEdMBsG
+A1UEChMUVU5JVkVSU0lEQUQgREUgQ0hJTEUxCjAIBgNVBAsMASoxHTAbBgNVBAMTFE5FTExZIENP
+TkRPUkkgRkxPUkVTMR4wHAYJKoZIhvcNAQkBFg9OQ09ORE9SSUBOSUMuQ0wwggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQDBz0Cek0uDKNPznpB58B1AeNfE4VSy2DZ5u+mXCWNHtVOAOLLe
+y0P+pFJJGYz1v1vcp8ChewgAI9JM29i2ITRUnK1NoKN2TlzBFtNHEK7Gc84CH4bGAcPlH61KQS8p
+qThotWpHRd5CFPKQF8EBritdagj1XKis+wUw9YYLzzpqJM24eaRKtunt+q8O8uv+PtL4Pm9CHvR0
+xEzFE/H68J6KEqrCKB0v90Elkj4CNeUEibuChDTgk8tOhExbvWFe2kNzy17iuAtfyd6PqcireCys
+7KM23uJpme0NwyRSA1swWIj/WoU6N3XjFdVGRfyEI5JYCZxr/5hJQvrHt/B1VroFAgMBAAGjggK9
+MIICuTCCAV8GA1UdIASCAVYwggFSMIIBTgYIKwYBBAHDUgUwggFAMD0GCCsGAQUFBwIBFjFodHRw
+czovL3d3dy5lLWNlcnRjaGlsZS5jbC9wb2xpdGljYXMteS1wcmFjdGljYXMvMIH+BggrBgEFBQcC
+AjCB8R6B7gBFAGwAIAByAGUAcwBwAG8AbgBkAGUAcgAgAGUAcwB0AGUAIABmAG8AcgBtAHUAbABh
+AHIAaQBvACAAZQBzACAAdQBuACAAcgBlAHEAdQBpAHMAaQB0AG8AIABpAG4AZABpAHMAcABlAG4A
+cwBhAGIAbABlACAAcABhAHIAYQAgAGQAYQByACAAaQBuAGkAYwBpAG8AIABhAGwAIABwAHIAbwBj
+AGUAcwBvACAAZABlACAAYwBlAHIAdABpAGYAaQBjAGEAYwBpAPMAbgAuACAAUABvAHMAdABlAHIA
+aQBvAHIAbQBlAG4AdABlACwwHQYDVR0OBBYEFChYZoCTViK8gflqW0jl5mEBkkGBMAsGA1UdDwQE
+AwIE8DAjBgNVHREEHDAaoBgGCCsGAQQBwQEBoAwWCjExMzQxODM3LTAwHwYDVR0jBBgwFoAUdNYh
+s/Ra6C18u1kGY0PvabQ6kwQwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL2NybC5lY2VydGNoaWxl
+LmNsL0UtQ0VSVENISUxFQ0FGRVMwMi5jcmwwPQYIKwYBBQUHAQEEMTAvMC0GCCsGAQUFBzABhiFo
+dHRwOi8vb2NzcGZlcy5lY2VydGNoaWxlLmNsL29jc3AwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGC
+NxUIgd3STZfUOoaJnQaHiM5vg6/MYEWG0uwIhsfKfQIBZAIBBzAjBgNVHRIEHDAaoBgGCCsGAQQB
+wQECoAwWCjk2OTI4MTgwLTUwDQYJKoZIhvcNAQELBQADggIBADPJtwWG7MAHuCxMZulVxBA0DW5z
+t7Ud7mUVTe1LNX/2M6SkwRfxXCei72cWOhJ2NpmNjzPA12/NEj8JMoKIBXMT2vyE50pKFagfQpB0
+AShGACa2Uyv0L059qw+/QHFc0zJu6W+ebUmfQuigESnS27Pf4Ivab8Rw+iA1VuRI5RoHgb5LwmY8
+GgVo9rmaJToy/PKgiGmWaF21Z2mDj4bBuYk60+CcIXem/8uqZKuF/rkE0ag1cvwha6QhOtOliVxU
+IuKxtrfuUgJ5H3p7elBTNHyXpHhLZphSFHAnZ7pI37xqCLDI4u8/RhqPbuueNsX0slAaqqwShP21
+RK8FN5T70tF7jSk/9Bc1nuR7hEgCyu4/qgNe4+VHFspU2rRnG5mOPlT17/NVHq+RRNnUkAZSR9r5
+CxUu+g5Qks2/PSPVzEuvC5bCXi/0hs6HugUMaBoh9BSgCfh1MzCth1WLRITqEqtpDoP/f/IqwX8o
+HfGTDEGKXX38qXomiqHT5awppqnbO4PCkm3V5lTejGqOhEM7qE3yNWLlAHc7mr3Fh9OeVfoUpvGf
+ZLBvE3JNt8DSdSb1aYnh96U5+6Qz8vXetcUPGxAGhZIpDt1hQfHI7QhmzY2bA/Mz1jTe41nE+xY1
+o2Ylx5qwcTvW95PL9NVJa/0fyHxDxqCt2jSMPdKmof7tLd47
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>
+</DTE>
