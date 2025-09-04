@@ -136,7 +136,7 @@ public class AppController {
 
     @GetMapping("/descargarPDF")
     public ResponseEntity<Resource> descargarPDF() {
-        Resource resource = new ClassPathResource("test_files/test_pdf.pdf");
+        Resource resource = new FileSystemResource("test_files/test_pdf.pdf");
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf.pdf")
             .contentType(MediaType.APPLICATION_PDF)
