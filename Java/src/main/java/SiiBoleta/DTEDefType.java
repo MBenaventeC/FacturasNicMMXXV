@@ -4538,6 +4538,16 @@ public class DTEDefType {
             return this.detalle;
         }
 
+        public void initializeDetalle(){
+            if (detalle == null) {
+                detalle = new ArrayList<DTEDefType.Documento.Detalle>();
+            }
+        }
+
+        public void addDetalle(DTEDefType.Documento.Detalle value) {
+            this.detalle.add(value);
+        }
+
         /**
          * Gets the value of the subTotInfo property.
          * 
@@ -8031,6 +8041,11 @@ public class DTEDefType {
                         acteco = new ArrayList<BigInteger>();
                     }
                     return this.acteco;
+                }
+
+                public void setActeco(BigInteger value) {
+                    acteco = new ArrayList<BigInteger>();
+                    acteco.add(value);
                 }
 
                 /**
