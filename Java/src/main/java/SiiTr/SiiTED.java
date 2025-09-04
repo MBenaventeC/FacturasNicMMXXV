@@ -167,6 +167,11 @@ public class SiiTED {
         guardarBarcodeEnPDF(barcode, "barcode.pdf");
     }
 
+    public static String getCafAttr(Path xmlPath, String tagName) throws IOException {
+        String caf = extraerCAF(xmlPath);
+        return Pem.extractTagInnerPem(caf, tagName);
+    }
+
     public static void main(String[] args) throws Exception {
 
         // inventamos datos de prueba
@@ -185,7 +190,11 @@ public class SiiTED {
         Path xmlPath = Paths.get(ruta);
 
         // Hacemos el timbre electronico
-        makeTed(datos, xmlPath);
+        // makeTed(datos, xmlPath);
+
+        // probar extractor de etiqueta
+        String et = getCafAttr(xmlPath, "RE");
+        System.out.println(et);
     }
 
 }

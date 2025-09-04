@@ -61,7 +61,7 @@ public class Pem {
     /* ===================== EXTRACCIÓN DEL XML ===================== */
 
     /** Extrae SOLO el contenido interno PEM dentro de <TAG> ... </TAG> (sin las etiquetas XML). */
-    private static String extractTagInnerPem(String xml, String tagName) {
+    public static String extractTagInnerPem(String xml, String tagName) {
         Pattern p = Pattern.compile("<" + tagName + "[^>]*>\\s*([\\s\\S]*?)\\s*</" + tagName + ">", Pattern.DOTALL);
         Matcher m = p.matcher(xml);
         if (!m.find()) {
