@@ -49,6 +49,7 @@ public class XmlGenerator {
         // 3. Create marshaller and enable pretty-print
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
