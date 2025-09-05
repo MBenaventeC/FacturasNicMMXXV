@@ -8,6 +8,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
+import java.nio.charset.StandardCharsets;
+
 
 /**
  * Firma Digital con Restricciones
@@ -1366,4 +1368,73 @@ public class SignatureType {
 
     }
 
+    public SignatureType makeSignature(DTEDefType.Documento documento){
+        SignatureType signature = new SignatureType();
+
+        /* INFO **/
+        SignatureType.SignedInfo signedInfo = new SignatureType.SignedInfo();
+
+        SignatureType.SignedInfo.CanonicalizationMethod canon = new SignedInfo.CanonicalizationMethod();
+        canon.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+
+        SignatureType.SignedInfo.SignatureMethod signatureMethod = new SignatureType.SignedInfo.SignatureMethod();
+        signatureMethod.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
+
+        SignatureType.SignedInfo.Reference reference = new SignatureType.SignedInfo.Reference();
+        reference.setURI("#"+documento.getID());
+
+        SignatureType.SignedInfo.Reference.DigestMethod digest =  new SignatureType.SignedInfo.Reference.DigestMethod();
+        digest.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
+
+        reference.setDigestMethod(digest);
+        /* FALTA CALCULAR EL DIGEST VALUE DE ACUERDO AL DOM
+        */
+        /*
+        CAMBIAR POR EL CALCULO REAL DE DIGESTVALUE
+         */
+        reference.setDigestValue("SOyUNEjemplo".getBytes());
+
+        signedInfo.setCanonicalizationMethod(canon);
+        signedInfo.setSignatureMethod(signatureMethod);
+        signedInfo.setReference(reference);
+
+        signature.setSignedInfo(signedInfo);
+
+        // SignatureValue
+        /*
+        CAMBIAR POR EL CALCULO REAL DE SIGNATURE VALUE
+         */
+        signature.setSignatureValue("SoyUnaFirmaSuperSecreta".getBytes());
+
+        // KeyInfo
+        SignatureType.KeyInfo keyInfo = new SignatureType.KeyInfo();
+        SignatureType.KeyInfo.KeyValue keyValue = new KeyInfo.KeyValue();
+
+        SignatureType.KeyInfo.KeyValue.RSAKeyValue rsaKeyValue = new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
+
+        /*
+        CAMBIAR POR EL CALCULO REAL DE MODULUS
+         */
+        rsaKeyValue.setModulus("TIENESQUECAMBIARELMODULUS".getBytes());
+        /*
+        CAMBIAR POR EL CALCULO REAL DE EXPONENT
+         */
+        rsaKeyValue.setExponent("TIENESQUECAMBIARELEXPONENT".getBytes());
+
+        keyValue.setRSAKeyValue(rsaKeyValue);
+        keyInfo.setKeyValue(keyValue);
+
+        SignatureType.KeyInfo.X509Data x509Data = new SignatureType.KeyInfo.X509Data();
+        /*
+        CAMBIAR POR EL CALCULO REAL DE X509
+         */
+        x509Data.setX509Certificate("SoyUnEjemplo".getBytes());
+
+
+
+        signature.setKeyInfo(keyInfo);
+        signature.keyInfo.setX509Data(x509Data);
+
+        return signature;
+    };
 }
