@@ -7,7 +7,7 @@ public class DA {
 
     public static DTEDefType.Documento.TED.DD.CAF.DA makeDA(String re,
                                               String rs,
-                                              BigInteger td,
+                                              int td,
                                               DTEDefType.Documento.TED.DD.CAF.DA.RNG rng,
                                               XMLGregorianCalendar fa,
                                               DTEDefType.Documento.TED.DD.CAF.DA.RSAPK rsapk,
@@ -16,9 +16,10 @@ public class DA {
 
         DTEDefType.Documento.TED.DD.CAF.DA da = new DTEDefType.Documento.TED.DD.CAF.DA();
 
+
         da.setRE(re);
         da.setRS(rs);
-        da.setTD(td);
+        da.setTD(BigInteger.valueOf(td));
         da.setRNG(rng);
         da.setFA(fa);
         da.setRSAPK(rsapk);

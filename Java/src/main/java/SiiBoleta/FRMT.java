@@ -1,6 +1,4 @@
-package SiiTr;
-
-import SiiBoleta.DTEDefType;
+package SiiBoleta;
 
 public class FRMT {
 
