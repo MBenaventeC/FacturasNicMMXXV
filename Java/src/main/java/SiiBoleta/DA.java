@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 public class DA {
 
-    DTEDefType.Documento.TED.DD.CAF.DA makeDA(String re,
+    public static DTEDefType.Documento.TED.DD.CAF.DA makeDA(String re,
                                               String rs,
                                               BigInteger td,
                                               DTEDefType.Documento.TED.DD.CAF.DA.RNG rng,
