@@ -9,24 +9,22 @@ import java.util.GregorianCalendar;
 
 public class DTEMakers {
     public static DTEDefType.Documento.Encabezado.IdDoc makeIdDoc
-            (BigInteger folio,
-             BigInteger indServicio,
-             BigInteger fmaPago,
-             XMLGregorianCalendar fchCancel,
-             MedioPagoType medioPago,
-             XMLGregorianCalendar fchVenc
+            (int folio,
+             int indServicio,
+             int fmaPago,
+             MedioPagoType medioPago
             ) throws DatatypeConfigurationException {
         DTEDefType.Documento.Encabezado.IdDoc  idDoc = new DTEDefType.Documento.Encabezado.IdDoc();
         idDoc.setTipoDTE(new BigInteger("34"));
-        idDoc.setFolio(folio);
+        idDoc.setFolio(BigInteger.valueOf(folio));
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         idDoc.setFchEmis(xmlDate);
-        idDoc.setIndServicio(indServicio);
-        idDoc.setFmaPago(fmaPago);
-        idDoc.setFchCancel(fchCancel);
+        idDoc.setIndServicio(BigInteger.valueOf(indServicio));
+        idDoc.setFmaPago(BigInteger.valueOf(fmaPago));
+        idDoc.setFchCancel(xmlDate);
         idDoc.setMedioPago(medioPago);
-        idDoc.setFchVenc(fchVenc);
+        idDoc.setFchVenc(xmlDate);
         return idDoc;
     }
 
@@ -66,11 +64,10 @@ public class DTEMakers {
     }
 
     public static DTEDefType.Documento.Encabezado.Totales makeTotales
-            (BigInteger mntExe,
-             BigInteger mntTotal){
+            (int total){
         DTEDefType.Documento.Encabezado.Totales totales = new DTEDefType.Documento.Encabezado.Totales();
-        totales.setMntExe(mntExe);
-        totales.setMntTotal(mntTotal);
+        totales.setMntExe(BigInteger.valueOf(total));//totales.setMntExe(mntExe);
+        totales.setMntTotal(BigInteger.valueOf(total));//totales.setMntTotal(mntTotal);
         return totales;
     }
 
@@ -91,23 +88,103 @@ public class DTEMakers {
     public static DTEDefType.Documento.Detalle makeDetalle(
             int nroLinDet,
             String nmbItem,
-            BigDecimal qtyItem,
-            BigDecimal prcItem,
-            BigInteger montoItem){
+            double prcItem){
         DTEDefType.Documento.Detalle detalle = new DTEDefType.Documento.Detalle();
         detalle.setNroLinDet(nroLinDet); //Cantidad de lineas de detalle x es el numero de esta linea en especifico
-        detalle.setNmbItem(nmbItem); //Nombre del dominio, debe empezar por "dominio "
-        detalle.setQtyItem(qtyItem);// cantidad del item
-        detalle.setPrcItem(prcItem);// precio del item
-        detalle.setMontoItem(montoItem);//qty*prc
+        detalle.setNmbItem("dominio "+nmbItem); //Nombre del dominio, debe empezar por "dominio "
+        detalle.setQtyItem(BigDecimal.valueOf(1));// cantidad del item
+        detalle.setPrcItem(BigDecimal.valueOf(prcItem));// precio del item
+        detalle.setMontoItem(BigDecimal.valueOf(1).multiply(BigDecimal.valueOf(prcItem)).toBigInteger());//qty*prc
         return detalle;
     }
 
-    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, DTEDefType.Documento.Detalle detalle) {
+    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, DTEDefType.Documento.Detalle detalle,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
         documento.initializeDetalle();
         documento.addDetalle(detalle);
+        GregorianCalendar calendar = new GregorianCalendar();
+        XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        documento.setTmstFirma(xmlDate);
+        documento.setID(id);
+        documento.setTED(ted);
         return documento;
+    }
+
+    public static SignatureType makeSignature(DTEDefType.Documento documento){
+        SignatureType signature = new SignatureType();
+
+        /* INFO **/
+        SignatureType.SignedInfo signedInfo = new SignatureType.SignedInfo();
+
+        SignatureType.SignedInfo.CanonicalizationMethod canon = new SignatureType.SignedInfo.CanonicalizationMethod();
+        canon.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+
+        SignatureType.SignedInfo.SignatureMethod signatureMethod = new SignatureType.SignedInfo.SignatureMethod();
+        signatureMethod.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
+
+        SignatureType.SignedInfo.Reference reference = new SignatureType.SignedInfo.Reference();
+        reference.setURI("#"+documento.getID());
+
+        SignatureType.SignedInfo.Reference.DigestMethod digest =  new SignatureType.SignedInfo.Reference.DigestMethod();
+        digest.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
+
+        reference.setDigestMethod(digest);
+        /* FALTA CALCULAR EL DIGEST VALUE DE ACUERDO AL DOM
+         */
+        /*
+        CAMBIAR POR EL CALCULO REAL DE DIGESTVALUE
+         */
+        reference.setDigestValue("SOyUNEjemplo".getBytes());
+
+        signedInfo.setCanonicalizationMethod(canon);
+        signedInfo.setSignatureMethod(signatureMethod);
+        signedInfo.setReference(reference);
+
+        signature.setSignedInfo(signedInfo);
+
+        // SignatureValue
+        /*
+        CAMBIAR POR EL CALCULO REAL DE SIGNATURE VALUE
+         */
+        signature.setSignatureValue("SoyUnaFirmaSuperSecreta".getBytes());
+
+        // KeyInfo
+        SignatureType.KeyInfo keyInfo = new SignatureType.KeyInfo();
+        SignatureType.KeyInfo.KeyValue keyValue = new SignatureType.KeyInfo.KeyValue();
+
+        SignatureType.KeyInfo.KeyValue.RSAKeyValue rsaKeyValue = new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
+
+        /*
+        CAMBIAR POR EL CALCULO REAL DE MODULUS
+         */
+        rsaKeyValue.setModulus("TIENESQUECAMBIARELMODULUS".getBytes());
+        /*
+        CAMBIAR POR EL CALCULO REAL DE EXPONENT
+         */
+        rsaKeyValue.setExponent("TIENESQUECAMBIARELEXPONENT".getBytes());
+
+        keyValue.setRSAKeyValue(rsaKeyValue);
+        keyInfo.setKeyValue(keyValue);
+
+        SignatureType.KeyInfo.X509Data x509Data = new SignatureType.KeyInfo.X509Data();
+        /*
+        CAMBIAR POR EL CALCULO REAL DE X509
+         */
+        x509Data.setX509Certificate("SoyUnEjemplo".getBytes());
+
+
+
+        signature.setKeyInfo(keyInfo);
+        signature.keyInfo.setX509Data(x509Data);
+
+        return signature;
+    };
+
+    public static DTEDefType makeDTE(DTEDefType.Documento documento, SignatureType signature) {
+        DTEDefType dte = new DTEDefType();
+        dte.setDocumento(documento);
+        dte.setSignature(signature);
+        return dte;
     }
 }

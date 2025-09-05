@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Emisor xmlns:ns2="http://www.sii.cl/SiiDte">
+    <ns2:RUTEmisor>60910000-1</ns2:RUTEmisor>
+    <ns2:RznSoc>Universidad de Chile</ns2:RznSoc>
+    <ns2:GiroEmis>Corporación Educacional y Servicios Profesionales</ns2:GiroEmis>
+    <ns2:Acteco>803010</ns2:Acteco>
+    <ns2:Sucursal>NIC Chile</ns2:Sucursal>
+    <ns2:CdgSIISucur>67051191</ns2:CdgSIISucur>
+    <ns2:DirOrigen>Miraflores 222, Piso 14</ns2:DirOrigen>
+    <ns2:CmnaOrigen>Santiago</ns2:CmnaOrigen>
+    <ns2:CiudadOrigen>Santiago</ns2:CiudadOrigen>
+</Emisor>

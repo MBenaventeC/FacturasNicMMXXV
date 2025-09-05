@@ -11,7 +11,7 @@ public class DA {
                                               DTEDefType.Documento.TED.DD.CAF.DA.RNG rng,
                                               XMLGregorianCalendar fa,
                                               DTEDefType.Documento.TED.DD.CAF.DA.RSAPK rsapk,
-                                              DTEDefType.Documento.TED.DD.CAF.DA.DSAPK dsapk,
+                                              //DTEDefType.Documento.TED.DD.CAF.DA.DSAPK dsapk,
                                               long idk) {
 
         DTEDefType.Documento.TED.DD.CAF.DA da = new DTEDefType.Documento.TED.DD.CAF.DA();
@@ -23,7 +23,7 @@ public class DA {
         da.setRNG(rng);
         da.setFA(fa);
         da.setRSAPK(rsapk);
-        da.setDSAPK(dsapk);
+        //da.setDSAPK(dsapk);
         da.setIDK(idk);
 
         return da;
