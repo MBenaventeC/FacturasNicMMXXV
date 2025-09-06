@@ -3,83 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Inicio</title>
-    <link rel="stylesheet" type ="text/css" href="/css/style.css"></link>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
     <h1>Bienvenido a NicFacturasDemo</h1>
     <p>Portal Formulario Pago</p>
-    <div class = "form-container">
-        <form action = "/guardarDatos" method = "post">
+    <div class="form-container">
+        <form action="/guardarDatos" method="post">
             <div class="div-col">
-                <div class = "col-1">
+                <div class="col-1">
                     <label for="name-input">Nombre</label>
                     <input id="name-input" name="name-input" type="text" maxlength="50" required>
 
                     <label for="rut-input">Rut</label>
-                    <input id="rut-input" name = "rut-input" type="text" maxlength="50" required>
+                    <input id="rut-input" name="rut-input" type="text" maxlength="50" required>
 
                     <label for="dir-input">Dirección</label>
-                    <input id="dir-input" name = "dir-input" type="text" maxlength="50" required>
+                    <input id="dir-input" name="dir-input" type="text" maxlength="50" required>
 
                     <label for="comuna-input">Comuna</label>
-                    <input id="comuna-input" name = "comuna-input" type="text" maxlength="50" required>
+                    <input id="comuna-input" name="comuna-input" type="text" maxlength="50" required>
 
-                    <label for = "ciudad-input">Ciudad</label>
-                    <input id = "ciudad-input" name = "ciudad-input" type= "text" maxlength="50" required>
+                    <label for="ciudad-input">Ciudad</label>
+                    <input id="ciudad-input" name="ciudad-input" type="text" maxlength="50" required>
 
-                    <label for = "telefono-input">Telefono</label>
-                    <input id = "telefono-input"  name = "telefono-input" type= "text" maxlength="50" required>
+                    <label for="telefono-input">Telefono</label>
+                    <input id="telefono-input" name="telefono-input" type="text" maxlength="50" required>
 
-                    <label for = "guia-input">Guia despacho</label>
-                    <input id = "guia-input" name = "guia-input" type= "text" maxlength="50" required>
+                    <label for="guia-input">Guia despacho</label>
+                    <input id="guia-input" name="guia-input" type="text" maxlength="50" required>
                 </div>
             
-                <div class = "col-2">
-                    <label for = "giro-input">Giro</label>
-                    <input id = "giro-input" name = "giro-input" type= "text" maxlength="50" required>
+                <div class="col-2">
+                    <label for="giro-input">Giro</label>
+                    <input id="giro-input" name="giro-input" type="text" maxlength="50" required>
 
-                    <label for = "emit-input">Emitida por</label>
-                    <input id = "emit-input" name = "emit-input" type= "text" maxlength="50" required>
+                    <label for="emit-input">Emitida por</label>
+                    <input id="emit-input" name="emit-input" type="text" maxlength="50" required>
 
-                    <label for = "CDC-input">Centro de costo</label>
-                    <input id = "CDC-input" name = "CDC-input" type= "text" maxlength="50" required>
+                    <label for="CDC-input">Centro de costo</label>
+                    <input id="CDC-input" name="CDC-input" type="text" maxlength="50" required>
 
-                    <label for = "CDV-input">Condiciones de venta DE</label>
-                    <input id = "CDV-input" name = "CDV-input" type= "text" maxlength="50" required>
+                    <label for="CDV-input">Condiciones de venta DE</label>
+                    <input id="CDV-input" name="CDV-input" type="text" maxlength="50" required>
 
+                    <label for="item-input">Item</label>
+                    <input id="item-input" name="item-input" type="text" maxlength="50" required>
 
-                    <label for = "item-input">Item</label>
-                    <input id = "item-input" name = "item-input" type= "text" maxlength="50" required>
+                    <label for="DE-input">DE</label>
+                    <input id="DE-input" name="DE-input" type="text" maxlength="50" required>
 
-                    <label for = "DE-input">DE</label>
-                    <input id = "DE-input" name = "DE-input" type= "text" maxlength="50" required>
-
-                    <label for = "venc-input">Vencimiento</label>
-                    <input id = "venc-input" name = "venc-input" type= "text" maxlength="50" required>
+                    <label for="venc-input">Vencimiento</label>
+                    <input id="venc-input" name="venc-input" type="text" maxlength="50" required>
                 </div>
                 
-                <div class = "col-3">
-                    <label for = "cant-input">Cantidad</label>
-                    <input id = "cant-input" name = "cant-input" type= "text" maxlength="50" required>
+                <div class="col-3">
+                    <label for="cant-input">Cantidad</label>
+                    <input id="cant-input" name="cant-input" type="text" maxlength="50" required>
 
-                    <label for = "tipo-input">Tipo</select>
-                    <select id = "tipo-input" name = "tipo-input" type= "text" maxlength="50" required>
+                    <label for="tipo-input">Tipo</label>
+                    <select id="tipo-input" name="tipo-input" required>
                         <option>D1</option>
                         <option>D2</option>
                         <option>D3</option>
                         <option>D4</option>
                     </select>
 
-                    <label for = "detalle-input">Detalle</label>
-                    <input id = "detalle-input" name = "detalle-input" type= "text" maxlength="50" required>
+                    <label for="detalle-input">Detalle</label>
+                    <input id="detalle-input" name="detalle-input" type="text" maxlength="50" required>
 
-                    <label for = "desc-input">Descripción</label>
-                    <input id = "desc-input" name = "desc-input" type= "text" maxlength="50" required>
+                    <label for="desc-input">Descripción</label>
+                    <input id="desc-input" name="desc-input" type="text" maxlength="50" required>
 
-                    <label for = "precioU-input">Precio Unitario</label>
-                    <input id = "precioU-input" name = "precioU-input" type= "text" maxlength="50" required>
+                    <label for="precioU-input">Precio Unitario</label>
+                    <input id="precioU-input" name="precioU-input" type="text" maxlength="50" required>
 
                     <h3>Precio total por item</h3>
                 </div>
@@ -87,6 +86,5 @@
             <button type="submit">Ver Facturas</button>  
         </form>
     </div>
-    
 </body>
 </html>

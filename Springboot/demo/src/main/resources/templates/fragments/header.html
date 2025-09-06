@@ -1,13 +1,13 @@
-<div th:fragment="header">
-    <div class="half-container">
+<div th:fragment="header" class="main-header">
+    <div class="half-container left-section">
         <div class="logo-container">
-            <img src="/media/logonic.png" alt="Logo">
+            <img src="/media/logonic.png" alt="NIC Facturas Demo - Logo">
         </div>
-        <a href="/">Placeholder 1</a>
-        <a href="/">Placeholder 2</a>
+        <a href="/" class="nav-link">Dominios</a>
+        <a href="/" class="nav-link">Servicios</a>
     </div>
-    <div class="half-container">
-        <a href="/">Iniciar Sesión</a>
-        <a href="/">Registrarse</a>
+    <div class="half-container right-section">
+        <a href="/" class="auth-btn login-btn">Iniciar Sesión</a>
+        <a href="/" class="auth-btn register-btn">Registrarse</a>
     </div>
 </div>

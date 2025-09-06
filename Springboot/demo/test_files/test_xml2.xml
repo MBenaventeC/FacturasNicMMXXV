@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Factura>
-    <Emisor>10</Emisor>
-    <Receptor>1</Receptor>
-    <Fecha>2025-09-04-04:00</Fecha>
-    <Total>1818</Total>
+    <Emisor>Ses sos</Emisor>
+    <Receptor>Rorro Pirrorro</Receptor>
+    <Fecha>2025-09-06-04:00</Fecha>
+    <Total>100</Total>
 </Factura>
