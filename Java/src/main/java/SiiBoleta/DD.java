@@ -1,6 +1,7 @@
 package SiiBoleta;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -26,6 +27,7 @@ public class DD {
         dd.setF(BigInteger.valueOf(f));
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         dd.setFE(xmlDate);
         dd.setRR(rr);
         dd.setRSR(rsr);
