@@ -24,25 +24,25 @@
                 <ns3:CiudadOrigen>Santiago</ns3:CiudadOrigen>
             </ns3:Emisor>
             <ns3:Receptor>
-                <ns3:RUTRecep>13513501-9</ns3:RUTRecep>
+                <ns3:RUTRecep>2</ns3:RUTRecep>
                 <ns3:RznSocRecep>Empresa ejemplo S.A.</ns3:RznSocRecep>
-                <ns3:GiroRecep>Comercio al por mayor</ns3:GiroRecep>
-                <ns3:Contacto>Andres</ns3:Contacto>
-                <ns3:DirRecep>Mi casa</ns3:DirRecep>
-                <ns3:CmnaRecep>Maipu</ns3:CmnaRecep>
-                <ns3:CiudadRecep>Santiago</ns3:CiudadRecep>
+                <ns3:GiroRecep>8</ns3:GiroRecep>
+                <ns3:Contacto>1</ns3:Contacto>
+                <ns3:DirRecep>3</ns3:DirRecep>
+                <ns3:CmnaRecep>4</ns3:CmnaRecep>
+                <ns3:CiudadRecep>5</ns3:CiudadRecep>
             </ns3:Receptor>
             <ns3:Totales>
-                <ns3:MntExe>102501</ns3:MntExe>
-                <ns3:MntTotal>102501</ns3:MntTotal>
+                <ns3:MntExe>101101</ns3:MntExe>
+                <ns3:MntTotal>101101</ns3:MntTotal>
             </ns3:Totales>
         </ns3:Encabezado>
         <ns3:Detalle>
             <ns3:NroLinDet>1</ns3:NroLinDet>
-            <ns3:NmbItem>dominio Nic.cl/ganamos</ns3:NmbItem>
+            <ns3:NmbItem>dominio 15</ns3:NmbItem>
             <ns3:QtyItem>1</ns3:QtyItem>
-            <ns3:PrcItem>102501.0</ns3:PrcItem>
-            <ns3:MontoItem>102501</ns3:MontoItem>
+            <ns3:PrcItem>101101.0</ns3:PrcItem>
+            <ns3:MontoItem>101101</ns3:MontoItem>
         </ns3:Detalle>
         <ns3:TED version="1.0">
             <ns3:DD>
@@ -50,10 +50,10 @@
                 <ns3:TD>34</ns3:TD>
                 <ns3:F>994321</ns3:F>
                 <ns3:FE>2025-09-07</ns3:FE>
-                <ns3:RR>13513501-9</ns3:RR>
+                <ns3:RR>2</ns3:RR>
                 <ns3:RSR>Empresa Ejemplo S.A.</ns3:RSR>
-                <ns3:MNT>102501</ns3:MNT>
-                <ns3:IT1>Nic.cl/ganamos</ns3:IT1>
+                <ns3:MNT>101101</ns3:MNT>
+                <ns3:IT1>15</ns3:IT1>
                 <ns3:CAF version="1.0">
                     <ns3:DA>
                         <ns3:RE>60910000-1</ns3:RE>
@@ -72,11 +72,11 @@
                     </ns3:DA>
                     <ns3:FRMA algoritmo="SHA1withRSA">bXRNZWwvREtPeXFNZnFVT2I3NmJuL1FEZ2tiTlUxSFVpb1VoT0FjV3RwaHVteWd4ZVJMbG9zNDhKZGhIZ1pNSzRJSXV6ZDVaR0l0UEgzS0hkYVExdXc9PQ==</ns3:FRMA>
                 </ns3:CAF>
-                <ns3:TSTED>2025-09-07T22:46:37.797</ns3:TSTED>
+                <ns3:TSTED>2025-09-07T22:58:17.210</ns3:TSTED>
             </ns3:DD>
             <ns3:FRMT algoritmo="SHA1withRSA">UzFRQS95SHBrbENaOFhvZzJVSnJWL0dlRnpPODBwUFlod2NseW9ITTBsRlNKcndQYUFDRVh0bzAzSDFOSmxOOUZpWkxyNVJqWUZ3YUJyVndJd2pGUkE9PQ==</ns3:FRMT>
         </ns3:TED>
-        <ns3:TmstFirma>2025-09-07T22:46:37.799-03:00</ns3:TmstFirma>
+        <ns3:TmstFirma>2025-09-07T22:58:17.211-03:00</ns3:TmstFirma>
     </ns3:Documento>
     <ns2:Signature>
         <ns2:SignedInfo>
