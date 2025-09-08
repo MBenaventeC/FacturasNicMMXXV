@@ -20,8 +20,8 @@ import org.springframework.core.io.FileSystemResource;
 
 import com.NicFacturas.NicFacturasDemo.services.AppService;
 
-import SiiFact.XmlGenerator;
-
+//import SiiFact.XmlGenerator;
+import SiiBoleta.XmlGenerator;
 @Controller
 public class AppController {
     private final AppService appService;
@@ -44,13 +44,13 @@ public class AppController {
         System.out.println("////////////////////////////////////////////");
 
         // Recupera los datos del modelo (FlashAttributes)
-        String nombre = (String) model.asMap().get("nombre");
-        String emitido_por = (String) model.asMap().get("emit");
-        String precio_unitario = (String) model.asMap().get("precioU");
+        //String nombre = (String) model.asMap().get("nombre");
+        //String emitido_por = (String) model.asMap().get("emit");
+        //String precio_unitario = (String) model.asMap().get("precioU");
 
         // Genera el XML con los datos del formulario
         try {
-            XmlGenerator.generateFacturaXML(emitido_por, nombre, precio_unitario);
+            XmlGenerator.generateFacturaXML(model.asMap());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,11 +73,11 @@ public class AppController {
         @RequestParam("item-input") String item,
         @RequestParam("DE-input") String DE,
         @RequestParam("venc-input") String vencimiento,
-        @RequestParam("cant-input") String cantidad,
+        @RequestParam("cant-input") Integer cantidad,
         @RequestParam("tipo-input") String tipo,
         @RequestParam("detalle-input") String detalle,
         @RequestParam("desc-input") String descripcion,
-        @RequestParam("precioU-input") String precio_unitario,
+        @RequestParam("precioU-input") Double precio_unitario,
         org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes
     ) {
         System.out.println("////////////////////////////////////////////");
@@ -99,7 +99,7 @@ public class AppController {
         System.out.println("Tipo: " + tipo);
         System.out.println("Detalle: " + detalle);
         System.out.println("Descripción: " + descripcion);
-        System.out.println("Precio unitario: " + precio_unitario);
+        System.out.println("Precio unitario: " + precio_unitario.toString());
         System.out.println("////////////////////////////////////////////");
 
         redirectAttributes.addFlashAttribute("nombre", nombre);
@@ -127,9 +127,9 @@ public class AppController {
 
     @GetMapping("/descargarXML")
     public ResponseEntity<Resource> descargarXML() {
-        Resource resource = new FileSystemResource("test_files/test_xml2.xml");
+        Resource resource = new FileSystemResource("test_files/test_xml3.xml");
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_xml2.xml")
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_xml3.xml")
             .contentType(MediaType.APPLICATION_XML)
             .body(resource);
     }

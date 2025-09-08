@@ -413,8 +413,10 @@ div[th\\:fragment="header"] a:hover {
 /* Navbar secundaria */
 div[th\\:fragment="navbar"] {
     background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 3px solid var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0,102,204,0.08);
     padding: 0 32px;
+    border-radius: 0 0 12px 12px;
 }
 
 .table-container {

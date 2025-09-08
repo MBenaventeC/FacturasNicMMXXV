@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<DTE xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" xmlns:ns3="http://www.sii.cl/SiiDte">
+    <ns3:Documento ID="DTE-34-994321">
+        <ns3:Encabezado>
+            <ns3:IdDoc>
+                <ns3:TipoDTE>34</ns3:TipoDTE>
+                <ns3:Folio>1</ns3:Folio>
+                <ns3:FchEmis>2025-09-07</ns3:FchEmis>
+                <ns3:IndServicio>2</ns3:IndServicio>
+                <ns3:FmaPago>1</ns3:FmaPago>
+                <ns3:FchCancel>2025-09-07</ns3:FchCancel>
+                <ns3:MedioPago>EF</ns3:MedioPago>
+                <ns3:FchVenc>2025-09-07</ns3:FchVenc>
+            </ns3:IdDoc>
+            <ns3:Emisor>
+                <ns3:RUTEmisor>60910000-1</ns3:RUTEmisor>
+                <ns3:RznSoc>Universidad de Chile</ns3:RznSoc>
+                <ns3:GiroEmis>Corporación Educacional y Servicios Profesionales</ns3:GiroEmis>
+                <ns3:Acteco>803010</ns3:Acteco>
+                <ns3:Sucursal>NIC Chile</ns3:Sucursal>
+                <ns3:CdgSIISucur>67051191</ns3:CdgSIISucur>
+                <ns3:DirOrigen>Miraflores 222, Piso 14</ns3:DirOrigen>
+                <ns3:CmnaOrigen>Santiago</ns3:CmnaOrigen>
+                <ns3:CiudadOrigen>Santiago</ns3:CiudadOrigen>
+            </ns3:Emisor>
+            <ns3:Receptor>
+                <ns3:RUTRecep>13513501-9</ns3:RUTRecep>
+                <ns3:RznSocRecep>Empresa ejemplo S.A.</ns3:RznSocRecep>
+                <ns3:GiroRecep>Comercio al por mayor</ns3:GiroRecep>
+                <ns3:Contacto>Andres</ns3:Contacto>
+                <ns3:DirRecep>Mi casa</ns3:DirRecep>
+                <ns3:CmnaRecep>Maipu</ns3:CmnaRecep>
+                <ns3:CiudadRecep>Santiago</ns3:CiudadRecep>
+            </ns3:Receptor>
+            <ns3:Totales>
+                <ns3:MntExe>102501</ns3:MntExe>
+                <ns3:MntTotal>102501</ns3:MntTotal>
+            </ns3:Totales>
+        </ns3:Encabezado>
+        <ns3:Detalle>
+            <ns3:NroLinDet>1</ns3:NroLinDet>
+            <ns3:NmbItem>dominio Nic.cl/ganamos</ns3:NmbItem>
+            <ns3:QtyItem>1</ns3:QtyItem>
+            <ns3:PrcItem>102501.0</ns3:PrcItem>
+            <ns3:MontoItem>102501</ns3:MontoItem>
+        </ns3:Detalle>
+        <ns3:TED version="1.0">
+            <ns3:DD>
+                <ns3:RE>60910000-1</ns3:RE>
+                <ns3:TD>34</ns3:TD>
+                <ns3:F>994321</ns3:F>
+                <ns3:FE>2025-09-07</ns3:FE>
+                <ns3:RR>13513501-9</ns3:RR>
+                <ns3:RSR>Empresa Ejemplo S.A.</ns3:RSR>
+                <ns3:MNT>102501</ns3:MNT>
+                <ns3:IT1>Nic.cl/ganamos</ns3:IT1>
+                <ns3:CAF version="1.0">
+                    <ns3:DA>
+                        <ns3:RE>60910000-1</ns3:RE>
+                        <ns3:RS>UNIVERSIDAD DE CHILE</ns3:RS>
+                        <ns3:TD>34</ns3:TD>
+                        <ns3:RNG>
+                            <ns3:D>992776</ns3:D>
+                            <ns3:H>1002775</ns3:H>
+                        </ns3:RNG>
+                        <ns3:FA>2025-04-25</ns3:FA>
+                        <ns3:RSAPK>
+                            <ns3:M>MHppL3pzUFc0dUpMYXpKc2NENFAxeW9nZTRERjFueE1NM1lhZFYrQkFKVjRmVEh1c1dBdHlnRERIb3RONm1xOXlCeVNhT3ZBVDNWbmt4OGErUjdsMnc9PQ==</ns3:M>
+                            <ns3:E>QXc9PQ==</ns3:E>
+                        </ns3:RSAPK>
+                        <ns3:IDK>300</ns3:IDK>
+                    </ns3:DA>
+                    <ns3:FRMA algoritmo="SHA1withRSA">bXRNZWwvREtPeXFNZnFVT2I3NmJuL1FEZ2tiTlUxSFVpb1VoT0FjV3RwaHVteWd4ZVJMbG9zNDhKZGhIZ1pNSzRJSXV6ZDVaR0l0UEgzS0hkYVExdXc9PQ==</ns3:FRMA>
+                </ns3:CAF>
+                <ns3:TSTED>2025-09-07T22:46:37.797</ns3:TSTED>
+            </ns3:DD>
+            <ns3:FRMT algoritmo="SHA1withRSA">UzFRQS95SHBrbENaOFhvZzJVSnJWL0dlRnpPODBwUFlod2NseW9ITTBsRlNKcndQYUFDRVh0bzAzSDFOSmxOOUZpWkxyNVJqWUZ3YUJyVndJd2pGUkE9PQ==</ns3:FRMT>
+        </ns3:TED>
+        <ns3:TmstFirma>2025-09-07T22:46:37.799-03:00</ns3:TmstFirma>
+    </ns3:Documento>
+    <ns2:Signature>
+        <ns2:SignedInfo>
+            <ns2:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <ns2:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <ns2:Reference URI="#DTE-34-994321">
+                <ns2:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <ns2:DigestValue>U095VU5FamVtcGxv</ns2:DigestValue>
+            </ns2:Reference>
+        </ns2:SignedInfo>
+        <ns2:SignatureValue>U295VW5hRmlybWFTdXBlclNlY3JldGE=</ns2:SignatureValue>
+        <ns2:KeyInfo>
+            <ns2:KeyValue>
+                <ns2:RSAKeyValue>
+                    <ns2:Modulus>VElFTkVTUVVFQ0FNQklBUkVMTU9EVUxVUw==</ns2:Modulus>
+                    <ns2:Exponent>VElFTkVTUVVFQ0FNQklBUkVMRVhQT05FTlQ=</ns2:Exponent>
+                </ns2:RSAKeyValue>
+            </ns2:KeyValue>
+            <ns2:X509Data>
+                <ns2:X509Certificate>U295VW5FamVtcGxv</ns2:X509Certificate>
+            </ns2:X509Data>
+        </ns2:KeyInfo>
+    </ns2:Signature>
+</DTE>
