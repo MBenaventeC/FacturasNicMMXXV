@@ -190,11 +190,7 @@ public class SiiTED {
         Path xmlPath = Paths.get(ruta);
 
         // Hacemos el timbre electronico
-        // makeTed(datos, xmlPath);
-
-        // probar extractor de etiqueta
-        String et = getCafAttr(xmlPath, "RE");
-        System.out.println(et);
+        makeTed(datos, xmlPath);
     }
 
 }
