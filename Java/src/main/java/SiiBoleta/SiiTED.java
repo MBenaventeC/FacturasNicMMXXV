@@ -1,4 +1,4 @@
-package SiiTr;
+package SiiBoleta;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
