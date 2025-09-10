@@ -343,7 +343,9 @@
 			top="0cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('logo.gif')"/>
+					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
+					content-width="2.5cm"
+    				content-height="4cm"/>
 			</fo:block>
 		</fo:block-container>
 
@@ -384,9 +386,9 @@
 		<!-- Recuadro con folio -->
 		<fo:block-container absolute-position="absolute" top="0cm"
 			margin-top="0.5cm" left="12cm" height="3cm" width="7.5cm"
-			border-color="green" border-style="solid" border-width="0.5mm">
+			border-color="red" border-style="solid" border-width="0.5mm">
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center"
+				font-weight="bold" color="red" text-align="center"
 				hyphenate="false">
 				R.U.T.:
 				<xsl:call-template name="RutFormat">
@@ -396,7 +398,7 @@
 				</xsl:call-template>
 			</fo:block>
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center">
+				font-weight="bold" color="red" text-align="center">
 				<xsl:choose>
 					<xsl:when test="$tipo=33">
 						FACTURA ELECTRONICA
@@ -416,7 +418,7 @@
 				</xsl:choose>
 			</fo:block>
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center">
+				font-weight="bold" color="red" text-align="center">
 				N&#176;
 				<xsl:value-of select="$folio" />
 			</fo:block>
@@ -627,12 +629,13 @@
 		<fo:block-container absolute-position="absolute" top="21cm"
 			width="7cm">
 			<fo:block>
-				<fo:instream-foreign-object>
+				<!--<fo:instream-foreign-object>
 			
 					<xsl:copy-of
 						select="tedbarcode:generate($barcode-cfg, $myted)" />
-			
+					
 				</fo:instream-foreign-object>
+				!-->
 			</fo:block>
 			<fo:block font-size="8pt" font-family="sans-serif"
 				text-align="center">
