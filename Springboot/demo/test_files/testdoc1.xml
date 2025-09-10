@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DTE>
+  <Documento>
+    <Encabezado>
+      <IdDoc>
+        <Folio>1</Folio>
+        <TipoDTE>33</TipoDTE>
+        <FchEmis>2025-09-07</FchEmis>
+        <MedioPago>EF</MedioPago>
+        <FmaPago>1</FmaPago>
+      </IdDoc>
+      <Emisor>
+        <RznSoc>EMPRESA DEMO SPA</RznSoc>
+        <Sucursal>Sucursal Central</Sucursal>
+        <CdgSIISucur>12345</CdgSIISucur>
+        <GiroEmis>Servicios Informáticos</GiroEmis>
+        <DirOrigen>Av. Siempre Viva 123</DirOrigen>
+        <CmnaOrigen>Santiago</CmnaOrigen>
+        <CiudadOrigen>Santiago</CiudadOrigen>
+        <RUTEmisor>12345678-9</RUTEmisor>
+      </Emisor>
+      <Receptor>
+        <RznSocRecep>Cliente de Prueba</RznSocRecep>
+        <RUTRecep>98765432-1</RUTRecep>
+        <DirRecep>Calle Falsa 456</DirRecep>
+        <CmnaRecep>Providencia</CmnaRecep>
+        <CiudadRecep>Santiago</CiudadRecep>
+        <GiroRecep>Comercio Minorista</GiroRecep>
+      </Receptor>
+      <Totales>
+        <MntNeto>10000</MntNeto>
+        <TasaIVA>19</TasaIVA>
+        <IVA>1900</IVA>
+        <MntTotal>11900</MntTotal>
+      </Totales>
+    </Encabezado>
+    <Detalle>
+      <NroLinDet>1</NroLinDet>
+      <QtyItem>2</QtyItem>
+      <NmbItem>Producto de ejemplo</NmbItem>
+      <PrcItem>5000</PrcItem>
+      <MontoItem>10000</MontoItem>
+    </Detalle>
+    <TED>
+      <DD>
+        <!-- Datos mínimos para el timbre, puedes completarlos según tu lógica -->
+      </DD>
+    </TED>
+  </Documento>
+</DTE>

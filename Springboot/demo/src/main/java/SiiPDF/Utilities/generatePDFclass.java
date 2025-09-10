@@ -1,4 +1,4 @@
-package SiiPDF;
+package SiiPDF.Utilities;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,9 +22,9 @@ import org.apache.fop.apps.FOPException;
 
 public class generatePDFclass{
     public static void generatePDF(InputStream xmlFile, InputStream xslFile,
-    			OutputStream pdfFile) throws FOPException, FileNotFoundException,
-    			TransformerException {
-    		FopFactory fopFactory = FopFactory.newInstance();   
+                OutputStream pdfFile) throws FOPException, FileNotFoundException,
+                TransformerException {
+            FopFactory fopFactory = FopFactory.newInstance(new java.io.File(".").toURI());   
 
     		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
     		// configure foUserAgent as desired 
@@ -54,10 +54,13 @@ public class generatePDFclass{
     // Ejemplo de uso
     public static void main(String[] args) throws Exception {
         try (
-            InputStream xmlFile = new FileInputStream("test_files/test_xml3.xml");
-            InputStream xslFile = new FileInputStream("SiiPDF/plantilla_pdf.xsl");
-            OutputStream pdfFile = new FileOutputStream("test_files/test_pdf.pdf")
+            InputStream xmlFile = new FileInputStream("Springboot/demo/test_files/testdoc1.xml");
+            InputStream xslFile = new FileInputStream("Springboot/demo/src/main/java/SiiPDF/plantilla_pdf.xsl");
+            OutputStream pdfFile = new FileOutputStream("Springboot/demo/test_files/test_pdf.pdf")
         ) {
+            if (xslFile == null) {
+                throw new FileNotFoundException("No se encontró el archivo XSL en la ruta especificada.");
+            }
             generatePDF(xmlFile, xslFile, pdfFile);
             System.out.println("PDF generado correctamente.");
         }

@@ -1,3 +1,4 @@
+/*
 package SiiPDF;
 import jargs.gnu.CmdLineParser;
 
@@ -16,7 +17,7 @@ public class GeneraPDF {
 
 	/**
 	 * @param args
-	 */
+	 *
 	public static void main(String[] args) throws Exception {
 
 		CmdLineParser parser = new CmdLineParser();
@@ -54,3 +55,4 @@ public class GeneraPDF {
 	}
 
 }
+*/
