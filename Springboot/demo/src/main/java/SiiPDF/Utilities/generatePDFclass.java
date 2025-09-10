@@ -58,9 +58,6 @@ public class generatePDFclass{
             InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantilla_pdf.xsl");
             OutputStream pdfFile = new FileOutputStream("test_files/test_pdf.pdf")
         ) {
-            if (xslFile == null) {
-                throw new FileNotFoundException("No se encontró el archivo XSL en la ruta especificada.");
-            }
             generatePDF(xmlFile, xslFile, pdfFile);
             System.out.println("PDF generado correctamente.");
         }

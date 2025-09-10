@@ -186,7 +186,7 @@
 							<xsl:choose>
 								<xsl:when test="Detalle[NroLinDet=9]">
 									<xsl:apply-templates
-										select="Detalle[NroLinDet=9]" />
+									select="Detalle[NroLinDet=9]" />
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:call-template
@@ -340,13 +340,17 @@
 
 		<!--  El logo -->
 		<fo:block-container absolute-position="absolute" left="0cm"
-			top="0cm">
+			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
 					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
+		</fo:block-container>
+
+		<fo:block-container absolute-position="absolute" left="3cm" top="10cm" width="12cm" height="5cm" z-index="-1">
+    		<fo:block height="5cm" background-image="url('src/main/resources/SiiPDF/cl.png')" background-repeat="no-repeat" background-position="center top"/>
 		</fo:block-container>
 
 		<fo:block-container absolute-position="absolute" left="2.5cm"
