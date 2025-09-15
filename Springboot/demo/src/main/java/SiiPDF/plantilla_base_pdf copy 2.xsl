@@ -226,41 +226,6 @@
 										name="DetalleVacio" />
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=13]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=13]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=14]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=14]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=15]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=15]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-
-	
 							<fo:table-row>
 								<fo:table-cell text-align="center"
 									border-left-width="0.5pt" border-left-style="solid"
@@ -326,6 +291,31 @@
 							</fo:table-row>
 						</fo:table-body>
 					</fo:table>
+				</fo:block>
+			</fo:block-container>
+			<fo:block-container absolute-position="absolute" bottom="0.5cm"
+				margin-top="0.5cm" left="12cm" height="3cm" width="7cm"
+				border-color="gray" border-style="solid" border-width="1mm">
+				<fo:block font-size="16pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false" margin-top="0.6cm">
+					P A G A D O
+				</fo:block>
+
+				<fo:block font-size="12pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false">
+					<xsl:call-template name="FechaFormat">
+						<xsl:with-param name="fecha">
+							<xsl:value-of select="Encabezado/IdDoc/FchEmis" />
+						</xsl:with-param>
+					</xsl:call-template>
+				</fo:block>
+
+				<fo:block font-size="16pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false">
+					NIC CHILE
 				</fo:block>
 			</fo:block-container>
 			<xsl:apply-templates select="TED" />
@@ -427,7 +417,13 @@
 				<xsl:value-of select="$folio" />
 			</fo:block>
 		</fo:block-container>
-
+		<fo:block-container absolute-position ="absolute" left = "12cm" top ="3cm" width ="7.5cm">
+			<fo:block font-size="14pt" font-family="monospace"
+					font-weight="bold" color="red" text-align="center"
+					hyphenate="false">
+					SII- SANTIAGO CENTRO
+			</fo:block>
+		</fo:block-container>
 	</xsl:template>
 
 	<!-- Datos del receptor -->
@@ -574,8 +570,10 @@
 						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
+				
 
 			</fo:block>
+
 </fo:block-container>
 	</xsl:template>
 
