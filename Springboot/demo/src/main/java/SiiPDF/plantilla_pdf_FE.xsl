@@ -186,7 +186,7 @@
 							<xsl:choose>
 								<xsl:when test="Detalle[NroLinDet=9]">
 									<xsl:apply-templates
-										select="Detalle[NroLinDet=9]" />
+									select="Detalle[NroLinDet=9]" />
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:call-template
@@ -226,41 +226,6 @@
 										name="DetalleVacio" />
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=13]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=13]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=14]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=14]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=15]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=15]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-
-	
 							<fo:table-row>
 								<fo:table-cell text-align="center"
 									border-left-width="0.5pt" border-left-style="solid"
@@ -328,6 +293,54 @@
 					</fo:table>
 				</fo:block>
 			</fo:block-container>
+			<fo:block-container absolute-position="absolute" bottom="0.5cm"
+				margin-top="0.5cm" left="14.5cm" height="3cm" width="5cm"
+				border-color="gray" border-style="solid" border-width="1mm">
+				<fo:block font-size="16pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false" margin-top="0.6cm">
+					P A G A D O
+				</fo:block>
+
+				<fo:block font-size="12pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false">
+					<xsl:call-template name="FechaFormat">
+						<xsl:with-param name="fecha">
+							<xsl:value-of select="Encabezado/IdDoc/FchEmis" />
+						</xsl:with-param>
+					</xsl:call-template>
+				</fo:block>
+
+				<fo:block font-size="16pt" font-family="monospace"
+					font-weight="bold" color="gray" text-align="center"
+					hyphenate="false">
+					NIC CHILE
+				</fo:block>
+			</fo:block-container>
+			<fo:block-container absolute-position="absolute" left="7.2cm" bottom="2.5cm" width="7cm" height="4cm" border-color="gray" border-style="solid" border-width="1mm">
+				<fo:block font-size="12pt" font-family="monospace" font-weight="bold" color="gray" text-align="center" margin-top="0.2cm">
+					ACUSE DE RECIBO
+				</fo:block>
+				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-top="0.2cm">
+					Nombre <fo:inline>____________________</fo:inline>
+				</fo:block>
+				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm">
+					RUT <fo:inline>_______________________</fo:inline>
+				</fo:block>
+				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm">
+					Fecha <fo:inline>_____________________</fo:inline>
+				</fo:block>
+				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-bottom="0.5cm">
+					Recinto <fo:inline>___________________</fo:inline>
+				</fo:block>
+				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-bottom="0.9cm">
+					Firma <fo:inline>_____________________</fo:inline>
+				</fo:block>
+				<fo:block font-size="8pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-right="0.5cm">
+					EL ACUSE RECIBO QUE SE DECLARA EN ESTE ACTO, DE ACUERDO A LO DISPUESTO EN LA LETRA B) DEL ART. 9° Y LA LETRA A) DEL ART. 12 DE LA LEY 19.983, AUTORIZA LA ENTREGA EN PROPIEDAD DE LOS BIENES Y/O SERVICIOS PRESTADOS, HABIENDO SIDO RECIBIDOS EN TOTAL CONFORMIDAD.
+				</fo:block>
+			</fo:block-container>
 			<xsl:apply-templates select="TED" />
 		</fo:block>
 	</xsl:template>
@@ -340,11 +353,17 @@
 
 		<!--  El logo -->
 		<fo:block-container absolute-position="absolute" left="0cm"
-			top="0cm">
+			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('logo.gif')"/>
+					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
+					content-width="2.5cm"
+    				content-height="4cm"/>
 			</fo:block>
+		</fo:block-container>
+
+		<fo:block-container absolute-position="absolute" left="3cm" top="10cm" width="12cm" height="5cm" z-index="-1">
+    		<fo:block height="5cm" background-image="url('src/main/resources/SiiPDF/cl.png')" background-repeat="no-repeat" background-position="center top"/>
 		</fo:block-container>
 
 		<fo:block-container absolute-position="absolute" left="2.5cm"
@@ -384,9 +403,9 @@
 		<!-- Recuadro con folio -->
 		<fo:block-container absolute-position="absolute" top="0cm"
 			margin-top="0.5cm" left="12cm" height="3cm" width="7.5cm"
-			border-color="green" border-style="solid" border-width="0.5mm">
+			border-color="red" border-style="solid" border-width="0.5mm">
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center"
+				font-weight="bold" color="red" text-align="center"
 				hyphenate="false">
 				R.U.T.:
 				<xsl:call-template name="RutFormat">
@@ -396,9 +415,9 @@
 				</xsl:call-template>
 			</fo:block>
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center">
+				font-weight="bold" color="red" text-align="center">
 				<xsl:choose>
-					<xsl:when test="$tipo=33">
+					<xsl:when test="$tipo=34">
 						FACTURA ELECTRONICA
 					</xsl:when>
 					<xsl:when test="$tipo=52">
@@ -410,18 +429,27 @@
 					<xsl:when test="$tipo=61">
 						NOTA DE CREDITO ELECTRONICA
 					</xsl:when>
+					<xsl:when test="$tipo=41">
+						BOLETA EXENTA ELECTRÓNICA
+					</xsl:when>
 					<xsl:otherwise>
 						CORREGIR EN TEMPLATE XSL
 					</xsl:otherwise>
 				</xsl:choose>
 			</fo:block>
 			<fo:block font-size="14pt" font-family="monospace"
-				font-weight="bold" color="green" text-align="center">
+				font-weight="bold" color="red" text-align="center">
 				N&#176;
 				<xsl:value-of select="$folio" />
 			</fo:block>
 		</fo:block-container>
-
+		<fo:block-container absolute-position ="absolute" left = "12cm" top ="3cm" width ="7.5cm">
+			<fo:block font-size="14pt" font-family="monospace"
+					font-weight="bold" color="red" text-align="center"
+					hyphenate="false">
+					SII- SANTIAGO CENTRO
+			</fo:block>
+		</fo:block-container>
 	</xsl:template>
 
 	<!-- Datos del receptor -->
@@ -479,13 +507,7 @@
 							<fo:table-cell text-align="left"
 								number-columns-spanned="3">
 								<fo:block>
-									<xsl:call-template
-										name="RutFormat">
-										<xsl:with-param name="rut">
-											<xsl:value-of
-												select="RUTRecep" />
-										</xsl:with-param>
-									</xsl:call-template>
+									<xsl:value-of select="RUTRecep" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -540,7 +562,7 @@
 							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
-									<xsl:value-of select="GiroRecep" />
+									<xsl:value-of select="GiroEmis | GiroEmisor" />
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left">
@@ -550,26 +572,51 @@
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left" height="1cm">
+							<fo:table-cell text-align="left">
 								<fo:block>
-									<xsl:call-template
-										name="PagoFormat">
-										<xsl:with-param name="medioPago">
-											<xsl:value-of
-												select="$medioPago" />
-										</xsl:with-param>
-										<xsl:with-param name="formaPago">
-											<xsl:value-of
-												select="$formaPago" />
-										</xsl:with-param>
+									<xsl:call-template name="PagoFormat">
+										<xsl:with-param name="medioPago" select="$medioPago"/>
+										<xsl:with-param name="formaPago" select="$formaPago"/>
 									</xsl:call-template>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell text-align="left" number-columns-spanned="2">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										CENTRO DE COSTO:
+									</fo:inline>
+									<xsl:text> 1966</xsl:text>				
+								</fo:block>
+							</fo:table-cell>
+						
+							<fo:table-cell text-align="left" number-columns-spanned="2">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										ITEM: 
+									</fo:inline>
+									<xsl:text> 6.1.01.03.01 (2152)</xsl:text>	
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell text-align="left" number-columns-spanned="2">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Vencimiento:
+									</fo:inline>
+									<xsl:text> </xsl:text>
+            						<xsl:value-of select="../IdDoc/FchVenc" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
+				
 
 			</fo:block>
+
 </fo:block-container>
 	</xsl:template>
 
@@ -627,12 +674,13 @@
 		<fo:block-container absolute-position="absolute" top="21cm"
 			width="7cm">
 			<fo:block>
-				<fo:instream-foreign-object>
+				<!--<fo:instream-foreign-object>
 			
 					<xsl:copy-of
 						select="tedbarcode:generate($barcode-cfg, $myted)" />
-			
+
 				</fo:instream-foreign-object>
+				!-->
 			</fo:block>
 			<fo:block font-size="8pt" font-family="sans-serif"
 				text-align="center">

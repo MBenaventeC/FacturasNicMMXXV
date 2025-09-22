@@ -146,7 +146,7 @@
 							<xsl:choose>
 								<xsl:when test="Detalle[NroLinDet=5]">
 									<xsl:apply-templates
-										select="Detalle[NroLinDet=5]" />
+									select="Detalle[NroLinDet=5]" />
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:call-template
@@ -348,7 +348,7 @@
 
 			<fo:block font-size="18pt" font-family="Helvetica"
 				font-weight="bold" text-align="left" color="blue">
-				<xsl:value-of select="RznSoc" />
+				<xsl:value-of select="RznSoc | RznSocEmisor" />
 			</fo:block>
 
 			<xsl:if test="Sucursal">
@@ -360,7 +360,7 @@
 
 			<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
 				language="es" hyphenate="true" color="black" text-align="left">
-				<xsl:value-of select="GiroEmis" />
+				<xsl:value-of select="GiroEmis | GiroEmisor" />
 			</fo:block>
 
 			<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
