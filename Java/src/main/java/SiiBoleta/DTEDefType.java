@@ -4510,6 +4510,19 @@ public class DTEDefType {
         }
 
         /**
+         * Gets the value of the DD property
+         * using < DD > </ DD > brackets
+         *
+         * @return
+         *     possible object is
+         *     {@link String }
+         *
+         */
+        public String getDigestRaw(){
+            return getTED().getDDbracket();
+        }
+
+        /**
          * Gets the value of the detalle property.
          * 
          * <p>
@@ -13670,6 +13683,19 @@ public class DTEDefType {
             }
 
             /**
+             * Gets the value of the DD property
+             * using < DD > </ DD > brackets
+             *
+             * @return
+             *     possible object is
+             *     {@link String }
+             *
+             */
+            public String getDDbracket(){
+                return dd.getDDbracket();
+            }
+
+            /**
              * Sets the value of the dd property.
              * 
              * @param value
@@ -13911,6 +13937,19 @@ public class DTEDefType {
                 }
 
                 /**
+                 * Gets the value of the re property
+                 * using <RE> </RE> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getREbracket(){
+                    return "<RE>"+getRE()+"</RE>";
+                }
+
+                /**
                  * Sets the value of the re property.
                  * 
                  * @param value
@@ -13933,6 +13972,17 @@ public class DTEDefType {
                 public BigInteger getTD() {
                     return td;
                 }
+
+                /**
+                 * Gets the value of the re property
+                 * using <TD> </TD> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getTDbracket(){ return "<TD>"+getTD().toString()+"</TD>";}
 
                 /**
                  * Sets the value of the td property.
@@ -13959,6 +14009,17 @@ public class DTEDefType {
                 }
 
                 /**
+                 * Gets the value of the re property
+                 * using <F> </F> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getFbracket() { return "<F>"+getF().toString()+"</F>"; }
+
+                /**
                  * Sets the value of the f property.
                  * 
                  * @param value
@@ -13981,6 +14042,17 @@ public class DTEDefType {
                 public XMLGregorianCalendar getFE() {
                     return fe;
                 }
+
+                /**
+                 * Gets the value of the re property
+                 * using <FE> </FE> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getFEbracket() { return "<FE>"+getFE().toString()+"</FE>"; }
 
                 /**
                  * Sets the value of the fe property.
@@ -14007,6 +14079,17 @@ public class DTEDefType {
                 }
 
                 /**
+                 * Gets the value of the re property
+                 * using <RR> </RR> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getRRbracket(){ return "<RR>"+getRR()+"</RR>"; }
+
+                /**
                  * Sets the value of the rr property.
                  * 
                  * @param value
@@ -14029,6 +14112,17 @@ public class DTEDefType {
                 public String getRSR() {
                     return rsr;
                 }
+
+                /**
+                 * Gets the value of the re property
+                 * using <RSR> </RSR> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getRSRbracket(){ return "<RSR>"+getRSR()+"</RSR>"; }
 
                 /**
                  * Sets the value of the rsr property.
@@ -14055,6 +14149,17 @@ public class DTEDefType {
                 }
 
                 /**
+                 * Gets the value of the re property
+                 * using <MNT> </MNT> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getMNTbracket() { return "<MNT>"+getMNT().toString()+"</MNT>"; }
+
+                /**
                  * Sets the value of the mnt property.
                  * 
                  * @param value
@@ -14077,6 +14182,17 @@ public class DTEDefType {
                 public String getIT1() {
                     return it1;
                 }
+
+                /**
+                 * Gets the value of the re property
+                 * using <IT1> </IT1> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getITbracket(){ return "<IT1>"+this.getIT1()+"</IT1>"; }
 
                 /**
                  * Sets the value of the it1 property.
@@ -14103,6 +14219,17 @@ public class DTEDefType {
                 }
 
                 /**
+                 * Gets the value of the re property
+                 * using <CAF> </CAF> brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getCAFbracket(){ return "<CAF>"+caf.getBracket()+"</CAF>"; }
+
+                /**
                  * Sets the value of the caf property.
                  * 
                  * @param value
@@ -14125,6 +14252,16 @@ public class DTEDefType {
                 public XMLGregorianCalendar getTSTED() {
                     return tsted;
                 }
+                /**
+                 * Gets the value of the re property
+                 * using < TSTED > < / TSTED > brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getTSTEDbracket(){ return "<TSTED>"+getTSTED().toString()+"</TSTED>"; }
 
                 /**
                  * Sets the value of the tsted property.
@@ -14136,6 +14273,30 @@ public class DTEDefType {
                  */
                 public void setTSTED(XMLGregorianCalendar value) {
                     this.tsted = value;
+                }
+
+                /**
+                 * Gets the value of the re property
+                 * using < DD > </ DD > brackets
+                 *
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *
+                 */
+                public String getDDbracket() {
+                    return "<DD>"+
+                            getREbracket()+
+                            getTDbracket()+
+                            getFbracket() +
+                            getFEbracket()+
+                            getRRbracket()+
+                            getRSRbracket()+
+                            getMNTbracket()+
+                            getIT1()+
+                            getCAFbracket()+
+                            getTSTEDbracket()+
+                            "</DD>";
                 }
 
 
@@ -14320,6 +14481,10 @@ public class DTEDefType {
                         this.version = value;
                     }
 
+                    public String getBracket() {
+                        return da.getDAbracket();
+                    }
+
 
                     /**
                      * <p>Java class for anonymous complex type.
@@ -14436,6 +14601,17 @@ public class DTEDefType {
                         }
 
                         /**
+                         * Gets the value of the re property
+                         * using <RE> </RE> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getREbracket() { return "<RE>"+getRE()+"</RE>"; }
+
+                        /**
                          * Sets the value of the re property.
                          * 
                          * @param value
@@ -14458,6 +14634,17 @@ public class DTEDefType {
                         public String getRS() {
                             return rs;
                         }
+
+                        /**
+                         * Gets the value of the rs property
+                         * using <RS> </RS> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getRSbracket() { return "<RS>"+getRS()+"</RS>"; }
 
                         /**
                          * Sets the value of the rs property.
@@ -14484,6 +14671,17 @@ public class DTEDefType {
                         }
 
                         /**
+                         * Gets the value of the td property
+                         * using <TD> </TD> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getTDbracket() { return "<TD>"+getTD().toString()+"</TD>"; }
+
+                        /**
                          * Sets the value of the td property.
                          * 
                          * @param value
@@ -14508,6 +14706,17 @@ public class DTEDefType {
                         }
 
                         /**
+                         * Gets the value of the rng property
+                         * using <RNG> </RNG> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getRNGbracket(){ return "<RNG>"+rng.getBracket()+"</RNG>"; }
+
+                        /**
                          * Sets the value of the rng property.
                          * 
                          * @param value
@@ -14530,6 +14739,16 @@ public class DTEDefType {
                         public XMLGregorianCalendar getFA() {
                             return fa;
                         }
+                        /**
+                         * Gets the value of the re property
+                         * using <FA> </FA> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getFAbracket() { return "<FA>"+fa.toString()+"</FA>";}
 
                         /**
                          * Sets the value of the fa property.
@@ -14554,6 +14773,16 @@ public class DTEDefType {
                         public DTEDefType.Documento.TED.DD.CAF.DA.RSAPK getRSAPK() {
                             return rsapk;
                         }
+                        /**
+                         * Gets the value of the RSAPK property
+                         * using <RSAPK> </RSAPK> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getRSAPKbracket() {return "<RSAPK>"+ getRSAPK().getBracket()+"</RSAPK>"; }
 
                         /**
                          * Sets the value of the rsapk property.
@@ -14600,11 +14829,43 @@ public class DTEDefType {
                         }
 
                         /**
+                         * Gets the value of the idk property
+                         * using <IDK> </IDK> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getIDKbracket() { return "<IDK>"+getIDK()+"</IDK>"; }
+
+                        /**
                          * Sets the value of the idk property.
                          * 
                          */
                         public void setIDK(long value) {
                             this.idk = value;
+                        }
+
+                        /**
+                         * Gets the value of the da property
+                         * using <DA> </DA> brackets
+                         *
+                         * @return
+                         *     possible object is
+                         *     {@link String }
+                         *
+                         */
+                        public String getDAbracket() {
+                            return "<DA>"+
+                                    getREbracket() +
+                                    getRSbracket() +
+                                    getTDbracket() +
+                                    getRNGbracket() +
+                                    getFAbracket() +
+                                    getRSAPKbracket() +
+                                    getIDKbracket()
+                                    +"</DA>";
                         }
 
 
@@ -14821,6 +15082,9 @@ public class DTEDefType {
                                 this.h = value;
                             }
 
+                            public String getBracket() {
+                                return "<D>"+getD()+"</D>"+"<H>"+getH()+"</H>";
+                            }
                         }
 
 
@@ -14899,6 +15163,17 @@ public class DTEDefType {
                             public void setE(byte[] value) {
                                 this.e = value;
                             }
+
+                            /**
+                             * Gets the value of the RSAPK property
+                             * using <RSAPK> </RSAPK> brackets
+                             *
+                             * @return
+                             *     possible object is
+                             *     {@link String }
+                             *
+                             */
+                            public String getBracket() { return "<M>"+getM()+"</M><E>"+getE()+"</E>";}
 
                         }
 
