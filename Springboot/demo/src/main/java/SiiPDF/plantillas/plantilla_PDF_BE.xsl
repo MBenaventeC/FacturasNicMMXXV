@@ -146,7 +146,7 @@
 							<xsl:choose>
 								<xsl:when test="Detalle[NroLinDet=5]">
 									<xsl:apply-templates
-										select="Detalle[NroLinDet=5]" />
+									select="Detalle[NroLinDet=5]" />
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:call-template
@@ -240,7 +240,7 @@
 									border-width="0.5pt" border-style="solid" display-align="center" column-number="3" height="1cm">
 									<fo:block>
 										<fo:inline font-weight="bold">
-											Suma
+											Neto
 										</fo:inline>
 									</fo:block>
 								</fo:table-cell>
@@ -255,10 +255,10 @@
 							</fo:table-row>
 							<fo:table-row>
 								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+									border-width="0.5pt" border-style="solid" display-align="center" column-number="3" height="1cm">
 									<fo:block>
 										<fo:inline font-weight="bold">
-											IVA <xsl:value-of select="Encabezado/Totales/TasaIVA"/>%
+											IVA 19%
 										</fo:inline>
 									</fo:block>
 								</fo:table-cell>
@@ -294,7 +294,7 @@
 				</fo:block>
 			</fo:block-container>
 			<fo:block-container absolute-position="absolute" bottom="0.5cm"
-				margin-top="0.5cm" left="14.5cm" height="3cm" width="5cm"
+				margin-top="0.5cm" left="12cm" height="3cm" width="7cm"
 				border-color="gray" border-style="solid" border-width="1mm">
 				<fo:block font-size="16pt" font-family="monospace"
 					font-weight="bold" color="gray" text-align="center"
@@ -316,29 +316,6 @@
 					font-weight="bold" color="gray" text-align="center"
 					hyphenate="false">
 					NIC CHILE
-				</fo:block>
-			</fo:block-container>
-			<fo:block-container absolute-position="absolute" left="7.2cm" bottom="2.5cm" width="7cm" height="4cm" border-color="gray" border-style="solid" border-width="1mm">
-				<fo:block font-size="12pt" font-family="monospace" font-weight="bold" color="gray" text-align="center" margin-top="0.2cm">
-					ACUSE DE RECIBO
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-top="0.2cm">
-					Nombre <fo:inline>____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm">
-					RUT <fo:inline>_______________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm">
-					Fecha <fo:inline>_____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-bottom="0.5cm">
-					Recinto <fo:inline>___________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-bottom="0.9cm">
-					Firma <fo:inline>_____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="8pt" font-family="monospace" color="gray" text-align="left" margin-left="0.5cm" margin-right="0.5cm">
-					EL ACUSE RECIBO QUE SE DECLARA EN ESTE ACTO, DE ACUERDO A LO DISPUESTO EN LA LETRA B) DEL ART. 9° Y LA LETRA A) DEL ART. 12 DE LA LEY 19.983, AUTORIZA LA ENTREGA EN PROPIEDAD DE LOS BIENES Y/O SERVICIOS PRESTADOS, HABIENDO SIDO RECIBIDOS EN TOTAL CONFORMIDAD.
 				</fo:block>
 			</fo:block-container>
 			<xsl:apply-templates select="TED" />
@@ -371,19 +348,17 @@
 
 			<fo:block font-size="18pt" font-family="Helvetica"
 				font-weight="bold" text-align="left" color="blue">
-				<xsl:value-of select="RznSoc" />
+				<xsl:value-of select="RznSoc | RznSocEmisor" />
 			</fo:block>
-
-			<xsl:if test="Sucursal">
-				<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
-					language="es" hyphenate="true" color="black" text-align="left">
-					Sucursal: <xsl:value-of select="Sucursal" /> (Codigo SII: <xsl:value-of select="CdgSIISucur" />)
-				</fo:block>
-			</xsl:if>
 
 			<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
 				language="es" hyphenate="true" color="black" text-align="left">
-				<xsl:value-of select="GiroEmis" />
+				Sucursal: NIC Chile (Codigo SII: <xsl:value-of select="CdgSIISucur" />)
+			</fo:block>
+
+			<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
+				language="es" hyphenate="true" color="black" text-align="left">
+				<xsl:value-of select="GiroEmis | GiroEmisor" />
 			</fo:block>
 
 			<fo:block font-weight="bold" font-size="12pt" font-family="monospace"
@@ -417,8 +392,11 @@
 			<fo:block font-size="14pt" font-family="monospace"
 				font-weight="bold" color="red" text-align="center">
 				<xsl:choose>
-					<xsl:when test="$tipo=34">
+					<xsl:when test="$tipo=33">
 						FACTURA ELECTRONICA
+					</xsl:when>
+					<xsl:when test="$tipo=39">
+						BOLETA ELECTRONICA
 					</xsl:when>
 					<xsl:when test="$tipo=52">
 						GUIA DE DESPACHO ELECTRONICA
@@ -500,21 +478,6 @@
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<fo:inline font-weight="bold">
-										R.U.T.:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="3">
-								<fo:block>
-									<xsl:value-of select="RUTRecep" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
 										DIRECCION:
 									</fo:inline>
 								</fo:block>
@@ -549,35 +512,6 @@
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<xsl:value-of select="CiudadRecep" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										GIRO:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:value-of select="GiroEmis | GiroEmisor" />
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										CONDICION VENTA:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:call-template name="PagoFormat">
-										<xsl:with-param name="medioPago" select="$medioPago"/>
-										<xsl:with-param name="formaPago" select="$formaPago"/>
-									</xsl:call-template>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -641,7 +575,7 @@
 				border-left-style="solid" border-right-width="0.5pt"
 				border-right-style="solid" margin-right="2mm"  height="0.8cm">
 				<fo:block>
-						<xsl:value-of select="PrcItem" />
+						<xsl:value-of select="format-number(PrcItem, '###0.0')" />
 				</fo:block>
 			</fo:table-cell>
 			<fo:table-cell text-align="right" border-left-width="0.5pt"
@@ -678,7 +612,7 @@
 			
 					<xsl:copy-of
 						select="tedbarcode:generate($barcode-cfg, $myted)" />
-
+					
 				</fo:instream-foreign-object>
 				!-->
 			</fo:block>
