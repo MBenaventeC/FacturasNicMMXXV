@@ -11,12 +11,17 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.SignatureException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class XmlGenerator {
 
-    public static void main(String[] args) throws JAXBException, DatatypeConfigurationException {
+    public static void main(String[] args) throws JAXBException, DatatypeConfigurationException, UnsupportedEncodingException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
@@ -32,9 +37,12 @@ public class XmlGenerator {
         File cafFile = new File("Java/Autorizacion.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-
         DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,994321,"12345678-9","Empresa Ejemplo S.A.",100000,"Servicio de Consultoría en TI",cafFromXml);
-        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
+
+
+
+        //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
+        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-33-994321");
         SignatureType signature = DTEMakers.makeSignature(documento);
@@ -51,7 +59,7 @@ public class XmlGenerator {
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/DTE3.xml");
+        File output = new File("out/DTE4.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
