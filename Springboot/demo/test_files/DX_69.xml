@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DTE version="1.0">
+      <Exportaciones ID="F69T112">
+        <Encabezado>
+          <IdDoc>
+            <TipoDTE>112</TipoDTE>
+            <Folio>69</Folio>
+            <FchEmis>2024-10-16</FchEmis>
+            <IndServicio>3</IndServicio>
+            <FchCancel>2024-10-16</FchCancel>
+            <FchVenc>2024-10-16</FchVenc>
+          </IdDoc>
+          <Emisor>
+            <RUTEmisor>60910000-1</RUTEmisor>
+            <RznSoc>Universidad de Chile</RznSoc>
+            <GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis>
+            <Acteco>803010</Acteco>
+            <Sucursal>NIC Chile</Sucursal>
+            <CdgSIISucur>67051191</CdgSIISucur>
+            <DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+            <CmnaOrigen>Santiago</CmnaOrigen>
+            <CiudadOrigen>Santiago</CiudadOrigen>
+          </Emisor>
+          <Receptor>
+            <RUTRecep>55555555-5</RUTRecep>
+            <CdgIntRecep>109</CdgIntRecep>
+            <RznSocRecep>Tool Domains Ltd</RznSocRecep>
+            <DirRecep>Shandyor Petofi 65</DirRecep>
+            <CiudadRecep>Sofia</CiudadRecep>
+          </Receptor>
+          <Transporte>
+            <Aduana>
+              <CodPaisRecep>527</CodPaisRecep>
+              <CodPaisDestin>527</CodPaisDestin>
+            </Aduana>
+          </Transporte>
+          <Totales>
+            <TpoMoneda>DOLAR USA</TpoMoneda>
+            <MntExe>99.0</MntExe>
+            <MntTotal>99.0</MntTotal>
+          </Totales>
+          <OtraMoneda>
+            <TpoMoneda>PESO CL</TpoMoneda>
+            <TpoCambio>928.37</TpoCambio>
+            <MntExeOtrMnda>91909</MntExeOtrMnda>
+            <MntTotOtrMnda>91909</MntTotOtrMnda>
+          </OtraMoneda>
+        </Encabezado>
+        <Detalle>
+          <NroLinDet>1</NroLinDet>
+          <NmbItem>Registration (1y)</NmbItem>
+          <QtyItem>3</QtyItem>
+          <PrcItem>11</PrcItem>
+          <MontoItem>33</MontoItem>
+        </Detalle>
+        <Detalle>
+          <NroLinDet>2</NroLinDet>
+          <NmbItem>Renew (1y)</NmbItem>
+          <QtyItem>6</QtyItem>
+          <PrcItem>11</PrcItem>
+          <MontoItem>66</MontoItem>
+        </Detalle>
+        <Referencia>
+          <NroLinRef>1</NroLinRef>
+          <TpoDocRef>110</TpoDocRef>
+          <FolioRef>1398</FolioRef>
+          <FchRef>2024-10-15</FchRef>
+          <CodRef>1</CodRef>
+          <RazonRef>ANULA FACTURA DE EXPORTACION ELECTRONICA</RazonRef>
+        </Referencia>
+        <Referencia>
+          <NroLinRef>2</NroLinRef>
+          <TpoDocRef>PRO</TpoDocRef>
+          <FolioRef>PI6438</FolioRef>
+          <FchRef>2024-03-02</FchRef>
+          <RazonRef>PROFORMA PI6438</RazonRef>
+        </Referencia>
+        <Referencia>
+          <NroLinRef>3</NroLinRef>
+          <TpoDocRef>812</TpoDocRef>
+          <FolioRef>5182</FolioRef>
+          <FchRef>2014-09-11</FchRef>
+          <RazonRef>RESOLUCION SNA</RazonRef>
+        </Referencia>
+        <TED version="1.0">
+          <DD>
+            <RE>60910000-1</RE>
+            <TD>112</TD>
+            <F>69</F>
+            <FE>2024-10-16</FE>
+            <RR>55555555-5</RR>
+            <RSR>Tool Domains Ltd</RSR>
+            <MNT>99.0</MNT>
+            <IT1>Registration (1y)</IT1>
+            <CAF version="1.0">
+              <DA>
+                <RE>60910000-1</RE>
+                <RS>UNIVERSIDAD DE CHILE</RS>
+                <TD>112</TD>
+                <RNG>
+                  <D>69</D>
+                  <H>69</H>
+                </RNG>
+                <FA>2024-10-16</FA>
+                <RSAPK>
+                  <M>uLAaQvdOu9+IdKtG+NXeGlrD6yjCnGCcO7hAJD4K9s8Mjz2HWcCUuAKyAraPFi0dvhTVKlPpL+3zCy2e9XP4Mw==</M>
+                  <E>Aw==</E>
+                </RSAPK>
+                <IDK>300</IDK>
+              </DA>
+              <FRMA algoritmo="SHA1withRSA">MPlMkLzmi4LapJ2OPo4aOUHz5Nnmu7rS2pAdQRZDWyihTs0pXiSJ3jC/z9kOkygSzeEjZSCXs62L5jNrQQc2Mg==</FRMA>
+            </CAF>
+            <TSTED>2024-10-16T18:55:03</TSTED>
+          </DD>
+          <FRMT algoritmo="SHA1withRSA">GHRHHdv9+jBFtyYIbMXadWtz7hGnhLIcfWdahj2TPfEFMv8trFwg5i1/CyCLi9pMMXusrZfhsKnBMBXl8/kE7g==</FRMT>
+        </TED>
+        <TmstFirma>2024-10-16T18:55:11</TmstFirma>
+      </Exportaciones><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI="#F69T112"><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>49QDrNlX58Ok8vheUkG4TEO7UMY=</DigestValue></Reference></SignedInfo><SignatureValue>
+TXdN42jIRmPVXi1ynWseIvNO+dxjs04pfSg4MJsUaOxuqUFedlNPQQ+5oee98RvE
+O1UbgSpUMqLbYaocKDvbpLEu2BdqPUIQ4yd6Aea0rzA88eBMA2S60b18pt0W/sVy
+xrCPCMoGI5D0iVEWMWW92fMgd0/i5sk8b+zrtV5qtqRdkFOP5fHOmZhXl15soaFt
+z1LvKgX0rUlSskRJxCPwDkUr9Zb/g3Fon19AWOm4DOtxRcp8fe5yszSKXO++u63u
+q3AJVZSBzXn8DWJDyFk2y5wrhdVWUzQLlLfTwh2XoaFUg5zDS/+Z3IUD/n+voDtM
+Z/jfvyMnc0z3tyA3foPsOQ==
+</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>
+g4TU2PEIfbiMBxUJsA3mLtA2uNcD/UFzHOaxYLlCma0B1RU49A0nJUXm38xjdb2U
+YwXVmhtDo+/U+z1OnsYxfY1BASR6Hbybp4fGS8ylID45FL2esF3gANkD2k8+PAjM
+ARCWSP0YuYPwWPlpNHjd+3Zd5AxFgIE2yWgmOCqgt1aWe0z0wmOsWNcKly9KSqMa
+dAapSzmJEaqbmcJf5C5m9Ux5kHmejn3qsOvXUVHaHIdD+p7HHIuo71dlzUD5fx5Y
+vwLRsCiqqrw/4CN6fbQSO9cvB7x5/2O3WMQiaS21/X9Dl7JFTXr8slAEKC7NLj0s
+qxJ1usrav1u5va/KOon7gQ==
+</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>
+MIIGSjCCBTKgAwIBAgIIWxsmTPlaFNwwDQYJKoZIhvcNAQELBQAwga8xCzAJBgNV
+BAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5BLjE5MDcGA1UECwwwVGVybXMgb2Yg
+dXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJkb3RlcmNlcm9zMSswKQYDVQQD
+DCJFLVNpZ24gQ2xhc3MgMiBGaXJtYSBUcmlidXRhcmlhIENBMSIwIAYJKoZIhvcN
+AQkBFhNlLXNpZ25AZXNpZ24tbGEuY29tMB4XDTIzMDQxMDE1MzcwMFoXDTI2MDQw
+OTE1MzcwMFowgaoxCzAJBgNVBAYTAkNMMRQwEgYDVQQKDAtFLVNpZ24gUy5BLjE5
+MDcGA1UECwwwVGVybXMgb2YgdXNlIGF0IHd3dy5lc2lnbi1sYS5jb20vYWN1ZXJk
+b3RlcmNlcm9zMSQwIgYDVQQDDBtKb3NlIE1hbnVlbCBDYXJ0ZXIgTXXDg8Kxb3ox
+JDAiBgkqhkiG9w0BCQEWFWpjYXJ0ZXJAaW5nLnVjaGlsZS5jbDCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAIOE1NjxCH24jAcVCbAN5i7QNrjXA/1Bcxzm
+sWC5QpmtAdUVOPQNJyVF5t/MY3W9lGMF1ZobQ6Pv1Ps9Tp7GMX2NQQEkeh28m6eH
+xkvMpSA+ORS9nrBd4ADZA9pPPjwIzAEQlkj9GLmD8Fj5aTR43ft2XeQMRYCBNslo
+JjgqoLdWlntM9MJjrFjXCpcvSkqjGnQGqUs5iRGqm5nCX+QuZvVMeZB5no596rDr
+11FR2hyHQ/qexxyLqO9XZc1A+X8eWL8C0bAoqqq8P+Ajen20EjvXLwe8ef9jt1jE
+Imkttf1/Q5eyRU16/LJQBCguzS49LKsSdbrK2r9bub2vyjqJ+4ECAwEAAaOCAmsw
+ggJnMIGABggrBgEFBQcBAQR0MHIwSgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuZXNp
+Z24tbGEuY29tL2NhY2VydHMvcGtpQ2xhc3MyRmlybWFUcmlidXRhcmlhQ0EuY3J0
+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5lc2lnbi1sYS5jb20wHQYDVR0OBBYE
+FKJk3PiOulJ8gHx4yn0BkUcAm6k3MAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAU
++Ur6wsduwucSnFdFNYQabSjpSqQwgcgGA1UdIASBwDCBvTCBugYMKwYBBAGCymoB
+BAECMIGpMH4GCCsGAQUFBwICMHIecABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABw
+AGEAcgBhACAAdQBzAG8AIABUAHIAaQBiAHUAdABhAHIAaQBvACwAIABDAG8AbQBl
+AHIAYwBpAG8ALAAgAFAAYQBnAG8AcwAgAHkAIABPAHQAcgBvAHMwJwYIKwYBBQUH
+AgEWG2h0dHA6Ly93d3cuZXNpZ24tbGEuY29tL2NwczBRBgNVHR8ESjBIMEagRKBC
+hkBodHRwOi8vcGtpLmVzaWduLWxhLmNvbS9jcmwvcGtpQ2xhc3MyRmlybWFUcmli
+dXRhcmlhL2VuZHVzZXIuY3JsMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggr
+BgEFBQcDAgYIKwYBBQUHAwQwIgYDVR0RBBswGaAXBggrBgEEAcEBAaALFgk3ODI4
+MDk5LTkwIwYDVR0SBBwwGqAYBggrBgEEAcEBAqAMFgo5OTU1MTc0MC1LMA0GCSqG
+SIb3DQEBCwUAA4IBAQBe9gKKEJZGwPS0+Y2lndlCqOVM1l1JlrVB8zLc3i3nq8de
+sFy+HKMcS2zUFmU2b+70qrnEB3gVvhXjhfykP4vozje3u/T5AEI/XRylro3CNwqZ
+to7IXF5rKNFj9qE67IMTEpgDuigdsZoin+6zJD0JIBBlDj/VDTUkCzgKKktVqWh9
+2U5JzcZ6Lv057Zpqzv3yK6AGFLTzKovy+Sc6QShrq+civELT5Hj7d/c/Uy/aPDtl
+qJzYn3imLc5oLWrL3oCgSspz9W+PJ4eIUSSK8adV5N/bfkoBOCelucTLT1BZC7BH
+EnGDijQghd59ZMRuf0Y3oA9EyiTQJdWQjealALGP
+</X509Certificate></X509Data></KeyInfo></Signature>
+    </DTE>
