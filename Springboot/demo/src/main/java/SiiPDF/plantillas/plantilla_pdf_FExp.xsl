@@ -227,6 +227,114 @@
 										name="DetalleVacio" />
 								</xsl:otherwise>
 							</xsl:choose>
+							
+						</fo:table-body>
+					</fo:table>
+				</fo:block>
+				<fo:block>
+					<fo:table table-layout="fixed" width="100%"
+						border-collapse="collapse">
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="9cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+
+						<fo:table-body>
+							<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Tipo Doc.
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Razon Referencia
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Folio
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+
+							<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Fecha
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+
+							<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										Codigo Ref.
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+
+							<xsl:choose>
+								<xsl:when
+									test="Referencia[NroLinDet=1]">
+									<xsl:apply-templates
+										select="Referencia[NroLinDet=1]" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:call-template
+										name="DetalleVacio" />
+								</xsl:otherwise>
+							</xsl:choose>
+
+							<xsl:choose>
+								<xsl:when
+									test="Referencia[NroLinDet=2]">
+									<xsl:apply-templates
+										select="Referencia[NroLinDet=2]" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:call-template
+										name="DetalleVacio" />
+								</xsl:otherwise>
+							</xsl:choose>
+
+							<xsl:choose>
+								<xsl:when
+									test="Referencia[NroLinDet=3]">
+									<xsl:apply-templates
+										select="Referencia[NroLinDet=3]" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:call-template
+										name="DetalleVacio" />
+								</xsl:otherwise>
+							</xsl:choose>
+
+							<xsl:choose>
+								<xsl:when
+									test="Referencia[NroLinDet=4]">
+									<xsl:apply-templates
+										select="Referencia[NroLinDet=4]" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:call-template
+										name="DetalleVacio" />
+								</xsl:otherwise>
+							</xsl:choose>
+
+
 							<fo:table-row>
 								<fo:table-cell text-align="center"
 									border-left-width="0.5pt" border-left-style="solid"
@@ -241,7 +349,7 @@
 									border-width="0.5pt" border-style="solid" display-align="center" column-number="3" height="1cm">
 									<fo:block>
 										<fo:inline font-weight="bold">
-											Suma
+											Monto Exento
 										</fo:inline>
 									</fo:block>
 								</fo:table-cell>
@@ -272,56 +380,45 @@
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
+							<fo:table-row>
+								<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+									<fo:block>
+										<fo:inline font-weight="bold">
+											Dólar Observado
+										</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+									<fo:block>
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="Encabezado/OtraMoneda/TpoCambio"/>
+										</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+
+							<fo:table-row>
+								<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+									<fo:block>
+										<fo:inline font-weight="bold">
+											Total en pesos
+										</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center"
+									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+									<fo:block>
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="Encabezado/OtraMoneda/MntTotOtrMnda"/>
+										</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
 						</fo:table-body>
 					</fo:table>
-				</fo:block>
-			</fo:block-container>
-			<fo:block-container absolute-position="absolute" bottom="0.5cm"
-				margin-top="0.5cm" left="14.5cm" height="3cm" width="5cm"
-				border-color="gray" border-style="solid" border-width="1mm">
-				<fo:block font-size="16pt" font-family="monospace"
-					font-weight="bold" color="gray" text-align="center"
-					hyphenate="false" margin-top="0.6cm">
-					P A G A D O
-				</fo:block>
-
-				<fo:block font-size="12pt" font-family="monospace"
-					font-weight="bold" color="gray" text-align="center"
-					hyphenate="false">
-					<xsl:call-template name="FechaFormat">
-						<xsl:with-param name="fecha">
-							<xsl:value-of select="Encabezado/IdDoc/FchEmis" />
-						</xsl:with-param>
-					</xsl:call-template>
-				</fo:block>
-
-				<fo:block font-size="16pt" font-family="monospace"
-					font-weight="bold" color="gray" text-align="center"
-					hyphenate="false">
-					NIC CHILE
-				</fo:block>
-			</fo:block-container>
-			<fo:block-container absolute-position="absolute" left="7.2cm" bottom="1.5cm" width="7cm" height="4cm" border-color="black" border-style="solid" border-width="0.5mm">
-				<fo:block font-size="12pt" font-family="monospace" color="black" text-align="center" margin-top="0.2cm">
-					ACUSE DE RECIBO
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="black" text-align="left" margin-left="0.5cm" margin-top="0.2cm">
-					Nombre <fo:inline>____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="black" text-align="left" margin-left="0.5cm">
-					RUT <fo:inline>_______________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="black" text-align="left" margin-left="0.5cm">
-					Fecha <fo:inline>_____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="black" text-align="left" margin-left="0.5cm" margin-bottom="0.5cm">
-					Recinto <fo:inline>___________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="10pt" font-family="monospace" color="black" text-align="left" margin-left="0.5cm" margin-bottom="0.9cm">
-					Firma <fo:inline>_____________________</fo:inline>
-				</fo:block>
-				<fo:block font-size="7pt" font-family="monospace" color="black" text-align="left">
-					EL ACUSE RECIBO QUE SE DECLARA EN ESTE ACTO, DE ACUERDO A LO DISPUESTO EN LA LETRA B) DEL ART. 9° Y LA LETRA A) DEL ART. 12 DE LA LEY 19.983, AUTORIZA LA ENTREGA EN PROPIEDAD DE LOS BIENES Y/O SERVICIOS PRESTADOS, HABIENDO SIDO RECIBIDOS EN TOTAL CONFORMIDAD.
 				</fo:block>
 			</fo:block-container>
 			<xsl:apply-templates select="TED" />
@@ -476,14 +573,13 @@
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left"
-								number-columns-spanned="3">
+								number-columns-spanned="1">
 								<fo:block>
 									<xsl:value-of select="RznSocRecep" />
 								</fo:block>
 							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell text-align="left">
+							<fo:table-cell text-align="left"
+								number-columns-spanned="1">
 								<fo:block>
 									<fo:inline font-weight="bold">
 										R.U.T.:
@@ -491,11 +587,40 @@
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left"
-								number-columns-spanned="3">
+								number-columns-spanned="1">
 								<fo:block>
 									<xsl:value-of select="RUTRecep" />
 								</fo:block>
 							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										ID. CLIENTE:
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="left"
+								number-columns-spanned="3">
+								<fo:block>
+									<xsl:value-of select="CdgIntRecep" />
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+
+						<fo:table-row>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										TAX_ID:
+									</fo:inline>
+								</fo:block>
+								<fo:block>
+									<xsl:value-of select="tax_id" />
+								</fo:block>
+							</fo:table-cell>
+
 						</fo:table-row>
 						<fo:table-row>
 							<fo:table-cell text-align="left">
@@ -516,18 +641,6 @@
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<fo:inline font-weight="bold">
-										COMUNA:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:value-of select="CmnaRecep" />
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
 										CIUDAD:
 									</fo:inline>
 								</fo:block>
@@ -537,33 +650,35 @@
 									<xsl:value-of select="CiudadRecep" />
 								</fo:block>
 							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										PAIS:
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<xsl:value-of select="../Transporte/Aduana/CodPaisRecep" />
+								</fo:block>
+							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
+							<fo:table-cell text-align="left" number-columns-spanned ="2">
+								<fo:block>
+									<xsl:text> </xsl:text>
+								</fo:block>
+							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
-									<fo:inline font-weight="bold">
-										GIRO:
+									<fo:inline font-weight="bold" >
+										TIPO DE MONEDA:
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
-									<xsl:value-of select="GiroRecep" />
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										CONDICION VENTA:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:call-template name="PagoFormat">
-										<xsl:with-param name="medioPago" select="$medioPago"/>
-										<xsl:with-param name="formaPago" select="$formaPago"/>
-									</xsl:call-template>
+									<xsl:value-of select="../Totales/TpoMoneda"/>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -582,19 +697,8 @@
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell text-align="left" number-columns-spanned="2">
-								<fo:block>
-									<fo:inline font-weight="bold">Vencimiento: </fo:inline>
-									<xsl:text> </xsl:text>
-            						<xsl:value-of select="../IdDoc/FchVenc" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
-				
-
 			</fo:block>
 
 </fo:block-container>
