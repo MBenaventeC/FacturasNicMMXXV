@@ -248,7 +248,7 @@
 									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
 									<fo:block>
 										<fo:inline font-weight="bold">
-											<xsl:value-of select="Encabezado/Totales/MntNeto"/>
+											<xsl:value-of select="Encabezado/Totales/MntExe"/>
 										</fo:inline>
 									</fo:block>
 								</fo:table-cell>

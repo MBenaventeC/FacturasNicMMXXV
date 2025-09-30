@@ -363,6 +363,20 @@
 									<xsl:value-of select="RznSocRecep" />
 								</fo:block>
 							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										ID. CLIENTE:
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<xsl:value-of select="CdgIntRecep" />
+								</fo:block>
+							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<fo:inline font-weight="bold">
@@ -373,6 +387,20 @@
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<xsl:value-of select="RUTRecep" />
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										TAX_ID:
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<xsl:value-of select="RznSocRecep" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -395,18 +423,6 @@
 							<fo:table-cell text-align="left">
 								<fo:block>
 									<fo:inline font-weight="bold">
-										COMUNA:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:value-of select="CmnaRecep" />
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
 										CIUDAD:
 									</fo:inline>
 								</fo:block>
@@ -416,33 +432,30 @@
 									<xsl:value-of select="CiudadRecep" />
 								</fo:block>
 							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<fo:inline font-weight="bold">
+										PAÍS:
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell text-align="left">
+								<fo:block>
+									<xsl:value-of select="../Transporte/Aduana/CodPaisRecep" />
+								</fo:block>
+							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
-							<fo:table-cell text-align="left">
+							<fo:table-cell text-align="left" number-columns-spanned="2" >
 								<fo:block>
 									<fo:inline font-weight="bold">
-										GIRO:
+										TIPO DE MONEDA:
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
-									<xsl:value-of select="GiroRecep" />
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										CONDICION VENTA:
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="left">
-								<fo:block>
-									<xsl:call-template name="PagoFormat">
-										<xsl:with-param name="medioPago" select="$medioPago"/>
-										<xsl:with-param name="formaPago" select="$formaPago"/>
-									</xsl:call-template>
+									<xsl:value-of select="../Totales/TpoMoneda" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -462,17 +475,6 @@
 										ITEM: 
 									</fo:inline>
 									<xsl:text> 6.1.01.03.01 (2152)</xsl:text>	
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell text-align="left" number-columns-spanned="2">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Vencimiento:
-									</fo:inline>
-									<xsl:text> </xsl:text>
-            						<xsl:value-of select="../IdDoc/FchVenc" />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
