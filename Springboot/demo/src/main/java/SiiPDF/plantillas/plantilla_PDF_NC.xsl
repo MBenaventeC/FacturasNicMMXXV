@@ -58,7 +58,7 @@
 
 			<!--  La lista de detalle -->
 			<fo:block-container absolute-position="absolute" left="0cm"
-				top="8cm">
+				top="8.5cm">
 				<fo:block font-size="8pt" font-family="monospace"
 					color="black" text-align="left" space-before="8pt">
 					<fo:table table-layout="fixed" width="100%"

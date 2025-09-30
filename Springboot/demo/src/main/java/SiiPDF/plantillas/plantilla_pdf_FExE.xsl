@@ -240,7 +240,7 @@
 									border-width="0.5pt" border-style="solid" display-align="center" column-number="3" height="1cm">
 									<fo:block>
 										<fo:inline font-weight="bold">
-											Suma
+											Exento
 										</fo:inline>
 									</fo:block>
 								</fo:table-cell>
