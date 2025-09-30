@@ -54,9 +54,9 @@ public class generatePDFclass{
     // Ejemplo de uso
     public static void main(String[] args) throws Exception {
         try (
-            InputStream xmlFile = new FileInputStream("test_files/In/NotaDeDebitoElectronica_1415.xml");
-            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_ND.xsl");
-            OutputStream pdfFile = new FileOutputStream("test_files/Out/test_pdf_ND_1415.pdf")
+            InputStream xmlFile = new FileInputStream("test_files/In/FacturaDeExportacionElectronica_1398.xml");
+            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExp.xsl");
+            OutputStream pdfFile = new FileOutputStream("test_files/Out/test_pdf_FExp_1398.pdf")
         ) {
             generatePDF(xmlFile, xslFile, pdfFile);
             System.out.println("PDF generado correctamente.");

@@ -57,304 +57,289 @@
 				</xsl:with-param>
 			</xsl:apply-templates>
 
-			<!--  La lista de detalle -->
-			<fo:block-container absolute-position="absolute" left="0cm"
-				top="9cm">
+			<!-- Tabla de Detalle -->
+			<fo:block-container absolute-position="absolute" left="0cm" top="8cm" width="19cm">
 				<fo:block font-size="8pt" font-family="monospace"
 					color="black" text-align="left" space-before="8pt">
-					<fo:table table-layout="fixed" width="100%"
-						border-collapse="collapse">
-						<fo:table-column column-width="2cm" />
-						<fo:table-column column-width="12.5cm" />
-						<fo:table-column column-width="2.5cm" />
-						<fo:table-column column-width="2.5cm" />
-
+					<fo:table table-layout="fixed" width="100%" border-width="0.5pt" border-style="solid" border-collapse="collapse">
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="9.25cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="2.25cm" />
+						
 						<fo:table-body>
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-									<fo:block>
-										<fo:inline font-weight="bold">
-											Cantidad
-										</fo:inline>
-									</fo:block>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">Cant.</fo:inline></fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-									<fo:block>
-										<fo:inline font-weight="bold">
-											Detalle
-										</fo:inline>
-									</fo:block>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">Detalle</fo:inline></fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-									<fo:block>
-										<fo:inline font-weight="bold">
-											P. Unitario
-										</fo:inline>
-									</fo:block>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">U. Med.</fo:inline></fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-									<fo:block>
-										<fo:inline font-weight="bold">
-											Total
-										</fo:inline>
-									</fo:block>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">P. Unit.</fo:inline></fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">Descuento</fo:inline></fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">Recargo</fo:inline></fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block><fo:inline font-weight="bold">Total</fo:inline></fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=1]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=1]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=2]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=2]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=3]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=3]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=4]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=4]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=5]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=5]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=6]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=6]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=7]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=7]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=8]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=8]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when test="Detalle[NroLinDet=9]">
-									<xsl:apply-templates
-									select="Detalle[NroLinDet=9]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=10]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=10]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=11]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=11]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=12]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=12]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
 							
-						</fo:table-body>
-					</fo:table>
-				</fo:block>
-				<fo:block>
-					<fo:table table-layout="fixed" width="100%"
-						border-collapse="collapse">
-						<fo:table-column column-width="1.5cm" />
-						<fo:table-column column-width="9cm" />
-						<fo:table-column column-width="1.5cm" />
-						<fo:table-column column-width="1.5cm" />
-						<fo:table-column column-width="1.5cm" />
-						<fo:table-column column-width="1.5cm" />
-						<fo:table-column column-width="1.5cm" />
-
-						<fo:table-body>
-							<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Tipo Doc.
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Razon Referencia
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Folio
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-
-							<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Fecha
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-
-							<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid">
-								<fo:block>
-									<fo:inline font-weight="bold">
-										Codigo Ref.
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=1]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=1]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
 							<xsl:choose>
-								<xsl:when
-									test="Referencia[NroLinDet=1]">
-									<xsl:apply-templates
-										select="Referencia[NroLinDet=1]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=2]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=2]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
 							<xsl:choose>
-								<xsl:when
-									test="Referencia[NroLinDet=2]">
-									<xsl:apply-templates
-										select="Referencia[NroLinDet=2]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=3]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=3]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
 							<xsl:choose>
-								<xsl:when
-									test="Referencia[NroLinDet=3]">
-									<xsl:apply-templates
-										select="Referencia[NroLinDet=3]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=4]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=4]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
 							<xsl:choose>
-								<xsl:when
-									test="Referencia[NroLinDet=4]">
-									<xsl:apply-templates
-										select="Referencia[NroLinDet=4]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=5]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=5]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=6]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=6]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
 
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=7]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=7]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=8]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=8]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=9]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=9]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+
+							<xsl:choose>
+                                <xsl:when test="Detalle[NroLinDet=10]">
+                                    <xsl:apply-templates
+                                        select="Detalle[NroLinDet=10]" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template
+                                        name="DetalleVacio" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+							
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-left-width="0.5pt" border-left-style="solid"
+								<fo:table-cell text-align="center" border-left-width="0.5pt" border-left-style="solid"
 									border-right-width="0.5pt" border-right-style="solid"
 									border-bottom-width="0.5pt" border-bottom-style="solid"
-									number-columns-spanned="4">
+									number-columns-spanned="7">
 									<fo:block />
 								</fo:table-cell>
 							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</fo:block>
+			
+
+				<fo:block space-before="1cm"/>
+
+				<!-- Tabla de Referencias -->
+				<fo:block font-size="8pt" font-family="monospace" color="black" text-align="left">
+					<fo:table table-layout="fixed" width="100%" border-collapse="collapse">
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="9.25cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="1.5cm" />
+						<fo:table-column column-width="2.25cm" />
+
+						<fo:table-body>
+							<!-- Fila de encabezados -->
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" display-align="center" column-number="3" height="1cm">
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
 									<fo:block>
-										<fo:inline font-weight="bold">
-											Monto Exento
-										</fo:inline>
+										<fo:inline font-weight="bold">Tipo Doc.</fo:inline>
 									</fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block>
+										<fo:inline font-weight="bold">Razon Referencia</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid">
+									<fo:block>
+										<fo:inline font-weight="bold">Folio</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" number-columns-spanned="2">
+									<fo:block>
+										<fo:inline font-weight="bold">Fecha</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" number-columns-spanned="2">
+									<fo:block>
+										<fo:inline font-weight="bold">Codigo Ref.</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+
+							<!-- Filas de datos de referencias -->
+							<xsl:for-each select="Referencia">
+								<fo:table-row>
+									<fo:table-cell text-align="right" border-left-width="0.5pt" border-left-style="solid"
+										border-right-width="0.5pt" border-right-style="solid" padding-left="2mm" padding-right="2mm" padding-top="1mm">
+										<fo:block><xsl:value-of select="TpoDocRef"/></fo:block>
+									</fo:table-cell>
+									<fo:table-cell text-align="left" border-left-width="0.5pt" border-left-style="solid"
+										border-right-width="0.5pt" border-right-style="solid" padding-left="2mm" padding-right="2mm" padding-top="1mm">
+										<fo:block><xsl:value-of select="RazonRef"/></fo:block>
+									</fo:table-cell>
+									<fo:table-cell text-align="right" border-left-width="0.5pt" border-left-style="solid"
+										border-right-width="0.5pt" border-right-style="solid" padding-left="2mm" padding-right="2mm" padding-top="1mm">
+										<fo:block><xsl:value-of select="FolioRef"/></fo:block>
+									</fo:table-cell>
+									<fo:table-cell text-align="right" border-left-width="0.5pt" border-left-style="solid"
+										border-right-width="0.5pt" border-right-style="solid" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
+										<fo:block><xsl:value-of select="FchRef"/></fo:block>
+									</fo:table-cell>
+									<fo:table-cell text-align="right" border-left-width="0.5pt" border-left-style="solid"
+										border-right-width="0.5pt" border-right-style="solid" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
+										<fo:block><xsl:value-of select="CodRef"/></fo:block>
+									</fo:table-cell>
+								</fo:table-row>	
+							</xsl:for-each>
+
+							<!-- Fila separadora -->
+							<fo:table-row>
+								<fo:table-cell text-align="center" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" height="0.8cm"
+									border-bottom-width = "0.5pt" border-bottom-style ="solid">
+									<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" height="0.8cm"
+									border-bottom-width = "0.5pt" border-bottom-style ="solid">
+									<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" height="0.8cm"
+									border-bottom-width = "0.5pt" border-bottom-style ="solid">
+									<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" height="0.8cm" number-columns-spanned="2"
+									border-bottom-width = "0.5pt" border-bottom-style ="solid">
+								<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" height="0.8cm" number-columns-spanned="2"
+									border-bottom-width = "0.5pt" border-bottom-style ="solid">
+									<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+								</fo:table-cell>
+					
+							</fo:table-row>
+							<fo:table-row>
+								<fo:table-cell
+									number-columns-spanned="7" height="1cm">
+									<fo:block space-before="0.8cm"/>
+								</fo:table-cell>
+							</fo:table-row>
+
+
+							<!-- Filas de totales -->
+							<fo:table-row>
+								<fo:table-cell text-align="center" number-columns-spanned="3">
+									<fo:block />
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2">
+									<fo:block>
+										<fo:inline font-weight="bold">Monto Exento</fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
 									<fo:block>
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="Encabezado/Totales/MntExe"/>
@@ -363,16 +348,15 @@
 								</fo:table-cell>
 							</fo:table-row>
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+								<fo:table-cell text-align="center" number-columns-spanned="3">
+									<fo:block />
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2">
 									<fo:block>
-										<fo:inline font-weight="bold">
-											Total
-										</fo:inline>
+										<fo:inline font-weight="bold">Total</fo:inline>
 									</fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+								<fo:table-cell text-align="right" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
 									<fo:block>
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="Encabezado/Totales/MntTotal"/>
@@ -381,16 +365,15 @@
 								</fo:table-cell>
 							</fo:table-row>
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+								<fo:table-cell text-align="center" number-columns-spanned="3">
+									<fo:block />
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2">
 									<fo:block>
-										<fo:inline font-weight="bold">
-											Dólar Observado
-										</fo:inline>
+										<fo:inline font-weight="bold">Dólar Observado</fo:inline>
 									</fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+								<fo:table-cell text-align="right" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
 									<fo:block>
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="Encabezado/OtraMoneda/TpoCambio"/>
@@ -398,18 +381,16 @@
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-
 							<fo:table-row>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="3" display-align="center" height="1cm">
+								<fo:table-cell text-align="center" number-columns-spanned="3">
+									<fo:block />
+								</fo:table-cell>
+								<fo:table-cell text-align="center" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2">
 									<fo:block>
-										<fo:inline font-weight="bold">
-											Total en pesos
-										</fo:inline>
+										<fo:inline font-weight="bold">Total en pesos</fo:inline>
 									</fo:block>
 								</fo:table-cell>
-								<fo:table-cell text-align="center"
-									border-width="0.5pt" border-style="solid" column-number="4" display-align="center" height="1cm">
+								<fo:table-cell text-align="right" border-width="0.5pt" border-style="solid" display-align="center" height="1cm" number-columns-spanned="2" padding-left="2mm" padding-right="2mm" padding-top="1mm">
 									<fo:block>
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="Encabezado/OtraMoneda/MntTotOtrMnda"/>
@@ -425,25 +406,19 @@
 		</fo:block>
 	</xsl:template>
 
-
 	<!-- Datos del emisor -->
 	<xsl:template match="Emisor">
 		<xsl:param name="folio" />
 		<xsl:param name="tipo" />
 
 		<!--  El logo -->
-		<fo:block-container absolute-position="absolute" left="0cm"
-			top="-0.5cm">
+		<fo:block-container absolute-position="absolute" left="0cm" top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
 					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
-		</fo:block-container>
-
-		<fo:block-container absolute-position="absolute" left="3cm" top="10cm" width="12cm" height="5cm" z-index="-1">
-    		<fo:block height="5cm" background-image="url('src/main/resources/SiiPDF/cl.png')" background-repeat="no-repeat" background-position="center top"/>
 		</fo:block-container>
 
 		<fo:block-container absolute-position="absolute" left="2.5cm"
@@ -526,7 +501,8 @@
 				<xsl:value-of select="$folio" />
 			</fo:block>
 		</fo:block-container>
-		<fo:block-container absolute-position ="absolute" left = "12cm" top ="3cm" width ="7.5cm">
+		
+		<fo:block-container absolute-position="absolute" left="12cm" top="3cm" width="7.5cm">
 			<fo:block font-size="14pt" font-family="monospace"
 					font-weight="bold" color="red" text-align="center"
 					hyphenate="false">
@@ -541,8 +517,7 @@
 		<xsl:param name="medioPago"/>
 		<xsl:param name="formaPago"/>
 
-     	<fo:block-container absolute-position="absolute" left="0cm"
-			top="4cm">
+        <fo:block-container absolute-position="absolute" left="0cm" top="4cm">
 			<fo:block font-size="10pt" font-family="monospace" space-after="8pt"
 				language="es" hyphenate="true" color="black" text-align="left">
 				Santiago,
@@ -551,7 +526,6 @@
 						<xsl:value-of select="$fecha" />
 					</xsl:with-param>
 				</xsl:call-template>
-
 			</fo:block>
 		
 			<fo:block font-size="10pt" font-family="monospace"
@@ -572,22 +546,19 @@
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="1">
+							<fo:table-cell text-align="left" number-columns-spanned="1">
 								<fo:block>
 									<xsl:value-of select="RznSocRecep" />
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="1">
+							<fo:table-cell text-align="left" number-columns-spanned="1">
 								<fo:block>
 									<fo:inline font-weight="bold">
 										R.U.T.:
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="1">
+							<fo:table-cell text-align="left" number-columns-spanned="1">
 								<fo:block>
 									<xsl:value-of select="RUTRecep" />
 								</fo:block>
@@ -601,8 +572,7 @@
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="3">
+							<fo:table-cell text-align="left" number-columns-spanned="3">
 								<fo:block>
 									<xsl:value-of select="CdgIntRecep" />
 								</fo:block>
@@ -630,8 +600,7 @@
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell text-align="left"
-								number-columns-spanned="3">
+							<fo:table-cell text-align="left" number-columns-spanned="3">
 								<fo:block>
 									<xsl:value-of select="DirRecep" />
 								</fo:block>
@@ -700,16 +669,15 @@
 					</fo:table-body>
 				</fo:table>
 			</fo:block>
-
-</fo:block-container>
+        </fo:block-container>
 	</xsl:template>
 
 <!-- Detalle -->
 	<xsl:template match="Detalle">
-		<fo:table-row >
+		<fo:table-row>
 			<fo:table-cell text-align="right" border-left-width="0.5pt"
 				border-left-style="solid" border-right-width="0.5pt"
-				border-right-style="solid" margin-right="2mm"  height="0.8cm">
+				border-right-style="solid" margin-right="2mm" height="0.8cm">
 				<fo:block>
 						<xsl:value-of select="QtyItem" />
 				</fo:block>
@@ -723,9 +691,30 @@
 			</fo:table-cell>
 			<fo:table-cell text-align="right" border-left-width="0.5pt"
 				border-left-style="solid" border-right-width="0.5pt"
-				border-right-style="solid" margin-right="2mm"  height="0.8cm">
+				border-right-style="solid" margin-right="2mm" height="0.8cm">
 				<fo:block>
-						<xsl:value-of select="PrcItem" />
+						<!-- <xsl:value-of select="UMed" /> -->
+				</fo:block>
+			</fo:table-cell>
+			<fo:table-cell text-align="right" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" margin-right="2mm" height="0.8cm" >
+				<fo:block>
+						<xsl:value-of select="PrcItem"/>
+				</fo:block>
+			</fo:table-cell>
+			<fo:table-cell text-align="right" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" margin-right="2mm" height="0.8cm" >
+				<fo:block>
+						<!-- <xsl:value-of select="Descuento"/> -->
+				</fo:block>
+			</fo:table-cell>
+			<fo:table-cell text-align="right" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" margin-right="2mm" height="0.8cm" >
+				<fo:block>
+						<!-- <xsl:value-of select="Recargo"/> -->
 				</fo:block>
 			</fo:table-cell>
 			<fo:table-cell text-align="right" border-left-width="0.5pt"
@@ -737,7 +726,7 @@
 			</fo:table-cell>
 		</fo:table-row>
 	</xsl:template>
-
+	
 	<!-- Timbre electrónico -->
 	<xsl:template match="TED">
 		<xsl:variable name="myted" select="." />
@@ -873,6 +862,21 @@
 
 	<xsl:template name="DetalleVacio">
 		<fo:table-row>
+			<fo:table-cell text-align="center" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" height="0.8cm">
+				<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+			</fo:table-cell>
+			<fo:table-cell text-align="center" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" height="0.8cm">
+				<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+			</fo:table-cell>
+			<fo:table-cell text-align="center" border-left-width="0.5pt"
+				border-left-style="solid" border-right-width="0.5pt"
+				border-right-style="solid" height="0.8cm">
+				<fo:block white-space-treatment="preserve">&#xa0;</fo:block>
+			</fo:table-cell>
 			<fo:table-cell text-align="center" border-left-width="0.5pt"
 				border-left-style="solid" border-right-width="0.5pt"
 				border-right-style="solid" height="0.8cm">
