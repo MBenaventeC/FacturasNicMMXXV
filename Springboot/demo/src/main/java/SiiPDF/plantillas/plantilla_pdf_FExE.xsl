@@ -215,17 +215,42 @@
 										name="DetalleVacio" />
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:choose>
-								<xsl:when
-									test="Detalle[NroLinDet=12]">
-									<xsl:apply-templates
-										select="Detalle[NroLinDet=12]" />
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:call-template
-										name="DetalleVacio" />
-								</xsl:otherwise>
-							</xsl:choose>
+							<fo:table-row >
+								<fo:table-cell text-align="right" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" margin-right="2mm"  height="0.8cm">
+									<fo:block>
+											<fo:block>&#160;</fo:block>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="left" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid"  margin-right="2mm" margin-left="2mm"  height="0.8cm">
+									<fo:block >
+											<xsl:choose>
+												<xsl:when test="../Encabezado/Receptor/Contacto">
+													<xsl:value-of select="../Encabezado/Receptor/Contacto" />
+												</xsl:when>
+												<xsl:otherwise>Sin contacto</xsl:otherwise>
+											</xsl:choose>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" margin-right="2mm"  height="0.8cm">
+									<fo:block>
+											<fo:block>&#160;</fo:block>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" border-left-width="0.5pt"
+									border-left-style="solid" border-right-width="0.5pt"
+									border-right-style="solid" margin-right="2mm" height="0.8cm" >
+									<fo:block>
+											<fo:block>&#160;</fo:block>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+
 							<fo:table-row>
 								<fo:table-cell text-align="center"
 									border-left-width="0.5pt" border-left-style="solid"
@@ -342,10 +367,6 @@
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
-		</fo:block-container>
-
-		<fo:block-container absolute-position="absolute" left="3cm" top="10cm" width="12cm" height="5cm" z-index="-1">
-    		<fo:block height="5cm" background-image="url('src/main/resources/SiiPDF/cl.png')" background-repeat="no-repeat" background-position="center top"/>
 		</fo:block-container>
 
 		<fo:block-container absolute-position="absolute" left="2.5cm"
