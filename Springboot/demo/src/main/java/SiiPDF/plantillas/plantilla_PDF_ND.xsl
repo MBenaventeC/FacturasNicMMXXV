@@ -327,14 +327,10 @@
 			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
+					src="url('src/main/java/SiiPDF/logoUchile3.png')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
-		</fo:block-container>
-
-		<fo:block-container absolute-position="absolute" left="3cm" top="10cm" width="12cm" height="5cm" z-index="-1">
-    		<fo:block height="5cm" background-image="url('src/main/resources/SiiPDF/cl.png')" background-repeat="no-repeat" background-position="center top"/>
 		</fo:block-container>
 
 		<fo:block-container absolute-position="absolute" left="2.5cm"
@@ -633,7 +629,7 @@
 				<fo:table-cell text-align="left" border-left-width="0.5pt"
 					border-left-style="solid" border-right-width="0.5pt"
 					border-right-style="solid" margin-right="2mm" margin-left="2mm" height="0.8cm">
-					<fo:block font-size="8pt" color="gray">
+					<fo:block font-size="8pt" color="black">
 						<!-- Línea 1+: DscItem del Detalle -->
 						<fo:block>
 							<xsl:call-template name="splitLines">

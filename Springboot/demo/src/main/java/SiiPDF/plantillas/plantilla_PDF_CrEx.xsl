@@ -222,7 +222,7 @@
 			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('src/main/java/SiiPDF/logoUchile.jpg')"
+					src="url('src/main/java/SiiPDF/logoUchile3.png')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
@@ -437,10 +437,10 @@
 							</fo:table-cell>
 							<fo:table-cell text-align="left">
 								<fo:block>
-    <xsl:call-template name="CodPais">
-        <xsl:with-param name="codigoPais" select="../Transporte/Aduana/CodPaisRecep"/>
-    </xsl:call-template>
-</fo:block>
+									<xsl:call-template name="CodPais">
+										<xsl:with-param name="codigoPais" select="../Transporte/Aduana/CodPaisRecep"/>
+									</xsl:call-template>
+								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row>
