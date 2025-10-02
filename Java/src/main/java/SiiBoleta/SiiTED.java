@@ -124,6 +124,7 @@ public class SiiTED {
     /** Metodo que recibe el TED construido en el metodo buildTED y entrega la representacion
      * en PDF417. (Es necesario dibujar la representacion en un pdf mas adelante).
      */
+
     public static Image generateBarcode(String ted)
             throws BadElementException {
 

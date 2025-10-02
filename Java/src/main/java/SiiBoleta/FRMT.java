@@ -33,7 +33,7 @@ public class FRMT {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.DD.class);
 
         Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
@@ -44,26 +44,19 @@ public class FRMT {
         StringWriter writer = new StringWriter();
         marshaller.marshal(jaxbElement, writer);
         String xmlString = writer.toString();
-        String[] xmlStringA= xmlString.split("\n");
-        String DDs = "";
-        for (int i = 0; i < xmlStringA.length; i++) {
-            xmlStringA[i] = xmlStringA[i].replaceAll("\n", "").replaceAll("\t", "").trim();
-            DDs+=xmlStringA[i];
-        }
-        System.out.println(DDs);
-        System.out.println(DD.getDDbracket());//Es más eficiente pero actualmente presenta errores, ver comparación en el print
 
+        xmlString = xmlString.replaceAll(">\\s+<", "><");
+
+        // Verificar si no es necesario en realidad ocupar la llave privada entregada por el SII en el archivo de Autorizacion.
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(2048);
         KeyPair keyPair = keyGen.generateKeyPair();
 
-        byte[] data = DDs.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] data = xmlString.getBytes(StandardCharsets.ISO_8859_1);
         Signature signature = Signature.getInstance("SHA1withRSA");
         signature.initSign(keyPair.getPrivate());
         signature.update(data);
-
         byte[] signedBytes = signature.sign();
-        //System.out.println(Arrays.toString(signedBytes));
 
         frmt.setValue(signedBytes);
         frmt.setAlgoritmo("SHA1withRSA");
