@@ -50,7 +50,7 @@ public class AppController {
 
         // Genera el XML con los datos del formulario
         try {
-            XmlGenerator.generateFacturaXML(model.asMap());
+            //XmlGenerator.generateFacturaXML(model.asMap());
         } catch (Exception e) {
             e.printStackTrace();
         }

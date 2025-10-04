@@ -76,12 +76,13 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>4.0.5</version>
-            <exclusions>
+            <!--<exclusions>
                 <exclusion>
                     <groupId>jakarta.xml.bind</groupId>
                     <artifactId>jakarta.xml.bind-api</artifactId>
                 </exclusion>
             </exclusions>
+			-->
         </dependency>
         <dependency>
             <groupId>jakarta.activation</groupId>
@@ -118,18 +119,7 @@
 		    <artifactId>fop</artifactId>
 		    <version>2.9</version>
 		</dependency>
-		<!-- XML APIs (si usas Java 9+ pueden ser necesarias) -->
-		<dependency>
-		    <groupId>javax.xml.bind</groupId>
-		    <artifactId>jaxb-api</artifactId>
-		    <version>2.3.1</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.glassfish.jaxb</groupId>
-		    <artifactId>jaxb-runtime</artifactId>
-		    <version>2.3.1</version>
-		</dependency>
-
+	
 	</dependencies>
 
 	<build>

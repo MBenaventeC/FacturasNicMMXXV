@@ -627,6 +627,13 @@
 				</fo:instream-foreign-object>
 				!-->
 			</fo:block>
+			<fo:block>
+				<fo:external-graphic
+					src="url('test_files/Out/ted_temp/ted_barcode.png')"
+					content-width="9cm"
+    				content-height="4cm"/>
+			</fo:block>
+
 			<fo:block font-size="8pt" font-family="sans-serif"
 				text-align="center">
 				Timbre Electrónico SII
