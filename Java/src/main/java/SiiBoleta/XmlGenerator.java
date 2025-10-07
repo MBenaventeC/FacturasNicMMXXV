@@ -41,7 +41,7 @@ public class XmlGenerator {
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/Autorizacion.xml");
+        File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,994321,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
@@ -71,7 +71,7 @@ public class XmlGenerator {
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/DTE7.xml");
+        File output = new File("out/DTE9.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
