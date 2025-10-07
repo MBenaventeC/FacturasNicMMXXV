@@ -12,7 +12,7 @@
           <Emisor>
             <RUTEmisor>60910000-1</RUTEmisor>
             <RznSocEmisor>Universidad de Chile</RznSocEmisor>
-            <GiroEmisor>Corporación Educacional y Servicios</GiroEmisor>
+            <GiroEmisor>Corporaciï¿½n Educacional y Servicios</GiroEmisor>
             <CdgSIISucur>67051191</CdgSIISucur>
             <DirOrigen>Miraflores 222, Piso 14</DirOrigen>
             <CmnaOrigen>Santiago</CmnaOrigen>
@@ -21,8 +21,8 @@
           <Receptor>
             <RUTRecep>60910000-1</RUTRecep>
             <CdgIntRecep>1156626</CdgIntRecep>
-            <RznSocRecep>Diseño</RznSocRecep>
-            <Contacto>Diseño</Contacto>
+            <RznSocRecep>Diseï¿½o</RznSocRecep>
+            <Contacto>Diseï¿½o</Contacto>
             <DirRecep>ALgarrobo328 Tel:+56.954168803</DirRecep>
             <CmnaRecep>Temuco</CmnaRecep>
             <CiudadRecep>Temuco</CiudadRecep>
@@ -46,7 +46,7 @@
             <F>1370000</F>
             <FE>2024-11-13</FE>
             <RR>60910000-1</RR>
-            <RSR>Diseño</RSR>
+            <RSR>Diseï¿½o</RSR>
             <MNT>9990</MNT>
             <IT1>dominio colegiogoldentemuco/18532590/1</IT1>
             <CAF version="1.0">

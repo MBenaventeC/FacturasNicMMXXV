@@ -18,10 +18,21 @@ import java.io.FileNotFoundException;
 
 //Imports para TED
 import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -83,106 +94,146 @@ public class generatePDFclass{
         File cafFile = new File("src/main/java/SiiPDF/Autorizacion.xml"); // 
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",41,1370000,"60910000-1","Dise�o",9990,"item1aaaaaaaaaaaaaaaaaaaa",cafFromXml);
-
-        //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",41,1370000,"60910000-1","Dise�o",9990,"item1aaa",cafFromXml);
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
-
-        // Se genera el codigo de barras
-        String tedsinlen = serializeTedToString(ted);
-        System.out.println("=== DEBUG TED BARCODE "+ tedsinlen.length() + "===");
+        
+        // 2. Creamos
         Image barcode = TED.makeBarcode(ted);
-
-        // ✅ AGREGAR DEBUG
-        //System.out.println("===  TED BARCODE LENGHT: ===");
-        //System.out.println("Barcode width: " + barcode.getScaledWidth());
-        //System.out.println("Barcode height: " + barcode.getScaledHeight());
-        //System.out.println("Raw data length: " + (barcode.getRawData() != null ? barcode.getRawData().length : 0));
-        //System.out.println("========================");
+        previewItextImage(barcode, "Barcode pre guardado");
         
-        // 3. Guardar imagen temporalmente
-        //String tempImagePath = "test_files/Out/ted_temp/ted_barcode.png";
-        //saveImageAsPNG(barcode, tempImagePath);
+        // 3. Guardamos
+        String tempImagePath = "test_files/Out/ted_temp/ted_barcode.png";
+        saveImageAsPNG(barcode, tempImagePath);
         
-        // 4. Generar PDF con referencia a la imagen
-        //generatePDF(xmlFile, xslFile, pdfFile);
+        // 4. Generar PDF
+        generatePDF(xmlFile, xslFile, pdfFile);
 
         // 5. Borrar la imagen temporal
         //deleteTemporaryImage(tempImagePath);
-
-        //--------NUEVO------- 4. Configurar FOP
-        FopFactory fopFactory = FopFactory.newInstance(new java.io.File(".").toURI());
-        FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, pdfFile);
-    
-        // 5. Setup XSLT con URIResolver personalizado
-        TransformerFactory factory = TransformerFactory.newInstance();
-        Transformer transformer = factory.newTransformer(new StreamSource(xslFile));
-    
-        // 6. Configurar URIResolver que maneja la imagen
-        transformer.setURIResolver(new TedImageURIResolver(barcode));
-        
-        // 7. Parámetros adicionales
-        transformer.setParameter("versionParam", "2.0");
-        transformer.setParameter("tedBarcodeAvailable", "true");
-        
-        // 8. Ejecutar transformación
-        Source src = new StreamSource(xmlFile);
-        Result res = new SAXResult(fop.getDefaultHandler());
-        transformer.transform(src, res);
-        
     }
-    private static String serializeTedToString(DTEDefType.Documento.TED ted) throws Exception {
-        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
-        jakarta.xml.bind.Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
-        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-
-        // Envolver en JAXBElement
-        javax.xml.namespace.QName qname = new javax.xml.namespace.QName("", "TED");
-        jakarta.xml.bind.JAXBElement<DTEDefType.Documento.TED> jaxbElement = 
-            new jakarta.xml.bind.JAXBElement<>(qname, DTEDefType.Documento.TED.class, ted);
-
-        java.io.StringWriter sw = new java.io.StringWriter();
-        marshaller.marshal(jaxbElement, sw);
-
-        String tedString = sw.toString()
-                .replace("&#8220;", "&quot;")
-                .replace("&#8216;", "&apos;");
+    
+    private static void previewItextImage(Image itextImage, String title) throws Exception {
+        // Crear archivo PDF temporal
+        File tempPdf = File.createTempFile("itext_preview_", ".pdf");
+        tempPdf.deleteOnExit();
         
-        return tedString;
+        // Crear documento PDF con la imagen
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(tempPdf));
+        document.open();
+        
+        // Agregar título
+        document.add(new com.itextpdf.text.Paragraph(title));
+        document.add(new com.itextpdf.text.Paragraph(" ")); // Espacio
+        
+        // Agregar la imagen
+        document.add(itextImage);
+        document.close();
+        
+        // Abrir PDF automáticamente
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(tempPdf);
+            System.out.println("Vista previa de iText Image: " + tempPdf.getAbsolutePath());
+        }
     }
     
     private static void saveImageAsPNG(Image itextImage, String path) throws IOException {
-        // Método optimizado para códigos de barras PDF417
-        byte[] rawData = itextImage.getRawData();
-        int width = (int) itextImage.getScaledWidth();
-        int height = (int) itextImage.getScaledHeight();
-        
-        // Crear BufferedImage optimizado para códigos de barras (monocromático)
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
-        
-        if (rawData != null && rawData.length > 0) {
-            // Procesamiento optimizado para datos binarios
-            int index = 0;
-            for (int y = 0; y < height && index < rawData.length; y++) {
-                for (int x = 0; x < width && index < rawData.length; x++) {
-                    // Para PDF417: 0 = negro (barra), 255 = blanco (espacio)
-                    int pixel = (rawData[index] & 0xFF) == 0 ? 0x000000 : 0xFFFFFF;
-                    bufferedImage.setRGB(x, y, pixel);
-                    index++;
+        try {
+            // Obtener dimensiones
+            int width = Math.round(itextImage.getScaledWidth());
+            int height = Math.round(itextImage.getScaledHeight());
+            
+            //Usar TYPE_INT_RGB para compatibilidad completa
+            BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            
+            //Fallback mejorado con datos raw
+            byte[] rawData = itextImage.getRawData();
+                
+            if (rawData != null && rawData.length > 0) {
+                // Llenar fondo blanco primero
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        bufferedImage.setRGB(x, y, 0xFFFFFF); // Blanco por defecto
+                    }
                 }
+                    
+                // Calcular bytes por píxel de manera más robusta
+                int expectedPixels = width * height;
+                int bytesPerPixel = Math.max(1, rawData.length / expectedPixels);
+                    
+                // Procesar datos con validación
+                int pixelCount = 0;
+                for (int y = 0; y < height && pixelCount < expectedPixels; y++) {
+                    for (int x = 0; x < width && pixelCount < expectedPixels; x++) {
+                        int dataIndex = pixelCount * bytesPerPixel;
+                            
+                        if (dataIndex < rawData.length) {
+                            int grayValue = rawData[dataIndex] & 0xFF;
+                                
+                            // Para PDF417: invertir si es necesario
+                            // Si la mayoría de píxeles son 0, probablemente están invertidos
+                            int rgb = (grayValue < 128) ? 0x000000 : 0xFFFFFF;
+                            bufferedImage.setRGB(x, y, rgb);
+                        }
+                        pixelCount++;
+                    }
+                }
+            } else {
+                // ✅ MÉTODO 3: Generar imagen de placeholder si fallan los anteriores
+                java.awt.Graphics2D g2d = bufferedImage.createGraphics();
+                g2d.setColor(java.awt.Color.WHITE);
+                g2d.fillRect(0, 0, width, height);
+                g2d.setColor(java.awt.Color.BLACK);
+                g2d.drawString("PDF417 Error", 10, height/2);
+                g2d.dispose();
+                    
+                System.err.println("Warning: No se pudieron obtener datos de imagen, generando placeholder");
             }
+            // ✅ GUARDAR CON VALIDACIÓN
+            File outputFile = new File(path);
+            outputFile.getParentFile().mkdirs();
+            
+            // Verificar que la imagen no esté completamente vacía
+            if (isImageValid(bufferedImage)) {
+                boolean saved = ImageIO.write(bufferedImage, "PNG", outputFile);
+                if (saved) {
+                    System.out.println("✅ Imagen TED guardada: " + path + " (" + width + "x" + height + ")");
+                } else {
+                    throw new IOException("ImageIO.write() retornó false");
+                }
+            } else {
+                throw new IOException("La imagen generada está corrupta o vacía");
+            }
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error guardando imagen TED: " + e.getMessage());
+            throw new IOException("Error procesando imagen iText: " + e.getMessage(), e);
+        }
+    }
+
+    // Método auxiliar para validar la imagen
+    private static boolean isImageValid(BufferedImage image) {
+        if (image == null || image.getWidth() <= 0 || image.getHeight() <= 0) {
+            return false;
         }
         
-        // Crear directorio y guardar
-        File outputFile = new File(path);
-        outputFile.getParentFile().mkdirs();
+        // Verificar que no sea completamente transparente/vacía
+        int blackPixels = 0;
+        int whitePixels = 0;
+        int totalPixels = Math.min(100, image.getWidth() * image.getHeight()); // Muestra
         
-        // Guardar como PNG con compresión optimizada
-        ImageIO.write(bufferedImage, "PNG", outputFile);
+        for (int i = 0; i < totalPixels; i++) {
+            int x = i % image.getWidth();
+            int y = i / image.getWidth();
+            int rgb = image.getRGB(x, y);
+            
+            if (rgb == 0x000000 || (rgb & 0xFF) < 128) blackPixels++;
+            else whitePixels++;
+        }
+        
+        // Debe tener al menos algunos píxeles negros (el código de barras)
+        return blackPixels > 0 && whitePixels > 0;
     }
 
     private static void deleteTemporaryImage(String pathString) {

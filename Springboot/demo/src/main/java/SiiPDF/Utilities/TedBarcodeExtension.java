@@ -31,7 +31,7 @@ import SiiBoleta.DTEDefType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
-import SiiBoleta.TEDSerializationUtils;
+import SiiBoleta.TED;
 
 
 
@@ -52,7 +52,7 @@ public class TedBarcodeExtension extends BarcodeExt {
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			DTEDefType.Documento.TED ted = (DTEDefType.Documento.TED) 
     		unmarshaller.unmarshal(tedxml.item(0));
-			String msg = TEDSerializationUtils.serializeTedString(ted);
+			String msg = TED.serializeTedString(ted);
 			
 			return generate(nl, msg);
 

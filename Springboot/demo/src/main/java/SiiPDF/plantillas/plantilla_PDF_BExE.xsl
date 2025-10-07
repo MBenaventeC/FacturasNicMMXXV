@@ -598,7 +598,7 @@
 			</fo:table-cell>
 		</fo:table-row>
 	</xsl:template>
-	<xsl:param name="tedBarcodeAvailable" select="'false'" />
+	<!--<xsl:param name="tedBarcodeAvailable" select="'false'" /> -->
 	<!-- Timbre electrónico -->
 	<xsl:template match="TED">
 		<xsl:variable name="myted" select="." />
@@ -628,19 +628,10 @@
 				!-->
 			</fo:block>
 			<fo:block>
-				<xsl:choose>
-					<xsl:when test="$tedBarcodeAvailable = 'true'">
-						<!-- Usar la imagen pasada dinámicamente -->
-						<fo:external-graphic src="ted:barcode" 
-										content-width="9cm" 
-										content-height="3cm"
-										scaling="uniform"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<!-- Fallback: mensaje o método alternativo -->
-						<fo:block>TED no disponible</fo:block>
-					</xsl:otherwise>
-				</xsl:choose>
+				<fo:external-graphic src="url('test_files/Out/ted_temp/ted_barcode.png')" 
+										content-width="3cm" 
+										content-height="9cm"
+										/>
 			</fo:block>
 
 			<fo:block font-size="8pt" font-family="sans-serif"
