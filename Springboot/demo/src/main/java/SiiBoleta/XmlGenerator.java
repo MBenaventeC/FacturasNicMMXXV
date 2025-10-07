@@ -49,7 +49,7 @@ public class XmlGenerator {
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
         // Se genera el codigo de barras
-        Image barcode = TED.makeBarcode(ted);
+        //Image barcode = TED.makeBarcode(ted);
 
         /*
 
