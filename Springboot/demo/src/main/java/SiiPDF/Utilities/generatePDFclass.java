@@ -83,25 +83,76 @@ public class generatePDFclass{
         File cafFile = new File("src/main/java/SiiPDF/Autorizacion.xml"); // 
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",41,1370000,"60910000-1","Dise�o",9990,"colegiogoldentemuco/18532590/1",cafFromXml);
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",41,1370000,"60910000-1","Dise�o",9990,"item1aaaaaaaaaaaaaaaaaaaa",cafFromXml);
 
         //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
         // Se genera el codigo de barras
+        String tedsinlen = serializeTedToString(ted);
+        System.out.println("=== DEBUG TED BARCODE "+ tedsinlen.length() + "===");
         Image barcode = TED.makeBarcode(ted);
+
+        // ✅ AGREGAR DEBUG
+        //System.out.println("===  TED BARCODE LENGHT: ===");
+        //System.out.println("Barcode width: " + barcode.getScaledWidth());
+        //System.out.println("Barcode height: " + barcode.getScaledHeight());
+        //System.out.println("Raw data length: " + (barcode.getRawData() != null ? barcode.getRawData().length : 0));
+        //System.out.println("========================");
         
         // 3. Guardar imagen temporalmente
-        String tempImagePath = "test_files/Out/ted_temp/ted_barcode.png";
-        saveImageAsPNG(barcode, tempImagePath);
+        //String tempImagePath = "test_files/Out/ted_temp/ted_barcode.png";
+        //saveImageAsPNG(barcode, tempImagePath);
         
         // 4. Generar PDF con referencia a la imagen
-        generatePDF(xmlFile, xslFile, pdfFile);
+        //generatePDF(xmlFile, xslFile, pdfFile);
 
         // 5. Borrar la imagen temporal
-        deleteTemporaryImage(tempImagePath);
+        //deleteTemporaryImage(tempImagePath);
+
+        //--------NUEVO------- 4. Configurar FOP
+        FopFactory fopFactory = FopFactory.newInstance(new java.io.File(".").toURI());
+        FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, pdfFile);
+    
+        // 5. Setup XSLT con URIResolver personalizado
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer = factory.newTransformer(new StreamSource(xslFile));
+    
+        // 6. Configurar URIResolver que maneja la imagen
+        transformer.setURIResolver(new TedImageURIResolver(barcode));
         
+        // 7. Parámetros adicionales
+        transformer.setParameter("versionParam", "2.0");
+        transformer.setParameter("tedBarcodeAvailable", "true");
+        
+        // 8. Ejecutar transformación
+        Source src = new StreamSource(xmlFile);
+        Result res = new SAXResult(fop.getDefaultHandler());
+        transformer.transform(src, res);
+        
+    }
+    private static String serializeTedToString(DTEDefType.Documento.TED ted) throws Exception {
+        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
+        jakarta.xml.bind.Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_ENCODING, "ISO-8859-1");
+        marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+
+        // Envolver en JAXBElement
+        javax.xml.namespace.QName qname = new javax.xml.namespace.QName("", "TED");
+        jakarta.xml.bind.JAXBElement<DTEDefType.Documento.TED> jaxbElement = 
+            new jakarta.xml.bind.JAXBElement<>(qname, DTEDefType.Documento.TED.class, ted);
+
+        java.io.StringWriter sw = new java.io.StringWriter();
+        marshaller.marshal(jaxbElement, sw);
+
+        String tedString = sw.toString()
+                .replace("&#8220;", "&quot;")
+                .replace("&#8216;", "&apos;");
+        
+        return tedString;
     }
     
     private static void saveImageAsPNG(Image itextImage, String path) throws IOException {

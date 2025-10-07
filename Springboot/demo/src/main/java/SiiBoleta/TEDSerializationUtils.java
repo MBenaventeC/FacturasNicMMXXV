@@ -14,7 +14,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
-public class TED {
+public class TEDSerializationUtils {
 
     public static DTEDefType.Documento.TED makeTED(DTEDefType.Documento.TED.DD dd,
                                                    DTEDefType.Documento.TED.FRMT frmt) {
@@ -28,7 +28,7 @@ public class TED {
         return ted;
     }
 
-    public static Image makeBarcode(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
+    public static String serializeTedString(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
         Marshaller marshaller = context.createMarshaller();
@@ -47,11 +47,6 @@ public class TED {
         String tedString = sw.toString()
                 .replace("&#8220;", "&quot;")
                 .replace("&#8216;", "&apos;");
-
-        System.out.print(tedString);
-
-        BarcodePDF417 pdf417 = new BarcodePDF417();
-        pdf417.setText(new String(tedString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)); // Ojo con charset
-        return pdf417.getImage();
+        return tedString.replace("&#8220;", "&quot;").replace("&#8216;", "&apos;");
     }
 }
