@@ -6,25 +6,29 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import org.bouncycastle.operator.OperatorCreationException;
 
+import javax.xml.crypto.MarshalException;
+import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.SignatureException;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class XmlGenerator {
 
-    public static void main(String[] args) throws JAXBException, DatatypeConfigurationException, UnsupportedEncodingException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, DocumentException, FileNotFoundException {
+    public static void main(String[] args) throws Exception {
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
@@ -49,11 +53,10 @@ public class XmlGenerator {
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
         // Se genera el codigo de barras
-        Image barcode = TED.makeBarcode(ted);
-
-        /*
+        //Image barcode = TED.makeBarcode(ted);
 
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-33-994321");
+        //DTEMakers.makeSignature2(documento);
         SignatureType signature = DTEMakers.makeSignature(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,signature);
         // ...set other fields...
@@ -68,7 +71,7 @@ public class XmlGenerator {
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/DTE4.xml");
+        File output = new File("out/DTE7.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
@@ -77,6 +80,5 @@ public class XmlGenerator {
         marshaller.marshal(jaxbElement, output);
         // or: marshaller.marshal(obj, System.out);
 
-         */
     }
 }

@@ -1,12 +1,57 @@
 package SiiBoleta;
 
+import javax.xml.crypto.MarshalException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.GregorianCalendar;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.security.cert.X509Certificate;
+import java.util.Collections;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+
+import javax.xml.crypto.dsig.*;
+import javax.xml.crypto.dsig.dom.DOMSignContext;
+import javax.xml.crypto.dsig.keyinfo.*;
+import javax.xml.crypto.dsig.spec.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import jakarta.xml.bind.*;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.w3c.dom.Document;
+
+import java.math.BigInteger;
+import java.security.*;
+import java.security.cert.X509Certificate;
+import java.util.Date;
+
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.cert.X509v3CertificateBuilder;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 public class DTEMakers {
     public static DTEDefType.Documento.Encabezado.IdDoc makeIdDoc
@@ -111,6 +156,107 @@ public class DTEMakers {
         documento.setID(id);
         documento.setTED(ted);
         return documento;
+    }
+
+    public static SignatureType makeSignature2(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException {
+        /*2. Load the XML Document
+          Use a DOM parser to load your XML into a Document object:
+        */
+        /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
+
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+        //fake key
+        // 1. Generate RSA Key Pair
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+        keyGen.initialize(2048);
+        KeyPair keyPair = keyGen.generateKeyPair();
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+
+        // 2. Create Self-Signed Certificate
+        X500Name issuer = new X500Name("CN=Test Cert, O=FakeCA, C=CL");
+        BigInteger serial = BigInteger.valueOf(System.currentTimeMillis());
+        Date notBefore = new Date();
+        Date notAfter = new Date(notBefore.getTime() + 365L * 24 * 60 * 60 * 1000); // 1 year
+
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(
+                issuer, serial, notBefore, notAfter, issuer, publicKey
+        );
+
+        ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA").build(privateKey);
+        X509Certificate certificate = new JcaX509CertificateConverter()
+                .setProvider("BC")
+                .getCertificate(certBuilder.build(signer));
+
+
+
+        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().newDocument();
+
+        // Marshal directly into the DOM
+        JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
+                new QName("Documento"), DTEDefType.Documento.class, documento);
+        marshaller.marshal(jaxbElement, doc);
+
+        //3. Initialize the Signature Factory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        //4. Create the Reference and SignedInfo
+        Reference ref = fac.newReference(
+                "",
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                Collections.singletonList(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null)),
+                null,
+                null
+        );
+
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref)
+        );
+
+        //5. Load the Key and Certificat
+        /*KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream("keystore.p12"), "keystorePassword".toCharArray());
+        PrivateKey pk = (PrivateKey) ks.getKey("alias", "keyPassword".toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate("alias");
+
+        //6. Create KeyInfo
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kif.newX509Data(Collections.singletonList(cert))));*/
+
+        //7. Sign the Document
+        /*DOMSignContext dsc = new DOMSignContext(pk, doc.getDocumentElement());
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);*/
+
+        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+        KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
+                Collections.singletonList(
+                        fac.getKeyInfoFactory().newX509Data(Collections.singletonList(certificate))
+                )
+        );
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        Element signatureElement = (Element) sigList.item(0);
+
+        Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
+        SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
+
+        //DTEDefType dte = makeDTE(documento, signatureJaxb);           // your manually built SignatureType
+
+        return signatureJaxb;
     }
 
     public static SignatureType makeSignature(DTEDefType.Documento documento){

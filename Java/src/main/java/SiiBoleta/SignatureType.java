@@ -1,12 +1,7 @@
 
 package SiiBoleta;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlSchemaType;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 
@@ -164,6 +159,7 @@ import java.nio.charset.StandardCharsets;
  * 
  * 
  */
+@XmlRootElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SignatureType", namespace = "http://www.w3.org/2000/09/xmldsig#", propOrder = {
     "signedInfo",
