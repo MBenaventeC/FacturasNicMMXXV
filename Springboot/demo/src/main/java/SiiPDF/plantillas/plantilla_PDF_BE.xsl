@@ -602,31 +602,12 @@
 
 	<!-- Timbre electrónico -->
 	<xsl:template match="TED">
-		<xsl:variable name="myted" select="." />
-		<xsl:variable name="barcode-cfg">
-			<barcode>
-				<!--  Segun SII, 3cm x 9cm max -->
-				<pdf417>
-					<module-width>0.008in</module-width>
-					<!--  min exigido por Sii 0.0067  -->
-					<row-height>3mw</row-height>
-					<!--  3 veces el ancho -->
-					<quite-zone enabled="true">0.25in</quite-zone>
-					<ec-level>5</ec-level>
-					<columns>14</columns>
-				</pdf417>
-			</barcode>
-		</xsl:variable>
-		<fo:block-container absolute-position="absolute" top="21cm"
-			width="7cm">
-			<fo:block>
-				<!--<fo:instream-foreign-object>
-			
-					<xsl:copy-of
-						select="tedbarcode:generate($barcode-cfg, $myted)" />
-					
-				</fo:instream-foreign-object>
-				!-->
+		<fo:block-container absolute-position="absolute" top="21cm" width="10cm">
+			<fo:block text-align="center">
+				<fo:external-graphic src="url('test_files/Out/ted_temp/ted_barcode.png')" 
+										content-width="6cm" 
+										content-height="18cm"
+										/>
 			</fo:block>
 			<fo:block font-size="8pt" font-family="sans-serif"
 				text-align="center">

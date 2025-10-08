@@ -124,9 +124,9 @@ public class generatePDFclass{
     // Ejemplo de uso
     public static void main(String[] args) throws Exception {
         try (
-            InputStream xmlFile = new FileInputStream("test_files/In/BoletaExentaElectronica_1811253.xml");
-            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_BExE.xsl");
-            OutputStream pdfFile = new FileOutputStream("test_files/Out/test_pdf_BExE_1811_3.pdf")
+            InputStream xmlFile = new FileInputStream("test_files/In/FacturaDeExportacionElectronica_1398.xml");
+            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExp.xsl");
+            OutputStream pdfFile = new FileOutputStream("test_files/Out/test_pdf_FExp_1398_3.pdf")
         ) {
             generatePDFWithTED(xmlFile, xslFile, pdfFile);
             System.out.println("PDF generado correctamente.");
