@@ -1,6 +1,6 @@
 /* Variables CSS para consistencia de colores */
 :root {
-    --color-primary: #0066CC;
+    --color-button: rgb(13, 71, 231);
     --color-primary-hover: #0052A3;
     --color-primary-light: #E7F3FF;
     
@@ -12,8 +12,8 @@
     --color-text-secondary: #6C757D;
     --color-text-muted: #868E96;
     
-    --color-bg-primary: #FFFFFF;
-    --color-bg-secondary: #F8F9FA;
+    --color-bg-primary: #2b87ac;
+    --color-bg-secondary: #f8f9fa73;
     --color-bg-tertiary: #E9ECEF;
     
     --color-border: #E9ECEF;
@@ -253,8 +253,8 @@ button[type="submit"]:active, .button:active {
 .volver-btn, .button-secondary {
     padding: 12px 24px;
     background: transparent;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    color: var(--color-session-button);
+    border: 1px solid var(--color-session-button);
     border-radius: var(--radius-md);
     font-size: 15px;
     font-weight: 500;
@@ -266,7 +266,7 @@ button[type="submit"]:active, .button:active {
 }
 
 .volver-btn:hover, .button-secondary:hover {
-    background: var(--color-primary);
+    background: var(--color-session-button);
     color: white;
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
@@ -378,7 +378,7 @@ div[th\\:fragment="header"] a {
 }
 
 div[th\\:fragment="header"] a:hover {
-    color: var(--color-primary);
+    color: var(--color-session-button);
     background: var(--color-primary-light);
 }
 
@@ -410,13 +410,12 @@ div[th\\:fragment="header"] a:hover {
     box-shadow: var(--shadow-sm);
 }
 
-/* Navbar secundaria */
-div[th\\:fragment="navbar"] {
-    background: var(--color-bg-secondary);
-    border-bottom: 3px solid var(--color-primary);
-    box-shadow: 0 2px 8px rgba(0,102,204,0.08);
-    padding: 0 32px;
-    border-radius: 0 0 12px 12px;
+
+/* ✅ NUEVO: Efecto hover para toda la navbar */
+div[th\\:fragment="navbar"]:hover {
+    background: var(--color-primary-hover); /* Color más oscuro al hacer hover */
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+    box-shadow: 0 4px 16px rgba(0,102,204,0.25); /* Sombra más pronunciada */
 }
 
 .table-container {
@@ -441,41 +440,45 @@ div[th\\:fragment="navbar"] {
 .table-container td a {
     display: block;
     padding: 14px 16px;
-    color: var(--color-text-secondary);
+    color: rgb(21, 161, 216); /* ✅ Texto blanco para contrastar con el fondo azul */
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
     position: relative;
-    border-radius: 0;
+    border-radius: var(--radius-sm); /* ✅ Bordes redondeados en los enlaces */
 }
 
 .table-container td a:hover {
-    color: var(--color-primary);
-    background: var(--color-bg-primary);
+    color: var(--color-primary); /* ✅ Texto azul al hover */
+    background: rgba(3, 83, 114, 0.308);; /* ✅ Fondo blanco al hover */
+    transform: translateY(-1px); /* ✅ Pequeño efecto de elevación */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* ✅ Sombra en el enlace */
 }
 
 .table-container td a:active,
 .table-container td a.active {
     color: var(--color-primary);
-    background: var(--color-bg-primary);
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .table-container td a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: 2px; /* ✅ Ajustado para mejor visibilidad */
     left: 50%;
     transform: translateX(-50%) scaleX(0);
-    width: 60%;
+    width: 80%; /* ✅ Línea más ancha */
     height: 2px;
-    background: var(--color-primary);
+    background: white; /* ✅ Línea blanca sobre fondo azul */
     transition: transform 0.2s ease;
 }
 
 .table-container td a:hover::after,
 .table-container td a.active::after {
     transform: translateX(-50%) scaleX(1);
+    background: var(--color-primary); /* ✅ Línea azul cuando hay hover */
 }
 
 /* Responsive para header */
@@ -504,6 +507,13 @@ div[th\\:fragment="navbar"] {
     
     .main-navbar {
         padding: 0 16px;
+        background-color: rgb(255,0,0);
+        background: var(--color-primary); /* ✅ Color de fondo azul */
+        border-bottom: 3px solid var(--color-primary-hover); /* ✅ Borde más oscuro */
+        box-shadow: 0 2px 8px rgba(0,102,204,0.15); /* ✅ Sombra más visible */
+        padding: 0 32px;
+        border-radius: 0 0 12px 12px;
+        transition: all 0.3s ease;
     }
     
     .navbar-link {
@@ -511,6 +521,20 @@ div[th\\:fragment="navbar"] {
         font-size: 13px;
     }
 }
+/*Boton autofill */
+.autofill-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .autofill-btn:hover {
+            background-color: #45a049;
+        }
 
 @media (max-width: 600px) {
     .nav-link {

@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <title>Inicio</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        
+    </style>
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
     <h1>Bienvenido a NicFacturasDemo</h1>
     <p>Portal Formulario Pago</p>
+    
     <div class="form-container">
+        <button type="button" class="autofill-btn" onclick="autoFillForm()">🔄 Llenar Datos de Demo</button>
+        
         <form action="/guardarDatos" method="post">
             <div class="div-col">
                 <div class="col-1">
@@ -86,5 +92,50 @@
             <button type="submit">Enviar</button>  
         </form>
     </div>
+
+    <script>
+        function autoFillForm() {
+            // Datos de ejemplo para la demo
+            const datosDemo = {
+                'name-input': 'Empresa Demo SpA',
+                'rut-input': '76.123.456-7',
+                'dir-input': 'Av. Libertador Bernardo O\'Higgins 1234',
+                'comuna-input': 'Santiago Centro',
+                'ciudad-input': 'Santiago',
+                'telefono-input': '+56 2 2345 6789',
+                'guia-input': 'GD-2024-001234',
+                'giro-input': 'Comercio al por mayor',
+                'emit-input': 'Juan Pérez González',
+                'CDC-input': 'CC-VENTAS-001',
+                'CDV-input': 'Contado',
+                'item-input': 'PROD-001',
+                'DE-input': 'Bodega Central',
+                'venc-input': '31/12/2025',
+                'cant-input': '10',
+                'tipo-input': 'D2',
+                'detalle-input': 'Producto de demostración',
+                'desc-input': 'Artículo para pruebas del sistema',
+                'precioU-input': '15000'
+            };
+
+            // Llenar cada campo
+            for (let id in datosDemo) {
+                const campo = document.getElementById(id);
+                if (campo) {
+                    campo.value = datosDemo[id];
+                }
+            }
+
+            // Pequeña animación visual para confirmar
+            const btn = document.querySelector('.autofill-btn');
+            btn.textContent = '✓ Datos cargados!';
+            btn.style.backgroundColor = '#2196F3';
+            
+            setTimeout(() => {
+                btn.textContent = '🔄 Llenar Datos de Demo';
+                btn.style.backgroundColor = '#4CAF50';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
