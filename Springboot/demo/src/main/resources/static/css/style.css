@@ -511,6 +511,25 @@ div[th\\:fragment="header"] a:hover {
     width: auto;
     
 }
+.Form-title {
+    color: rgb(255,255,255);
+    margin: 25px 0;
+    font-size: 35px;
+    text-align: center;
+}
+.autofill-btn {
+    margin-top: 20px;
+}
+
+.total-label {
+    font-size: 30px;
+    font-weight: 600;
+
+}
+.total-value {
+    font-size: 30px;
+    font-weight: 600;
+}
 /* Responsive para header */
 @media (max-width: 768px) {
     .main-header {

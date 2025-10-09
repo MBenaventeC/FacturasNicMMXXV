@@ -654,7 +654,7 @@
 
 	<!-- Timbre electrónico -->
 	<xsl:template match="TED">
-		<fo:block-container absolute-position="absolute" top="21cm" width="10cm">
+		<fo:block-container absolute-position="absolute" left = "-1.5cm" top="20cm" width="10cm">
 			<fo:block text-align="center">
 				<fo:external-graphic src="url('test_files/Out/ted_temp/ted_barcode.png')" 
 										content-width="6cm" 
