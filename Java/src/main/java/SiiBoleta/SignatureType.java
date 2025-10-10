@@ -245,6 +245,10 @@ public class SignatureType {
         this.keyInfo = value;
     }
 
+    public void setURI(String uri) {
+        this.signedInfo.setURI(uri);
+    }
+
 
     /**
      * <p>Java class for anonymous complex type.
@@ -912,6 +916,10 @@ public class SignatureType {
          */
         public void setReference(SignatureType.SignedInfo.Reference value) {
             this.reference = value;
+        }
+
+        public void setURI(String uri) {
+            this.reference.setURI(uri);
         }
 
 

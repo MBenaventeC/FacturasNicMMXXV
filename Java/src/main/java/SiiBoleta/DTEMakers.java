@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -158,7 +159,7 @@ public class DTEMakers {
         return documento;
     }
 
-    public static SignatureType makeSignature2(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException {
+    public static SignatureType makeSignature2(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -167,31 +168,28 @@ public class DTEMakers {
         Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
 
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        // 1) Cargar el archivo .p12 o .pfx ===
+        /**
+         * AÑADAN SU ARCHIVO .PFX A LA CARPETA JAVA
+         * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
+         * Y PEGAR SU RUTA A rutaPFX
+         */
+        String rutaPFX = "C:\\Users\\pelic\\Desktop\\Universidad\\datos\\Proyecto\\FacturasNicMMXXV\\Java\\certificado.pfx";
+        /**
+         * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
+         */
+        String password = "";
 
-        //fake key
-        // 1. Generate RSA Key Pair
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(2048);
-        KeyPair keyPair = keyGen.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
 
-        // 2. Create Self-Signed Certificate
-        X500Name issuer = new X500Name("CN=Test Cert, O=FakeCA, C=CL");
-        BigInteger serial = BigInteger.valueOf(System.currentTimeMillis());
-        Date notBefore = new Date();
-        Date notAfter = new Date(notBefore.getTime() + 365L * 24 * 60 * 60 * 1000); // 1 year
+        // Obtener el alias (normalmente el primero)
+        String alias = ks.aliases().nextElement();
 
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(
-                issuer, serial, notBefore, notAfter, issuer, publicKey
-        );
-
-        ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA").build(privateKey);
-        X509Certificate certificate = new JcaX509CertificateConverter()
-                .setProvider("BC")
-                .getCertificate(certBuilder.build(signer));
-
-
+        // Obtener la clave privada y el certificado
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
 
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
         Marshaller marshaller = context.createMarshaller();
@@ -206,14 +204,16 @@ public class DTEMakers {
                 new QName("Documento"), DTEDefType.Documento.class, documento);
         marshaller.marshal(jaxbElement, doc);
 
+        doc.getDocumentElement().setIdAttribute("ID", true);
+
         //3. Initialize the Signature Factory
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
         //4. Create the Reference and SignedInfo
         Reference ref = fac.newReference(
-                "",
+                "#"+documento.getID(),
                 fac.newDigestMethod(DigestMethod.SHA1, null),
-                Collections.singletonList(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null)),
+                null,
                 null,
                 null
         );
@@ -240,11 +240,21 @@ public class DTEMakers {
         signature.sign(dsc);*/
 
         DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
-        KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
+        /*KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
                 Collections.singletonList(
-                        fac.getKeyInfoFactory().newX509Data(Collections.singletonList(certificate))
+                        fac.getKeyInfoFactory().newX509Data(Collections.singletonList(cert))
                 )
-        );
+        );*/
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+
+        // Create X509Data from certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+
+        // Combine both into KeyInfo
+        KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
+
         XMLSignature signature = fac.newXMLSignature(si, ki);
         signature.sign(dsc);
 
@@ -253,8 +263,8 @@ public class DTEMakers {
 
         Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
         SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
-
         //DTEDefType dte = makeDTE(documento, signatureJaxb);           // your manually built SignatureType
+        //signatureJaxb.setURI(documento.getID());
 
         return signatureJaxb;
     }

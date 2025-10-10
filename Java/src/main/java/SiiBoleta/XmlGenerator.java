@@ -57,7 +57,7 @@ public class XmlGenerator {
 
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-33-994321");
         //DTEMakers.makeSignature2(documento);
-        SignatureType signature = DTEMakers.makeSignature(documento);
+        SignatureType signature = DTEMakers.makeSignature2(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,signature);
         // ...set other fields...
 
@@ -68,10 +68,11 @@ public class XmlGenerator {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/DTE9.xml");
+        File output = new File("out/Dte12.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
