@@ -28,7 +28,31 @@ public class TED {
         return ted;
     }
 
-    public static Image makeBarcode(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
+    public static String serializeTedString(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
+        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
+
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+
+        QName qName = new QName("TED");
+        JAXBElement<DTEDefType.Documento.TED> jaxbElement =
+                new JAXBElement<>(qName, DTEDefType.Documento.TED.class, ted);
+
+        StringWriter sw = new StringWriter();
+        marshaller.marshal(jaxbElement, sw);
+
+        // Verificar si es necesario quitar el primer contenido de información respecto a xml del string
+        String tedString = sw.toString()
+                .replace("&#8220;", "&quot;")
+                .replace("&#8216;", "&apos;");
+        return tedString.replace("&#8220;", "&quot;").replace("&#8216;", "&apos;");
+    }
+
+
+    //Se le cambio el tipo de retorno de la función de Image a Barcode417
+    public static BarcodePDF417 makeBarcode(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
         Marshaller marshaller = context.createMarshaller();
@@ -48,10 +72,10 @@ public class TED {
                 .replace("&#8220;", "&quot;")
                 .replace("&#8216;", "&apos;");
 
-        System.out.print(tedString);
+        //System.out.print(tedString);
 
         BarcodePDF417 pdf417 = new BarcodePDF417();
         pdf417.setText(new String(tedString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)); // Ojo con charset
-        return pdf417.getImage();
+        return pdf417; // .getImage();
     }
 }
