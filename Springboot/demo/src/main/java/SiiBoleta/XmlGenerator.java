@@ -1,60 +1,61 @@
 package SiiBoleta;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
+import SiiBoleta.DTEDefType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
+import javax.xml.XMLConstants;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.SignatureException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Map;
+
+import SiiBoleta.DTEMakers;
 
 public class XmlGenerator {
 
-    public static void main(String[] args) throws JAXBException, DatatypeConfigurationException, UnsupportedEncodingException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, DocumentException, FileNotFoundException {
+    public static void generateFacturaXML(Map<String, Object> args) throws JAXBException, DatatypeConfigurationException {
+        System.out.println("/////////////////////////////////////////////////////");
+        System.out.println(args);
+        System.out.println("/////////////////////////////////////////////////////");
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
-        DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","H&M","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
-        DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
+        DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor(args.get("rut").toString(), "Empresa ejemplo S.A." ,args.get("giro").toString(),args.get("nombre").toString(), args.get("direccion").toString(), args.get("comuna").toString(), args.get("ciudad").toString());
+        double precioUnitario = (Double)args.get("precioU");
+        int cantidad = (Integer)args.get("cant");
+        DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales((int)(precioUnitario));
         DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
-        DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
-        GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
-        XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,args.get("detalle").toString(), precioUnitario);
+        GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 25);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/Autorizacion.xml");
+        File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,994321,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
-
-
-
-        //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
+        
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,994321,args.get("rut").toString(),"Empresa Ejemplo S.A.",(int)precioUnitario, args.get("detalle").toString(),caf);
+        
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
+        
+
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
 
-        // Se genera el codigo de barras
-        //Image barcode = TED.makeBarcode(ted);
 
-        /*
-
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-33-994321");
         SignatureType signature = DTEMakers.makeSignature(documento);
+
+
         DTEDefType dte = DTEMakers.makeDTE(documento,signature);
         // ...set other fields...
 
@@ -67,8 +68,8 @@ public class XmlGenerator {
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         // 4. Marshal to a file or System.out
-        new File("out").mkdirs();
-        File output = new File("out/DTE4.xml");
+        new File("test_files/xml").mkdirs();
+        File output = new File("test_files/xml/test_xmlDemo.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
@@ -76,7 +77,5 @@ public class XmlGenerator {
 
         marshaller.marshal(jaxbElement, output);
         // or: marshaller.marshal(obj, System.out);
-
-         */
     }
 }

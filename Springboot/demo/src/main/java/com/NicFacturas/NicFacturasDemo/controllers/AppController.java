@@ -55,7 +55,7 @@ public class AppController {
 
         // Genera el XML con los datos del formulario
         try {
-            //XmlGenerator.generateFacturaXML(model.asMap()); 
+            XmlGenerator.generateFacturaXML(model.asMap()); 
             // Necesitamos donde se guarda el XML, tipo de documento para pasarlo a elegir XSL y dirección output
             InputStream xmlFile = new FileInputStream("test_files/In/xmlDemo2.xml");
             InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
