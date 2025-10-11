@@ -37,8 +37,6 @@ public class XmlGenerator {
         DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
         DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
-        XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
         File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
@@ -55,7 +53,7 @@ public class XmlGenerator {
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-33-994321");
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
         //DTEMakers.makeSignature2(documento);
         SignatureType signature = DTEMakers.makeSignature2(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,signature);

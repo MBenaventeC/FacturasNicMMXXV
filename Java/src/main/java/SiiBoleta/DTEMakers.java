@@ -159,7 +159,7 @@ public class DTEMakers {
         return documento;
     }
 
-    public static SignatureType makeSignature2(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+    public static SignatureType makeSignature(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -269,7 +269,7 @@ public class DTEMakers {
         return signatureJaxb;
     }
 
-    public static SignatureType makeSignature(DTEDefType.Documento documento){
+    public static SignatureType makeSignature2(DTEDefType.Documento documento){
         SignatureType signature = new SignatureType();
 
         /* INFO **/
