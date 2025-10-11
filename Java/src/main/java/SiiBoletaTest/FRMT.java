@@ -1,28 +1,17 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
-import org.bouncycastle.asn1.pkcs.RSAPrivateKey;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMException;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
-import org.bouncycastle.util.io.pem.PemReader;
 
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.namespace.QName;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import java.security.*;
-import java.security.spec.RSAPrivateCrtKeySpec;
-import java.util.Arrays;
-import java.util.Base64;
 
 
 public class FRMT {

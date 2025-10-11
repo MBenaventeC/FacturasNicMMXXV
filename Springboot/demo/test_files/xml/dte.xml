@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<DTE xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+    <Documento ID="DTE-34-994321">
+        <Encabezado>
+            <IdDoc>
+                <TipoDTE>34</TipoDTE>
+                <Folio>1</Folio>
+                <FchEmis>2025-10-10</FchEmis>
+                <IndServicio>2</IndServicio>
+                <FmaPago>1</FmaPago>
+                <FchCancel>2025-10-10</FchCancel>
+                <MedioPago>EF</MedioPago>
+                <FchVenc>2025-10-10</FchVenc>
+            </IdDoc>
+            <Emisor>
+                <RUTEmisor>60910000-1</RUTEmisor>
+                <RznSoc>Universidad de Chile</RznSoc>
+                <GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis>
+                <Acteco>803010</Acteco>
+                <Sucursal>NIC Chile</Sucursal>
+                <CdgSIISucur>67051191</CdgSIISucur>
+                <DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+                <CmnaOrigen>Santiago</CmnaOrigen>
+                <CiudadOrigen>Santiago</CiudadOrigen>
+            </Emisor>
+            <Receptor>
+                <RUTRecep>76.123.456-7</RUTRecep>
+                <RznSocRecep>Empresa ejemplo S.A.</RznSocRecep>
+                <GiroRecep>Comercio al por mayor</GiroRecep>
+                <Contacto>Empresa Demo SpA</Contacto>
+                <DirRecep>Av. Libertador Bernardo O'Higgins 1234</DirRecep>
+                <CmnaRecep>Santiago Centro</CmnaRecep>
+                <CiudadRecep>Santiago</CiudadRecep>
+            </Receptor>
+            <Totales>
+                <MntExe>9990</MntExe>
+                <MntTotal>9990</MntTotal>
+            </Totales>
+        </Encabezado>
+        <Detalle>
+            <NroLinDet>1</NroLinDet>
+            <NmbItem>dominio Producto de demostración</NmbItem>
+            <QtyItem>1</QtyItem>
+            <PrcItem>9990.0</PrcItem>
+            <MontoItem>9990</MontoItem>
+        </Detalle>
+        <TED version="1.0">
+            <DD>
+                <RE>60910000-1</RE>
+                <TD>34</TD>
+                <F>994321</F>
+                <FE>2025-10-10</FE>
+                <RR>76.123.456-7</RR>
+                <RSR>Empresa Ejemplo S.A.</RSR>
+                <MNT>9990</MNT>
+                <IT1>Producto de demostración</IT1>
+                <CAF version="1.0">
+                    <DA>
+                        <RE>60910000-1</RE>
+                        <RS>UNIVERSIDAD DE CHILE</RS>
+                        <TD>34</TD>
+                        <RNG>
+                            <D>1074396</D>
+                            <H>1084395</H>
+                        </RNG>
+                        <FA>2025-07-29</FA>
+                        <RSAPK>
+                            <M>vvXvWMhvqlf/PbgjJvTTu+FCq/Pn8q5NdaulwWCTgLcM8vKpGFKjBQG2a5xQT4oRPY7LBz8BFu2Ondcm20BrDw==</M>
+                            <E>Aw==</E>
+                        </RSAPK>
+                        <IDK>300</IDK>
+                    </DA>
+                    <FRMA algoritmo="SHA1withRSA">f/BIcgK6kLetCeFPiUiIoirNn2HhrFMzdlSMRSNLM6BOlAak6ci+uyoxaKJGTHVrP61Xt98/nd/Iug25LWn5vw==</FRMA>
+                </CAF>
+                <TSTED>2025-10-10T23:11:51.696</TSTED>
+            </DD>
+            <FRMT algoritmo="SHA1withRSA">tUdeQ2bVOw0N9YNTFOaiQ6RM8QAzc7YHBe6rIu1TMditpfMDDuZCaAFBZ5LS9h1HvwKFydyEwQ0K4tTT2jBB3g==</FRMT>
+        </TED>
+        <TmstFirma>2025-10-10T23:11:52.289-03:00</TmstFirma>
+    </Documento>
+    <ns2:Signature>
+        <ns2:SignedInfo>
+            <ns2:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <ns2:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <ns2:Reference URI="#DTE-34-994321">
+                <ns2:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <ns2:DigestValue>qaw/HpMIaLRkSLBXyQJsfr4wn1M=</ns2:DigestValue>
+            </ns2:Reference>
+        </ns2:SignedInfo>
+        <ns2:SignatureValue>A6pd1+Eg/EDwwiG3n47NtEOoi0kno/Qv4RQgb+Zy6x1RtnnO59nkNRpxnVUY7M/GWhvIx+wR1ELmOGTUhfmcE+6i4jx5DvWOlBPvIZx/XPZQDmIse/cGrLl2yZeznChjPTs9T6pPE3zcisZmBVnwxylu5sJ3qsmWQl2DUN8P1sbX18MzL/WQFS36hHfFnyrPV096/xViQZSCCEyFGMaefUuync+b0s29XEosmNDamhQtN1UsBBJkEvw730T1tEThW8BopqCN9xEEc2vFyuR6J6cIVnxGTwa8hCerduPzrZN6spKEKWmBrOjTDJS3mXpClEz77drxeNyWPO+I0I5yWQ==</ns2:SignatureValue>
+        <ns2:KeyInfo>
+            <ns2:KeyValue>
+                <ns2:RSAKeyValue>
+                    <ns2:Modulus>pcBX/i/TAadCLfJhDxJMzZF8Wiayf/sGHpu5Tw/K3NLABHC5nERy9s+ITBchxVnzMS2mkzls3WGfiqEhxVLNThhqkNQkzeBIcoD9Kc6fI6qMVGLHs8QqeOczCfR8sqwKDFkgO1hjo3XJVK6mdkMkZ8kfoxDog0bOo0T8GQySdNyrzT1rjfS9awkVYqRwaTeI3y+7191gr1yDmQpTSHVY2WSVqveJ0kUEGYEW0jL1zo/magCeQCF0Eq7ja2HfY+ersFL4kk5mCFd9ko/7vKQyiUrz7240p1qSJQ5/lVZ4S4Jjg/kNjuWZtin9/2yCPC9thifiNr8z88OIYz/1fFRF2Q==</ns2:Modulus>
+                    <ns2:Exponent>AQAB</ns2:Exponent>
+                </ns2:RSAKeyValue>
+            </ns2:KeyValue>
+            <ns2:X509Data>
+                <ns2:X509Certificate>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</ns2:X509Certificate>
+            </ns2:X509Data>
+        </ns2:KeyInfo>
+    </ns2:Signature>
+</DTE>

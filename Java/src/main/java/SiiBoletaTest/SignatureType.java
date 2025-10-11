@@ -1,9 +1,7 @@
 
-package SiiBoleta;
+package SiiBoletaTest;
 
 import jakarta.xml.bind.annotation.*;
-
-import java.nio.charset.StandardCharsets;
 
 
 /**

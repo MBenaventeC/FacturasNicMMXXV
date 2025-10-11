@@ -24,7 +24,7 @@ import SiiBoleta.DTEMakers;
 
 public class XmlGenerator {
 
-    public static void generateFacturaXML(Map<String, Object> args) throws JAXBException, DatatypeConfigurationException, Exception {
+    public static DTEDefType.Documento.TED generateFacturaXML(Map<String, Object> args) throws JAXBException, DatatypeConfigurationException, Exception {
         System.out.println("/////////////////////////////////////////////////////");
         System.out.println(args);
         System.out.println("/////////////////////////////////////////////////////");
@@ -68,8 +68,8 @@ public class XmlGenerator {
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         // 4. Marshal to a file or System.out
-        new File("test_files/xml").mkdirs();
-        File output = new File("test_files/xml/test_xmlDemo.xml");
+        new File("Springboot/demo/test_files/xml").mkdirs();
+        File output = new File("Springboot/demo/test_files/xml/dte.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
@@ -77,5 +77,7 @@ public class XmlGenerator {
 
         marshaller.marshal(jaxbElement, output);
         // or: marshaller.marshal(obj, System.out);
+
+        return ted;
     }
 }

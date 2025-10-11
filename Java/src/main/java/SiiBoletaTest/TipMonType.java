@@ -1,5 +1,5 @@
 
-package SiiBoleta;
+package SiiBoletaTest;
 
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;

@@ -1,4 +1,4 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

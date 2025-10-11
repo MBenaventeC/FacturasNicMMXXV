@@ -1,7 +1,6 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BarcodePDF417;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;

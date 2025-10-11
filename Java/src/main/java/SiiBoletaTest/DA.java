@@ -1,4 +1,4 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;

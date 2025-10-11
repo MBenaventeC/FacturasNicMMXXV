@@ -1,4 +1,4 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import java.math.BigInteger;
 

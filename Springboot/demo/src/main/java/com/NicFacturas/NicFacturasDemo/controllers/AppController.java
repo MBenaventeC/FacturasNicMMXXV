@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+
+import SiiBoleta.DTEDefType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,12 +57,12 @@ public class AppController {
 
         // Genera el XML con los datos del formulario
         try {
-            XmlGenerator.generateFacturaXML(model.asMap()); 
+            DTEDefType.Documento.TED ted = XmlGenerator.generateFacturaXML(model.asMap());
             // Necesitamos donde se guarda el XML, tipo de documento para pasarlo a elegir XSL y dirección output
-            InputStream xmlFile = new FileInputStream("test_files/In/xmlDemo2.xml");
-            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
-            OutputStream pdfFile = new FileOutputStream("test_files/Out/PDFDemo2.pdf");
-            generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile);
+            InputStream xmlFile = new FileInputStream("Springboot/demo/test_files/xml/dte.xml");
+            InputStream xslFile = new FileInputStream("Springboot/demo/src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
+            OutputStream pdfFile = new FileOutputStream("Springboot/demo/test_files/Out/PDFDemo2.pdf");
+            generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,18 +139,18 @@ public class AppController {
 
     @GetMapping("/descargarXML")
     public ResponseEntity<Resource> descargarXML() {
-        Resource resource = new FileSystemResource("test_files/test_xml3.xml");
+        Resource resource = new FileSystemResource("Springboot/demo/test_files/xml/dte.xml");
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_xml3.xml")
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dte.xml")
             .contentType(MediaType.APPLICATION_XML)
             .body(resource);
     }
 
     @GetMapping("/descargarPDF")
     public ResponseEntity<Resource> descargarPDF() {
-        Resource resource = new FileSystemResource("test_files/Out/PDFDemo2.pdf");
+        Resource resource = new FileSystemResource("Springboot/demo/test_files/Out/PDFDemo2.pdf");
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf.pdf")
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=PDFDemo2.pdf")
             .contentType(MediaType.APPLICATION_PDF)
             .body(resource);
     }

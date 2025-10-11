@@ -1,4 +1,4 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;

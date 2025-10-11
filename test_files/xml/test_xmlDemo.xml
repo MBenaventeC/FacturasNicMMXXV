@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<DTE xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+    <Documento ID="DTE-34-994321">
+        <Encabezado>
+            <IdDoc>
+                <TipoDTE>34</TipoDTE>
+                <Folio>1</Folio>
+                <FchEmis>2025-10-10</FchEmis>
+                <IndServicio>2</IndServicio>
+                <FmaPago>1</FmaPago>
+                <FchCancel>2025-10-10</FchCancel>
+                <MedioPago>EF</MedioPago>
+                <FchVenc>2025-10-10</FchVenc>
+            </IdDoc>
+            <Emisor>
+                <RUTEmisor>60910000-1</RUTEmisor>
+                <RznSoc>Universidad de Chile</RznSoc>
+                <GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis>
+                <Acteco>803010</Acteco>
+                <Sucursal>NIC Chile</Sucursal>
+                <CdgSIISucur>67051191</CdgSIISucur>
+                <DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+                <CmnaOrigen>Santiago</CmnaOrigen>
+                <CiudadOrigen>Santiago</CiudadOrigen>
+            </Emisor>
+            <Receptor>
+                <RUTRecep>76.123.456-7</RUTRecep>
+                <RznSocRecep>Empresa ejemplo S.A.</RznSocRecep>
+                <GiroRecep>Comercio al por mayor</GiroRecep>
+                <Contacto>Empresa Demo SpA</Contacto>
+                <DirRecep>Av. Libertador Bernardo O'Higgins 1234</DirRecep>
+                <CmnaRecep>Santiago Centro</CmnaRecep>
+                <CiudadRecep>Santiago</CiudadRecep>
+            </Receptor>
+            <Totales>
+                <MntExe>9990</MntExe>
+                <MntTotal>9990</MntTotal>
+            </Totales>
+        </Encabezado>
+        <Detalle>
+            <NroLinDet>1</NroLinDet>
+            <NmbItem>dominio Producto de demostración</NmbItem>
+            <QtyItem>1</QtyItem>
+            <PrcItem>9990.0</PrcItem>
+            <MontoItem>9990</MontoItem>
+        </Detalle>
+        <TED version="1.0">
+            <DD>
+                <RE>60910000-1</RE>
+                <TD>34</TD>
+                <F>994321</F>
+                <FE>2025-10-10</FE>
+                <RR>76.123.456-7</RR>
+                <RSR>Empresa Ejemplo S.A.</RSR>
+                <MNT>9990</MNT>
+                <IT1>Producto de demostración</IT1>
+                <CAF version="1.0">
+                    <DA>
+                        <RE>60910000-1</RE>
+                        <RS>UNIVERSIDAD DE CHILE</RS>
+                        <TD>34</TD>
+                        <RNG>
+                            <D>1074396</D>
+                            <H>1084395</H>
+                        </RNG>
+                        <FA>2025-07-29</FA>
+                        <RSAPK>
+                            <M>vvXvWMhvqlf/PbgjJvTTu+FCq/Pn8q5NdaulwWCTgLcM8vKpGFKjBQG2a5xQT4oRPY7LBz8BFu2Ondcm20BrDw==</M>
+                            <E>Aw==</E>
+                        </RSAPK>
+                        <IDK>300</IDK>
+                    </DA>
+                    <FRMA algoritmo="SHA1withRSA">f/BIcgK6kLetCeFPiUiIoirNn2HhrFMzdlSMRSNLM6BOlAak6ci+uyoxaKJGTHVrP61Xt98/nd/Iug25LWn5vw==</FRMA>
+                </CAF>
+                <TSTED>2025-10-10T22:38:16.970</TSTED>
+            </DD>
+            <FRMT algoritmo="SHA1withRSA">g5vm0276vtBqZRFHjvseojImrkZRSfDBMmZ/jA1awM3e8ivB2SsbItaqMQWFXACVFOK3lLDC5qC3fXaUoDIc5g==</FRMT>
+        </TED>
+        <TmstFirma>2025-10-10T22:38:18.344-03:00</TmstFirma>
+    </Documento>
+    <ns2:Signature>
+        <ns2:SignedInfo>
+            <ns2:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <ns2:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <ns2:Reference URI="#DTE-34-994321">
+                <ns2:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <ns2:DigestValue>U095VU5FamVtcGxv</ns2:DigestValue>
+            </ns2:Reference>
+        </ns2:SignedInfo>
+        <ns2:SignatureValue>U295VW5hRmlybWFTdXBlclNlY3JldGE=</ns2:SignatureValue>
+        <ns2:KeyInfo>
+            <ns2:KeyValue>
+                <ns2:RSAKeyValue>
+                    <ns2:Modulus>VElFTkVTUVVFQ0FNQklBUkVMTU9EVUxVUw==</ns2:Modulus>
+                    <ns2:Exponent>VElFTkVTUVVFQ0FNQklBUkVMRVhQT05FTlQ=</ns2:Exponent>
+                </ns2:RSAKeyValue>
+            </ns2:KeyValue>
+            <ns2:X509Data>
+                <ns2:X509Certificate>U295VW5FamVtcGxv</ns2:X509Certificate>
+            </ns2:X509Data>
+        </ns2:KeyInfo>
+    </ns2:Signature>
+</DTE>

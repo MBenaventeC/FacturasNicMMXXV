@@ -364,7 +364,7 @@
 			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('src/main/java/SiiPDF/logoUchile3.png')"
+					src="url('Springboot/demo/src/main/java/SiiPDF/logoUchile3.png')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>
@@ -656,7 +656,7 @@
 	<xsl:template match="TED">
 		<fo:block-container absolute-position="absolute" left = "-1.5cm" top="20cm" width="10cm">
 			<fo:block text-align="center">
-				<fo:external-graphic src="url('test_files/Out/ted_temp/ted_barcode.png')" 
+				<fo:external-graphic src="url('Springboot/demo/test_files/Out/ted_temp/ted_barcode.png')"
 										content-width="6cm" 
 										content-height="18cm"
 										/>

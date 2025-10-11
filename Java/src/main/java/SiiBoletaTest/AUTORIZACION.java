@@ -1,11 +1,7 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
-import java.security.PrivateKey;
 
 @XmlRootElement(name = "AUTORIZACION")
 public class AUTORIZACION {

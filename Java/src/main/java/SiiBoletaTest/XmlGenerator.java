@@ -1,28 +1,11 @@
-package SiiBoleta;
+package SiiBoletaTest;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import org.bouncycastle.operator.OperatorCreationException;
 
-import javax.xml.crypto.MarshalException;
-import javax.xml.crypto.dsig.XMLSignatureException;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.*;
-import java.security.cert.CertificateException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
