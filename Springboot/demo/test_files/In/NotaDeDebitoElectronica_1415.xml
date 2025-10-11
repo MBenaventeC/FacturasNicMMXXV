@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<DTE version="1.0">
+<Documento ID="DTE-56-1415">
+<Encabezado>
+<IdDoc>
+<TipoDTE>56</TipoDTE>
+<Folio>1415</Folio>
+<FchEmis>2025-08-28</FchEmis>
+<IndServicio>2</IndServicio>
+<FmaPago>1</FmaPago>
+<FchCancel>2025-08-28</FchCancel>
+<MedioPago>TC</MedioPago>
+<FchVenc>2025-08-28</FchVenc>
+</IdDoc>
+<Emisor>
+<RUTEmisor>60910000-1</RUTEmisor>
+<RznSoc>Universidad de Chile</RznSoc>
+<GiroEmis>Corporación Educacional y Servicios                 Profesionales</GiroEmis>
+<Acteco>803010</Acteco>
+<Sucursal>NIC Chile</Sucursal>
+<CdgSIISucur>67051191</CdgSIISucur>
+<DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+<CmnaOrigen>Santiago</CmnaOrigen>
+<CiudadOrigen>Santiago</CiudadOrigen>
+</Emisor>
+<Receptor>
+<RUTRecep>78061840-K</RUTRecep>
+<RznSocRecep>WEEKMARK EDICIONES Y SERVICIOS LIMITADA</RznSocRecep>
+<GiroRecep>Procesamiento de datos</GiroRecep>
+<Contacto>Sol Avendaño</Contacto>
+<DirRecep>Av. Andres Bello 2711, piso 19, Las Condes Tel:223683500</DirRecep>
+<CmnaRecep>Santiago</CmnaRecep>
+<CiudadRecep>Santiago</CiudadRecep>
+</Receptor>
+<Totales>
+<MntNeto>0</MntNeto>
+<MntExe>46000</MntExe>
+<IVA>0</IVA>
+<MntTotal>46000</MntTotal>
+</Totales>
+</Encabezado>
+<Detalle>
+<NroLinDet>1</NroLinDet>
+<NmbItem>Deja sin efecto N. Crédito Electrónica N° 83894 del 2025-08-07</NmbItem>
+<DscItem>Error en procesamiento \nFactura contabilizada en traspaso 457556 de 31-07-2025</DscItem>
+<QtyItem>1.0</QtyItem>
+<PrcItem>46000.0</PrcItem>
+<MontoItem>46000</MontoItem>
+</Detalle>
+<Referencia>
+<NroLinRef>1</NroLinRef>
+<TpoDocRef>61</TpoDocRef>
+<FolioRef>83894</FolioRef>
+<FchRef>2025-08-07</FchRef>
+<CodRef>1</CodRef>
+<RazonRef>Error en procesamiento \nFactu</RazonRef>
+</Referencia>
+<TED version="1.0">
+<DD>
+<RE>60910000-1</RE>
+<TD>56</TD>
+<F>1415</F>
+<FE>2025-08-28</FE>
+<RR>78061840-K</RR>
+<RSR>WEEKMARK EDICIONES Y SERVICIOS LIMITADA</RSR>
+<MNT>46000</MNT>
+<IT1>Deja sin efecto N. Crédito Electrónica N</IT1>
+<CAF version="1.0">
+<DA>
+<RE>60910000-1</RE>
+<RS>UNIVERSIDAD DE CHILE</RS>
+<TD>56</TD>
+<RNG>
+<D>1415</D>
+<H>1415</H>
+</RNG>
+<FA>2025-08-28</FA>
+<RSAPK>
+<M>lgWZ7yLOvWiK0JyBtfIfjAsuvKke6OQGuqfcNJdjldE8mK7JneSxlM1bZ5UsyEFDDtaUddFNpPKYzsDiMeR5Aw==</M>
+<E>Aw==</E>
+</RSAPK>
+<IDK>300</IDK>
+</DA>
+<FRMA algoritmo="SHA1withRSA">h6Wjajr5VyNF6Ng1QVixjbGXzidroI0JMVnKMPZIq9Z1VP6spqRqXeOWcI7nzFQwFeozSWLLtbhT+6rw0bekXw==</FRMA>
+</CAF>
+<TSTED>2025-08-28T14:29:44</TSTED>
+</DD>
+<FRMT algoritmo="SHA1withRSA">PIfDZnSrEjJUnULEGhZKRkp0rvd8ga+Ov3VRK9E41fmPs9zugw2ZaXcaoH/qXjurMFbdQptxvcaQvWjEfEu9QQ==</FRMT>
+</TED>
+<TmstFirma>2025-08-28T14:29:45</TmstFirma>
+</Documento>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo>
+<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></CanonicalizationMethod>
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></SignatureMethod>
+<Reference URI="#DTE-56-1415">
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></DigestMethod>
+<DigestValue>zp1/1AE3Oru+RFlVG2DfuVJ93uA=</DigestValue>
+</Reference>
+</SignedInfo>
+<SignatureValue>
+u7+lR9Bb8ZiVKzL/c/tT4zmVdYSDwn4NslKhQrOeQjQrwoIItEw3Hti7yMgYPlXb0GP6Ccv6vS0J
+yCqAGYc1EEyROIUh+vz6WodlwW06pgqK13GK4UbLKLVtYgTydjBOaYVWS9Te3y3wpB35c6nsD8XL
+uhXDW7Cv6seGfnNwUI2Xds9VtZa5OJ1TVrL4ldeWXcx7sSfwW0vVSfn/WlQHOHQm+uMEHTrzjgO0
+PUmwDakFtD8piC926hJnsCZOHVkdrWWHMTG3wH5hKXpuhPaj2khhoxy3grEmOZIqGkqZ9jiOiZbS
+Ayf5e74F+D4aM+ODw1Hw8vs6BLcDLf3PmkEVzA==
+</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>
+wc9AnpNLgyjT856QefAdQHjXxOFUstg2ebvplwljR7VTgDiy3stD/qRSSRmM9b9b3KfAoXsIACPS
+TNvYtiE0VJytTaCjdk5cwRbTRxCuxnPOAh+GxgHD5R+tSkEvKak4aLVqR0XeQhTykBfBAa4rXWoI
+9VyorPsFMPWGC886aiTNuHmkSrbp7fqvDvLr/j7S+D5vQh70dMRMxRPx+vCeihKqwigdL/dBJZI+
+AjXlBIm7goQ04JPLToRMW71hXtpDc8te4rgLX8nej6nIq3gsrOyjNt7iaZntDcMkUgNbMFiI/1qF
+Ojd14xXVRkX8hCOSWAmca/+YSUL6x7fwdVa6BQ==
+</Modulus>
+<Exponent>AQAB</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+MIIHsjCCBZqgAwIBAgIKSBYcZwABAAXXnTANBgkqhkiG9w0BAQsFADCBvzELMAkGA1UEBhMCQ0wx
+HTAbBgNVBAgTFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHEwhTYW50aWFnbzEUMBIGA1UE
+ChMLRS1DRVJUQ0hJTEUxIDAeBgNVBAsTF0F1dG9yaWRhZCBDZXJ0aWZpY2Fkb3JhMR4wHAYDVQQD
+ExVFLUNFUlRDSElMRSBDQSBGRVMgMDIxJjAkBgkqhkiG9w0BCQEWF3NjbGllbnRlQGUtY2VydGNo
+aWxlLmNsMB4XDTIzMDUwOTEzNDkzOFoXDTI2MDUwODEzNDkzOFowga4xCzAJBgNVBAYTAkNMMSIw
+IAYDVQQIExlNRVRST1BPTElUQU5BIERFIFNBTlRJQUdPMREwDwYDVQQHEwhTQU5USUFHTzEdMBsG
+A1UEChMUVU5JVkVSU0lEQUQgREUgQ0hJTEUxCjAIBgNVBAsMASoxHTAbBgNVBAMTFE5FTExZIENP
+TkRPUkkgRkxPUkVTMR4wHAYJKoZIhvcNAQkBFg9OQ09ORE9SSUBOSUMuQ0wwggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQDBz0Cek0uDKNPznpB58B1AeNfE4VSy2DZ5u+mXCWNHtVOAOLLe
+y0P+pFJJGYz1v1vcp8ChewgAI9JM29i2ITRUnK1NoKN2TlzBFtNHEK7Gc84CH4bGAcPlH61KQS8p
+qThotWpHRd5CFPKQF8EBritdagj1XKis+wUw9YYLzzpqJM24eaRKtunt+q8O8uv+PtL4Pm9CHvR0
+xEzFE/H68J6KEqrCKB0v90Elkj4CNeUEibuChDTgk8tOhExbvWFe2kNzy17iuAtfyd6PqcireCys
+7KM23uJpme0NwyRSA1swWIj/WoU6N3XjFdVGRfyEI5JYCZxr/5hJQvrHt/B1VroFAgMBAAGjggK9
+MIICuTCCAV8GA1UdIASCAVYwggFSMIIBTgYIKwYBBAHDUgUwggFAMD0GCCsGAQUFBwIBFjFodHRw
+czovL3d3dy5lLWNlcnRjaGlsZS5jbC9wb2xpdGljYXMteS1wcmFjdGljYXMvMIH+BggrBgEFBQcC
+AjCB8R6B7gBFAGwAIAByAGUAcwBwAG8AbgBkAGUAcgAgAGUAcwB0AGUAIABmAG8AcgBtAHUAbABh
+AHIAaQBvACAAZQBzACAAdQBuACAAcgBlAHEAdQBpAHMAaQB0AG8AIABpAG4AZABpAHMAcABlAG4A
+cwBhAGIAbABlACAAcABhAHIAYQAgAGQAYQByACAAaQBuAGkAYwBpAG8AIABhAGwAIABwAHIAbwBj
+AGUAcwBvACAAZABlACAAYwBlAHIAdABpAGYAaQBjAGEAYwBpAPMAbgAuACAAUABvAHMAdABlAHIA
+aQBvAHIAbQBlAG4AdABlACwwHQYDVR0OBBYEFChYZoCTViK8gflqW0jl5mEBkkGBMAsGA1UdDwQE
+AwIE8DAjBgNVHREEHDAaoBgGCCsGAQQBwQEBoAwWCjExMzQxODM3LTAwHwYDVR0jBBgwFoAUdNYh
+s/Ra6C18u1kGY0PvabQ6kwQwQAYDVR0fBDkwNzA1oDOgMYYvaHR0cDovL2NybC5lY2VydGNoaWxl
+LmNsL0UtQ0VSVENISUxFQ0FGRVMwMi5jcmwwPQYIKwYBBQUHAQEEMTAvMC0GCCsGAQUFBzABhiFo
+dHRwOi8vb2NzcGZlcy5lY2VydGNoaWxlLmNsL29jc3AwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGC
+NxUIgd3STZfUOoaJnQaHiM5vg6/MYEWG0uwIhsfKfQIBZAIBBzAjBgNVHRIEHDAaoBgGCCsGAQQB
+wQECoAwWCjk2OTI4MTgwLTUwDQYJKoZIhvcNAQELBQADggIBADPJtwWG7MAHuCxMZulVxBA0DW5z
+t7Ud7mUVTe1LNX/2M6SkwRfxXCei72cWOhJ2NpmNjzPA12/NEj8JMoKIBXMT2vyE50pKFagfQpB0
+AShGACa2Uyv0L059qw+/QHFc0zJu6W+ebUmfQuigESnS27Pf4Ivab8Rw+iA1VuRI5RoHgb5LwmY8
+GgVo9rmaJToy/PKgiGmWaF21Z2mDj4bBuYk60+CcIXem/8uqZKuF/rkE0ag1cvwha6QhOtOliVxU
+IuKxtrfuUgJ5H3p7elBTNHyXpHhLZphSFHAnZ7pI37xqCLDI4u8/RhqPbuueNsX0slAaqqwShP21
+RK8FN5T70tF7jSk/9Bc1nuR7hEgCyu4/qgNe4+VHFspU2rRnG5mOPlT17/NVHq+RRNnUkAZSR9r5
+CxUu+g5Qks2/PSPVzEuvC5bCXi/0hs6HugUMaBoh9BSgCfh1MzCth1WLRITqEqtpDoP/f/IqwX8o
+HfGTDEGKXX38qXomiqHT5awppqnbO4PCkm3V5lTejGqOhEM7qE3yNWLlAHc7mr3Fh9OeVfoUpvGf
+ZLBvE3JNt8DSdSb1aYnh96U5+6Qz8vXetcUPGxAGhZIpDt1hQfHI7QhmzY2bA/Mz1jTe41nE+xY1
+o2Ylx5qwcTvW95PL9NVJa/0fyHxDxqCt2jSMPdKmof7tLd47
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>
+</DTE>
+

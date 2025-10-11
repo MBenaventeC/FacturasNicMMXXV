@@ -8,9 +8,16 @@
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <h1>Bienvenido a NicFacturasDemo</h1>
-    <p>Portal Formulario Pago</p>
+    <div class = "welcome-container">
+        <p>Portal Pago</p>
+        <p>NIC Chile</p>
+    </div>
+    
+    
     <div class="form-container">
+        <div class = "Form-title">
+            Formulario Factura Exenta Eletronica
+        </div>
         <form action="/guardarDatos" method="post">
             <div class="div-col">
                 <div class="col-1">
@@ -63,12 +70,9 @@
                     <label for="cant-input">Cantidad</label>
                     <input id="cant-input" name="cant-input" type="number" maxlength="50" required>
 
-                    <label for="tipo-input">Tipo</label>
+                    <label for="tipo-input">Tipo Documento</label>
                     <select id="tipo-input" name="tipo-input" required>
-                        <option>D1</option>
-                        <option>D2</option>
-                        <option>D3</option>
-                        <option>D4</option>
+                        <option>34</option>
                     </select>
 
                     <label for="detalle-input">Detalle</label>
@@ -80,11 +84,72 @@
                     <label for="precioU-input">Precio Unitario</label>
                     <input id="precioU-input" name="precioU-input" type="number" maxlength="50" required>
 
-                    <h3>Precio total por item</h3>
+                    <span class="total-label">Total:</span>
+                    <span class="total-value" id="total-final" data-value="0">$0</span>
                 </div>
             </div>
             <button type="submit">Enviar</button>  
         </form>
+        <div class = "autofill-div">
+            <button type="button" class="autofill-btn" onclick="autoFillForm()">🔄 Llenar Datos de Demo</button>
+        </div>
     </div>
+
+
+    <script>
+        function autoFillForm() {
+            // Datos de ejemplo para la demo
+            const datosDemo = {
+                'name-input': 'Empresa Demo SpA',
+                'rut-input': '76.123.456-7',
+                'dir-input': 'Av. Libertador Bernardo O\'Higgins 1234',
+                'comuna-input': 'Santiago Centro',
+                'ciudad-input': 'Santiago',
+                'telefono-input': '+56 2 2345 6789',
+                'guia-input': 'GD-2024-001234',
+                'giro-input': 'Comercio al por mayor',
+                'emit-input': 'Juan Pérez González',
+                'CDC-input': '1966',
+                'CDV-input': 'Contado',
+                'item-input': '6.1.01.03.01 (2152)',
+                'DE-input': 'Bodega Central',
+                'venc-input': '31/12/2025',
+                'cant-input': '1',
+                'tipo-input': '34',
+                'detalle-input': 'Producto de demostración',
+                'desc-input': 'Artículo para pruebas del sistema',
+                'precioU-input': '9990'
+            };
+
+            // Llenar cada campo
+            for (let id in datosDemo) {
+                const campo = document.getElementById(id);
+                if (campo) {
+                    campo.value = datosDemo[id];
+                }
+            }
+            const precioUnitario = parseFloat(datosDemo['precioU-input']);
+            const cantidad = parseFloat(datosDemo['cant-input']);
+            const total = precioUnitario * cantidad;
+            actualizarTotal(total)
+
+            // Pequeña animación visual para confirmar
+            const btn = document.querySelector('.autofill-btn');
+            btn.textContent = '✓ Datos cargados!';
+            btn.style.backgroundColor = '#2196F3';
+            
+            setTimeout(() => {
+                btn.textContent = '🔄 Llenar Datos de Demo';
+                btn.style.backgroundColor = '#4CAF50';
+            }, 2000);
+        }
+    </script>
+    <script>
+        function actualizarTotal(nuevoValor) {
+            const spanTotal = document.getElementById('total-final');
+            spanTotal.setAttribute('data-value', nuevoValor);
+            spanTotal.textContent = `$${nuevoValor.toLocaleString('es-CL')}`;
+        }
+    </script>
 </body>
 </html>

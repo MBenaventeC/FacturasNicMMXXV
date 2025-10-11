@@ -2,6 +2,10 @@ package com.NicFacturas.NicFacturasDemo.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +26,7 @@ import com.NicFacturas.NicFacturasDemo.services.AppService;
 
 //import SiiFact.XmlGenerator;
 import SiiBoleta.XmlGenerator;
+import SiiPDF.Utilities.generatePDFclass;
 @Controller
 public class AppController {
     private final AppService appService;
@@ -33,7 +38,7 @@ public class AppController {
     public String indexRoute(Model model) {
         List<Map<String, String>> modelData = null;
         model.addAttribute("data", modelData);
-        System.out.println("////////////////////////////////////////////");
+        System.out.println("////////////////////////Index////////////////////");
         return "index";
     }
 
@@ -41,7 +46,7 @@ public class AppController {
     public String facturaEndRoute(Model model) {
         List<Map<String, String>> modelData = null;
         model.addAttribute("data", modelData);
-        System.out.println("////////////////////////////////////////////");
+        System.out.println("////////////////////////Factura End////////////////////");
 
         // Recupera los datos del modelo (FlashAttributes)
         //String nombre = (String) model.asMap().get("nombre");
@@ -50,7 +55,12 @@ public class AppController {
 
         // Genera el XML con los datos del formulario
         try {
-            XmlGenerator.generateFacturaXML(model.asMap());
+            //XmlGenerator.generateFacturaXML(model.asMap()); 
+            // Necesitamos donde se guarda el XML, tipo de documento para pasarlo a elegir XSL y dirección output
+            InputStream xmlFile = new FileInputStream("test_files/In/xmlDemo2.xml");
+            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
+            OutputStream pdfFile = new FileOutputStream("test_files/Out/PDFDemo2.pdf");
+            generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +90,7 @@ public class AppController {
         @RequestParam("precioU-input") Double precio_unitario,
         org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes
     ) {
-        System.out.println("////////////////////////////////////////////");
+        System.out.println("////////////////////Enviando Formulario////////////////////////");
         System.out.println("Nombre: " + nombre);
         System.out.println("Rut: " + rut);
         System.out.println("Dirección: " + direccion);
@@ -136,7 +146,7 @@ public class AppController {
 
     @GetMapping("/descargarPDF")
     public ResponseEntity<Resource> descargarPDF() {
-        Resource resource = new FileSystemResource("test_files/test_pdf.pdf");
+        Resource resource = new FileSystemResource("test_files/Out/PDFDemo2.pdf");
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf.pdf")
             .contentType(MediaType.APPLICATION_PDF)

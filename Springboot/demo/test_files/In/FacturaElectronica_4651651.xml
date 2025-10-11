@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DTE>
+  <Documento>
+    <Encabezado>
+      <IdDoc>
+        <Folio>941840</Folio>
+        <TipoDTE>33</TipoDTE>
+        <FchEmis>2024-12-17</FchEmis>
+        <MedioPago>EF</MedioPago>
+        <FmaPago>1</FmaPago>
+      </IdDoc>
+      <Emisor>
+        <RznSoc>NIC Chile</RznSoc>
+        <Sucursal>Sucursal Central</Sucursal>
+        <CdgSIISucur>67051191</CdgSIISucur>
+        <GiroEmis>Corporación Educaional y Servicios</GiroEmis>
+        <DirOrigen>Miraflores 222, Piso 14</DirOrigen>
+        <CmnaOrigen>Santiago</CmnaOrigen>
+        <CiudadOrigen>Santiago</CiudadOrigen>
+        <RUTEmisor>60910000-1</RUTEmisor>
+      </Emisor>
+      <Receptor>
+        <RznSocRecep>Jose Urzua</RznSocRecep>
+        <RUTRecep>98765432-1</RUTRecep>
+        <DirRecep>El Tanguito, parcela 31</DirRecep>
+        <CmnaRecep>Santiago</CmnaRecep>
+        <CiudadRecep>Santiago</CiudadRecep>
+        <GiroRecep>Comercio Minorista</GiroRecep>
+      </Receptor>
+      <Totales>
+        <MntNeto>10000</MntNeto>
+        <TasaIVA>19</TasaIVA>
+        <IVA>1900</IVA>
+        <MntTotal>11900</MntTotal>
+      </Totales>
+    </Encabezado>
+    <Detalle>
+      <NroLinDet>1</NroLinDet>
+      <QtyItem>2</QtyItem>
+      <NmbItem>Producto de ejemplo</NmbItem>
+      <PrcItem>5000</PrcItem>
+      <MontoItem>10000</MontoItem>
+    </Detalle>
+    <TED>
+      <DD>
+        <!-- Datos mínimos para el timbre, puedes completarlos según tu lógica -->
+      </DD>
+    </TED>
+  </Documento>
+</DTE>

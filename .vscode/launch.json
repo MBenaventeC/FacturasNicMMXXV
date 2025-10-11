@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug generatePDFclass",
+            "request": "launch",
+            "mainClass": "SiiPDF.Utilities.generatePDFclass",
+            "projectName": "demo",
+            "cwd": "${workspaceFolder}/Springboot/demo"
+        }
+    ]
+}
