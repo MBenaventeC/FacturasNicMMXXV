@@ -24,7 +24,7 @@ import SiiBoleta.DTEMakers;
 
 public class XmlGenerator {
 
-    public static void generateFacturaXML(Map<String, Object> args) throws JAXBException, DatatypeConfigurationException {
+    public static void generateFacturaXML(Map<String, Object> args) throws JAXBException, DatatypeConfigurationException, Exception {
         System.out.println("/////////////////////////////////////////////////////");
         System.out.println(args);
         System.out.println("/////////////////////////////////////////////////////");
@@ -44,8 +44,8 @@ public class XmlGenerator {
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,994321,args.get("rut").toString(),"Empresa Ejemplo S.A.",(int)precioUnitario, args.get("detalle").toString(),caf);
-        
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,994321,args.get("rut").toString(),"Empresa Ejemplo S.A.",(int)precioUnitario, args.get("detalle").toString(),cafFromXml);
+
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         
 
