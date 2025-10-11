@@ -174,7 +174,7 @@ public class DTEMakers {
          * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
          * Y PEGAR SU RUTA A rutaPFX
          */
-        String rutaPFX = "C:\\Users\\pelic\\Desktop\\Universidad\\datos\\Proyecto\\FacturasNicMMXXV\\Java\\certificado.pfx";
+        String rutaPFX = "Java/certificado.pfx";
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
