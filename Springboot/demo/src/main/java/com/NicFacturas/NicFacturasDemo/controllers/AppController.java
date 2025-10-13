@@ -139,7 +139,7 @@ public class AppController {
 
     @GetMapping("/descargarXML")
     public ResponseEntity<Resource> descargarXML() {
-        Resource resource = new FileSystemResource("Springboot/demo/test_files/xml/dte.xml");
+        Resource resource = new FileSystemResource("test_files/xml/dte.xml");
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dte.xml")
             .contentType(MediaType.APPLICATION_XML)
@@ -148,9 +148,72 @@ public class AppController {
 
     @GetMapping("/descargarPDF")
     public ResponseEntity<Resource> descargarPDF() {
-        Resource resource = new FileSystemResource("Springboot/demo/test_files/Out/PDFDemo2.pdf");
+        Resource resource = new FileSystemResource("test_files/Out/PDFDemo2.pdf");
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=PDFDemo2.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFBE")
+    public ResponseEntity<Resource> descargarBE() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_BE_1668_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_BE_1688_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFBExE")
+    public ResponseEntity<Resource> descargarBExE() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_BExE_1811_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_BExE_1811_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFCrEx")
+    public ResponseEntity<Resource> descargarPDFCrEx() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_CrEx_69_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_CrEx_69_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFFExE")
+    public ResponseEntity<Resource> descargarPDFFExE() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_FExE_1075_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_FExE_1075_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFFExp")
+    public ResponseEntity<Resource> descargarPDFFExp() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_FExp_1398_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_FExp_1398_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFNC")
+    public ResponseEntity<Resource> descargarPDFNC() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_NC_8389_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_NC_8389_3.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(resource);
+    }
+
+    @GetMapping("/descargarPDFND")
+    public ResponseEntity<Resource> descargarPDFND() {
+        Resource resource = new FileSystemResource("test_files/Out/test_pdf_ND_1415_3.pdf");
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=test_pdf_ND_1415_3.pdf")
             .contentType(MediaType.APPLICATION_PDF)
             .body(resource);
     }
