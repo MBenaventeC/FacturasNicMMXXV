@@ -1,7 +1,10 @@
 package SiiBoleta;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BarcodePDF417;
+import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -9,6 +12,7 @@ import jakarta.xml.bind.Marshaller;
 
 import javax.xml.namespace.QName;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -76,5 +80,17 @@ public class TED {
         BarcodePDF417 pdf417 = new BarcodePDF417();
         pdf417.setText(new String(tedString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)); // Ojo con charset
         return pdf417; // .getImage();
+    }
+
+    public static void saveBarcodeToPdf(Image image, String outputPath)
+            throws DocumentException, FileNotFoundException {
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(outputPath));
+
+        document.open();
+        document.add(image);
+        document.close();
+
     }
 }

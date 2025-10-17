@@ -376,7 +376,7 @@ public class DTEMakers {
         caratula.setRutEmisor("60910000-1");
         caratula.setRutEnvia(rutEnvia);
         caratula.setRutReceptor(rutReceptor);
-        GregorianCalendar calendar = new GregorianCalendar();
+        GregorianCalendar calendar = new GregorianCalendar(2002, GregorianCalendar.OCTOBER,20);
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         caratula.setFchResol(xmlDate);
