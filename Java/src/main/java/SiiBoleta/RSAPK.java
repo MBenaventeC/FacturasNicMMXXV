@@ -1,4 +1,4 @@
-package SiiBoletaTest;
+package SiiBoleta;
 
 public class RSAPK {
 

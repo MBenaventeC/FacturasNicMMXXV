@@ -1,5 +1,5 @@
 
-package SiiBoletaTest;
+package SiiBoleta;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -1,4 +1,4 @@
-package SiiBoletaTest;
+package SiiBoleta;
 
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERNull;

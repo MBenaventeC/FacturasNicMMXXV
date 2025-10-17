@@ -1,5 +1,5 @@
 
-package SiiBoletaTest;
+package SiiBoleta;
 
 import jakarta.xml.bind.annotation.*;
 
@@ -175,11 +175,11 @@ public class SignatureType {
 
     /**
      * Gets the value of the signedInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SignatureType.SignedInfo }
-     *     
+     *
      */
     public SignatureType.SignedInfo getSignedInfo() {
         return signedInfo;
@@ -187,11 +187,11 @@ public class SignatureType {
 
     /**
      * Sets the value of the signedInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SignatureType.SignedInfo }
-     *     
+     *
      */
     public void setSignedInfo(SignatureType.SignedInfo value) {
         this.signedInfo = value;
@@ -199,7 +199,7 @@ public class SignatureType {
 
     /**
      * Gets the value of the signatureValue property.
-     * 
+     *
      * @return
      *     possible object is
      *     byte[]
@@ -210,7 +210,7 @@ public class SignatureType {
 
     /**
      * Sets the value of the signatureValue property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     byte[]
@@ -221,11 +221,11 @@ public class SignatureType {
 
     /**
      * Gets the value of the keyInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SignatureType.KeyInfo }
-     *     
+     *
      */
     public SignatureType.KeyInfo getKeyInfo() {
         return keyInfo;
@@ -233,11 +233,11 @@ public class SignatureType {
 
     /**
      * Sets the value of the keyInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SignatureType.KeyInfo }
-     *     
+     *
      */
     public void setKeyInfo(SignatureType.KeyInfo value) {
         this.keyInfo = value;
@@ -250,9 +250,9 @@ public class SignatureType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -310,8 +310,8 @@ public class SignatureType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -327,11 +327,11 @@ public class SignatureType {
 
         /**
          * Gets the value of the keyValue property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link SignatureType.KeyInfo.KeyValue }
-         *     
+         *
          */
         public SignatureType.KeyInfo.KeyValue getKeyValue() {
             return keyValue;
@@ -339,11 +339,11 @@ public class SignatureType {
 
         /**
          * Sets the value of the keyValue property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link SignatureType.KeyInfo.KeyValue }
-         *     
+         *
          */
         public void setKeyValue(SignatureType.KeyInfo.KeyValue value) {
             this.keyValue = value;
@@ -351,11 +351,11 @@ public class SignatureType {
 
         /**
          * Gets the value of the x509Data property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link SignatureType.KeyInfo.X509Data }
-         *     
+         *
          */
         public SignatureType.KeyInfo.X509Data getX509Data() {
             return x509Data;
@@ -363,11 +363,11 @@ public class SignatureType {
 
         /**
          * Sets the value of the x509Data property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link SignatureType.KeyInfo.X509Data }
-         *     
+         *
          */
         public void setX509Data(SignatureType.KeyInfo.X509Data value) {
             this.x509Data = value;
@@ -376,9 +376,9 @@ public class SignatureType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -415,8 +415,8 @@ public class SignatureType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -432,11 +432,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the rsaKeyValue property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link SignatureType.KeyInfo.KeyValue.RSAKeyValue }
-             *     
+             *
              */
             public SignatureType.KeyInfo.KeyValue.RSAKeyValue getRSAKeyValue() {
                 return rsaKeyValue;
@@ -444,11 +444,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the rsaKeyValue property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link SignatureType.KeyInfo.KeyValue.RSAKeyValue }
-             *     
+             *
              */
             public void setRSAKeyValue(SignatureType.KeyInfo.KeyValue.RSAKeyValue value) {
                 this.rsaKeyValue = value;
@@ -456,11 +456,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the dsaKeyValue property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link SignatureType.KeyInfo.KeyValue.DSAKeyValue }
-             *     
+             *
              */
             public SignatureType.KeyInfo.KeyValue.DSAKeyValue getDSAKeyValue() {
                 return dsaKeyValue;
@@ -468,11 +468,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the dsaKeyValue property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link SignatureType.KeyInfo.KeyValue.DSAKeyValue }
-             *     
+             *
              */
             public void setDSAKeyValue(SignatureType.KeyInfo.KeyValue.DSAKeyValue value) {
                 this.dsaKeyValue = value;
@@ -481,9 +481,9 @@ public class SignatureType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -498,8 +498,8 @@ public class SignatureType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -521,7 +521,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the p property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -532,7 +532,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the p property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -543,7 +543,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the q property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -554,7 +554,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the q property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -565,7 +565,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the g property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -576,7 +576,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the g property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -587,7 +587,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the y property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -598,7 +598,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the y property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -612,9 +612,9 @@ public class SignatureType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -627,8 +627,8 @@ public class SignatureType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -644,7 +644,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the modulus property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -655,7 +655,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the modulus property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -666,7 +666,7 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the exponent property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -677,7 +677,7 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the exponent property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -693,9 +693,9 @@ public class SignatureType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -707,8 +707,8 @@ public class SignatureType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -721,7 +721,7 @@ public class SignatureType {
 
             /**
              * Gets the value of the x509Certificate property.
-             * 
+             *
              * @return
              *     possible object is
              *     byte[]
@@ -732,7 +732,7 @@ public class SignatureType {
 
             /**
              * Sets the value of the x509Certificate property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     byte[]
@@ -748,9 +748,9 @@ public class SignatureType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -826,8 +826,8 @@ public class SignatureType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -846,11 +846,11 @@ public class SignatureType {
 
         /**
          * Gets the value of the canonicalizationMethod property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link SignatureType.SignedInfo.CanonicalizationMethod }
-         *     
+         *
          */
         public SignatureType.SignedInfo.CanonicalizationMethod getCanonicalizationMethod() {
             return canonicalizationMethod;
@@ -858,11 +858,11 @@ public class SignatureType {
 
         /**
          * Sets the value of the canonicalizationMethod property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link SignatureType.SignedInfo.CanonicalizationMethod }
-         *     
+         *
          */
         public void setCanonicalizationMethod(SignatureType.SignedInfo.CanonicalizationMethod value) {
             this.canonicalizationMethod = value;
@@ -870,11 +870,11 @@ public class SignatureType {
 
         /**
          * Gets the value of the signatureMethod property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link SignatureType.SignedInfo.SignatureMethod }
-         *     
+         *
          */
         public SignatureType.SignedInfo.SignatureMethod getSignatureMethod() {
             return signatureMethod;
@@ -882,11 +882,11 @@ public class SignatureType {
 
         /**
          * Sets the value of the signatureMethod property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link SignatureType.SignedInfo.SignatureMethod }
-         *     
+         *
          */
         public void setSignatureMethod(SignatureType.SignedInfo.SignatureMethod value) {
             this.signatureMethod = value;
@@ -894,11 +894,11 @@ public class SignatureType {
 
         /**
          * Gets the value of the reference property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link SignatureType.SignedInfo.Reference }
-         *     
+         *
          */
         public SignatureType.SignedInfo.Reference getReference() {
             return reference;
@@ -906,11 +906,11 @@ public class SignatureType {
 
         /**
          * Sets the value of the reference property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link SignatureType.SignedInfo.Reference }
-         *     
+         *
          */
         public void setReference(SignatureType.SignedInfo.Reference value) {
             this.reference = value;
@@ -923,9 +923,9 @@ public class SignatureType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -935,8 +935,8 @@ public class SignatureType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -948,11 +948,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the algorithm property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getAlgorithm() {
                 if (algorithm == null) {
@@ -964,11 +964,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the algorithm property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setAlgorithm(String value) {
                 this.algorithm = value;
@@ -979,9 +979,9 @@ public class SignatureType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -1022,8 +1022,8 @@ public class SignatureType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -1045,11 +1045,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the transforms property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link SignatureType.SignedInfo.Reference.Transforms }
-             *     
+             *
              */
             public SignatureType.SignedInfo.Reference.Transforms getTransforms() {
                 return transforms;
@@ -1057,11 +1057,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the transforms property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link SignatureType.SignedInfo.Reference.Transforms }
-             *     
+             *
              */
             public void setTransforms(SignatureType.SignedInfo.Reference.Transforms value) {
                 this.transforms = value;
@@ -1069,11 +1069,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the digestMethod property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link SignatureType.SignedInfo.Reference.DigestMethod }
-             *     
+             *
              */
             public SignatureType.SignedInfo.Reference.DigestMethod getDigestMethod() {
                 return digestMethod;
@@ -1081,11 +1081,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the digestMethod property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link SignatureType.SignedInfo.Reference.DigestMethod }
-             *     
+             *
              */
             public void setDigestMethod(SignatureType.SignedInfo.Reference.DigestMethod value) {
                 this.digestMethod = value;
@@ -1093,7 +1093,7 @@ public class SignatureType {
 
             /**
              * Gets the value of the digestValue property.
-             * 
+             *
              * @return
              *     possible object is
              *     byte[]
@@ -1104,7 +1104,7 @@ public class SignatureType {
 
             /**
              * Sets the value of the digestValue property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     byte[]
@@ -1115,11 +1115,11 @@ public class SignatureType {
 
             /**
              * Gets the value of the uri property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getURI() {
                 return uri;
@@ -1127,11 +1127,11 @@ public class SignatureType {
 
             /**
              * Sets the value of the uri property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setURI(String value) {
                 this.uri = value;
@@ -1140,9 +1140,9 @@ public class SignatureType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -1152,8 +1152,8 @@ public class SignatureType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
@@ -1165,11 +1165,11 @@ public class SignatureType {
 
                 /**
                  * Gets the value of the algorithm property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getAlgorithm() {
                     if (algorithm == null) {
@@ -1181,11 +1181,11 @@ public class SignatureType {
 
                 /**
                  * Sets the value of the algorithm property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setAlgorithm(String value) {
                     this.algorithm = value;
@@ -1196,9 +1196,9 @@ public class SignatureType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -1218,8 +1218,8 @@ public class SignatureType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -1369,74 +1369,4 @@ public class SignatureType {
         }
 
     }
-
-    public SignatureType makeSignature(DTEDefType.Documento documento){
-        SignatureType signature = new SignatureType();
-
-        /* INFO **/
-        SignatureType.SignedInfo signedInfo = new SignatureType.SignedInfo();
-
-        SignatureType.SignedInfo.CanonicalizationMethod canon = new SignedInfo.CanonicalizationMethod();
-        canon.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
-
-        SignatureType.SignedInfo.SignatureMethod signatureMethod = new SignatureType.SignedInfo.SignatureMethod();
-        signatureMethod.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-
-        SignatureType.SignedInfo.Reference reference = new SignatureType.SignedInfo.Reference();
-        reference.setURI("#"+documento.getID());
-
-        SignatureType.SignedInfo.Reference.DigestMethod digest =  new SignatureType.SignedInfo.Reference.DigestMethod();
-        digest.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
-
-        reference.setDigestMethod(digest);
-        /* FALTA CALCULAR EL DIGEST VALUE DE ACUERDO AL DOM
-        */
-        /*
-        CAMBIAR POR EL CALCULO REAL DE DIGESTVALUE
-         */
-        reference.setDigestValue("SOyUNEjemplo".getBytes());
-
-        signedInfo.setCanonicalizationMethod(canon);
-        signedInfo.setSignatureMethod(signatureMethod);
-        signedInfo.setReference(reference);
-
-        signature.setSignedInfo(signedInfo);
-
-        // SignatureValue
-        /*
-        CAMBIAR POR EL CALCULO REAL DE SIGNATURE VALUE
-         */
-        signature.setSignatureValue("SoyUnaFirmaSuperSecreta".getBytes());
-
-        // KeyInfo
-        SignatureType.KeyInfo keyInfo = new SignatureType.KeyInfo();
-        SignatureType.KeyInfo.KeyValue keyValue = new KeyInfo.KeyValue();
-
-        SignatureType.KeyInfo.KeyValue.RSAKeyValue rsaKeyValue = new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
-
-        /*
-        CAMBIAR POR EL CALCULO REAL DE MODULUS
-         */
-        rsaKeyValue.setModulus("TIENESQUECAMBIARELMODULUS".getBytes());
-        /*
-        CAMBIAR POR EL CALCULO REAL DE EXPONENT
-         */
-        rsaKeyValue.setExponent("TIENESQUECAMBIARELEXPONENT".getBytes());
-
-        keyValue.setRSAKeyValue(rsaKeyValue);
-        keyInfo.setKeyValue(keyValue);
-
-        SignatureType.KeyInfo.X509Data x509Data = new SignatureType.KeyInfo.X509Data();
-        /*
-        CAMBIAR POR EL CALCULO REAL DE X509
-         */
-        x509Data.setX509Certificate("SoyUnEjemplo".getBytes());
-
-
-
-        signature.setKeyInfo(keyInfo);
-        signature.keyInfo.setX509Data(x509Data);
-
-        return signature;
-    };
 }

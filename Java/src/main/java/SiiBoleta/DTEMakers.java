@@ -1,4 +1,4 @@
-package SiiBoletaTest;
+package SiiBoleta;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -15,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.io.FileInputStream;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -251,80 +252,162 @@ public class DTEMakers {
         return signatureJaxb;
     }
 
-    public static SignatureType makeSignature2(DTEDefType.Documento documento){
-        SignatureType signature = new SignatureType();
+    public static SignatureType makeSignatureEnv(EnvioDTE.SetDTE documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+        /*2. Load the XML Document
+          Use a DOM parser to load your XML into a Document object:
+        */
+        /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
 
-        /* INFO **/
-        SignatureType.SignedInfo signedInfo = new SignatureType.SignedInfo();
-
-        SignatureType.SignedInfo.CanonicalizationMethod canon = new SignatureType.SignedInfo.CanonicalizationMethod();
-        canon.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
-
-        SignatureType.SignedInfo.SignatureMethod signatureMethod = new SignatureType.SignedInfo.SignatureMethod();
-        signatureMethod.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-
-        SignatureType.SignedInfo.Reference reference = new SignatureType.SignedInfo.Reference();
-        reference.setURI("#"+documento.getID());
-
-        SignatureType.SignedInfo.Reference.DigestMethod digest =  new SignatureType.SignedInfo.Reference.DigestMethod();
-        digest.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
-
-        reference.setDigestMethod(digest);
-        /* FALTA CALCULAR EL DIGEST VALUE DE ACUERDO AL DOM
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        // 1) Cargar el archivo .p12 o .pfx ===
+        /**
+         * AÑADAN SU ARCHIVO .PFX A LA CARPETA JAVA
+         * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
+         * Y PEGAR SU RUTA A rutaPFX
          */
-        /*
-        CAMBIAR POR EL CALCULO REAL DE DIGESTVALUE
+        String rutaPFX = "Java/certificado.pfx";
+        /**
+         * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        reference.setDigestValue("SOyUNEjemplo".getBytes());
+        String password = "";
 
-        signedInfo.setCanonicalizationMethod(canon);
-        signedInfo.setSignatureMethod(signatureMethod);
-        signedInfo.setReference(reference);
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
 
-        signature.setSignedInfo(signedInfo);
+        // Obtener el alias (normalmente el primero)
+        String alias = ks.aliases().nextElement();
 
-        // SignatureValue
-        /*
-        CAMBIAR POR EL CALCULO REAL DE SIGNATURE VALUE
-         */
-        signature.setSignatureValue("SoyUnaFirmaSuperSecreta".getBytes());
+        // Obtener la clave privada y el certificado
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
 
-        // KeyInfo
-        SignatureType.KeyInfo keyInfo = new SignatureType.KeyInfo();
-        SignatureType.KeyInfo.KeyValue keyValue = new SignatureType.KeyInfo.KeyValue();
+        JAXBContext context = JAXBContext.newInstance(EnvioDTE.SetDTE.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-        SignatureType.KeyInfo.KeyValue.RSAKeyValue rsaKeyValue = new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().newDocument();
 
-        /*
-        CAMBIAR POR EL CALCULO REAL DE MODULUS
-         */
-        rsaKeyValue.setModulus("TIENESQUECAMBIARELMODULUS".getBytes());
-        /*
-        CAMBIAR POR EL CALCULO REAL DE EXPONENT
-         */
-        rsaKeyValue.setExponent("TIENESQUECAMBIARELEXPONENT".getBytes());
+        // Marshal directly into the DOM
+        JAXBElement<EnvioDTE.SetDTE> jaxbElement = new JAXBElement<>(
+                new QName("SetDTE"), EnvioDTE.SetDTE.class, documento);
+        marshaller.marshal(jaxbElement, doc);
 
-        keyValue.setRSAKeyValue(rsaKeyValue);
-        keyInfo.setKeyValue(keyValue);
+        doc.getDocumentElement().setIdAttribute("ID", true);
 
-        SignatureType.KeyInfo.X509Data x509Data = new SignatureType.KeyInfo.X509Data();
-        /*
-        CAMBIAR POR EL CALCULO REAL DE X509
-         */
-        x509Data.setX509Certificate("SoyUnEjemplo".getBytes());
+        //3. Initialize the Signature Factory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
+        //4. Create the Reference and SignedInfo
+        Reference ref = fac.newReference(
+                "#"+documento.getID(),
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                null,
+                null,
+                null
+        );
 
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref)
+        );
 
-        signature.setKeyInfo(keyInfo);
-        signature.keyInfo.setX509Data(x509Data);
+        //5. Load the Key and Certificat
+        /*KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream("keystore.p12"), "keystorePassword".toCharArray());
+        PrivateKey pk = (PrivateKey) ks.getKey("alias", "keyPassword".toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate("alias");
 
-        return signature;
-    };
+        //6. Create KeyInfo
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kif.newX509Data(Collections.singletonList(cert))));*/
+
+        //7. Sign the Document
+        /*DOMSignContext dsc = new DOMSignContext(pk, doc.getDocumentElement());
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);*/
+
+        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+        /*KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
+                Collections.singletonList(
+                        fac.getKeyInfoFactory().newX509Data(Collections.singletonList(cert))
+                )
+        );*/
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+
+        // Create X509Data from certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+
+        // Combine both into KeyInfo
+        KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
+
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        Element signatureElement = (Element) sigList.item(0);
+
+        Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
+        SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
+
+        return signatureJaxb;
+    }
 
     public static DTEDefType makeDTE(DTEDefType.Documento documento, SignatureType signature) {
         DTEDefType dte = new DTEDefType();
         dte.setDocumento(documento);
         dte.setSignature(signature);
+        dte.setVersion(BigDecimal.valueOf(1.0));
         return dte;
+    }
+
+    public static EnvioDTE.SetDTE.Caratula makeCaratula(String rutEnvia, String rutReceptor,
+                                                        /*XMLGregorianCalendar fchResol,*/ int nroResol,
+                                                        /*XMLGregorianCalendar tmstFirmaEnv,*/
+                                                        List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTE) throws DatatypeConfigurationException {
+        EnvioDTE.SetDTE.Caratula caratula = new EnvioDTE.SetDTE.Caratula();
+        caratula.setRutEmisor("60910000-1");
+        caratula.setRutEnvia(rutEnvia);
+        caratula.setRutReceptor(rutReceptor);
+        GregorianCalendar calendar = new GregorianCalendar();
+        XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        caratula.setFchResol(xmlDate);
+        caratula.setNroResol(BigInteger.valueOf(nroResol));
+        XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        caratula.setTmstFirmaEnv(xmlDate2);
+        caratula.setSubTotDTE(subTotDTE);
+        caratula.setVersion(BigDecimal.valueOf(1.0));
+        return caratula;
+    }
+
+    public static EnvioDTE.SetDTE.Caratula.SubTotDTE makeSubTotDTE(int tpoDTE,int nroDTE) {
+        EnvioDTE.SetDTE.Caratula.SubTotDTE subTot =  new EnvioDTE.SetDTE.Caratula.SubTotDTE();
+        subTot.setTpoDTE(BigInteger.valueOf(tpoDTE));
+        subTot.setNroDTE(BigInteger.valueOf(nroDTE));
+        return subTot;
+    }
+
+    public static EnvioDTE.SetDTE makeSetDTE(EnvioDTE.SetDTE.Caratula caratula,List<SiiBoleta.DTEDefType> DteList,String id){
+        EnvioDTE.SetDTE  setDTE = new EnvioDTE.SetDTE();
+        setDTE.setCaratula(caratula);
+        setDTE.setDteList(DteList);
+        setDTE.setID(id);
+        return setDTE;
+    }
+
+    public static EnvioDTE makeEnvioDTE(EnvioDTE.SetDTE setDTE,SiiBoleta.SignatureType signature){
+        EnvioDTE envioDTE = new EnvioDTE();
+        envioDTE.setSetDTE(setDTE);
+        envioDTE.setSignature(signature);
+        envioDTE.setVersion(BigDecimal.valueOf(1.0));
+        return envioDTE;
     }
 }

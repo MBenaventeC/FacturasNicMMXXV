@@ -1,5 +1,5 @@
 
-package SiiBoletaTest;
+package SiiBoleta;
 
 import javax.xml.namespace.QName;
 import jakarta.xml.bind.JAXBElement;

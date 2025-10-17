@@ -1,4 +1,4 @@
-package SiiBoletaTest;
+package SiiBoleta;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -6,12 +6,16 @@ import jakarta.xml.bind.Marshaller;
 
 import javax.xml.namespace.QName;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
+
 
 public class XmlGenerator {
 
     public static void main(String[] args) throws Exception {
+        System.setProperty("jakarta.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
@@ -38,10 +42,43 @@ public class XmlGenerator {
 
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
         //DTEMakers.makeSignature2(documento);
-        SignatureType signature = DTEMakers.makeSignature2(documento);
+        SignatureType signature = DTEMakers.makeSignature(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,signature);
+
+        EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
+        List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
+        subTotDTEList.add(subTot);
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("7880442-4","60803000-K",0,subTotDTEList);
+        List<DTEDefType> DTEList = new ArrayList<>();
+        DTEList.add(dte);
+        EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,DTEList,"SetDoc");
+        SignatureType signatureEnv = DTEMakers.makeSignatureEnv(setDTE);
+        EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,signatureEnv);
         // ...set other fields...
 
+        // 2. Initialize JAXBContext
+        JAXBContext context = JAXBContext.newInstance(EnvioDTE.class);
+
+        // 3. Create marshaller and enable pretty-print
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sii.cl/SiiDte EnvioDTE_v10.xsd");
+
+
+        // 4. Marshal to a file or System.out
+        new File("out").mkdirs();
+        File output = new File("out/Envio2.xml");
+
+        //Para crear fragmentos:
+        JAXBElement<EnvioDTE> jaxbElement = new JAXBElement<>(
+                new QName("EnvioDTE"), EnvioDTE.class, envioDTE);
+
+        marshaller.marshal(jaxbElement, output);
+        // or: marshaller.marshal(obj, System.out);
+
+        /*
         // 2. Initialize JAXBContext
         JAXBContext context = JAXBContext.newInstance(DTEDefType.class);
 
@@ -53,7 +90,7 @@ public class XmlGenerator {
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/Dte12.xml");
+        File output = new File("out/Dte14.xml");
 
         //Para crear fragmentos:
         JAXBElement<DTEDefType> jaxbElement = new JAXBElement<>(
@@ -61,6 +98,7 @@ public class XmlGenerator {
 
         marshaller.marshal(jaxbElement, output);
         // or: marshaller.marshal(obj, System.out);
+         */
 
     }
 }

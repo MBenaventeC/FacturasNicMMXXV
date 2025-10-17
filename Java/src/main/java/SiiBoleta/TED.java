@@ -1,4 +1,4 @@
-package SiiBoletaTest;
+package SiiBoleta;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BarcodePDF417;
