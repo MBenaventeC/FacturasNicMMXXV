@@ -15,7 +15,6 @@ import java.util.List;
 public class XmlGenerator {
 
     public static void main(String[] args) throws Exception {
-        System.setProperty("jakarta.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
@@ -69,7 +68,7 @@ public class XmlGenerator {
 
         // 4. Marshal to a file or System.out
         new File("out").mkdirs();
-        File output = new File("out/Envio2.xml");
+        File output = new File("out/Envio.xml");
 
         //Para crear fragmentos:
         JAXBElement<EnvioDTE> jaxbElement = new JAXBElement<>(

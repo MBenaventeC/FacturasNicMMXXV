@@ -352,7 +352,7 @@ public class DTEMakers {
         signature.sign(dsc);
 
         NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-        Element signatureElement = (Element) sigList.item(0);
+        Element signatureElement = (Element) sigList.item(1);
 
         Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
         SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
