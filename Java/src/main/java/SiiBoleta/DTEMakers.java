@@ -26,8 +26,12 @@ import javax.xml.crypto.dsig.keyinfo.*;
 import javax.xml.crypto.dsig.spec.*;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import jakarta.xml.bind.*;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -161,7 +165,7 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "";
+        String password = "***REMOVED***";
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -252,7 +256,16 @@ public class DTEMakers {
         return signatureJaxb;
     }
 
-    public static SignatureType makeSignatureEnv(EnvioDTE.SetDTE documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+    public static void printNode(Node node) throws Exception {
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+        transformer.transform(new DOMSource(node), new StreamResult(System.out));
+    }
+
+    public static SignatureType makeSignatureEnv(Element documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -271,7 +284,120 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "";
+        String password = "***REMOVED***";
+
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
+
+        // Obtener el alias (normalmente el primero)
+        String alias = ks.aliases().nextElement();
+
+        // Obtener la clave privada y el certificado
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
+
+        // Marshal directly into the DOM
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document tempDoc = dbf.newDocumentBuilder().newDocument();
+
+        Element imported = (Element) tempDoc.importNode(documento, true);
+        tempDoc.appendChild(imported);
+
+        imported.setAttribute("ID", imported.getAttribute("ID"));
+        imported.setIdAttribute("ID", true);
+
+        //3. Initialize the Signature Factory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        //4. Create the Reference and SignedInfo
+        Reference ref = fac.newReference(
+                "#"+imported.getAttribute("ID"),
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                null,
+                null,
+                null
+        );
+
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref)
+        );
+
+
+        /*DOMSignContext dsc = new DOMSignContext(privateKey, documento);
+
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+
+        // Create X509Data from certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+
+        // Combine both into KeyInfo
+        KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
+
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document tempDoc = dbf.newDocumentBuilder().newDocument();
+
+        DOMSignContext tempCtx = new DOMSignContext(privateKey, tempDoc);
+        signature.sign(tempCtx);*/
+
+        //return signature;
+
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyValue       kv  = kif.newKeyValue(publicKey);
+        X509Data       xd  = kif.newX509Data(Collections.singletonList(cert));
+        KeyInfo        ki  = kif.newKeyInfo(Arrays.asList(kv, xd));
+
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+
+        // --- sign the imported node ---
+        DOMSignContext dsc = new DOMSignContext(privateKey, imported);
+        signature.sign(dsc);
+
+        // --- extract the <Signature> child of imported ---
+        NodeList sigNodes = imported.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        if (sigNodes.getLength() == 0) {
+            throw new IllegalStateException("Signature element not found after signing");
+        }
+        Element sigElem = (Element) sigNodes.item(0);
+
+        // --- unmarshal into JAXB SignatureType ---
+        JAXBContext jctx = JAXBContext.newInstance(SignatureType.class);
+        Unmarshaller unmarshaller = jctx.createUnmarshaller();
+        JAXBElement<SignatureType> jsig = unmarshaller.unmarshal(sigElem, SignatureType.class);
+        return jsig.getValue();
+
+    }
+
+    public static SignatureType makeSignatureEnv2(EnvioDTE.SetDTE documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+        /*2. Load the XML Document
+          Use a DOM parser to load your XML into a Document object:
+        */
+        /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
+
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        // 1) Cargar el archivo .p12 o .pfx ===
+        /**
+         * AÑADAN SU ARCHIVO .PFX A LA CARPETA JAVA
+         * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
+         * Y PEGAR SU RUTA A rutaPFX
+         */
+        String rutaPFX = "Java/certificado.pfx";
+        /**
+         * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
+         */
+        String password = "***REMOVED***";
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -352,7 +478,7 @@ public class DTEMakers {
         signature.sign(dsc);
 
         NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-        Element signatureElement = (Element) sigList.item(1);
+        Element signatureElement = (Element) sigList.item(0);
 
         Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
         SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
