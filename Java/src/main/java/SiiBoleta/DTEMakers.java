@@ -38,10 +38,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import jakarta.xml.bind.*;
 import org.bouncycastle.operator.OperatorCreationException;
-import org.w3c.dom.Document;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.w3c.dom.Element;
 
 public class DTEMakers {
@@ -542,4 +539,129 @@ public class DTEMakers {
         envioDTE.setVersion(BigDecimal.valueOf(1.0));
         return envioDTE;
     }
+
+    public static void formatKeyValueElements(Document doc, int lineLength,int index) {
+        NodeList modulusNodes = doc.getElementsByTagNameNS("*", "Modulus");
+        NodeList exponentNodes = doc.getElementsByTagNameNS("*", "Exponent");
+        NodeList X509CertificateNodes = doc.getElementsByTagNameNS("*", "X509Certificate");
+        NodeList SignatureValue = doc.getElementsByTagNameNS("*", "SignatureValue");
+        NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+
+        formatBase64Nodes(modulusNodes, lineLength,doc,index,0);
+        Fix(exponentNodes,index,"            ");
+        Fix(SignatureValue,index,"");
+        formatBase64Nodes(X509CertificateNodes, lineLength,doc,index,1);
+        FRMTFix(FRMT, lineLength,doc,index);
+    }
+
+    private static void formatBase64Nodes(NodeList nodes, int lineLength,Document document,int index,int type) {
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if(index==i){
+                String indent="                ";
+                if(type==0) {
+                    indent=indent+"    ";
+                }
+                String base64 = node.getTextContent().replaceAll("\\s+", "");
+                String formatted = insertLineBreaks(base64, lineLength, indent);
+                //node.setTextContent(formatted);
+                node.setTextContent(""); // Clear existing
+                for (String line : formatted.split("\n")) {
+                    Text lineNode = document.createTextNode(line);
+                    node.appendChild(lineNode);
+                    node.appendChild(document.createTextNode("\n")); // Explicit line break
+                }
+                node.appendChild(document.createTextNode(indent));
+            } else{
+                node.setTextContent(node.getTextContent().replace("\n","\n        "));
+            }
+        }
+    }
+    private static void Fix(NodeList nodes,int index,String extra) {
+        for(int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if(index==i){node.setTextContent("\n            " + extra + node.getTextContent() + "\n        " + extra);}
+            else{node.setTextContent(node.getTextContent().replace("\n","\n        "));}
+        }
+    }
+
+    private static void FRMTFix(NodeList nodes, int lineLength,Document document,int index) {
+        Node node = nodes.item(0);
+        if(index==0){
+            String indent="            ";
+            String base64 = node.getTextContent().replaceAll("\\s+", "");
+            String formatted = insertLineBreaks(base64, lineLength, indent);
+            //node.setTextContent(formatted);
+            node.setTextContent(""); // Clear existing
+            for (String line : formatted.split("\n")) {
+                Text lineNode = document.createTextNode(line);
+                node.appendChild(lineNode);
+                node.appendChild(document.createTextNode("\n")); // Explicit line break
+            }
+            node.appendChild(document.createTextNode(indent));
+        } else{
+            node.setTextContent(node.getTextContent().replace("\n","\n        "));
+        }
+    }
+
+    private static void formatBase64Nodes2(NodeList nodes, int lineLength,Document document,int index,int type) {
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            String indent="";
+            if(i==0){
+                if(index==0){
+                    indent="                ";
+                    if(type==0) {
+                        indent=indent+"    ";
+                    }else if(type==1) {
+                    }
+                    String base64 = node.getTextContent().replaceAll("\\s+", "");
+                    String formatted = insertLineBreaks(base64, lineLength, indent);
+                    //node.setTextContent(formatted);
+                    node.setTextContent(""); // Clear existing
+                    for (String line : formatted.split("\n")) {
+                        Text lineNode = document.createTextNode(line);
+                        node.appendChild(lineNode);
+                        node.appendChild(document.createTextNode("\n")); // Explicit line break
+                    }
+                    node.appendChild(document.createTextNode(indent));
+                } else if (index==1) {
+                    if(type==0) {
+                        node.setTextContent(node.getTextContent().replace("\n","\n        "));
+                    }else if(type==1) {
+                        node.setTextContent(node.getTextContent().replace("\n","\n        "));
+                    }
+                }
+            } else if (i==1) {
+                indent="                ";
+                if(type==0) {
+                    indent=indent+"    ";
+                }else if(type==1) {
+                    indent=indent+"";
+                }
+                String base64 = node.getTextContent().replaceAll("\\s+", "");
+                String formatted = insertLineBreaks(base64, lineLength, indent);
+                //node.setTextContent(formatted);
+                node.setTextContent(""); // Clear existing
+                for (String line : formatted.split("\n")) {
+                    Text lineNode = document.createTextNode(line);
+                    node.appendChild(lineNode);
+                    node.appendChild(document.createTextNode("\n")); // Explicit line break
+                }
+                node.appendChild(document.createTextNode(indent));
+            }
+        }
+    }
+
+    private static String insertLineBreaks(String base64, int lineLength, String indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < base64.length(); i += lineLength) {
+            int end = Math.min(i + lineLength, base64.length());
+            if(end!=base64.length()){sb.append(base64, i, end).append("\n").append(indent).append("    ");}
+            else sb.append(base64, i, end);
+        }
+        return sb.toString();
+    }
+
+//                    //
 }

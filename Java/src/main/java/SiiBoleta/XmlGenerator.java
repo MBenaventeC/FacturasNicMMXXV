@@ -1,13 +1,15 @@
 package SiiBoleta;
 
 import jakarta.xml.bind.*;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.*;
 
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 // JAXB core
@@ -21,6 +23,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +42,7 @@ import java.io.File;
 // Collections
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 public class XmlGenerator {
@@ -274,6 +281,7 @@ public class XmlGenerator {
 
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
+        DTEMakers.formatKeyValueElements(doc,64,0);
 
         DocumentBuilder builder = dbf.newDocumentBuilder();
 
@@ -376,13 +384,15 @@ public class XmlGenerator {
             envioRoot.appendChild(importedSignature); // or insertBefore if needed
         }
 
-        Transformer transformer2 = TransformerFactory.newInstance().newTransformer();
+        TransformerFactory transformerf2 = TransformerFactory.newInstance();
+        //transformerf2.setAttribute("indent-number", 4);
+        Transformer transformer2 = transformerf2.newTransformer();
         transformer2.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer2.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
-        Result output2 = new StreamResult(new File("out/Envio.xml"));
+        DTEMakers.formatKeyValueElements(doc2,64,1);
+        Result output2 = new StreamResult(new File("out/EnvioDTE.xml"));
         Source input2 = new DOMSource(doc2);
         transformer2.transform(input2, output2);
-
     }
 }
