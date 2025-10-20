@@ -165,7 +165,7 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "***REMOVED***";
+        String password = "";
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -284,7 +284,7 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "***REMOVED***";
+        String password = "";
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -368,7 +368,7 @@ public class DTEMakers {
         if (sigNodes.getLength() == 0) {
             throw new IllegalStateException("Signature element not found after signing");
         }
-        Element sigElem = (Element) sigNodes.item(0);
+        Element sigElem = (Element) sigNodes.item(1);
 
         // --- unmarshal into JAXB SignatureType ---
         JAXBContext jctx = JAXBContext.newInstance(SignatureType.class);
@@ -397,7 +397,7 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "***REMOVED***";
+        String password = "";
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -478,7 +478,7 @@ public class DTEMakers {
         signature.sign(dsc);
 
         NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-        Element signatureElement = (Element) sigList.item(0);
+        Element signatureElement = (Element) sigList.item(1);
 
         Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
         SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));

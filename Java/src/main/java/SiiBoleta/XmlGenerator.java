@@ -182,7 +182,7 @@ public class XmlGenerator {
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        System.out.println(System.getProperty("user.dir"));
+        //System.out.println(System.getProperty("user.dir"));
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
@@ -286,7 +286,7 @@ public class XmlGenerator {
         Node newRoot = renameNodeWithNamespace(newDoc, oldRoot, "http://www.sii.cl/SiiDte");
         newDoc.appendChild(newRoot);
 
-        printNode(newDoc);
+        //printNode(newDoc);
 
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -353,7 +353,7 @@ public class XmlGenerator {
        //     newElement.appendChild(importedDTE);
             //newElement.appendChild(dteElement.getFirstChild());
         //}
-        printNode(doc2);
+        //printNode(doc2);
         dteE2.setAttribute("ID", "SetDoc");
         dteE2.setIdAttribute("ID", true);
         SignatureType signatureEnv = DTEMakers.makeSignatureEnv(dteE2);
