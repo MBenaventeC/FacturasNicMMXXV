@@ -62,7 +62,7 @@ public class FRMT {
 
         //Para llave de verdad
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
+        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         String pemPrivateKey = autorizacion.getRSASK();

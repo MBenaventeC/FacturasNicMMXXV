@@ -173,7 +173,7 @@ public class XmlGenerator {
     public static void main(String[] args) throws Exception {
         //DTE
         // 1. Create and populate your object
-        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
+        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
         DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","H&M","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
         DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
@@ -182,10 +182,11 @@ public class XmlGenerator {
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
+        System.out.println(System.getProperty("user.dir"));
+        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,994321,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
 
 
 
@@ -196,7 +197,7 @@ public class XmlGenerator {
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-22295"); // folio
         //DTEMakers.makeSignature2(documento);
         SignatureType signature = DTEMakers.makeSignature(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,null);
@@ -299,7 +300,7 @@ public class XmlGenerator {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
         subTotDTEList.add(subTot);
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("7880442-4","60803000-K",0,subTotDTEList);
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20848882-1","60803000-K",0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
         EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,null);
