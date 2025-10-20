@@ -8,6 +8,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
@@ -165,7 +168,8 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "";
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -284,7 +288,8 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "";
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
@@ -397,7 +402,8 @@ public class DTEMakers {
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
          */
-        String password = "";
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
 
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(rutaPFX), password.toCharArray());
