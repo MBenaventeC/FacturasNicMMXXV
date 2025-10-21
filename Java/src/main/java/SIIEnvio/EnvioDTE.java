@@ -1,5 +1,5 @@
 
-package SiiBoleta;
+package SIIEnvio;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import SiiBoleta.DTEDefType;
+import SiiBoleta.SignatureType;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -84,10 +86,10 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "setDTE"/*,
     "signature"*/
 })
-@XmlRootElement(name = "EnvioDTE", namespace = "http://www.sii.cl/SiiDte")
+@XmlRootElement(name = "EnvioDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/)
 public class EnvioDTE {
 
-    @XmlElement(name = "SetDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
+    @XmlElement(name = "SetDTE", /*namespace = "http://www.sii.cl/SiiDte",*/ required = true)
     protected EnvioDTE.SetDTE setDTE;
     //@XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     @XmlTransient
@@ -233,7 +235,7 @@ public class EnvioDTE {
     })
     public static class SetDTE {
 
-        @XmlElement(name = "Caratula", namespace = "http://www.sii.cl/SiiDte", required = true)
+        @XmlElement(name = "Caratula"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
         protected EnvioDTE.SetDTE.Caratula caratula;
         @XmlElement(name = "DTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
         protected List<SiiBoleta.DTEDefType> dte;
@@ -379,22 +381,22 @@ public class EnvioDTE {
         })
         public static class Caratula {
 
-            @XmlElement(name = "RutEmisor", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "RutEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             protected String rutEmisor;
-            @XmlElement(name = "RutEnvia", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "RutEnvia"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             protected String rutEnvia;
-            @XmlElement(name = "RutReceptor", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "RutReceptor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             protected String rutReceptor;
-            @XmlElement(name = "FchResol", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "FchResol"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchResol;
-            @XmlElement(name = "NroResol", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "NroResol"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             @XmlSchemaType(name = "nonNegativeInteger")
             protected BigInteger nroResol;
-            @XmlElement(name = "TmstFirmaEnv", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "TmstFirmaEnv"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             @XmlSchemaType(name = "dateTime")
             protected XMLGregorianCalendar tmstFirmaEnv;
-            @XmlElement(name = "SubTotDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
+            @XmlElement(name = "SubTotDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
             protected List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTE;
             @XmlAttribute(name = "version", required = true)
             protected BigDecimal version;
@@ -636,10 +638,10 @@ public class EnvioDTE {
             })
             public static class SubTotDTE {
 
-                @XmlElement(name = "TpoDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
+                @XmlElement(name = "TpoDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger tpoDTE;
-                @XmlElement(name = "NroDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
+                @XmlElement(name = "NroDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger nroDTE;
 

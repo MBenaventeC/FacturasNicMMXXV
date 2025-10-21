@@ -3073,9 +3073,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * 
  */
-@XmlRootElement(name = "DTE")
+@XmlRootElement(name = "DTE",namespace = "http://www.sii.cl/SiiDte")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "DTEDefType"/*, namespace = "http://www.sii.cl/SiiDte"*/, propOrder = {
+@XmlType(name = "DTEDefType", namespace = "http://www.sii.cl/SiiDte", propOrder = {
     "documento",
     "liquidacion",
     "exportaciones"/*,
@@ -3083,11 +3083,11 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class DTEDefType {
 
-    @XmlElement(name = "Documento"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+    @XmlElement(name = "Documento", namespace = "http://www.sii.cl/SiiDte")
     protected DTEDefType.Documento documento;
-    @XmlElement(name = "Liquidacion"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+    @XmlElement(name = "Liquidacion", namespace = "http://www.sii.cl/SiiDte")
     protected DTEDefType.Liquidacion liquidacion;
-    @XmlElement(name = "Exportaciones"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+    @XmlElement(name = "Exportaciones", namespace = "http://www.sii.cl/SiiDte")
     protected DTEDefType.Exportaciones exportaciones;
     @XmlTransient
     protected SignatureType signature;
@@ -4457,21 +4457,21 @@ public class DTEDefType {
     })
     public static class Documento {
 
-        @XmlElement(name = "Encabezado"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Encabezado", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Documento.Encabezado encabezado;
-        @XmlElement(name = "Detalle"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Detalle", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected List<DTEDefType.Documento.Detalle> detalle;
-        @XmlElement(name = "SubTotInfo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "SubTotInfo", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Documento.SubTotInfo> subTotInfo;
-        @XmlElement(name = "DscRcgGlobal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "DscRcgGlobal", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Documento.DscRcgGlobal> dscRcgGlobal;
-        @XmlElement(name = "Referencia"/*, namespace = "http://www.sii.cl/SiiDte"*/)//omitir
+        @XmlElement(name = "Referencia", namespace = "http://www.sii.cl/SiiDte")//omitir
         protected List<DTEDefType.Documento.Referencia> referencia;
-        @XmlElement(name = "Comisiones"/*, namespace = "http://www.sii.cl/SiiDte"*/)//omitir
+        @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")//omitir
         protected List<DTEDefType.Documento.Comisiones> comisiones;
-        @XmlElement(name = "TED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TED", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Documento.TED ted;
-        @XmlElement(name = "TmstFirma"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TmstFirma", namespace = "http://www.sii.cl/SiiDte", required = true)
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar tmstFirma;
         @XmlAttribute(name = "ID", required = true)
@@ -4803,21 +4803,21 @@ public class DTEDefType {
         })
         public static class Comisiones {
 
-            @XmlElement(name = "NroLinCom"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinCom", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinCom;
-            @XmlElement(name = "TipoMovim"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TipoMovim", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tipoMovim;
-            @XmlElement(name = "Glosa"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Glosa", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosa;
-            @XmlElement(name = "TasaComision"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "TasaComision", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal tasaComision;
-            @XmlElement(name = "ValComNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValComNeto", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "nonNegativeInteger")
             protected BigInteger valComNeto;
-            @XmlElement(name = "ValComExe"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValComExe", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "nonNegativeInteger")
             protected BigInteger valComExe;
-            @XmlElement(name = "ValComIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValComIVA", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "nonNegativeInteger")
             protected BigInteger valComIVA;
 
@@ -5205,57 +5205,57 @@ public class DTEDefType {
         })
         public static class Detalle {
 
-            @XmlElement(name = "NroLinDet"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinDet", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinDet;
-            @XmlElement(name = "CdgItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CdgItem", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Documento.Detalle.CdgItem> cdgItem;
-            @XmlElement(name = "IndExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndExe", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indExe;
-            @XmlElement(name = "Retenedor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Retenedor", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Documento.Detalle.Retenedor retenedor;
-            @XmlElement(name = "NmbItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "NmbItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String nmbItem;
-            @XmlElement(name = "DscItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DscItem", namespace = "http://www.sii.cl/SiiDte")
             protected String dscItem;
-            @XmlElement(name = "QtyRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyRef;
-            @XmlElement(name = "UnmdRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdRef", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdRef;
-            @XmlElement(name = "PrcRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcRef;
-            @XmlElement(name = "QtyItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyItem;
-            @XmlElement(name = "Subcantidad"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Subcantidad", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Documento.Detalle.Subcantidad> subcantidad;
-            @XmlElement(name = "FchElabor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchElabor", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchElabor;
-            @XmlElement(name = "FchVencim"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchVencim", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchVencim;
-            @XmlElement(name = "UnmdItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdItem", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdItem;
-            @XmlElement(name = "PrcItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcItem;
-            @XmlElement(name = "OtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OtrMnda", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Documento.Detalle.OtrMnda otrMnda;
-            @XmlElement(name = "DescuentoPct"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DescuentoPct", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal descuentoPct;
-            @XmlElement(name = "DescuentoMonto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DescuentoMonto", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger descuentoMonto;
-            @XmlElement(name = "SubDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubDscto", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Documento.Detalle.SubDscto> subDscto;
-            @XmlElement(name = "RecargoPct"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RecargoPct", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal recargoPct;
-            @XmlElement(name = "RecargoMonto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RecargoMonto", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger recargoMonto;
-            @XmlElement(name = "SubRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubRecargo", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Documento.Detalle.SubRecargo> subRecargo;
-            @XmlElement(name = "CodImpAdic"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CodImpAdic", namespace = "http://www.sii.cl/SiiDte")
             protected List<String> codImpAdic;
-            @XmlElement(name = "MontoItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "MontoItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "nonNegativeInteger")
             protected BigInteger montoItem;
 
@@ -5892,9 +5892,9 @@ public class DTEDefType {
             })
             public static class CdgItem {
 
-                @XmlElement(name = "TpoCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tpoCodigo;
-                @XmlElement(name = "VlrCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "VlrCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String vlrCodigo;
 
                 /**
@@ -5989,17 +5989,17 @@ public class DTEDefType {
             })
             public static class OtrMnda {
 
-                @XmlElement(name = "PrcOtrMon"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "PrcOtrMon", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal prcOtrMon;
-                @XmlElement(name = "Moneda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Moneda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String moneda;
-                @XmlElement(name = "FctConv"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FctConv", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal fctConv;
-                @XmlElement(name = "DctoOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DctoOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal dctoOtrMnda;
-                @XmlElement(name = "RecargoOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "RecargoOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal recargoOtrMnda;
-                @XmlElement(name = "MontoItemOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MontoItemOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal montoItemOtrMnda;
 
                 /**
@@ -6187,15 +6187,15 @@ public class DTEDefType {
             })
             public static class Retenedor {
 
-                @XmlElement(name = "IndAgente"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "IndAgente", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String indAgente;
-                @XmlElement(name = "MntBaseFaena"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntBaseFaena", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntBaseFaena;
-                @XmlElement(name = "MntMargComer"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntMargComer", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntMargComer;
-                @XmlElement(name = "PrcConsFinal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PrcConsFinal", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger prcConsFinal;
 
@@ -6325,9 +6325,9 @@ public class DTEDefType {
             })
             public static class SubDscto {
 
-                @XmlElement(name = "TipoDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoDscto", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tipoDscto;
-                @XmlElement(name = "ValorDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "ValorDscto", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal valorDscto;
 
                 /**
@@ -6408,9 +6408,9 @@ public class DTEDefType {
             })
             public static class SubRecargo {
 
-                @XmlElement(name = "TipoRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoRecargo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tipoRecargo;
-                @XmlElement(name = "ValorRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "ValorRecargo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal valorRecargo;
 
                 /**
@@ -6497,9 +6497,9 @@ public class DTEDefType {
             })
             public static class Subcantidad {
 
-                @XmlElement(name = "SubQty"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubQty", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal subQty;
-                @XmlElement(name = "SubCod"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubCod", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String subCod;
 
                 /**
@@ -6612,20 +6612,20 @@ public class DTEDefType {
         })
         public static class DscRcgGlobal {
 
-            @XmlElement(name = "NroLinDR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "NroLinDR", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger nroLinDR;
-            @XmlElement(name = "TpoMov"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoMov", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoMov;
-            @XmlElement(name = "GlosaDR"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "GlosaDR", namespace = "http://www.sii.cl/SiiDte")
             protected String glosaDR;
-            @XmlElement(name = "TpoValor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoValor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoValor;
-            @XmlElement(name = "ValorDR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValorDR", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigDecimal valorDR;
-            @XmlElement(name = "ValorDROtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValorDROtrMnda", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal valorDROtrMnda;
-            @XmlElement(name = "IndExeDR"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndExeDR", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indExeDR;
 
             /**
@@ -7530,21 +7530,21 @@ public class DTEDefType {
         })
         public static class Encabezado {
 
-            @XmlElement(name = "IdDoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "IdDoc", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.Encabezado.IdDoc idDoc;
-            @XmlElement(name = "Emisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Emisor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.Encabezado.Emisor emisor;
-            @XmlElement(name = "RUTMandante"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RUTMandante", namespace = "http://www.sii.cl/SiiDte")
             protected String rutMandante;
-            @XmlElement(name = "Receptor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Receptor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.Encabezado.Receptor receptor;
-            @XmlElement(name = "RUTSolicita"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RUTSolicita", namespace = "http://www.sii.cl/SiiDte")
             protected String rutSolicita;
-            @XmlElement(name = "Transporte"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Transporte", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Documento.Encabezado.Transporte transporte;
-            @XmlElement(name = "Totales"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Totales", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.Encabezado.Totales totales;
-            @XmlElement(name = "OtraMoneda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OtraMoneda", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Documento.Encabezado.OtraMoneda otraMoneda;
 
             /**
@@ -7868,33 +7868,33 @@ public class DTEDefType {
             })
             public static class Emisor {
 
-                @XmlElement(name = "RUTEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTEmisor", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutEmisor;
-                @XmlElement(name = "RznSoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSoc", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSoc;
-                @XmlElement(name = "GiroEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "GiroEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String giroEmis;
-                @XmlElement(name = "Telefono"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Telefono", namespace = "http://www.sii.cl/SiiDte")
                 protected List<String> telefono;
-                @XmlElement(name = "CorreoEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoEmisor", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoEmisor;
-                @XmlElement(name = "Acteco"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Acteco", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected List<BigInteger> acteco;
-                @XmlElement(name = "GuiaExport"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "GuiaExport", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Documento.Encabezado.Emisor.GuiaExport guiaExport;
-                @XmlElement(name = "Sucursal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Sucursal", namespace = "http://www.sii.cl/SiiDte")
                 protected String sucursal;
-                @XmlElement(name = "CdgSIISucur"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgSIISucur", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger cdgSIISucur;
-                @XmlElement(name = "DirOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirOrigen;
-                @XmlElement(name = "CmnaOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaOrigen;
-                @XmlElement(name = "CiudadOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadOrigen;
-                @XmlElement(name = "CdgVendedor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgVendedor", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgVendedor;
-                @XmlElement(name = "IdAdicEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IdAdicEmisor", namespace = "http://www.sii.cl/SiiDte")
                 protected String idAdicEmisor;
 
                 /**
@@ -8288,12 +8288,12 @@ public class DTEDefType {
                 })
                 public static class GuiaExport {
 
-                    @XmlElement(name = "CdgTraslado"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CdgTraslado", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger cdgTraslado;
-                    @XmlElement(name = "FolioAut"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "FolioAut", namespace = "http://www.sii.cl/SiiDte")
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger folioAut;
-                    @XmlElement(name = "FchAut"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "FchAut", namespace = "http://www.sii.cl/SiiDte")
                     @XmlSchemaType(name = "date")
                     protected XMLGregorianCalendar fchAut;
 
@@ -8569,64 +8569,64 @@ public class DTEDefType {
             })
             public static class IdDoc {
 
-                @XmlElement(name = "TipoDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger tipoDTE;
-                @XmlElement(name = "Folio"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Folio", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger folio;
-                @XmlElement(name = "FchEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FchEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchEmis;
-                @XmlElement(name = "IndNoRebaja"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IndNoRebaja", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger indNoRebaja;
-                @XmlElement(name = "TipoDespacho"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TipoDespacho", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger tipoDespacho;
-                @XmlElement(name = "IndTraslado"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IndTraslado", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger indTraslado;
-                @XmlElement(name = "TpoImpresion"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoImpresion", namespace = "http://www.sii.cl/SiiDte")
                 protected String tpoImpresion;
-                @XmlElement(name = "IndServicio"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IndServicio", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger indServicio;
-                @XmlElement(name = "MntBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntBruto", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger mntBruto;
-                @XmlElement(name = "FmaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FmaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger fmaPago;
-                @XmlElement(name = "FmaPagExp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FmaPagExp", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger fmaPagExp;
-                @XmlElement(name = "FchCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchCancel;
-                @XmlElement(name = "MntCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntCancel;
-                @XmlElement(name = "SaldoInsol"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "SaldoInsol", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger saldoInsol;
-                @XmlElement(name = "MntPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntPagos", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Documento.Encabezado.IdDoc.MntPagos> mntPagos;
-                @XmlElement(name = "PeriodoDesde"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoDesde", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoDesde;
-                @XmlElement(name = "PeriodoHasta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoHasta", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoHasta;
-                @XmlElement(name = "MedioPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MedioPago", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "string")
                 protected MedioPagoType medioPago;
-                @XmlElement(name = "TpoCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String tpoCtaPago;
-                @XmlElement(name = "NumCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "NumCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String numCtaPago;
-                @XmlElement(name = "BcoPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "BcoPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String bcoPago;
-                @XmlElement(name = "TermPagoCdg"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoCdg", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoCdg;
-                @XmlElement(name = "TermPagoGlosa"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoGlosa", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoGlosa;
-                @XmlElement(name = "TermPagoDias"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoDias", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger termPagoDias;
-                @XmlElement(name = "FchVenc"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchVenc", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchVenc;
 
@@ -9271,13 +9271,13 @@ public class DTEDefType {
                 })
                 public static class MntPagos {
 
-                    @XmlElement(name = "FchPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FchPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "date")
                     protected XMLGregorianCalendar fchPago;
-                    @XmlElement(name = "MntPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "MntPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger mntPago;
-                    @XmlElement(name = "GlosaPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "GlosaPagos", namespace = "http://www.sii.cl/SiiDte")
                     protected String glosaPagos;
 
                     /**
@@ -9412,26 +9412,26 @@ public class DTEDefType {
             })
             public static class OtraMoneda {
 
-                @XmlElement(name = "TpoMoneda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoMoneda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "string")
                 protected TipMonType tpoMoneda;
-                @XmlElement(name = "TpoCambio"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoCambio", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal tpoCambio;
-                @XmlElement(name = "MntNetoOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntNetoOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal mntNetoOtrMnda;
-                @XmlElement(name = "MntExeOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntExeOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal mntExeOtrMnda;
-                @XmlElement(name = "MntFaeCarneOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntFaeCarneOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal mntFaeCarneOtrMnda;
-                @XmlElement(name = "MntMargComOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntMargComOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal mntMargComOtrMnda;
-                @XmlElement(name = "IVAOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVAOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal ivaOtrMnda;
-                @XmlElement(name = "ImpRetOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "ImpRetOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Documento.Encabezado.OtraMoneda.ImpRetOtrMnda> impRetOtrMnda;
-                @XmlElement(name = "IVANoRetOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVANoRetOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal ivaNoRetOtrMnda;
-                @XmlElement(name = "MntTotOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntTotOtrMnda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal mntTotOtrMnda;
 
                 /**
@@ -9709,11 +9709,11 @@ public class DTEDefType {
                 })
                 public static class ImpRetOtrMnda {
 
-                    @XmlElement(name = "TipoImpOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "TipoImpOtrMnda", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String tipoImpOtrMnda;
-                    @XmlElement(name = "TasaImpOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TasaImpOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal tasaImpOtrMnda;
-                    @XmlElement(name = "VlrImpOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "VlrImpOtrMnda", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected BigDecimal vlrImpOtrMnda;
 
                     /**
@@ -9897,31 +9897,31 @@ public class DTEDefType {
             })
             public static class Receptor {
 
-                @XmlElement(name = "RUTRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutRecep;
-                @XmlElement(name = "CdgIntRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgIntRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgIntRecep;
-                @XmlElement(name = "RznSocRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSocRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSocRecep;
-                @XmlElement(name = "Extranjero"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Extranjero", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Documento.Encabezado.Receptor.Extranjero extranjero;
-                @XmlElement(name = "GiroRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "GiroRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String giroRecep;
-                @XmlElement(name = "Contacto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Contacto", namespace = "http://www.sii.cl/SiiDte")
                 protected String contacto;
-                @XmlElement(name = "CorreoRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoRecep;
-                @XmlElement(name = "DirRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirRecep;
-                @XmlElement(name = "CmnaRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaRecep;
-                @XmlElement(name = "CiudadRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadRecep;
-                @XmlElement(name = "DirPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirPostal;
-                @XmlElement(name = "CmnaPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaPostal;
-                @XmlElement(name = "CiudadPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadPostal;
 
                 /**
@@ -10278,9 +10278,9 @@ public class DTEDefType {
                 })
                 public static class Extranjero {
 
-                    @XmlElement(name = "NumId"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NumId", namespace = "http://www.sii.cl/SiiDte")
                     protected String numId;
-                    @XmlElement(name = "Nacionalidad"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Nacionalidad", namespace = "http://www.sii.cl/SiiDte")
                     protected String nacionalidad;
 
                     /**
@@ -10425,52 +10425,52 @@ public class DTEDefType {
             })
             public static class Totales {
 
-                @XmlElement(name = "MntNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntNeto", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntNeto;
-                @XmlElement(name = "MntExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntExe", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntExe;
-                @XmlElement(name = "MntBase"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntBase", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntBase;
-                @XmlElement(name = "MntMargenCom"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntMargenCom", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntMargenCom;
-                @XmlElement(name = "TasaIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TasaIVA", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal tasaIVA;
-                @XmlElement(name = "IVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVA", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger iva;
-                @XmlElement(name = "IVAProp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVAProp", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger ivaProp;
-                @XmlElement(name = "IVATerc"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVATerc", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger ivaTerc;
-                @XmlElement(name = "ImptoReten"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "ImptoReten", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Documento.Encabezado.Totales.ImptoReten> imptoReten;
-                @XmlElement(name = "IVANoRet"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVANoRet", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger ivaNoRet;
-                @XmlElement(name = "CredEC"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CredEC", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger credEC;
-                @XmlElement(name = "GrntDep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "GrntDep", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger grntDep;
-                @XmlElement(name = "Comisiones"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Documento.Encabezado.Totales.Comisiones comisiones;
-                @XmlElement(name = "MntTotal"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntTotal", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntTotal;
-                @XmlElement(name = "MontoNF"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MontoNF", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger montoNF;
-                @XmlElement(name = "MontoPeriodo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MontoPeriodo", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger montoPeriodo;
-                @XmlElement(name = "SaldoAnterior"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "SaldoAnterior", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger saldoAnterior;
-                @XmlElement(name = "VlrPagar"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "VlrPagar", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger vlrPagar;
 
                 /**
@@ -10940,13 +10940,13 @@ public class DTEDefType {
                 })
                 public static class Comisiones {
 
-                    @XmlElement(name = "ValComNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComNeto", namespace = "http://www.sii.cl/SiiDte")
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger valComNeto;
-                    @XmlElement(name = "ValComExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComExe", namespace = "http://www.sii.cl/SiiDte")
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger valComExe;
-                    @XmlElement(name = "ValComIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComIVA", namespace = "http://www.sii.cl/SiiDte")
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger valComIVA;
 
@@ -11060,11 +11060,11 @@ public class DTEDefType {
                 })
                 public static class ImptoReten {
 
-                    @XmlElement(name = "TipoImp"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "TipoImp", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String tipoImp;
-                    @XmlElement(name = "TasaImp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TasaImp", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal tasaImp;
-                    @XmlElement(name = "MontoImp"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "MontoImp", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "positiveInteger")
                     protected BigInteger montoImp;
 
@@ -11437,19 +11437,19 @@ public class DTEDefType {
             })
             public static class Transporte {
 
-                @XmlElement(name = "Patente"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Patente", namespace = "http://www.sii.cl/SiiDte")
                 protected String patente;
-                @XmlElement(name = "RUTTrans"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "RUTTrans", namespace = "http://www.sii.cl/SiiDte")
                 protected String rutTrans;
-                @XmlElement(name = "Chofer"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Chofer", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Documento.Encabezado.Transporte.Chofer chofer;
-                @XmlElement(name = "DirDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirDest;
-                @XmlElement(name = "CmnaDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaDest;
-                @XmlElement(name = "CiudadDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadDest;
-                @XmlElement(name = "Aduana"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Aduana", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Documento.Encabezado.Transporte.Aduana aduana;
 
                 /**
@@ -11888,59 +11888,59 @@ public class DTEDefType {
                 })
                 public static class Aduana {
 
-                    @XmlElement(name = "CodModVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodModVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codModVenta;
-                    @XmlElement(name = "CodClauVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodClauVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codClauVenta;
-                    @XmlElement(name = "TotClauVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotClauVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal totClauVenta;
-                    @XmlElement(name = "CodViaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodViaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codViaTransp;
-                    @XmlElement(name = "NombreTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NombreTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String nombreTransp;
-                    @XmlElement(name = "RUTCiaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "RUTCiaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String rutCiaTransp;
-                    @XmlElement(name = "NomCiaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NomCiaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String nomCiaTransp;
-                    @XmlElement(name = "IdAdicTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicTransp;
-                    @XmlElement(name = "Booking"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Booking", namespace = "http://www.sii.cl/SiiDte")
                     protected String booking;
-                    @XmlElement(name = "Operador"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Operador", namespace = "http://www.sii.cl/SiiDte")
                     protected String operador;
-                    @XmlElement(name = "CodPtoEmbarque"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPtoEmbarque", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPtoEmbarque;
-                    @XmlElement(name = "IdAdicPtoEmb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicPtoEmb", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicPtoEmb;
-                    @XmlElement(name = "CodPtoDesemb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPtoDesemb", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPtoDesemb;
-                    @XmlElement(name = "IdAdicPtoDesemb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicPtoDesemb", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicPtoDesemb;
-                    @XmlElement(name = "Tara"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Tara", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger tara;
-                    @XmlElement(name = "CodUnidMedTara"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidMedTara", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidMedTara;
-                    @XmlElement(name = "PesoBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "PesoBruto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal pesoBruto;
-                    @XmlElement(name = "CodUnidPesoBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidPesoBruto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidPesoBruto;
-                    @XmlElement(name = "PesoNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "PesoNeto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal pesoNeto;
-                    @XmlElement(name = "CodUnidPesoNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidPesoNeto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidPesoNeto;
-                    @XmlElement(name = "TotItems"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotItems", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger totItems;
-                    @XmlElement(name = "TotBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotBultos", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger totBultos;
-                    @XmlElement(name = "TipoBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TipoBultos", namespace = "http://www.sii.cl/SiiDte")
                     protected List<DTEDefType.Documento.Encabezado.Transporte.Aduana.TipoBultos> tipoBultos;
-                    @XmlElement(name = "MntFlete"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "MntFlete", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal mntFlete;
-                    @XmlElement(name = "MntSeguro"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "MntSeguro", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal mntSeguro;
-                    @XmlElement(name = "CodPaisRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPaisRecep", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPaisRecep;
-                    @XmlElement(name = "CodPaisDestin"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPaisDestin", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPaisDestin;
 
                     /**
@@ -12668,17 +12668,17 @@ public class DTEDefType {
                     })
                     public static class TipoBultos {
 
-                        @XmlElement(name = "CodTpoBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "CodTpoBultos", namespace = "http://www.sii.cl/SiiDte")
                         protected BigInteger codTpoBultos;
-                        @XmlElement(name = "CantBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "CantBultos", namespace = "http://www.sii.cl/SiiDte")
                         protected BigInteger cantBultos;
-                        @XmlElement(name = "Marcas"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "Marcas", namespace = "http://www.sii.cl/SiiDte")
                         protected String marcas;
-                        @XmlElement(name = "IdContainer"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "IdContainer", namespace = "http://www.sii.cl/SiiDte")
                         protected String idContainer;
-                        @XmlElement(name = "Sello"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "Sello", namespace = "http://www.sii.cl/SiiDte")
                         protected String sello;
-                        @XmlElement(name = "EmisorSello"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "EmisorSello", namespace = "http://www.sii.cl/SiiDte")
                         protected String emisorSello;
 
                         /**
@@ -12863,9 +12863,9 @@ public class DTEDefType {
                 })
                 public static class Chofer {
 
-                    @XmlElement(name = "RUTChofer"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "RUTChofer", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String rutChofer;
-                    @XmlElement(name = "NombreChofer"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "NombreChofer", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String nombreChofer;
 
                     /**
@@ -12996,22 +12996,22 @@ public class DTEDefType {
         })
         public static class Referencia {
 
-            @XmlElement(name = "NroLinRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinRef", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinRef;
-            @XmlElement(name = "TpoDocRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoDocRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoDocRef;
-            @XmlElement(name = "IndGlobal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndGlobal", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indGlobal;
-            @XmlElement(name = "FolioRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FolioRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String folioRef;
-            @XmlElement(name = "RUTOtr"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RUTOtr", namespace = "http://www.sii.cl/SiiDte")
             protected String rutOtr;
-            @XmlElement(name = "FchRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FchRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchRef;
-            @XmlElement(name = "CodRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CodRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger codRef;
-            @XmlElement(name = "RazonRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RazonRef", namespace = "http://www.sii.cl/SiiDte")
             protected String razonRef;
 
             /**
@@ -13265,23 +13265,23 @@ public class DTEDefType {
         })
         public static class SubTotInfo {
 
-            @XmlElement(name = "NroSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)//req
+            @XmlElement(name = "NroSTI", namespace = "http://www.sii.cl/SiiDte")//req
             protected int nroSTI;
-            @XmlElement(name = "GlosaSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "GlosaSTI", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosaSTI;
-            @XmlElement(name = "OrdenSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OrdenSTI", namespace = "http://www.sii.cl/SiiDte")
             protected Integer ordenSTI;
-            @XmlElement(name = "SubTotNetoSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotNetoSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotNetoSTI;
-            @XmlElement(name = "SubTotIVASTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotIVASTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotIVASTI;
-            @XmlElement(name = "SubTotAdicSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotAdicSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotAdicSTI;
-            @XmlElement(name = "SubTotExeSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotExeSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotExeSTI;
-            @XmlElement(name = "ValSubtotSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValSubtotSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal valSubtotSTI;
-            @XmlElement(name = "LineasDeta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "LineasDeta", namespace = "http://www.sii.cl/SiiDte")
             protected List<BigInteger> lineasDeta;
 
             /**
@@ -13657,9 +13657,9 @@ public class DTEDefType {
         })
         public static class TED {
 
-            @XmlElement(name = "DD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "DD", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.TED.DD dd;
-            @XmlElement(name = "FRMT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FRMT", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Documento.TED.FRMT frmt;
             @XmlAttribute(name = "version", required = true)
             @XmlSchemaType(name = "anySimpleType")
@@ -13893,29 +13893,29 @@ public class DTEDefType {
             })
             public static class DD {
 
-                @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String re;
-                @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger td;
-                @XmlElement(name = "F"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "F", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger f;
-                @XmlElement(name = "FE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fe;
-                @XmlElement(name = "RR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rr;
-                @XmlElement(name = "RSR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RSR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rsr;
-                @XmlElement(name = "MNT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MNT", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "unsignedLong")
                 protected BigInteger mnt;
-                @XmlElement(name = "IT1"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "IT1", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String it1;
-                @XmlElement(name = "CAF"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "CAF", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected DTEDefType.Documento.TED.DD.CAF caf;
-                @XmlElement(name = "TSTED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TSTED", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar tsted;
 
@@ -14392,9 +14392,9 @@ public class DTEDefType {
                 })
                 public static class CAF {
 
-                    @XmlElement(name = "DA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "DA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Documento.TED.DD.CAF.DA da;
-                    @XmlElement(name = "FRMA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FRMA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Documento.TED.DD.CAF.FRMA frma;
                     @XmlAttribute(name = "version", required = true)
                     @XmlSchemaType(name = "anySimpleType")
@@ -14564,23 +14564,23 @@ public class DTEDefType {
                     })
                     public static class DA {
 
-                        @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String re;
-                        @XmlElement(name = "RS"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RS", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String rs;
-                        @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "positiveInteger")
                         protected BigInteger td;
-                        @XmlElement(name = "RNG"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RNG", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected DTEDefType.Documento.TED.DD.CAF.DA.RNG rng;
-                        @XmlElement(name = "FA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "FA", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "date")
                         protected XMLGregorianCalendar fa;
-                        @XmlElement(name = "RSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "RSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Documento.TED.DD.CAF.DA.RSAPK rsapk;
-                        @XmlElement(name = "DSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "DSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Documento.TED.DD.CAF.DA.DSAPK dsapk;
-                        @XmlElement(name = "IDK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "IDK", namespace = "http://www.sii.cl/SiiDte")
                         protected long idk;
 
                         /**
@@ -14895,13 +14895,13 @@ public class DTEDefType {
                         })
                         public static class DSAPK {
 
-                            @XmlElement(name = "P"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "P", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] p;
-                            @XmlElement(name = "Q"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Q", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] q;
-                            @XmlElement(name = "G"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "G", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] g;
-                            @XmlElement(name = "Y"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Y", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] y;
 
                             /**
@@ -15022,10 +15022,10 @@ public class DTEDefType {
                         })
                         public static class RNG {
 
-                            @XmlElement(name = "D"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "D", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger d;
-                            @XmlElement(name = "H"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "H", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger h;
 
@@ -15110,9 +15110,9 @@ public class DTEDefType {
                         })
                         public static class RSAPK {
 
-                            @XmlElement(name = "M"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "M", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] m;
-                            @XmlElement(name = "E"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "E", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] e;
 
                             /**
@@ -16503,19 +16503,19 @@ public class DTEDefType {
     })
     public static class Exportaciones {
 
-        @XmlElement(name = "Encabezado"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Encabezado", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Exportaciones.Encabezado encabezado;
-        @XmlElement(name = "Detalle"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Detalle", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected List<DTEDefType.Exportaciones.Detalle> detalle;
-        @XmlElement(name = "SubTotInfo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "SubTotInfo", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Exportaciones.SubTotInfo> subTotInfo;
-        @XmlElement(name = "DscRcgGlobal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "DscRcgGlobal", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Exportaciones.DscRcgGlobal> dscRcgGlobal;
-        @XmlElement(name = "Referencia"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "Referencia", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Exportaciones.Referencia> referencia;
-        @XmlElement(name = "TED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TED", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Exportaciones.TED ted;
-        @XmlElement(name = "TmstFirma"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TmstFirma", namespace = "http://www.sii.cl/SiiDte", required = true)
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar tmstFirma;
         @XmlAttribute(name = "ID", required = true)
@@ -16971,53 +16971,53 @@ public class DTEDefType {
         })
         public static class Detalle {
 
-            @XmlElement(name = "NroLinDet"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinDet", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinDet;
-            @XmlElement(name = "CdgItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CdgItem", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Exportaciones.Detalle.CdgItem> cdgItem;
-            @XmlElement(name = "IndExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndExe", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indExe;
-            @XmlElement(name = "NmbItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "NmbItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String nmbItem;
-            @XmlElement(name = "DscItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DscItem", namespace = "http://www.sii.cl/SiiDte")
             protected String dscItem;
-            @XmlElement(name = "QtyRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyRef;
-            @XmlElement(name = "UnmdRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdRef", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdRef;
-            @XmlElement(name = "PrcRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcRef;
-            @XmlElement(name = "QtyItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyItem;
-            @XmlElement(name = "Subcantidad"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Subcantidad", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Exportaciones.Detalle.Subcantidad> subcantidad;
-            @XmlElement(name = "FchElabor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchElabor", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchElabor;
-            @XmlElement(name = "FchVencim"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchVencim", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchVencim;
-            @XmlElement(name = "UnmdItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdItem", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdItem;
-            @XmlElement(name = "PrcItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcItem;
-            @XmlElement(name = "OtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OtrMnda", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Exportaciones.Detalle.OtrMnda otrMnda;
-            @XmlElement(name = "DescuentoPct"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DescuentoPct", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal descuentoPct;
-            @XmlElement(name = "DescuentoMonto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DescuentoMonto", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger descuentoMonto;
-            @XmlElement(name = "SubDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubDscto", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Exportaciones.Detalle.SubDscto> subDscto;
-            @XmlElement(name = "RecargoPct"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RecargoPct", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal recargoPct;
-            @XmlElement(name = "RecargoMonto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RecargoMonto", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger recargoMonto;
-            @XmlElement(name = "SubRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubRecargo", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Exportaciones.Detalle.SubRecargo> subRecargo;
-            @XmlElement(name = "MontoItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "MontoItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigDecimal montoItem;
 
             /**
@@ -17600,9 +17600,9 @@ public class DTEDefType {
             })
             public static class CdgItem {
 
-                @XmlElement(name = "TpoCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tpoCodigo;
-                @XmlElement(name = "VlrCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "VlrCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String vlrCodigo;
 
                 /**
@@ -17709,17 +17709,17 @@ public class DTEDefType {
             })
             public static class OtrMnda {
 
-                @XmlElement(name = "PrcOtrMon"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "PrcOtrMon", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal prcOtrMon;
-                @XmlElement(name = "Moneda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Moneda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String moneda;
-                @XmlElement(name = "FctConv"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FctConv", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal fctConv;
-                @XmlElement(name = "DctoOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DctoOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal dctoOtrMnda;
-                @XmlElement(name = "RecargoOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "RecargoOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal recargoOtrMnda;
-                @XmlElement(name = "MontoItemOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MontoItemOtrMnda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal montoItemOtrMnda;
 
                 /**
@@ -17903,9 +17903,9 @@ public class DTEDefType {
             })
             public static class SubDscto {
 
-                @XmlElement(name = "TipoDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoDscto", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tipoDscto;
-                @XmlElement(name = "ValorDscto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "ValorDscto", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal valorDscto;
 
                 /**
@@ -17993,9 +17993,9 @@ public class DTEDefType {
             })
             public static class SubRecargo {
 
-                @XmlElement(name = "TipoRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoRecargo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tipoRecargo;
-                @XmlElement(name = "ValorRecargo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "ValorRecargo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal valorRecargo;
 
                 /**
@@ -18091,11 +18091,11 @@ public class DTEDefType {
             })
             public static class Subcantidad {
 
-                @XmlElement(name = "SubQty"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubQty", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal subQty;
-                @XmlElement(name = "SubCod"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubCod", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String subCod;
-                @XmlElement(name = "TipCodSubQty"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TipCodSubQty", namespace = "http://www.sii.cl/SiiDte")
                 protected String tipCodSubQty;
 
                 /**
@@ -18239,20 +18239,20 @@ public class DTEDefType {
         })
         public static class DscRcgGlobal {
 
-            @XmlElement(name = "NroLinDR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "NroLinDR", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "positiveInteger")
             protected BigInteger nroLinDR;
-            @XmlElement(name = "TpoMov"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoMov", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoMov;
-            @XmlElement(name = "GlosaDR"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "GlosaDR", namespace = "http://www.sii.cl/SiiDte")
             protected String glosaDR;
-            @XmlElement(name = "TpoValor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoValor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoValor;
-            @XmlElement(name = "ValorDR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValorDR", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigDecimal valorDR;
-            @XmlElement(name = "ValorDROtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValorDROtrMnda", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal valorDROtrMnda;
-            @XmlElement(name = "IndExeDR"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndExeDR", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indExeDR;
 
             /**
@@ -19065,17 +19065,17 @@ public class DTEDefType {
         })
         public static class Encabezado {
 
-            @XmlElement(name = "IdDoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "IdDoc", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.Encabezado.IdDoc idDoc;
-            @XmlElement(name = "Emisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Emisor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.Encabezado.Emisor emisor;
-            @XmlElement(name = "Receptor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Receptor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.Encabezado.Receptor receptor;
-            @XmlElement(name = "Transporte"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Transporte", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Exportaciones.Encabezado.Transporte transporte;
-            @XmlElement(name = "Totales"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Totales", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.Encabezado.Totales totales;
-            @XmlElement(name = "OtraMoneda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OtraMoneda", namespace = "http://www.sii.cl/SiiDte")
             protected DTEDefType.Exportaciones.Encabezado.OtraMoneda otraMoneda;
 
             /**
@@ -19337,33 +19337,33 @@ public class DTEDefType {
             })
             public static class Emisor {
 
-                @XmlElement(name = "RUTEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTEmisor", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutEmisor;
-                @XmlElement(name = "RznSoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSoc", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSoc;
-                @XmlElement(name = "GiroEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "GiroEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String giroEmis;
-                @XmlElement(name = "Telefono"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Telefono", namespace = "http://www.sii.cl/SiiDte")
                 protected List<String> telefono;
-                @XmlElement(name = "CorreoEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoEmisor", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoEmisor;
-                @XmlElement(name = "Acteco"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Acteco", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected List<BigInteger> acteco;
-                @XmlElement(name = "Sucursal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Sucursal", namespace = "http://www.sii.cl/SiiDte")
                 protected String sucursal;
-                @XmlElement(name = "CdgSIISucur"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgSIISucur", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger cdgSIISucur;
-                @XmlElement(name = "CodAdicSucur"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CodAdicSucur", namespace = "http://www.sii.cl/SiiDte")
                 protected String codAdicSucur;
-                @XmlElement(name = "DirOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirOrigen;
-                @XmlElement(name = "CmnaOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaOrigen;
-                @XmlElement(name = "CiudadOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadOrigen;
-                @XmlElement(name = "CdgVendedor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgVendedor", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgVendedor;
-                @XmlElement(name = "IdAdicEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IdAdicEmisor", namespace = "http://www.sii.cl/SiiDte")
                 protected String idAdicEmisor;
 
                 /**
@@ -19869,56 +19869,56 @@ public class DTEDefType {
             })
             public static class IdDoc {
 
-                @XmlElement(name = "TipoDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger tipoDTE;
-                @XmlElement(name = "Folio"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Folio", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger folio;
-                @XmlElement(name = "FchEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FchEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchEmis;
-                @XmlElement(name = "TipoDespacho"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TipoDespacho", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger tipoDespacho;
-                @XmlElement(name = "IndServicio"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IndServicio", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger indServicio;
-                @XmlElement(name = "FmaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FmaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger fmaPago;
-                @XmlElement(name = "FmaPagExp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FmaPagExp", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger fmaPagExp;
-                @XmlElement(name = "FchCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchCancel;
-                @XmlElement(name = "MntCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntCancel;
-                @XmlElement(name = "SaldoInsol"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "SaldoInsol", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger saldoInsol;
-                @XmlElement(name = "MntPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntPagos", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Exportaciones.Encabezado.IdDoc.MntPagos> mntPagos;
-                @XmlElement(name = "PeriodoDesde"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoDesde", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoDesde;
-                @XmlElement(name = "PeriodoHasta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoHasta", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoHasta;
-                @XmlElement(name = "MedioPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MedioPago", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "string")
                 protected MedioPagoType medioPago;
-                @XmlElement(name = "TpoCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String tpoCtaPago;
-                @XmlElement(name = "NumCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "NumCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String numCtaPago;
-                @XmlElement(name = "BcoPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "BcoPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String bcoPago;
-                @XmlElement(name = "TermPagoCdg"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoCdg", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoCdg;
-                @XmlElement(name = "TermPagoGlosa"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoGlosa", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoGlosa;
-                @XmlElement(name = "TermPagoDias"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoDias", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger termPagoDias;
-                @XmlElement(name = "FchVenc"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchVenc", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchVenc;
 
@@ -20467,13 +20467,13 @@ public class DTEDefType {
                 })
                 public static class MntPagos {
 
-                    @XmlElement(name = "FchPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FchPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "date")
                     protected XMLGregorianCalendar fchPago;
-                    @XmlElement(name = "MntPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "MntPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger mntPago;
-                    @XmlElement(name = "GlosaPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "GlosaPagos", namespace = "http://www.sii.cl/SiiDte")
                     protected String glosaPagos;
 
                     /**
@@ -20584,14 +20584,14 @@ public class DTEDefType {
             })
             public static class OtraMoneda {
 
-                @XmlElement(name = "TpoMoneda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoMoneda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "string")
                 protected TipMonType tpoMoneda;
-                @XmlElement(name = "TpoCambio"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoCambio", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal tpoCambio;
-                @XmlElement(name = "MntExeOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntExeOtrMnda", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal mntExeOtrMnda;
-                @XmlElement(name = "MntTotOtrMnda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntTotOtrMnda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal mntTotOtrMnda;
 
                 /**
@@ -20805,31 +20805,31 @@ public class DTEDefType {
             })
             public static class Receptor {
 
-                @XmlElement(name = "RUTRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutRecep;
-                @XmlElement(name = "CdgIntRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgIntRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgIntRecep;
-                @XmlElement(name = "RznSocRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSocRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSocRecep;
-                @XmlElement(name = "Extranjero"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Extranjero", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Exportaciones.Encabezado.Receptor.Extranjero extranjero;
-                @XmlElement(name = "GiroRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "GiroRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String giroRecep;
-                @XmlElement(name = "Contacto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Contacto", namespace = "http://www.sii.cl/SiiDte")
                 protected String contacto;
-                @XmlElement(name = "CorreoRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoRecep;
-                @XmlElement(name = "DirRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirRecep;
-                @XmlElement(name = "CmnaRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaRecep;
-                @XmlElement(name = "CiudadRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadRecep;
-                @XmlElement(name = "DirPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirPostal;
-                @XmlElement(name = "CmnaPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaPostal;
-                @XmlElement(name = "CiudadPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadPostal;
 
                 /**
@@ -21195,11 +21195,11 @@ public class DTEDefType {
                 })
                 public static class Extranjero {
 
-                    @XmlElement(name = "NumId"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NumId", namespace = "http://www.sii.cl/SiiDte")
                     protected String numId;
-                    @XmlElement(name = "Nacionalidad"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Nacionalidad", namespace = "http://www.sii.cl/SiiDte")
                     protected String nacionalidad;
-                    @XmlElement(name = "IdAdicRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicRecep", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicRecep;
 
                     /**
@@ -21326,12 +21326,12 @@ public class DTEDefType {
             })
             public static class Totales {
 
-                @XmlElement(name = "TpoMoneda"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoMoneda", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "string")
                 protected TipMonType tpoMoneda;
-                @XmlElement(name = "MntExe"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntExe", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal mntExe;
-                @XmlElement(name = "MntTotal"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntTotal", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal mntTotal;
 
                 /**
@@ -21701,19 +21701,19 @@ public class DTEDefType {
             })
             public static class Transporte {
 
-                @XmlElement(name = "Patente"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Patente", namespace = "http://www.sii.cl/SiiDte")
                 protected String patente;
-                @XmlElement(name = "RUTTrans"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "RUTTrans", namespace = "http://www.sii.cl/SiiDte")
                 protected String rutTrans;
-                @XmlElement(name = "Chofer"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Chofer", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Exportaciones.Encabezado.Transporte.Chofer chofer;
-                @XmlElement(name = "DirDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirDest;
-                @XmlElement(name = "CmnaDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaDest;
-                @XmlElement(name = "CiudadDest"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadDest", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadDest;
-                @XmlElement(name = "Aduana"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Aduana", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Exportaciones.Encabezado.Transporte.Aduana aduana;
 
                 /**
@@ -22152,59 +22152,59 @@ public class DTEDefType {
                 })
                 public static class Aduana {
 
-                    @XmlElement(name = "CodModVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodModVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codModVenta;
-                    @XmlElement(name = "CodClauVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodClauVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codClauVenta;
-                    @XmlElement(name = "TotClauVenta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotClauVenta", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal totClauVenta;
-                    @XmlElement(name = "CodViaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodViaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codViaTransp;
-                    @XmlElement(name = "NombreTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NombreTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String nombreTransp;
-                    @XmlElement(name = "RUTCiaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "RUTCiaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String rutCiaTransp;
-                    @XmlElement(name = "NomCiaTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "NomCiaTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String nomCiaTransp;
-                    @XmlElement(name = "IdAdicTransp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicTransp", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicTransp;
-                    @XmlElement(name = "Booking"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Booking", namespace = "http://www.sii.cl/SiiDte")
                     protected String booking;
-                    @XmlElement(name = "Operador"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Operador", namespace = "http://www.sii.cl/SiiDte")
                     protected String operador;
-                    @XmlElement(name = "CodPtoEmbarque"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPtoEmbarque", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPtoEmbarque;
-                    @XmlElement(name = "IdAdicPtoEmb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicPtoEmb", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicPtoEmb;
-                    @XmlElement(name = "CodPtoDesemb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPtoDesemb", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPtoDesemb;
-                    @XmlElement(name = "IdAdicPtoDesemb"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "IdAdicPtoDesemb", namespace = "http://www.sii.cl/SiiDte")
                     protected String idAdicPtoDesemb;
-                    @XmlElement(name = "Tara"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "Tara", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger tara;
-                    @XmlElement(name = "CodUnidMedTara"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidMedTara", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidMedTara;
-                    @XmlElement(name = "PesoBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "PesoBruto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal pesoBruto;
-                    @XmlElement(name = "CodUnidPesoBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidPesoBruto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidPesoBruto;
-                    @XmlElement(name = "PesoNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "PesoNeto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal pesoNeto;
-                    @XmlElement(name = "CodUnidPesoNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodUnidPesoNeto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codUnidPesoNeto;
-                    @XmlElement(name = "TotItems"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotItems", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger totItems;
-                    @XmlElement(name = "TotBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TotBultos", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger totBultos;
-                    @XmlElement(name = "TipoBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TipoBultos", namespace = "http://www.sii.cl/SiiDte")
                     protected List<DTEDefType.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos> tipoBultos;
-                    @XmlElement(name = "MntFlete"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "MntFlete", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal mntFlete;
-                    @XmlElement(name = "MntSeguro"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "MntSeguro", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal mntSeguro;
-                    @XmlElement(name = "CodPaisRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPaisRecep", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPaisRecep;
-                    @XmlElement(name = "CodPaisDestin"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "CodPaisDestin", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger codPaisDestin;
 
                     /**
@@ -22932,17 +22932,17 @@ public class DTEDefType {
                     })
                     public static class TipoBultos {
 
-                        @XmlElement(name = "CodTpoBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "CodTpoBultos", namespace = "http://www.sii.cl/SiiDte")
                         protected BigInteger codTpoBultos;
-                        @XmlElement(name = "CantBultos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "CantBultos", namespace = "http://www.sii.cl/SiiDte")
                         protected BigInteger cantBultos;
-                        @XmlElement(name = "Marcas"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "Marcas", namespace = "http://www.sii.cl/SiiDte")
                         protected String marcas;
-                        @XmlElement(name = "IdContainer"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "IdContainer", namespace = "http://www.sii.cl/SiiDte")
                         protected String idContainer;
-                        @XmlElement(name = "Sello"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "Sello", namespace = "http://www.sii.cl/SiiDte")
                         protected String sello;
-                        @XmlElement(name = "EmisorSello"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "EmisorSello", namespace = "http://www.sii.cl/SiiDte")
                         protected String emisorSello;
 
                         /**
@@ -23127,9 +23127,9 @@ public class DTEDefType {
                 })
                 public static class Chofer {
 
-                    @XmlElement(name = "RUTChofer"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "RUTChofer", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String rutChofer;
-                    @XmlElement(name = "NombreChofer"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "NombreChofer", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String nombreChofer;
 
                     /**
@@ -23276,23 +23276,23 @@ public class DTEDefType {
         })
         public static class Referencia {
 
-            @XmlElement(name = "NroLinRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinRef", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinRef;
-            @XmlElement(name = "TpoDocRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoDocRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoDocRef;
-            @XmlElement(name = "IndGlobal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndGlobal", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indGlobal;
-            @XmlElement(name = "FolioRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FolioRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String folioRef;
-            @XmlElement(name = "RUTOtr"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RUTOtr", namespace = "http://www.sii.cl/SiiDte")
             protected String rutOtr;
-            @XmlElement(name = "IdAdicOtr"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IdAdicOtr", namespace = "http://www.sii.cl/SiiDte")
             protected String idAdicOtr;
-            @XmlElement(name = "FchRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FchRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected XMLGregorianCalendar fchRef;
-            @XmlElement(name = "CodRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CodRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger codRef;
-            @XmlElement(name = "RazonRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RazonRef", namespace = "http://www.sii.cl/SiiDte")
             protected String razonRef;
 
             /**
@@ -23570,23 +23570,23 @@ public class DTEDefType {
         })
         public static class SubTotInfo {
 
-            @XmlElement(name = "NroSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroSTI", namespace = "http://www.sii.cl/SiiDte")
             protected int nroSTI;
-            @XmlElement(name = "GlosaSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "GlosaSTI", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosaSTI;
-            @XmlElement(name = "OrdenSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OrdenSTI", namespace = "http://www.sii.cl/SiiDte")
             protected Integer ordenSTI;
-            @XmlElement(name = "SubTotNetoSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotNetoSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotNetoSTI;
-            @XmlElement(name = "SubTotIVASTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotIVASTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotIVASTI;
-            @XmlElement(name = "SubTotAdicSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotAdicSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotAdicSTI;
-            @XmlElement(name = "SubTotExeSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotExeSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotExeSTI;
-            @XmlElement(name = "ValSubtotSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValSubtotSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal valSubtotSTI;
-            @XmlElement(name = "LineasDeta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "LineasDeta", namespace = "http://www.sii.cl/SiiDte")
             protected List<BigInteger> lineasDeta;
 
             /**
@@ -23971,9 +23971,9 @@ public class DTEDefType {
         })
         public static class TED {
 
-            @XmlElement(name = "DD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "DD", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.TED.DD dd;
-            @XmlElement(name = "FRMT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FRMT", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Exportaciones.TED.FRMT frmt;
             @XmlAttribute(name = "version", required = true)
             @XmlSchemaType(name = "anySimpleType")
@@ -24203,28 +24203,28 @@ public class DTEDefType {
             })
             public static class DD {
 
-                @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String re;
-                @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger td;
-                @XmlElement(name = "F"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "F", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger f;
-                @XmlElement(name = "FE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fe;
-                @XmlElement(name = "RR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rr;
-                @XmlElement(name = "RSR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RSR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rsr;
-                @XmlElement(name = "MNT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MNT", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal mnt;
-                @XmlElement(name = "IT1"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "IT1", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String it1;
-                @XmlElement(name = "CAF"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "CAF", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected DTEDefType.Exportaciones.TED.DD.CAF caf;
-                @XmlElement(name = "TSTED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TSTED", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar tsted;
 
@@ -24566,9 +24566,9 @@ public class DTEDefType {
                 })
                 public static class CAF {
 
-                    @XmlElement(name = "DA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "DA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Exportaciones.TED.DD.CAF.DA da;
-                    @XmlElement(name = "FRMA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FRMA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Exportaciones.TED.DD.CAF.FRMA frma;
                     @XmlAttribute(name = "version", required = true)
                     @XmlSchemaType(name = "anySimpleType")
@@ -24734,23 +24734,23 @@ public class DTEDefType {
                     })
                     public static class DA {
 
-                        @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String re;
-                        @XmlElement(name = "RS"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RS", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String rs;
-                        @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "positiveInteger")
                         protected BigInteger td;
-                        @XmlElement(name = "RNG"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RNG", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected DTEDefType.Exportaciones.TED.DD.CAF.DA.RNG rng;
-                        @XmlElement(name = "FA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "FA", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "date")
                         protected XMLGregorianCalendar fa;
-                        @XmlElement(name = "RSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "RSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Exportaciones.TED.DD.CAF.DA.RSAPK rsapk;
-                        @XmlElement(name = "DSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "DSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Exportaciones.TED.DD.CAF.DA.DSAPK dsapk;
-                        @XmlElement(name = "IDK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "IDK", namespace = "http://www.sii.cl/SiiDte")
                         protected long idk;
 
                         /**
@@ -24969,13 +24969,13 @@ public class DTEDefType {
                         })
                         public static class DSAPK {
 
-                            @XmlElement(name = "P"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "P", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] p;
-                            @XmlElement(name = "Q"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Q", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] q;
-                            @XmlElement(name = "G"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "G", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] g;
-                            @XmlElement(name = "Y"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Y", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] y;
 
                             /**
@@ -25096,10 +25096,10 @@ public class DTEDefType {
                         })
                         public static class RNG {
 
-                            @XmlElement(name = "D"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "D", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger d;
-                            @XmlElement(name = "H"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "H", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger h;
 
@@ -25181,9 +25181,9 @@ public class DTEDefType {
                         })
                         public static class RSAPK {
 
-                            @XmlElement(name = "M"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "M", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] m;
-                            @XmlElement(name = "E"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "E", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] e;
 
                             /**
@@ -26113,19 +26113,19 @@ public class DTEDefType {
     })
     public static class Liquidacion {
 
-        @XmlElement(name = "Encabezado"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Encabezado", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Liquidacion.Encabezado encabezado;
-        @XmlElement(name = "Detalle"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "Detalle", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected List<DTEDefType.Liquidacion.Detalle> detalle;
-        @XmlElement(name = "SubTotInfo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "SubTotInfo", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Liquidacion.SubTotInfo> subTotInfo;
-        @XmlElement(name = "Referencia"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "Referencia", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Liquidacion.Referencia> referencia;
-        @XmlElement(name = "Comisiones"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+        @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")
         protected List<DTEDefType.Liquidacion.Comisiones> comisiones;
-        @XmlElement(name = "TED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TED", namespace = "http://www.sii.cl/SiiDte", required = true)
         protected DTEDefType.Liquidacion.TED ted;
-        @XmlElement(name = "TmstFirma"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+        @XmlElement(name = "TmstFirma", namespace = "http://www.sii.cl/SiiDte", required = true)
         @XmlSchemaType(name = "dateTime")
         protected XMLGregorianCalendar tmstFirma;
         @XmlAttribute(name = "ID", required = true)
@@ -26407,19 +26407,19 @@ public class DTEDefType {
         })
         public static class Comisiones {
 
-            @XmlElement(name = "NroLinCom"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinCom", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinCom;
-            @XmlElement(name = "TipoMovim"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TipoMovim", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tipoMovim;
-            @XmlElement(name = "Glosa"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Glosa", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosa;
-            @XmlElement(name = "TasaComision"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "TasaComision", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal tasaComision;
-            @XmlElement(name = "ValComNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValComNeto", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigInteger valComNeto;
-            @XmlElement(name = "ValComExe"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "ValComExe", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigInteger valComExe;
-            @XmlElement(name = "ValComIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValComIVA", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger valComIVA;
 
             /**
@@ -26730,41 +26730,41 @@ public class DTEDefType {
         })
         public static class Detalle {
 
-            @XmlElement(name = "NroLinDet"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinDet", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinDet;
-            @XmlElement(name = "CdgItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CdgItem", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Liquidacion.Detalle.CdgItem> cdgItem;
-            @XmlElement(name = "TpoDocLiq"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoDocLiq", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoDocLiq;
-            @XmlElement(name = "IndExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndExe", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indExe;
-            @XmlElement(name = "NmbItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "NmbItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String nmbItem;
-            @XmlElement(name = "DscItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "DscItem", namespace = "http://www.sii.cl/SiiDte")
             protected String dscItem;
-            @XmlElement(name = "QtyRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyRef;
-            @XmlElement(name = "UnmdRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdRef", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdRef;
-            @XmlElement(name = "PrcRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcRef;
-            @XmlElement(name = "QtyItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "QtyItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal qtyItem;
-            @XmlElement(name = "Subcantidad"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "Subcantidad", namespace = "http://www.sii.cl/SiiDte")
             protected List<DTEDefType.Liquidacion.Detalle.Subcantidad> subcantidad;
-            @XmlElement(name = "FchElabor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchElabor", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchElabor;
-            @XmlElement(name = "FchVencim"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "FchVencim", namespace = "http://www.sii.cl/SiiDte")
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchVencim;
-            @XmlElement(name = "UnmdItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "UnmdItem", namespace = "http://www.sii.cl/SiiDte")
             protected String unmdItem;
-            @XmlElement(name = "PrcItem"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "PrcItem", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal prcItem;
-            @XmlElement(name = "CodImpAdic"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CodImpAdic", namespace = "http://www.sii.cl/SiiDte")
             protected List<String> codImpAdic;
-            @XmlElement(name = "MontoItem"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "MontoItem", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected BigInteger montoItem;
 
             /**
@@ -27222,9 +27222,9 @@ public class DTEDefType {
             })
             public static class CdgItem {
 
-                @XmlElement(name = "TpoCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TpoCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String tpoCodigo;
-                @XmlElement(name = "VlrCodigo"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "VlrCodigo", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String vlrCodigo;
 
                 /**
@@ -27311,9 +27311,9 @@ public class DTEDefType {
             })
             public static class Subcantidad {
 
-                @XmlElement(name = "SubQty"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubQty", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigDecimal subQty;
-                @XmlElement(name = "SubCod"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "SubCod", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String subCod;
 
                 /**
@@ -27676,13 +27676,13 @@ public class DTEDefType {
         })
         public static class Encabezado {
 
-            @XmlElement(name = "IdDoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "IdDoc", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.Encabezado.IdDoc idDoc;
-            @XmlElement(name = "Emisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Emisor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.Encabezado.Emisor emisor;
-            @XmlElement(name = "Receptor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Receptor", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.Encabezado.Receptor receptor;
-            @XmlElement(name = "Totales"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "Totales", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.Encabezado.Totales totales;
 
             /**
@@ -27879,29 +27879,29 @@ public class DTEDefType {
             })
             public static class Emisor {
 
-                @XmlElement(name = "RUTEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTEmisor", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutEmisor;
-                @XmlElement(name = "RznSoc"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSoc", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSoc;
-                @XmlElement(name = "GiroEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "GiroEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String giroEmis;
-                @XmlElement(name = "Telefono"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Telefono", namespace = "http://www.sii.cl/SiiDte")
                 protected List<String> telefono;
-                @XmlElement(name = "CorreoEmisor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoEmisor", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoEmisor;
-                @XmlElement(name = "Acteco"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Acteco", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected List<BigInteger> acteco;
-                @XmlElement(name = "Sucursal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Sucursal", namespace = "http://www.sii.cl/SiiDte")
                 protected String sucursal;
-                @XmlElement(name = "CdgSIISucur"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgSIISucur", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger cdgSIISucur;
-                @XmlElement(name = "DirOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "DirOrigen", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String dirOrigen;
-                @XmlElement(name = "CmnaOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaOrigen;
-                @XmlElement(name = "CiudadOrigen"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadOrigen", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadOrigen;
-                @XmlElement(name = "CdgVendedor"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgVendedor", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgVendedor;
 
                 /**
@@ -28348,54 +28348,54 @@ public class DTEDefType {
             })
             public static class IdDoc {
 
-                @XmlElement(name = "TipoDTE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TipoDTE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger tipoDTE;
-                @XmlElement(name = "Folio"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "Folio", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger folio;
-                @XmlElement(name = "FchEmis"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FchEmis", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchEmis;
-                @XmlElement(name = "IndServicio"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IndServicio", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger indServicio;
-                @XmlElement(name = "MntBruto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntBruto", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger mntBruto;
-                @XmlElement(name = "FmaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FmaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger fmaPago;
-                @XmlElement(name = "FchCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchCancel;
-                @XmlElement(name = "MntCancel"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntCancel", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger mntCancel;
-                @XmlElement(name = "SaldoInsol"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "SaldoInsol", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "nonNegativeInteger")
                 protected BigInteger saldoInsol;
-                @XmlElement(name = "MntPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntPagos", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Liquidacion.Encabezado.IdDoc.MntPagos> mntPagos;
-                @XmlElement(name = "PeriodoDesde"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoDesde", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoDesde;
-                @XmlElement(name = "PeriodoHasta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "PeriodoHasta", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar periodoHasta;
-                @XmlElement(name = "MedioPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MedioPago", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "string")
                 protected MedioPagoType medioPago;
-                @XmlElement(name = "TpoCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TpoCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String tpoCtaPago;
-                @XmlElement(name = "NumCtaPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "NumCtaPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String numCtaPago;
-                @XmlElement(name = "BcoPago"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "BcoPago", namespace = "http://www.sii.cl/SiiDte")
                 protected String bcoPago;
-                @XmlElement(name = "TermPagoCdg"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoCdg", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoCdg;
-                @XmlElement(name = "TermPagoGlosa"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoGlosa", namespace = "http://www.sii.cl/SiiDte")
                 protected String termPagoGlosa;
-                @XmlElement(name = "TermPagoDias"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TermPagoDias", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger termPagoDias;
-                @XmlElement(name = "FchVenc"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "FchVenc", namespace = "http://www.sii.cl/SiiDte")
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fchVenc;
 
@@ -28920,13 +28920,13 @@ public class DTEDefType {
                 })
                 public static class MntPagos {
 
-                    @XmlElement(name = "FchPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FchPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "date")
                     protected XMLGregorianCalendar fchPago;
-                    @XmlElement(name = "MntPago"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "MntPago", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "nonNegativeInteger")
                     protected BigInteger mntPago;
-                    @XmlElement(name = "GlosaPagos"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "GlosaPagos", namespace = "http://www.sii.cl/SiiDte")
                     protected String glosaPagos;
 
                     /**
@@ -29083,29 +29083,29 @@ public class DTEDefType {
             })
             public static class Receptor {
 
-                @XmlElement(name = "RUTRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RUTRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rutRecep;
-                @XmlElement(name = "CdgIntRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CdgIntRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String cdgIntRecep;
-                @XmlElement(name = "RznSocRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RznSocRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rznSocRecep;
-                @XmlElement(name = "GiroRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "GiroRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String giroRecep;
-                @XmlElement(name = "Contacto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Contacto", namespace = "http://www.sii.cl/SiiDte")
                 protected String contacto;
-                @XmlElement(name = "CorreoRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CorreoRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String correoRecep;
-                @XmlElement(name = "DirRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "DirRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String dirRecep;
-                @XmlElement(name = "CmnaRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "CmnaRecep", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String cmnaRecep;
-                @XmlElement(name = "CiudadRecep"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadRecep", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadRecep;
-                @XmlElement(name = "DirPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "DirPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String dirPostal;
-                @XmlElement(name = "CmnaPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CmnaPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String cmnaPostal;
-                @XmlElement(name = "CiudadPostal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "CiudadPostal", namespace = "http://www.sii.cl/SiiDte")
                 protected String ciudadPostal;
 
                 /**
@@ -29470,29 +29470,29 @@ public class DTEDefType {
             })
             public static class Totales {
 
-                @XmlElement(name = "MntNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntNeto", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger mntNeto;
-                @XmlElement(name = "MntExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MntExe", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger mntExe;
-                @XmlElement(name = "TasaIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "TasaIVA", namespace = "http://www.sii.cl/SiiDte")
                 protected BigDecimal tasaIVA;
-                @XmlElement(name = "IVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVA", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger iva;
-                @XmlElement(name = "IVAProp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVAProp", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger ivaProp;
-                @XmlElement(name = "IVATerc"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "IVATerc", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger ivaTerc;
-                @XmlElement(name = "ImptoReten"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "ImptoReten", namespace = "http://www.sii.cl/SiiDte")
                 protected List<DTEDefType.Liquidacion.Encabezado.Totales.ImptoReten> imptoReten;
-                @XmlElement(name = "Comisiones"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "Comisiones", namespace = "http://www.sii.cl/SiiDte")
                 protected DTEDefType.Liquidacion.Encabezado.Totales.Comisiones comisiones;
-                @XmlElement(name = "MntTotal"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MntTotal", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected BigInteger mntTotal;
-                @XmlElement(name = "MontoPeriodo"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "MontoPeriodo", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger montoPeriodo;
-                @XmlElement(name = "SaldoAnterior"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "SaldoAnterior", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger saldoAnterior;
-                @XmlElement(name = "VlrPagar"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                @XmlElement(name = "VlrPagar", namespace = "http://www.sii.cl/SiiDte")
                 protected BigInteger vlrPagar;
 
                 /**
@@ -29818,11 +29818,11 @@ public class DTEDefType {
                 })
                 public static class Comisiones {
 
-                    @XmlElement(name = "ValComNeto"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComNeto", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger valComNeto;
-                    @XmlElement(name = "ValComExe"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComExe", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger valComExe;
-                    @XmlElement(name = "ValComIVA"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "ValComIVA", namespace = "http://www.sii.cl/SiiDte")
                     protected BigInteger valComIVA;
 
                     /**
@@ -29929,11 +29929,11 @@ public class DTEDefType {
                 })
                 public static class ImptoReten {
 
-                    @XmlElement(name = "TipoImp"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "TipoImp", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected String tipoImp;
-                    @XmlElement(name = "TasaImp"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                    @XmlElement(name = "TasaImp", namespace = "http://www.sii.cl/SiiDte")
                     protected BigDecimal tasaImp;
-                    @XmlElement(name = "MontoImp"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "MontoImp", namespace = "http://www.sii.cl/SiiDte", required = true)
                     @XmlSchemaType(name = "positiveInteger")
                     protected BigInteger montoImp;
 
@@ -30087,20 +30087,20 @@ public class DTEDefType {
         })
         public static class Referencia {
 
-            @XmlElement(name = "NroLinRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroLinRef", namespace = "http://www.sii.cl/SiiDte")
             protected int nroLinRef;
-            @XmlElement(name = "TpoDocRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "TpoDocRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String tpoDocRef;
-            @XmlElement(name = "IndGlobal"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "IndGlobal", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger indGlobal;
-            @XmlElement(name = "FolioRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FolioRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String folioRef;
-            @XmlElement(name = "FchRef"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FchRef", namespace = "http://www.sii.cl/SiiDte", required = true)
             @XmlSchemaType(name = "date")
             protected XMLGregorianCalendar fchRef;
-            @XmlElement(name = "CodRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "CodRef", namespace = "http://www.sii.cl/SiiDte")
             protected BigInteger codRef;
-            @XmlElement(name = "RazonRef"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "RazonRef", namespace = "http://www.sii.cl/SiiDte")
             protected String razonRef;
 
             /**
@@ -30330,23 +30330,23 @@ public class DTEDefType {
         })
         public static class SubTotInfo {
 
-            @XmlElement(name = "NroSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "NroSTI", namespace = "http://www.sii.cl/SiiDte")
             protected int nroSTI;
-            @XmlElement(name = "GlosaSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "GlosaSTI", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected String glosaSTI;
-            @XmlElement(name = "OrdenSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "OrdenSTI", namespace = "http://www.sii.cl/SiiDte")
             protected Integer ordenSTI;
-            @XmlElement(name = "SubTotNetoSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotNetoSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotNetoSTI;
-            @XmlElement(name = "SubTotIVASTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotIVASTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotIVASTI;
-            @XmlElement(name = "SubTotAdicSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotAdicSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotAdicSTI;
-            @XmlElement(name = "SubTotExeSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "SubTotExeSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal subTotExeSTI;
-            @XmlElement(name = "ValSubtotSTI"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "ValSubtotSTI", namespace = "http://www.sii.cl/SiiDte")
             protected BigDecimal valSubtotSTI;
-            @XmlElement(name = "LineasDeta"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+            @XmlElement(name = "LineasDeta", namespace = "http://www.sii.cl/SiiDte")
             protected List<BigInteger> lineasDeta;
 
             /**
@@ -30715,9 +30715,9 @@ public class DTEDefType {
         })
         public static class TED {
 
-            @XmlElement(name = "DD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "DD", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.TED.DD dd;
-            @XmlElement(name = "FRMT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+            @XmlElement(name = "FRMT", namespace = "http://www.sii.cl/SiiDte", required = true)
             protected DTEDefType.Liquidacion.TED.FRMT frmt;
             @XmlAttribute(name = "version", required = true)
             @XmlSchemaType(name = "anySimpleType")
@@ -30931,29 +30931,29 @@ public class DTEDefType {
             })
             public static class DD {
 
-                @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String re;
-                @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger td;
-                @XmlElement(name = "F"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "F", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "positiveInteger")
                 protected BigInteger f;
-                @XmlElement(name = "FE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "FE", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "date")
                 protected XMLGregorianCalendar fe;
-                @XmlElement(name = "RR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rr;
-                @XmlElement(name = "RSR"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "RSR", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String rsr;
-                @XmlElement(name = "MNT"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "MNT", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "unsignedLong")
                 protected BigInteger mnt;
-                @XmlElement(name = "IT1"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "IT1", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected String it1;
-                @XmlElement(name = "CAF"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "CAF", namespace = "http://www.sii.cl/SiiDte", required = true)
                 protected DTEDefType.Liquidacion.TED.DD.CAF caf;
-                @XmlElement(name = "TSTED"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                @XmlElement(name = "TSTED", namespace = "http://www.sii.cl/SiiDte", required = true)
                 @XmlSchemaType(name = "dateTime")
                 protected XMLGregorianCalendar tsted;
 
@@ -31288,9 +31288,9 @@ public class DTEDefType {
                 })
                 public static class CAF {
 
-                    @XmlElement(name = "DA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "DA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Liquidacion.TED.DD.CAF.DA da;
-                    @XmlElement(name = "FRMA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                    @XmlElement(name = "FRMA", namespace = "http://www.sii.cl/SiiDte", required = true)
                     protected DTEDefType.Liquidacion.TED.DD.CAF.FRMA frma;
                     @XmlAttribute(name = "version", required = true)
                     @XmlSchemaType(name = "anySimpleType")
@@ -31449,23 +31449,23 @@ public class DTEDefType {
                     })
                     public static class DA {
 
-                        @XmlElement(name = "RE"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RE", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String re;
-                        @XmlElement(name = "RS"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RS", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected String rs;
-                        @XmlElement(name = "TD"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "TD", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "positiveInteger")
                         protected BigInteger td;
-                        @XmlElement(name = "RNG"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "RNG", namespace = "http://www.sii.cl/SiiDte", required = true)
                         protected DTEDefType.Liquidacion.TED.DD.CAF.DA.RNG rng;
-                        @XmlElement(name = "FA"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                        @XmlElement(name = "FA", namespace = "http://www.sii.cl/SiiDte", required = true)
                         @XmlSchemaType(name = "date")
                         protected XMLGregorianCalendar fa;
-                        @XmlElement(name = "RSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "RSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Liquidacion.TED.DD.CAF.DA.RSAPK rsapk;
-                        @XmlElement(name = "DSAPK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "DSAPK", namespace = "http://www.sii.cl/SiiDte")
                         protected DTEDefType.Liquidacion.TED.DD.CAF.DA.DSAPK dsapk;
-                        @XmlElement(name = "IDK"/*, namespace = "http://www.sii.cl/SiiDte"*/)
+                        @XmlElement(name = "IDK", namespace = "http://www.sii.cl/SiiDte")
                         protected long idk;
 
                         /**
@@ -31684,13 +31684,13 @@ public class DTEDefType {
                         })
                         public static class DSAPK {
 
-                            @XmlElement(name = "P"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "P", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] p;
-                            @XmlElement(name = "Q"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Q", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] q;
-                            @XmlElement(name = "G"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "G", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] g;
-                            @XmlElement(name = "Y"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "Y", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] y;
 
                             /**
@@ -31811,10 +31811,10 @@ public class DTEDefType {
                         })
                         public static class RNG {
 
-                            @XmlElement(name = "D"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "D", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger d;
-                            @XmlElement(name = "H"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "H", namespace = "http://www.sii.cl/SiiDte", required = true)
                             @XmlSchemaType(name = "positiveInteger")
                             protected BigInteger h;
 
@@ -31896,9 +31896,9 @@ public class DTEDefType {
                         })
                         public static class RSAPK {
 
-                            @XmlElement(name = "M"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "M", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] m;
-                            @XmlElement(name = "E"/*, namespace = "http://www.sii.cl/SiiDte"*/, required = true)
+                            @XmlElement(name = "E", namespace = "http://www.sii.cl/SiiDte", required = true)
                             protected byte[] e;
 
                             /**

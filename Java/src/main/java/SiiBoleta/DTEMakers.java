@@ -36,6 +36,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import SIIEnvio.EnvioDTE;
 import jakarta.xml.bind.*;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.w3c.dom.*;

@@ -86,7 +86,7 @@ public class DTEGenerator {
 
         // 3. Create marshaller and enable pretty-print
         Map<String, Object> props = new HashMap<>();
-        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
+        //props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
 
         JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
                 new Class[] { DTEDefType.class },
@@ -96,7 +96,7 @@ public class DTEGenerator {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
+        //marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);

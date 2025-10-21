@@ -1,35 +1,25 @@
 package SiiBoleta;
 
-import jakarta.xml.bind.*;
 //import org.apache.xml.serialize.OutputFormat;
 //import org.apache.xml.serialize.XMLSerializer;
+import SIIEnvio.EnvioDTE;
 import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.*;
 
-import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.*;
 import java.util.*;
 
 // JAXB core
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
 
 // DOM and XML parsing
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 // XML transformation (writing to file)
 import javax.xml.transform.*;
@@ -67,6 +57,29 @@ public class XmlGenerator {
             return new String[] {
                     "http://www.sii.cl/SiiDte",
                     "http://www.w3.org/2001/XMLSchema-instance"
+            };
+        }
+
+        public boolean shouldDeclareNamespace(String namespaceUri) {
+            return !"http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri);
+        }
+    }
+    public static class CustomNamespacePrefixMapper2 extends NamespacePrefixMapper {
+        @Override
+        public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
+            if ("http://www.sii.cl/SiiDte".equals(namespaceUri)) {
+                return ""; // default namespace
+            }
+            if ("http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri)) {
+                return null; // let it be declared locally
+            }
+            return suggestion;
+        }
+
+        @Override
+        public String[] getPreDeclaredNamespaceUris() {
+            return new String[] {
+                    "http://www.sii.cl/SiiDte"
             };
         }
 
@@ -215,7 +228,7 @@ public class XmlGenerator {
 
         // 3. Create marshaller and enable pretty-print
         Map<String, Object> props = new HashMap<>();
-        //props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
 
         JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
                 new Class[] { DTEDefType.class },
@@ -225,14 +238,14 @@ public class XmlGenerator {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        //marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper());
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().newDocument();
 
         JAXBElement<DTEDefType> jaxbElement2 = new JAXBElement<>(
-                new QName(/*"http://www.sii.cl/SiiDte",*/"DTE"),
+                new QName("http://www.sii.cl/SiiDte","DTE"),
                 DTEDefType.class,
                 dte
         );
@@ -283,7 +296,7 @@ public class XmlGenerator {
         dbf2.setNamespaceAware(true);
         DTEMakers.formatKeyValueElements(doc,64,0);
 
-        DocumentBuilder builder = dbf.newDocumentBuilder();
+        /*DocumentBuilder builder = dbf.newDocumentBuilder();
 
         Document newDoc = builder.newDocument();
 
@@ -292,7 +305,7 @@ public class XmlGenerator {
 
         // Rebuild it (and its descendants) with the SII namespace
         Node newRoot = renameNodeWithNamespace(newDoc, oldRoot, "http://www.sii.cl/SiiDte");
-        newDoc.appendChild(newRoot);
+        newDoc.appendChild(newRoot);*/
 
         //printNode(newDoc);
 
@@ -346,10 +359,10 @@ public class XmlGenerator {
         );
 
         marshaller2.marshal(jaxbElement3, doc2);
-        Element setDTEElement = (Element) doc2.getElementsByTagName("SetDTE").item(0);
-        setDTEElement.removeAttribute("xmlns:ns0");
+        //Element setDTEElement = (Element) doc2.getElementsByTagName("SetDTE").item(0);
+        //setDTEElement.removeAttribute("xmlns:ns0");
 
-        Element dteElement = (Element) newDoc.getElementsByTagName("DTE").item(0);
+        Element dteElement = (Element) doc.getElementsByTagName("DTE").item(0);
         Node importedDTE = doc2.importNode(dteElement, true);
         //Element newElement = doc2.createElementNS("http://www.sii.cl/SiiDte","DTE");
 
