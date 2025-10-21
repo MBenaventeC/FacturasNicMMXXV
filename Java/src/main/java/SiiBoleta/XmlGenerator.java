@@ -3,6 +3,7 @@ package SiiBoleta;
 //import org.apache.xml.serialize.OutputFormat;
 //import org.apache.xml.serialize.XMLSerializer;
 import SIIEnvio.EnvioDTE;
+import SiiSignature.SignatureType;
 import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.*;
 

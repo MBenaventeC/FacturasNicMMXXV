@@ -1,5 +1,5 @@
 
-package SiiBoleta;
+package SiiSignature;
 
 import jakarta.xml.bind.annotation.*;
 

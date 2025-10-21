@@ -8,7 +8,7 @@ import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import SiiBoleta.DTEDefType;
-import SiiBoleta.SignatureType;
+import SiiSignature.SignatureType;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -93,7 +93,7 @@ public class EnvioDTE {
     protected EnvioDTE.SetDTE setDTE;
     //@XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
     @XmlTransient
-    protected SiiBoleta.SignatureType signature;
+    protected SignatureType signature;
     @XmlAttribute(name = "version", required = true)
     protected BigDecimal version;
 
@@ -126,10 +126,10 @@ public class EnvioDTE {
      *
      * @return
      *     possible object is
-     *     {@link SiiBoleta.SignatureType }
+     *     {@link SignatureType }
      *
      */
-    public SiiBoleta.SignatureType getSignature() {
+    public SignatureType getSignature() {
         return signature;
     }
 
@@ -138,7 +138,7 @@ public class EnvioDTE {
      *
      * @param value
      *     allowed object is
-     *     {@link SiiBoleta.SignatureType }
+     *     {@link SignatureType }
      *
      */
     public void setSignature(SignatureType value) {

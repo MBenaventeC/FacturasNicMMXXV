@@ -13,12 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
 import java.security.cert.CertificateException;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.io.FileInputStream;
 import java.security.cert.X509Certificate;
-import java.util.Collections;
-import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -37,6 +34,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import SIIEnvio.EnvioDTE;
+import SiiSignature.SignatureType;
 import jakarta.xml.bind.*;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.w3c.dom.*;
@@ -147,7 +145,7 @@ public class DTEMakers {
         return documento;
     }
 
-    public static SignatureType makeSignature(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+    public static SignatureType makeSignature(DTEDefType.Documento documento) throws Exception {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -180,9 +178,17 @@ public class DTEMakers {
         X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
         PublicKey publicKey = cert.getPublicKey();
 
-        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
+        //JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
+        Map<String, Object> props = new HashMap<>();
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+
+        JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
+                new Class[] { DTEDefType.Documento.class },
+                props
+        );
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -190,7 +196,10 @@ public class DTEMakers {
 
         // Marshal directly into the DOM
         JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName("Documento"), DTEDefType.Documento.class, documento);
+                new QName("http://www.sii.cl/SiiDte","Documento"),
+                DTEDefType.Documento.class,
+                documento
+        );
         marshaller.marshal(jaxbElement, doc);
 
         doc.getDocumentElement().setIdAttribute("ID", true);
@@ -542,7 +551,7 @@ public class DTEMakers {
         return setDTE;
     }
 
-    public static EnvioDTE makeEnvioDTE(EnvioDTE.SetDTE setDTE,SiiBoleta.SignatureType signature){
+    public static EnvioDTE makeEnvioDTE(EnvioDTE.SetDTE setDTE, SignatureType signature){
         EnvioDTE envioDTE = new EnvioDTE();
         envioDTE.setSetDTE(setDTE);
         envioDTE.setSignature(signature);
