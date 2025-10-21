@@ -197,11 +197,16 @@ public class DTEMakers {
         //3. Initialize the Signature Factory
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
+        Transform c14nTransform = fac.newTransform(
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                (TransformParameterSpec) null
+        );
+
         //4. Create the Reference and SignedInfo
         Reference ref = fac.newReference(
                 "#"+documento.getID(),
                 fac.newDigestMethod(DigestMethod.SHA1, null),
-                null,
+                Collections.singletonList(c14nTransform),
                 null,
                 null
         );
@@ -313,12 +318,16 @@ public class DTEMakers {
 
         //3. Initialize the Signature Factory
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+        Transform c14nTransform = fac.newTransform(
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                (TransformParameterSpec) null
+        );
 
         //4. Create the Reference and SignedInfo
         Reference ref = fac.newReference(
                 "#"+imported.getAttribute("ID"),
                 fac.newDigestMethod(DigestMethod.SHA1, null),
-                null,
+                Collections.singletonList(c14nTransform),
                 null,
                 null
         );
