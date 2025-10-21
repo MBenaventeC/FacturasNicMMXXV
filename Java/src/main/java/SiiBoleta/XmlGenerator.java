@@ -1,8 +1,6 @@
 package SiiBoleta;
 
 import jakarta.xml.bind.*;
-//import org.apache.xml.serialize.OutputFormat;
-//import org.apache.xml.serialize.XMLSerializer;
 import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.*;
 
@@ -180,7 +178,7 @@ public class XmlGenerator {
     public static void main(String[] args) throws Exception {
         //DTE
         // 1. Create and populate your object
-        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
+        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22296,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
         DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","H&M","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
         DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
@@ -193,7 +191,7 @@ public class XmlGenerator {
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,22296,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
 
 
 
@@ -204,7 +202,7 @@ public class XmlGenerator {
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-22295"); // folio
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-22296"); // folio
         //DTEMakers.makeSignature2(documento);
         SignatureType signature = DTEMakers.makeSignature(documento);
         DTEDefType dte = DTEMakers.makeDTE(documento,null);
@@ -300,7 +298,10 @@ public class XmlGenerator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
-        Result output = new StreamResult(new File("out/DTE.xml"));
+        File outputFile = new File("out/DTE.xml");
+        outputFile.getParentFile().mkdirs();
+
+        Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
         transformer.transform(input, output);
 
