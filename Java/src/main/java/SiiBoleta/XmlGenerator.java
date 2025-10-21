@@ -313,7 +313,12 @@ public class XmlGenerator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
-        Result output = new StreamResult(new File("out/DTE.xml"));
+
+
+        File outputFile = new File("out/DTE.xml");
+        outputFile.getParentFile().mkdirs();
+
+        Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
         transformer.transform(input, output);
 
