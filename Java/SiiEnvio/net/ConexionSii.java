@@ -30,6 +30,7 @@ import java.util.Iterator;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.parsers.ParserConfigurationException;
+// Considerar cambio de javax.xml.soap a jakarta.*
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.Name;
 import javax.xml.soap.SOAPBody;
@@ -43,6 +44,8 @@ import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
+// Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
+// HTTP
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -64,11 +67,15 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+// XMLBeans
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
+// Extensión?
 import org.xml.sax.SAXException;
 
-import cl.nic.dte.util.Utilities;
+// Utilities viene del repo de Nic
+import Utilities;
+// Consultar de donde provienen los imports 'cl.sii.*'
 import cl.sii.siiDte.GetTokenDocument;
 import cl.sii.siiDte.RECEPCIONDTEDocument;
 import cl.sii.siiDte.DTEDefType.Documento;
