@@ -207,6 +207,10 @@ public class DTEMakers {
         //3. Initialize the Signature Factory
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
+        Transform envelopedTransform = fac.newTransform(
+                "http://www.w3.org/2000/09/xmldsig#enveloped-signature",
+                (TransformParameterSpec) null
+        );
         Transform c14nTransform = fac.newTransform(
                 "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
                 (TransformParameterSpec) null
@@ -216,7 +220,7 @@ public class DTEMakers {
         Reference ref = fac.newReference(
                 "#"+documento.getID(),
                 fac.newDigestMethod(DigestMethod.SHA1, null),
-                Collections.singletonList(c14nTransform),
+                Arrays.asList(envelopedTransform, c14nTransform),
                 null,
                 null
         );
@@ -328,6 +332,10 @@ public class DTEMakers {
 
         //3. Initialize the Signature Factory
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+        Transform envelopedTransform = fac.newTransform(
+                "http://www.w3.org/2000/09/xmldsig#enveloped-signature",
+                (TransformParameterSpec) null
+        );
         Transform c14nTransform = fac.newTransform(
                 "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
                 (TransformParameterSpec) null
@@ -337,7 +345,7 @@ public class DTEMakers {
         Reference ref = fac.newReference(
                 "#"+imported.getAttribute("ID"),
                 fac.newDigestMethod(DigestMethod.SHA1, null),
-                Collections.singletonList(c14nTransform),
+                Arrays.asList(envelopedTransform, c14nTransform),
                 null,
                 null
         );
