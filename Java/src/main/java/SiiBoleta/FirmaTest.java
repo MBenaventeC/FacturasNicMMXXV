@@ -64,7 +64,7 @@ public class FirmaTest {
         else if ("HMAC".equals(cert.getPublicKey().getAlgorithm())) method = SignatureMethod.HMAC_SHA1;
 
         SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod((
-                CanonicalizationMethod.INCLUSIVE,
+                CanonicalizationMethod.INCLUSIVE),
                 (C14NMethodParameterSpec) null), fac.newSignatureMethod(method,
                         null), Collections.singletonList(ref));
 
