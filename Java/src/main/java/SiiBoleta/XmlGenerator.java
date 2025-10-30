@@ -74,6 +74,9 @@ public class XmlGenerator {
             if ("http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri)) {
                 return null; // let it be declared locally
             }
+            if ("".equals(namespaceUri)) {
+                return null; // let it be declared locally
+            }
             return suggestion;
         }
 
@@ -81,6 +84,33 @@ public class XmlGenerator {
         public String[] getPreDeclaredNamespaceUris() {
             return new String[] {
                     "http://www.sii.cl/SiiDte"
+            };
+        }
+
+        public boolean shouldDeclareNamespace(String namespaceUri) {
+            return !"http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri);
+        }
+    }
+
+    public static class CustomNamespacePrefixMapper3 extends NamespacePrefixMapper {
+        @Override
+        public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
+            if ("http://www.sii.cl/SiiDte".equals(namespaceUri)) {
+                return null; // default namespace
+            }
+            if ("http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri)) {
+                return null; // let it be declared locally
+            }
+            if ("".equals(namespaceUri)) {
+                return null; // let it be declared locally
+            }
+            return suggestion;
+        }
+
+        @Override
+        public String[] getPreDeclaredNamespaceUris() {
+            return new String[] {
+                    //"http://www.sii.cl/SiiDte"
             };
         }
 
@@ -207,7 +237,7 @@ public class XmlGenerator {
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
 
 
 
@@ -296,6 +326,8 @@ public class XmlGenerator {
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
         DTEMakers.formatKeyValueElements(doc,64,0);
+        NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+        DTEMakers.FRMTFix(FRMT, 64,doc,0);
 
         /*DocumentBuilder builder = dbf.newDocumentBuilder();
 
@@ -383,6 +415,9 @@ public class XmlGenerator {
         //printNode(doc2);
         dteE2.setAttribute("ID", "SetDoc");
         dteE2.setIdAttribute("ID", true);
+        FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
+        //DTEMakers.FRMTFix(FRMT, 64,doc2,1);
+        DTEMakers.fixKeyValueElements(doc2,0);
         SignatureType signatureEnv = DTEMakers.makeSignatureEnv(dteE2);
 
         // 1. Marshal signatureEnv into a DOM node
@@ -408,8 +443,9 @@ public class XmlGenerator {
         Transformer transformer2 = transformerf2.newTransformer();
         transformer2.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer2.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-
+        DTEMakers.fixKeyValueElements(doc2,0);
         DTEMakers.formatKeyValueElements(doc2,64,1);
+
         Result output2 = new StreamResult(new File("out/EnvioDTE.xml"));
         Source input2 = new DOMSource(doc2);
         transformer2.transform(input2, output2);

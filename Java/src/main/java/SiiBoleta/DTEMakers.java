@@ -180,7 +180,7 @@ public class DTEMakers {
 
         //JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
         Map<String, Object> props = new HashMap<>();
-        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
 
         JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
                 new Class[] { DTEDefType.Documento.class },
@@ -188,15 +188,15 @@ public class DTEMakers {
         );
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
+        //dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().newDocument();
 
         // Marshal directly into the DOM
         JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName("http://www.sii.cl/SiiDte","Documento"),
+                new QName(/*"http://www.sii.cl/SiiDte",*/"Documento"),
                 DTEDefType.Documento.class,
                 documento
         );
@@ -208,7 +208,7 @@ public class DTEMakers {
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
         Transform envelopedTransform = fac.newTransform(
-                "http://www.w3.org/2000/09/xmldsig#enveloped-signature",
+                Transform.ENVELOPED,
                 (TransformParameterSpec) null
         );
         Transform c14nTransform = fac.newTransform(
@@ -224,12 +224,20 @@ public class DTEMakers {
                 null,
                 null
         );
-
-        SignedInfo si = fac.newSignedInfo(
-                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
-                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+        String method = SignatureMethod.RSA_SHA1;
+        if ("DSA".equals(cert.getPublicKey().getAlgorithm())) method = SignatureMethod.DSA_SHA1;
+        else if ("HMAC".equals(cert.getPublicKey().getAlgorithm())) method = SignatureMethod.HMAC_SHA1;
+        SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod((
+                CanonicalizationMethod.INCLUSIVE),
+                        (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(method, null),
                 Collections.singletonList(ref)
         );
+        //ehPI6huYVtrWpk6/QX1xi/iw2cvP3/AOZGRyYgX7RM7NV54PXtE9XcrsNWUVpxAEvWuthoa4nTXz&#13;
+        //68uIW68IoqpO3U2yCYdZx7HwpIMVa1eW6YHFKfCt9pjZTRSSRlFjk6GxRfQPqbuZ58AXXMbEOops&#13;
+        //4cNtdbiEPTdgzw6HGVapz/rmhJ/Am8MX8ILOpZ5gbqkzJZr/gG7tetsKUhyLaXl5D+RRF3fhn/4D&#13;
+        //eBiQp1VGTj6j0gpQ6EpE/6oWF+SiA+EytTZRgklVvfRGJNoZDDU5ABU48xkOZqUQu6ItuLXL1/K4&#13;
+        //Nqf2Gih1ENSV4es6+cO7yARLKmaOR49Stgg7Eg==
 
         //5. Load the Key and Certificat
         /*KeyStore ks = KeyStore.getInstance("PKCS12");
@@ -245,6 +253,11 @@ public class DTEMakers {
         /*DOMSignContext dsc = new DOMSignContext(pk, doc.getDocumentElement());
         XMLSignature signature = fac.newXMLSignature(si, ki);
         signature.sign(dsc);*/
+        //DTEMakers.formatKeyValueElements(doc,64,0);
+        NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+        FRMTFixSig(FRMT, 64,doc);
+
+        //LyTHVELKLU0aDP+MYHjuYmBsKXU=
 
         DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
         /*KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
@@ -285,7 +298,7 @@ public class DTEMakers {
         transformer.transform(new DOMSource(node), new StreamResult(System.out));
     }
 
-    public static SignatureType makeSignatureEnv(Element documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
+    public static SignatureType makeSignatureEnv(Element documento) throws Exception {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -389,6 +402,9 @@ public class DTEMakers {
         XMLSignature signature = fac.newXMLSignature(si, ki);
 
         // --- sign the imported node ---
+
+        XmlGenerator.printNode(imported);
+
         DOMSignContext dsc = new DOMSignContext(privateKey, imported);
         signature.sign(dsc);
 
@@ -572,47 +588,71 @@ public class DTEMakers {
         NodeList exponentNodes = doc.getElementsByTagNameNS("*", "Exponent");
         NodeList X509CertificateNodes = doc.getElementsByTagNameNS("*", "X509Certificate");
         NodeList SignatureValue = doc.getElementsByTagNameNS("*", "SignatureValue");
-        NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+        //NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
 
         formatBase64Nodes(modulusNodes, lineLength,doc,index,0);
         Fix(exponentNodes,index,"            ");
         Fix(SignatureValue,index,"");
         formatBase64Nodes(X509CertificateNodes, lineLength,doc,index,1);
-        FRMTFix(FRMT, lineLength,doc,index);
+        //FRMTFix(FRMT, lineLength,doc,index);
+    }
+
+    public static void fixKeyValueElements(Document doc,int index) {
+        NodeList modulusNodes = doc.getElementsByTagNameNS("*", "Modulus");
+        NodeList exponentNodes = doc.getElementsByTagNameNS("*", "Exponent");
+        NodeList X509CertificateNodes = doc.getElementsByTagNameNS("*", "X509Certificate");
+        NodeList SignatureValue = doc.getElementsByTagNameNS("*", "SignatureValue");
+        NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+
+        Fix2nd(modulusNodes,index);
+        Fix2nd(exponentNodes,index);
+        Fix2nd(SignatureValue,index);
+        Fix2nd(X509CertificateNodes,index);
+        Fix2nd(FRMT,index);
     }
 
     private static void formatBase64Nodes(NodeList nodes, int lineLength,Document document,int index,int type) {
-        for (int i = 0; i < nodes.getLength(); i++) {
-            Node node = nodes.item(i);
-            if(index==i){
-                String indent="                ";
-                if(type==0) {
-                    indent=indent+"    ";
-                }
-                String base64 = node.getTextContent().replaceAll("\\s+", "");
-                String formatted = insertLineBreaks(base64, lineLength, indent);
-                //node.setTextContent(formatted);
-                node.setTextContent(""); // Clear existing
-                for (String line : formatted.split("\n")) {
-                    Text lineNode = document.createTextNode(line);
-                    node.appendChild(lineNode);
-                    node.appendChild(document.createTextNode("\n")); // Explicit line break
-                }
-                node.appendChild(document.createTextNode(indent));
-            } else{
-                node.setTextContent(node.getTextContent().replace("\n","\n        "));
-            }
+        Node node = nodes.item(index);
+        String indent="                ";
+        if(type==0) {
+            indent=indent+"    ";
         }
+        String base64 = node.getTextContent().replaceAll("\\s+", "");
+        String formatted = insertLineBreaks(base64, lineLength, indent);
+        //node.setTextContent(formatted);
+        node.setTextContent(""); // Clear existing
+        for (String line : formatted.split("\n")) {
+            Text lineNode = document.createTextNode(line);
+            node.appendChild(lineNode);
+            node.appendChild(document.createTextNode("\n")); // Explicit line break
+        }
+        node.appendChild(document.createTextNode(indent));
     }
-    private static void Fix(NodeList nodes,int index,String extra) {
-        for(int i = 0; i < nodes.getLength(); i++) {
-            Node node = nodes.item(i);
-            if(index==i){node.setTextContent("\n            " + extra + node.getTextContent() + "\n        " + extra);}
-            else{node.setTextContent(node.getTextContent().replace("\n","\n        "));}
-        }
+    public static void Fix(NodeList nodes,int index,String extra) {
+        Node node = nodes.item(index);
+        node.setTextContent("\n            " + extra + node.getTextContent() + "\n        " + extra);
+    }
+    public static void Fix2nd(NodeList nodes,int index) {
+        Node node = nodes.item(index);
+        node.setTextContent(node.getTextContent().replace("\n","\n    "));
     }
 
-    private static void FRMTFix(NodeList nodes, int lineLength,Document document,int index) {
+    private static void FRMTFixSig(NodeList nodes, int lineLength,Document document) {
+        Node node = nodes.item(0);
+        String indent="        ";
+        String base64 = node.getTextContent().replaceAll("\\s+", "");
+        String formatted = insertLineBreaks(base64, lineLength, indent);
+        //node.setTextContent(formatted);
+        node.setTextContent(""); // Clear existing
+        for (String line : formatted.split("\n")) {
+            Text lineNode = document.createTextNode(line);
+            node.appendChild(lineNode);
+            node.appendChild(document.createTextNode("\n")); // Explicit line break
+        }
+        node.appendChild(document.createTextNode(indent));
+    }
+
+    public static void FRMTFix(NodeList nodes, int lineLength,Document document,int index) {
         Node node = nodes.item(0);
         if(index==0){
             String indent="            ";
@@ -626,7 +666,8 @@ public class DTEMakers {
                 node.appendChild(document.createTextNode("\n")); // Explicit line break
             }
             node.appendChild(document.createTextNode(indent));
-        } else{
+        }
+        else{
             node.setTextContent(node.getTextContent().replace("\n","\n        "));
         }
     }

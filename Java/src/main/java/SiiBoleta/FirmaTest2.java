@@ -1,13 +1,8 @@
 package SiiBoleta;
 
-import SIIEnvio.EnvioDTE;
-import SiiSignature.SignatureType;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.Marshaller;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.crypto.XMLStructure;
 import javax.xml.crypto.dsig.*;
@@ -17,8 +12,10 @@ import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
@@ -27,10 +24,26 @@ import java.nio.file.Paths;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.util.*;
-import SiiBoleta.XmlGenerator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import org.w3c.dom.Element;
 
-public class FirmaTest {
+public class FirmaTest2 {
+    private static void removeWhitespaceNodes(Element e) {
+        NodeList children = e.getChildNodes();
+        for (int i = children.getLength() - 1; i >= 0; i--) {
+            Node n = children.item(i);
+            if (n.getNodeType() == Node.TEXT_NODE) {
+                if (n.getTextContent().trim().isEmpty()) {
+                    e.removeChild(n);
+                }
+            } else if (n.getNodeType() == Node.ELEMENT_NODE) {
+                removeWhitespaceNodes((Element) n);
+            }
+        }
+    }
+
     public static void main(String[] args) throws Exception {
 
         File xmlFile = new File("out/DTE.xml"); // <----------
@@ -38,6 +51,9 @@ public class FirmaTest {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().parse(xmlFile);
+        removeWhitespaceNodes(doc.getDocumentElement());
+        doc.normalizeDocument();
+
         XmlGenerator.printNode(doc);
 
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
@@ -71,9 +87,9 @@ public class FirmaTest {
         else if ("HMAC".equals(cert.getPublicKey().getAlgorithm())) method = SignatureMethod.HMAC_SHA1;
 
         SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod((
-                CanonicalizationMethod.INCLUSIVE),
+                        CanonicalizationMethod.INCLUSIVE),
                 (C14NMethodParameterSpec) null), fac.newSignatureMethod(method,
-                        null), Collections.singletonList(ref));
+                null), Collections.singletonList(ref));
 
         KeyInfoFactory kif = fac.getKeyInfoFactory();
         KeyValue kv = kif.newKeyValue(cert.getPublicKey());
@@ -83,15 +99,27 @@ public class FirmaTest {
         kidata.add(kif.newX509Data(Collections.singletonList(cert)));
         KeyInfo ki = kif.newKeyInfo(kidata);
 
-        doc.getDocumentElement().setIdAttribute("ID", true);
+        doc.getElementsByTagName("Documento");
 
-        XmlGenerator.printNode(doc);
+        //XmlGenerator.printNode(doc);
 
         DOMSignContext dsc = new DOMSignContext(pKey, doc.getDocumentElement());
 
         XMLSignature signature = fac.newXMLSignature(si, ki);
 
         signature.sign(dsc);
-        XmlGenerator.printNode(doc);
+        //XmlGenerator.printNode(doc);
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+
+
+        File outputFile = new File("out/DTESignedTest.xml");
+        outputFile.getParentFile().mkdirs();
+
+        Result output = new StreamResult(outputFile);
+        Source input = new DOMSource(doc);
+        transformer.transform(input, output);
     }
 }
