@@ -30,19 +30,19 @@ import java.util.Iterator;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.parsers.ParserConfigurationException;
-// Considerar cambio de javax.xml.soap a jakarta.*
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPBodyElement;
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
+//Cambios a jakarta en vez de javax para soap
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.Name;
+import jakarta.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPBodyElement;
+import jakarta.xml.soap.SOAPConnection;
+import jakarta.xml.soap.SOAPConnectionFactory;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPPart;
 
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
