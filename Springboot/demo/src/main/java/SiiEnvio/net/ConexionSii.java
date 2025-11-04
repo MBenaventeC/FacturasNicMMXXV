@@ -78,8 +78,8 @@ import SiiEnvio.Utilities;
 // Consultar de donde provienen los imports 'cl.sii.*'
 import SiiEnvio.schemas.GetTokenDocument;
 import SiiEnvio.schemas.RECEPCIONDTEDocument;
-import SiiEnvio.schemas.DTEDefType.Documento;
 import SiiEnvio.schemas.RESPUESTADocument;
+import SiiBoleta.DTEDefType.Documento;
 
 public class ConexionSii {
 
