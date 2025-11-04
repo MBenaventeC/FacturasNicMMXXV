@@ -13,7 +13,7 @@
  * 
  **/
 
-package net;
+package SiiEnvio.net;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,12 +74,12 @@ import org.apache.xmlbeans.XmlOptions;
 import org.xml.sax.SAXException;
 
 // Utilities viene del repo de Nic
-import Utilities;
+import SiiEnvio.Utilities;
 // Consultar de donde provienen los imports 'cl.sii.*'
-import cl.sii.siiDte.GetTokenDocument;
-import cl.sii.siiDte.RECEPCIONDTEDocument;
-import cl.sii.siiDte.DTEDefType.Documento;
-import cl.sii.xmlSchema.RESPUESTADocument;
+import SiiEnvio.schemas.GetTokenDocument;
+import SiiEnvio.schemas.RECEPCIONDTEDocument;
+import SiiEnvio.schemas.DTEDefType.Documento;
+import SiiEnvio.schemas.RESPUESTADocument;
 
 public class ConexionSii {
 

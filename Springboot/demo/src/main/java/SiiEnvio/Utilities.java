@@ -94,9 +94,9 @@ public class Utilities {
 
 		Locale language;
 		if (conf1 != null && conf1.getString("LOCALE") != null)
-			language = new Locale(conf1.getString("LOCALE"));
+    		language = Locale.forLanguageTag(conf1.getString("LOCALE").replace('_', '-'));
 		else
-			language = new Locale(conf2.getString("LOCALE"));
+    		language = Locale.forLanguageTag(conf2.getString("LOCALE").replace('_', '-'));
 
 		verificationLabels = ResourceBundle.getBundle(
 				"cl.nic.dte.resources.VerifyResults", language);
@@ -224,16 +224,16 @@ public class Utilities {
 	}
 
 	public static void generatePDF(InputStream xmlFile, InputStream xslFile,
-			OutputStream pdfFile) throws FOPException, FileNotFoundException,
-			TransformerException {
-		FopFactory fopFactory = FopFactory.newInstance();
-
+        OutputStream pdfFile) throws FOPException, FileNotFoundException,
+        TransformerException {
+		FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+		
 		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 		// configure foUserAgent as desired
 
 		// Construct fop with desired output format
 		Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent,
-				pdfFile);
+					pdfFile);
 
 		// Setup XSLT
 		TransformerFactory factory = TransformerFactory.newInstance();

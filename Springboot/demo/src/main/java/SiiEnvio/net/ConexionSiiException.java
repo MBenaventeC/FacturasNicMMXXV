@@ -13,7 +13,7 @@
  * 
  **/
 
-package cl.nic.dte.net;
+package SiiEnvio.net;
 
 public class ConexionSiiException extends Exception {
 
