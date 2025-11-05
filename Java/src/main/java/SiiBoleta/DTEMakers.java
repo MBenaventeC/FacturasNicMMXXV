@@ -174,7 +174,9 @@ public class DTEMakers {
                 new Class[]{DTEDefType.Documento.class}, props);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
         marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        //marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
         // 3. Build namespace-aware DOM
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -243,7 +245,8 @@ public class DTEMakers {
         X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
         KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
 
-        //printNode(canonicalDoc);
+        printNode(canonicalDoc);
+        System.out.println("");
 
         // 10. Sign canonicalized document
         DOMSignContext dsc = new DOMSignContext(privateKey, canonicalDoc.getDocumentElement());
@@ -408,7 +411,7 @@ public class DTEMakers {
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
         transformer.transform(new DOMSource(node), new StreamResult(System.out));
@@ -502,7 +505,7 @@ public class DTEMakers {
         X509Data xd = kif.newX509Data(Collections.singletonList(cert));
         KeyInfo ki = kif.newKeyInfo(Arrays.asList(kv, xd));
 
-        //printNode(canonicalRoot);
+        printNode(canonicalRoot);
 
         // 6. Sign the canonicalized document
         DOMSignContext dsc = new DOMSignContext(privateKey, canonicalRoot);

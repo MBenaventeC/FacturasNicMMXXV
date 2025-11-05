@@ -122,7 +122,7 @@ public class XmlGenerator {
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
         transformer.transform(new DOMSource(node), new StreamResult(System.out));
     }
@@ -299,6 +299,8 @@ public class XmlGenerator {
             dteE.appendChild(signatureNode); // or insertBefore if needed
         }
 
+        //printNode(doc);
+
         /*Document doct = dbf.newDocumentBuilder().newDocument();
         Node importedRoot = doct.importNode(doc.getDocumentElement(), true);
         doct.appendChild(importedRoot);*/
@@ -383,7 +385,7 @@ public class XmlGenerator {
         marshaller2.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller2.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
         marshaller2.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sii.cl/SiiDte EnvioDTE_v10.xsd");
-        marshaller2.setProperty("eclipselink.namespace-prefix-mapper", new CustomNamespacePrefixMapper());
+        marshaller2.setProperty("eclipselink.namespace-prefix-mapper", new CustomNamespacePrefixMapper3());
 
         DocumentBuilderFactory dbfnew = DocumentBuilderFactory.newInstance();
         dbfnew.setNamespaceAware(true);
