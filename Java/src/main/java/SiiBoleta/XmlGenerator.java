@@ -287,6 +287,7 @@ public class XmlGenerator {
         JAXBContext sigContext = JAXBContext.newInstance(SignatureType.class);
         Marshaller sigMarshaller = sigContext.createMarshaller();
         sigMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        sigMarshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         Document sigDoc = dbf.newDocumentBuilder().newDocument();
         sigMarshaller.marshal(signature, sigDoc);
@@ -431,6 +432,7 @@ public class XmlGenerator {
         JAXBContext sigEnvContext = JAXBContext.newInstance(SignatureType.class);
         Marshaller sigEnvMarshaller = sigEnvContext.createMarshaller();
         sigEnvMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        sigEnvMarshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
 
         Document sigEnvDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         sigEnvMarshaller.marshal(signatureEnv, sigEnvDoc);

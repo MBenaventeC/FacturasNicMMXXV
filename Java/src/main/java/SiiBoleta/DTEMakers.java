@@ -204,7 +204,7 @@ public class DTEMakers {
         org.apache.xml.security.Init.init();
 
         // 6. Canonicalize the <Documento> node BEFORE signing
-        Canonicalizer canon = Canonicalizer.getInstance(CanonicalizationMethod.EXCLUSIVE);
+        Canonicalizer canon = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
         // In 3.x, use .canonicalize(byte[]) or .canonicalize(XMLSignatureInput)
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         TransformerFactory tf = TransformerFactory.newInstance();
@@ -226,7 +226,7 @@ public class DTEMakers {
         // 8. Prepare XMLSignatureFactory and transforms
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
         Transform enveloped = fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
-        Transform c14n = fac.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null);
+        Transform c14n = fac.newTransform("http://www.w3.org/TR/2001/REC-xml-c14n-20010315", (TransformParameterSpec) null);
 
         Reference ref = fac.newReference(
                 "#" + documento.getID(),
@@ -235,7 +235,7 @@ public class DTEMakers {
                 null, null);
 
         SignedInfo si = fac.newSignedInfo(
-                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newCanonicalizationMethod("http://www.w3.org/TR/2001/REC-xml-c14n-20010315", (C14NMethodParameterSpec) null),
                 fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
                 Collections.singletonList(ref));
 
@@ -412,7 +412,7 @@ public class DTEMakers {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        //transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
         transformer.transform(new DOMSource(node), new StreamResult(System.out));
     }
