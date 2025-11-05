@@ -325,9 +325,9 @@ public class XmlGenerator {
 
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
-        DTEMakers.formatKeyValueElements(doc,64,0);
+        /*DTEMakers.formatKeyValueElements(doc,64,0);
         NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
-        DTEMakers.FRMTFix(FRMT, 64,doc,0);
+        DTEMakers.FRMTFix(FRMT, 64,doc,0);*/
 
         /*DocumentBuilder builder = dbf.newDocumentBuilder();
 
@@ -342,7 +342,7 @@ public class XmlGenerator {
 
         //printNode(newDoc);
 
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        /*Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
@@ -353,7 +353,7 @@ public class XmlGenerator {
 
         Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
-        transformer.transform(input, output);
+        transformer.transform(input, output);*/
 
         //Envio
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
@@ -415,9 +415,14 @@ public class XmlGenerator {
         //printNode(doc2);
         dteE2.setAttribute("ID", "SetDoc");
         dteE2.setIdAttribute("ID", true);
+
+        /*DTEMakers.formatKeyValueElements(doc2,64,0);
+        NodeList FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
+        DTEMakers.FRMTFix(FRMT, 64,doc2,0);
+
         FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
         //DTEMakers.FRMTFix(FRMT, 64,doc2,1);
-        DTEMakers.fixKeyValueElements(doc2,0);
+        DTEMakers.fixKeyValueElements(doc2,0);*/
         SignatureType signatureEnv = DTEMakers.makeSignatureEnv(dteE2);
 
         // 1. Marshal signatureEnv into a DOM node
@@ -437,6 +442,31 @@ public class XmlGenerator {
             Element envioRoot = (Element) envioList.item(0);
             envioRoot.appendChild(importedSignature); // or insertBefore if needed
         }
+
+        DTEMakers.formatKeyValueElements(doc2,64,0);
+        NodeList FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
+        DTEMakers.FRMTFix(FRMT, 64,doc2,0);
+
+        FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
+        //DTEMakers.FRMTFix(FRMT, 64,doc2,1);
+        DTEMakers.fixKeyValueElements(doc2,0);
+
+        DTEMakers.formatKeyValueElements(doc,64,0);
+        /*NodeList */FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+        DTEMakers.FRMTFix(FRMT, 64,doc,0);
+
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+
+
+        File outputFile = new File("out/DTE.xml");
+        outputFile.getParentFile().mkdirs();
+
+        Result output = new StreamResult(outputFile);
+        Source input = new DOMSource(doc);
+        transformer.transform(input, output);
 
         TransformerFactory transformerf2 = TransformerFactory.newInstance();
         //transformerf2.setAttribute("indent-number", 4);

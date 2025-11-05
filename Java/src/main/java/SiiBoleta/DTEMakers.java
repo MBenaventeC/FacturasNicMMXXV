@@ -5,6 +5,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -18,6 +20,7 @@ import java.io.FileInputStream;
 import java.security.cert.X509Certificate;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import javax.xml.crypto.dsig.*;
@@ -33,9 +36,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.xml.security.c14n.Canonicalizer;
+import org.apache.xml.security.Init;
 import SIIEnvio.EnvioDTE;
 import SiiSignature.SignatureType;
 import jakarta.xml.bind.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.w3c.dom.*;
 import org.w3c.dom.Element;
@@ -146,6 +154,116 @@ public class DTEMakers {
     }
 
     public static SignatureType makeSignature(DTEDefType.Documento documento) throws Exception {
+        // Initialize Apache XML Security library
+        Init.init();
+
+        // 1. Load certificate and private key
+        String rutaPFX = "Java/certificado.pfx";
+        String password = Files.readString(Paths.get("password.txt"));
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
+        String alias = ks.aliases().nextElement();
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
+
+        // 2. Prepare JAXB marshaller
+        Map<String, Object> props = new HashMap<>();
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
+                new Class[]{DTEDefType.Documento.class}, props);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+
+        // 3. Build namespace-aware DOM
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document doc = dbf.newDocumentBuilder().newDocument();
+
+        // 4. Marshal JAXB → DOM
+        JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
+                new QName("http://www.sii.cl/SiiDte", "Documento"),
+                DTEDefType.Documento.class,
+                documento);
+        marshaller.marshal(jaxbElement, doc);
+
+        /*Element root = doc.getDocumentElement();
+        if (root.getPrefix() != null) {
+            root.setPrefix(null);
+        }
+        root.removeAttribute("xmlns:ns0");
+        root.setAttribute("xmlns", "http://www.sii.cl/SiiDte");*/
+
+        // 5. Mark ID attribute
+        doc.getDocumentElement().setIdAttribute("ID", true);
+
+        // Initialize XML security
+        org.apache.xml.security.Init.init();
+
+        // 6. Canonicalize the <Documento> node BEFORE signing
+        Canonicalizer canon = Canonicalizer.getInstance(CanonicalizationMethod.EXCLUSIVE);
+        // In 3.x, use .canonicalize(byte[]) or .canonicalize(XMLSignatureInput)
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.transform(new DOMSource(doc.getDocumentElement()), new StreamResult(baos));
+        byte[] xmlBytes = baos.toByteArray();
+
+        // New API: canonicalize(byte[] input, OutputStream output, boolean includeComments)
+        ByteArrayOutputStream canonicalizedOut = new ByteArrayOutputStream();
+        canon.canonicalize(xmlBytes, canonicalizedOut, false);
+        byte[] canonicalBytes = canonicalizedOut.toByteArray();
+
+
+        // 7. Parse canonicalized bytes back to a normalized DOM
+        DocumentBuilder builder = dbf.newDocumentBuilder();
+        Document canonicalDoc = builder.parse(new ByteArrayInputStream(canonicalBytes));
+        canonicalDoc.getDocumentElement().setIdAttribute("ID", true);
+
+        // 8. Prepare XMLSignatureFactory and transforms
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+        Transform enveloped = fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
+        Transform c14n = fac.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null);
+
+        Reference ref = fac.newReference(
+                "#" + documento.getID(),
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                Arrays.asList(enveloped, c14n),
+                null, null);
+
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref));
+
+        // 9. Build KeyInfo
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+        KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
+
+        //printNode(canonicalDoc);
+
+        // 10. Sign canonicalized document
+        DOMSignContext dsc = new DOMSignContext(privateKey, canonicalDoc.getDocumentElement());
+        dsc.setDefaultNamespacePrefix("ds");
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        // 11. Fix FRMT if necessary
+        NodeList frmt = canonicalDoc.getElementsByTagNameNS("*", "FRMT");
+        FRMTFixSig(frmt, 64, canonicalDoc);
+
+        // 12. Extract Signature as JAXB
+        NodeList sigList = canonicalDoc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        Element signatureElement = (Element) sigList.item(0);
+        Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
+        return (SignatureType) unmarshaller.unmarshal(new DOMSource(signatureElement));
+    }
+
+
+    public static SignatureType makeSignatureO(DTEDefType.Documento documento) throws Exception {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -257,8 +375,6 @@ public class DTEMakers {
         NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
         FRMTFixSig(FRMT, 64,doc);
 
-        //LyTHVELKLU0aDP+MYHjuYmBsKXU=
-
         DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
         /*KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
                 Collections.singletonList(
@@ -291,7 +407,7 @@ public class DTEMakers {
 
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
@@ -299,6 +415,117 @@ public class DTEMakers {
     }
 
     public static SignatureType makeSignatureEnv(Element documento) throws Exception {
+        // Init xmlsec
+        Init.init();
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+        // 1) Load PKCS12
+        String rutaPFX = "Java/certificado.pfx";
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
+
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
+
+        String alias = ks.aliases().nextElement();
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        PublicKey publicKey = cert.getPublicKey();
+
+        // Build a namespace-aware DOM and import the provided element
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        Document tempDoc = dbf.newDocumentBuilder().newDocument();
+        Element imported = (Element) tempDoc.importNode(documento, true);
+        tempDoc.appendChild(imported);
+
+        // Ensure ID attribute present and registered
+        String idVal = imported.getAttribute("ID");
+        if (idVal == null || idVal.isEmpty()) {
+            throw new IllegalArgumentException("Provided element must have an ID attribute");
+        }
+        imported.setIdAttribute("ID", true);
+
+        // --- Canonicalize the imported node BEFORE signing (Santuario 3.x) ---
+        // serialize imported node to bytes
+        ByteArrayOutputStream serOut = new ByteArrayOutputStream();
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.transform(new DOMSource(imported), new StreamResult(serOut));
+        byte[] serialized = serOut.toByteArray();
+
+        // Canonicalize using exclusive C14N (recommended for DTE)
+        Canonicalizer canon = Canonicalizer.getInstance(
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+        );
+        ByteArrayOutputStream canonicalizedOut = new ByteArrayOutputStream();
+        canon.canonicalize(serialized, canonicalizedOut, false);
+        byte[] canonicalBytes = canonicalizedOut.toByteArray();
+
+        // Parse canonicalized bytes back into a DOM
+        Document canonicalDoc = dbf.newDocumentBuilder().parse(new ByteArrayInputStream(canonicalBytes));
+        // Make sure ID is registered on the canonicalized root element too
+        Element canonicalRoot = canonicalDoc.getDocumentElement();
+        canonicalRoot.setIdAttribute("ID", true);
+
+        // 3. Prepare XML SignatureFactory and transforms
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+        Transform envelopedTransform = fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
+        // Use exclusive canonicalization transform URI via factory
+        Transform c14nTransform = fac.newTransform(
+                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                (TransformParameterSpec) null
+        );
+
+        // 4. Create the Reference (to the ID) and SignedInfo - using exclusive C14N
+        Reference ref = fac.newReference(
+                "#" + idVal,
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                Arrays.asList(envelopedTransform, c14nTransform),
+                null,
+                null
+        );
+
+
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(
+                        "http://www.w3.org/TR/2001/REC-xml-c14n-20010315",
+                        (C14NMethodParameterSpec) null
+                ),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref)
+        );
+
+        // 5. KeyInfo
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyValue kv = kif.newKeyValue(publicKey);
+        X509Data xd = kif.newX509Data(Collections.singletonList(cert));
+        KeyInfo ki = kif.newKeyInfo(Arrays.asList(kv, xd));
+
+        //printNode(canonicalRoot);
+
+        // 6. Sign the canonicalized document
+        DOMSignContext dsc = new DOMSignContext(privateKey, canonicalRoot);
+        dsc.setDefaultNamespacePrefix("ds");
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        // 7. Extract Signature element from canonicalRoot (there should be exactly one)
+        NodeList sigNodes = canonicalRoot.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        if (sigNodes.getLength() == 0) {
+            throw new IllegalStateException("Signature element not found after signing");
+        }
+        // use the first Signature node
+        Element sigElem = (Element) sigNodes.item(1);
+
+        // 8. Unmarshal into JAXB SignatureType and return
+        JAXBContext jctx = JAXBContext.newInstance(SignatureType.class);
+        Unmarshaller unmarshaller = jctx.createUnmarshaller();
+        JAXBElement<SignatureType> jsig = unmarshaller.unmarshal(sigElem, SignatureType.class);
+        return jsig.getValue();
+    }
+
+    public static SignatureType makeSignatureEnvO(Element documento) throws Exception {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
         */
@@ -403,7 +630,7 @@ public class DTEMakers {
 
         // --- sign the imported node ---
 
-        XmlGenerator.printNode(imported);
+        //XmlGenerator.printNode(imported);
 
         DOMSignContext dsc = new DOMSignContext(privateKey, imported);
         signature.sign(dsc);
