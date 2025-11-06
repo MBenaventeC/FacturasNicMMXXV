@@ -3074,7 +3074,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * 
  */
-@XmlRootElement(name = "DTE",namespace = "http://www.sii.cl/SiiDte")
+@XmlRootElement(name = "DTE"/*,namespace = "http://www.sii.cl/SiiDte"*/)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DTEDefType"/*, namespace = "http://www.sii.cl/SiiDte"*/, propOrder = {
     "documento",

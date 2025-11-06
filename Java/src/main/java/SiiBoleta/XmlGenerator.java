@@ -259,7 +259,7 @@ public class XmlGenerator {
 
         // 3. Create marshaller and enable pretty-print
         Map<String, Object> props = new HashMap<>();
-        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
 
         JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
                 new Class[] { DTEDefType.class },
@@ -269,14 +269,14 @@ public class XmlGenerator {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().newDocument();
 
         JAXBElement<DTEDefType> jaxbElement2 = new JAXBElement<>(
-                new QName("http://www.sii.cl/SiiDte","DTE"),
+                new QName("","DTE"),
                 DTEDefType.class,
                 dte
         );
@@ -345,7 +345,7 @@ public class XmlGenerator {
 
         //printNode(newDoc);
 
-        /*Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
@@ -356,7 +356,7 @@ public class XmlGenerator {
 
         Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
-        transformer.transform(input, output);*/
+        transformer.transform(input, output);
 
         //Envio
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
@@ -459,7 +459,7 @@ public class XmlGenerator {
         /*NodeList */FRMT = doc.getElementsByTagNameNS("*", "FRMT");
         DTEMakers.FRMTFix(FRMT, 64,doc,0);
 
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        /*Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
@@ -470,7 +470,7 @@ public class XmlGenerator {
 
         Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
-        transformer.transform(input, output);
+        transformer.transform(input, output);*/
 
         TransformerFactory transformerf2 = TransformerFactory.newInstance();
         //transformerf2.setAttribute("indent-number", 4);

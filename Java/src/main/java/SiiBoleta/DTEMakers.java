@@ -169,13 +169,13 @@ public class DTEMakers {
 
         // 2. Prepare JAXB marshaller
         Map<String, Object> props = new HashMap<>();
-        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
         JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
                 new Class[]{DTEDefType.Documento.class}, props);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper2());
+        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
         //marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
         // 3. Build namespace-aware DOM
@@ -185,7 +185,7 @@ public class DTEMakers {
 
         // 4. Marshal JAXB → DOM
         JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName("http://www.sii.cl/SiiDte", "Documento"),
+                new QName(""/*http://www.sii.cl/SiiDte*/, "Documento"),
                 DTEDefType.Documento.class,
                 documento);
         marshaller.marshal(jaxbElement, doc);
