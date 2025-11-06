@@ -49,6 +49,30 @@ import org.w3c.dom.*;
 import org.w3c.dom.Element;
 
 public class DTEMakers {
+
+    /** Maker for < IdDoc >, which belongs to < Encabezado >
+     *
+     * @param folio Number of Document authorized by SII
+     * @param indServicio Type of Service provided:
+     *                      -1 for "Domestic Services" (Electricity Bill, Water Bill, Gas Bill, Phone Bill, Internet Bill, etc.)
+     *                      -2 for "Other Periodical Services" (Subscriptions, Rent, etc.)
+     *                      -3 for "Services Invoice"
+     *                      Only for Export Invoice:
+     *                      -4 for "Hospitality Services"
+     *                      -5 for "International Land Transport"
+     * @param fmaPago Payment Method:
+     *                -1 for "Efectivo" / "Cash"
+     *                -2 for "Tarjeta de Crédito" / "Credit Card"
+     *                -3 for "Gratuito" / "For Free"
+     *                According to SII
+     * @param medioPago Description for Payment Method:
+     *                  -"Efectivo" / "Cash"
+     *                  -"Tarjeta de Crédito" / "Credit Card"
+     *                  -"Transferencia bancaria" / "Bank Transfer"
+     *                  -"Cheque" / "Check"
+     * @return Object containing all < IdDoc > information.
+     * @throws DatatypeConfigurationException
+     */
     public static DTEDefType.Documento.Encabezado.IdDoc makeIdDoc
             (int folio,
              int indServicio,
@@ -56,20 +80,59 @@ public class DTEMakers {
              MedioPagoType medioPago
             ) throws DatatypeConfigurationException {
         DTEDefType.Documento.Encabezado.IdDoc  idDoc = new DTEDefType.Documento.Encabezado.IdDoc();
+
+        /**
+         * All the documents refered here correspond to different types of Electronic Invoice:
+         * - 33 for "Electronic Invoice"
+         * - 34 for "Tax-Exempt Invoice"
+         * - 43 for "Settlement Invoice"
+         * - 46 for "Purchase Invoice"
+         * - 52 for "Dispatch Guide"
+         * - 56 for "Debit Note"
+         * - 61 for "Credit Note"
+         * - 110 for "Export Invoice"
+         * - 111 for "Export Debit Note"
+         * - 112 for "Export Credit Note"
+         */
+        // Sii DTE Document Type set to 34, representing a 'Factura Exenta' or an 'Electronic Tax-Exempt Invoice'
         idDoc.setTipoDTE(new BigInteger("34"));
+
+        // @params folio
         idDoc.setFolio(BigInteger.valueOf(folio));
+
+        // Initializing a GregorianCalender
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+
+            // Issuing Date
         idDoc.setFchEmis(xmlDate);
+
+        // @params indServicio
         idDoc.setIndServicio(BigInteger.valueOf(indServicio));
+
+        // @params fmaPago
         idDoc.setFmaPago(BigInteger.valueOf(fmaPago));
+
+            // Payment Date
         idDoc.setFchCancel(xmlDate);
+
+        // @params medioPago
         idDoc.setMedioPago(medioPago);
+
+            // Expiring Date
         idDoc.setFchVenc(xmlDate);
+
         return idDoc;
     }
 
+    /** Default maker for < Emisor > or 'Issuing' object, containing default values for NIC Chile.
+     * < Emisor > belongs to < Encabezado >
+     *
+     * All setters arguments can be edited to create a new 'Emisor'.
+     *
+     * @return Instance of 'Emisor' class
+     */
     public static DTEDefType.Documento.Encabezado.Emisor makeEmisor
             (){
         DTEDefType.Documento.Encabezado.Emisor emisor = new DTEDefType.Documento.Encabezado.Emisor();
@@ -85,6 +148,17 @@ public class DTEMakers {
         return emisor;
     }
 
+    /** Maker for a < Receptor > or 'Receiver' object, which belongs to < Encabezado >
+     *
+     * @param RUTRecep Receptor/Receiver's RUT
+     * @param rznSoc Company Name
+     * @param giroRecep Business Line
+     * @param Contacto Receiver Company Name and Phone Number
+     * @param dirRecap Receiver Address
+     * @param cmnaRecap Receiver City Municipality
+     * @param ciudadRecep Receiver City
+     * @return Receptor Object containing all information required.
+     */
     public static DTEDefType.Documento.Encabezado.Receptor makeReceptor(
             String RUTRecep,
             String rznSoc,
@@ -105,14 +179,31 @@ public class DTEMakers {
         return receptor;
     }
 
+    /** Maker for a < Totales > section, which belongs to < Encabezado >.
+     *
+     * @param total Net Total Amount
+     * @return
+     */
     public static DTEDefType.Documento.Encabezado.Totales makeTotales
             (int total){
         DTEDefType.Documento.Encabezado.Totales totales = new DTEDefType.Documento.Encabezado.Totales();
+
+        // Total Sum for Tax-Exempt Items
         totales.setMntExe(BigInteger.valueOf(total));//totales.setMntExe(mntExe);
+
+        // Net Total Amount
         totales.setMntTotal(BigInteger.valueOf(total));//totales.setMntTotal(mntTotal);
         return totales;
     }
 
+    /** Maker for < Encabezado > section, which belongs to < Documento > section.
+     *
+     * @param idDoc Document ID
+     * @param emisor Emisor Object containing all < Emisor > information.
+     * @param receptor Receptor Object containing all < Receptor > information.
+     * @param totales Totales Object containing all < Totales > information.
+     * @return Encabezado object that contains all its subsections information.
+     */
     public static DTEDefType.Documento.Encabezado makeEncabezado(
             DTEDefType.Documento.Encabezado.IdDoc idDoc,
             DTEDefType.Documento.Encabezado.Emisor emisor,
@@ -153,6 +244,12 @@ public class DTEMakers {
         return documento;
     }
 
+    /** Creates SignatureType object based on a Document Class Object Information.
+     *
+     * @param documento
+     * @return
+     * @throws Exception
+     */
     public static SignatureType makeSignature(DTEDefType.Documento documento) throws Exception {
         // Initialize Apache XML Security library
         Init.init();
