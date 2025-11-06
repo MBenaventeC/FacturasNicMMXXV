@@ -197,6 +197,25 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xmlbeans-maven-plugin</artifactId>
+                <version>2.3.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xmlbeans</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaDirectory>src/main/java/SiiEnvio/schemas</schemaDirectory>
+                    <sourceGenerationDirectory>src/main/java/SiiEnvio/generated-sources</sourceGenerationDirectory>
+                    <classGenerationDirectory>target/classes</classGenerationDirectory>
+                    <outputDirectory>src/main/java/SiiEnvio/lib</outputDirectory>
+                    <javaSource>24</javaSource>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

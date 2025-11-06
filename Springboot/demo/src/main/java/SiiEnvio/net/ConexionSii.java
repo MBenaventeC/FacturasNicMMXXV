@@ -17,8 +17,13 @@ package SiiEnvio.net;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.CookieHandler;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +31,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.nio.file.Files;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
@@ -46,27 +52,27 @@ import jakarta.xml.soap.SOAPPart;
 
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.client.params.CookiePolicy;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
+// import org.apache.http.HttpEntity;
+// import org.apache.http.HttpResponse;
+// import org.apache.http.ParseException;
+// import org.apache.http.client.ClientProtocolException;
+// import org.apache.http.client.CookieStore;
+// import org.apache.http.client.HttpClient;
+// import org.apache.http.client.methods.HttpPost;
+// import org.apache.http.client.params.ClientPNames;
+// import org.apache.http.client.params.CookiePolicy;
+// import org.apache.http.client.protocol.ClientContext;
+// import org.apache.http.entity.mime.HttpMultipartMode;
+// import org.apache.http.entity.mime.MultipartEntity;
+// import org.apache.http.entity.mime.content.FileBody;
+// import org.apache.http.entity.mime.content.StringBody;
+// import org.apache.http.impl.client.BasicCookieStore;
+// import org.apache.http.impl.client.DefaultHttpClient;
+// import org.apache.http.impl.cookie.BasicClientCookie;
+// import org.apache.http.message.BasicHeader;
+// import org.apache.http.protocol.BasicHttpContext;
+// import org.apache.http.protocol.HttpContext;
+// import org.apache.http.util.EntityUtils;
 // XMLBeans
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
@@ -400,8 +406,7 @@ public class ConexionSii {
 	 */
 	public RECEPCIONDTEDocument uploadEnvioProduccion(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token)
-			throws ClientProtocolException, ParseException, IOException,
-			XmlException {
+			throws IOException, XmlException, InterruptedException {
 		String urlEnvio = Utilities.netLabels
 				.getString("URL_UPLOAD_PRODUCCION");
 		String hostEnvio = Utilities.netLabels
@@ -437,64 +442,75 @@ public class ConexionSii {
 
 	private RECEPCIONDTEDocument uploadEnvio(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token,
-			String urlEnvio, String hostEnvio) throws ClientProtocolException,
-			IOException, org.apache.http.ParseException, XmlException {
+			String urlEnvio, String hostEnvio) throws IOException, XmlException {
 
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(urlEnvio);
+		// Crear boundary para multipart
+		String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
+		
+		// Construir cuerpo multipart manualmente
+		StringBuilder multipartBody = new StringBuilder();
+		
+		// Agregar campos de texto
+		multipartBody.append("--").append(boundary).append("\r\n");
+		multipartBody.append("Content-Disposition: form-data; name=\"rutSender\"\r\n\r\n");
+		multipartBody.append(rutEnvia.substring(0, rutEnvia.length() - 2)).append("\r\n");
+		
+		multipartBody.append("--").append(boundary).append("\r\n");
+		multipartBody.append("Content-Disposition: form-data; name=\"dvSender\"\r\n\r\n");
+		multipartBody.append(rutEnvia.substring(rutEnvia.length() - 1)).append("\r\n");
+		
+		multipartBody.append("--").append(boundary).append("\r\n");
+		multipartBody.append("Content-Disposition: form-data; name=\"rutCompany\"\r\n\r\n");
+		multipartBody.append(rutCompania.substring(0, rutCompania.length() - 2)).append("\r\n");
+		
+		multipartBody.append("--").append(boundary).append("\r\n");
+		multipartBody.append("Content-Disposition: form-data; name=\"dvCompany\"\r\n\r\n");
+		multipartBody.append(rutCompania.substring(rutCompania.length() - 1)).append("\r\n");
+		
+		// Agregar archivo
+		multipartBody.append("--").append(boundary).append("\r\n");
+		multipartBody.append("Content-Disposition: form-data; name=\"archivo\"; filename=\"")
+					.append(archivoEnviarSII.getName()).append("\"\r\n");
+		multipartBody.append("Content-Type: application/xml\r\n\r\n");
+		
+		// Leer contenido del archivo
+		String fileContent = Files.readString(archivoEnviarSII.toPath());
+		multipartBody.append(fileContent).append("\r\n");
+		
+		// Cerrar multipart
+		multipartBody.append("--").append(boundary).append("--\r\n");
 
-		MultipartEntity reqEntity = new MultipartEntity(
-				HttpMultipartMode.BROWSER_COMPATIBLE);
+		// Crear HTTP Client
+		HttpClient client = HttpClient.newBuilder()
+			.cookieHandler(CookieHandler.getDefault())
+			.build();
 
-		reqEntity.addPart("rutSender", new StringBody(rutEnvia.substring(0,
-				rutEnvia.length() - 2)));
-		reqEntity.addPart("dvSender", new StringBody(rutEnvia.substring(
-				rutEnvia.length() - 1, rutEnvia.length())));
-		reqEntity.addPart("rutCompany", new StringBody(rutCompania.substring(0,
-				(rutCompania).length() - 2)));
-		reqEntity.addPart("dvCompany", new StringBody(rutCompania.substring(
-				rutCompania.length() - 1, rutCompania.length())));
+		// Crear request
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create(urlEnvio))
+			.header("Content-Type", "multipart/form-data; boundary=" + boundary)
+			.header("Cookie", "TOKEN=" + token)
+			.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
+			.POST(HttpRequest.BodyPublishers.ofString(multipartBody.toString()))
+			.build();
 
-		FileBody bin = new FileBody(archivoEnviarSII);
-		reqEntity.addPart("archivo", bin);
+		try {
+			// Enviar request
+			HttpResponse<String> response = client.send(request, 
+				HttpResponse.BodyHandlers.ofString());
 
-		httppost.setEntity(reqEntity);
+			// Parsear respuesta
+			HashMap<String, String> namespaces = new HashMap<>();
+			namespaces.put("", "http://www.sii.cl/SiiDte");
+			XmlOptions opts = new XmlOptions();
+			opts.setLoadSubstituteNamespaces(namespaces);
 
-		BasicClientCookie cookie = new BasicClientCookie("TOKEN", token);
-		cookie.setPath("/");
-		cookie.setDomain(hostEnvio);
-		cookie.setSecure(true);
-		cookie.setVersion(1);
-
-		CookieStore cookieStore = new BasicCookieStore();
-		cookieStore.addCookie(cookie);
-
-		httpclient.getParams().setParameter(ClientPNames.COOKIE_POLICY,
-				CookiePolicy.RFC_2109);
-		httppost.getParams().setParameter(ClientPNames.COOKIE_POLICY,
-				CookiePolicy.BROWSER_COMPATIBILITY);
-
-		HttpContext localContext = new BasicHttpContext();
-		localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-
-		httppost.addHeader(new BasicHeader("User-Agent", Utilities.netLabels
-				.getString("UPLOAD_SII_HEADER_VALUE")));
-
-		HttpResponse response = httpclient.execute(httppost, localContext);
-
-		HttpEntity resEntity = response.getEntity();
-
-		RECEPCIONDTEDocument resp = null;
-
-		HashMap<String, String> namespaces = new HashMap<String, String>();
-		namespaces.put("", "http://www.sii.cl/SiiDte");
-		XmlOptions opts = new XmlOptions();
-		opts.setLoadSubstituteNamespaces(namespaces);
-
-		resp = RECEPCIONDTEDocument.Factory.parse(EntityUtils
-				.toString(resEntity), opts);
-
-		return resp;
+			return RECEPCIONDTEDocument.Factory.parse(response.body(), opts);
+			
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			throw new IOException("Request interrupted", e);
+		}
 	}
 
 }
