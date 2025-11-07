@@ -248,6 +248,8 @@ public class DTEMakers {
         documento.addDetalle(detalle);
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         documento.setTmstFirma(xmlDate);
         documento.setID(id);
         documento.setTED(ted);
@@ -1029,7 +1031,6 @@ public class DTEMakers {
         String referenceId = idAttr.getValue();
 
         List<Transform> transforms = new ArrayList<>();
-        transforms.add(sigFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
         transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
 
         // Create a Reference to the entire document (enveloped)
@@ -1079,6 +1080,7 @@ public class DTEMakers {
         // Sign the document
         signature.sign(dsc);
 
+
         // Output the signed XML
         //TransformerFactory tf = TransformerFactory.newInstance();
         //Transformer trans = tf.newTransformer();
@@ -1094,7 +1096,7 @@ public class DTEMakers {
         trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
         // Do NOT indent — that can break signatures or add empty lines
-        trans.setOutputProperty(OutputKeys.INDENT, "yes");
+        trans.setOutputProperty(OutputKeys.INDENT, "no");
 
         // Perform the transformation
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -1103,11 +1105,35 @@ public class DTEMakers {
         // Convert to string safely, removing only carriage return entities
         String xmlClean = baos.toString("ISO-8859-1")
                 .replace("&#13;", "")
-                .replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
+                .replaceAll("><", ">\n<")
+                .replaceAll(" standalone=\"no\"","")
+                .replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
+                //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
         System.out.println(xmlClean);
         // Write back to file preserving your indentation
         Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
     }
+
+    public static byte[] insertLineBreaks(byte[] data) {
+        if (data == null) {
+            return new byte[0];
+        }
+
+        // Number of line breaks to insert
+        int breaks = data.length / 64;
+        byte[] result = new byte[data.length + breaks];
+
+        int pos = 0;
+        for (int i = 0; i < data.length; i++) {
+            result[pos++] = data[i];
+            if ((i + 1) % 64 == 0) {
+                result[pos++] = (byte) '\n'; // insert LF
+            }
+        }
+        return result;
+    }
+
+
 
     public static DTEDefType makeDTE(DTEDefType.Documento documento, SignatureType signature) {
         DTEDefType dte = new DTEDefType();
@@ -1128,9 +1154,12 @@ public class DTEMakers {
         GregorianCalendar calendar = new GregorianCalendar(2002, GregorianCalendar.OCTOBER,20);
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        xmlDate.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
         caratula.setFchResol(xmlDate);
         caratula.setNroResol(BigInteger.valueOf(nroResol));
         XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate2.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        xmlDate2.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
         caratula.setTmstFirmaEnv(xmlDate2);
         caratula.setSubTotDTE(subTotDTE);
         caratula.setVersion(BigDecimal.valueOf(1.0));

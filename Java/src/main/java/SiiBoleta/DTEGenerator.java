@@ -22,7 +22,7 @@ public class DTEGenerator {
 
     public static void main(String[] args) throws Exception {
         // 1. Create and populate your object
-        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(1,2,1,MedioPagoType.EF);
+        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
         DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","H&M","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
         DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
@@ -31,11 +31,10 @@ public class DTEGenerator {
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003410743962025729929.xml");
+        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",33,994321,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
-
+        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
 
 
         //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
@@ -77,6 +76,23 @@ public class DTEGenerator {
         );
 
         marshaller.marshal(jaxbElement2, doc);
+
+        NodeList frmtNodes = doc.getElementsByTagName("FRMT");
+        if (frmtNodes.getLength() > 0) {
+            Element frmtElem = (Element) frmtNodes.item(0);
+            String base64 = frmtElem.getTextContent().replaceAll("\\s+", "");
+
+            // 3. Wrap at 76 characters per line
+            StringBuilder wrapped = new StringBuilder();
+            int index = 0;
+            while (index < base64.length()) {
+                int end = Math.min(index + 76, base64.length());
+                wrapped.append(base64, index, end).append("\n");
+                index = end;
+            }
+
+            frmtElem.setTextContent(wrapped.toString().trim()); // replace text with wrapped Base64
+        }
 
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");

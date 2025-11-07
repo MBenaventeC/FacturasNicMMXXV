@@ -27,6 +27,7 @@ public class DD {
         dd.setF(BigInteger.valueOf(f));
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         dd.setFE(xmlDate);
         dd.setRR(rr);
