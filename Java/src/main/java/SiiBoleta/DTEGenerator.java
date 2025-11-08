@@ -77,7 +77,7 @@ public class DTEGenerator {
 
         marshaller.marshal(jaxbElement2, doc);
 
-        NodeList frmtNodes = doc.getElementsByTagName("FRMT");
+        /*NodeList frmtNodes = doc.getElementsByTagName("FRMT");
         if (frmtNodes.getLength() > 0) {
             Element frmtElem = (Element) frmtNodes.item(0);
             String base64 = frmtElem.getTextContent().replaceAll("\\s+", "");
@@ -92,10 +92,11 @@ public class DTEGenerator {
             }
 
             frmtElem.setTextContent(wrapped.toString().trim()); // replace text with wrapped Base64
-        }
+        }*/
 
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
         Result output = new StreamResult(new File("out/DTE.xml"));

@@ -13,7 +13,7 @@ public class signEnvio {
         File pkcs12 = new File("Java/certificado.pfx");
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
-        File outputXml = new File("out/envioSigned.xml");
+        File outputXml = new File("out/EnvSigned.xml");
         //GgKBfGF01GXzoUt4ksLpKVNhFkk=
         DTEMakers.signXML(inputXml, pkcs12, password, outputXml);
     }

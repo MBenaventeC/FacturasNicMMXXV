@@ -83,9 +83,10 @@ public class SetDTEGenerator {
         //transformerf2.setAttribute("indent-number", 4);
         Transformer transformer2 = transformerf2.newTransformer();
         transformer2.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer2.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer2.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
         transformer2.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        transformer2.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
+        //transformer2.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         transformer2.transform(new DOMSource(doc2), new StreamResult(baos));
