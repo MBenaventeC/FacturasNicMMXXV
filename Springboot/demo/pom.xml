@@ -81,11 +81,26 @@
 		    <scope>runtime</scope>
 		    <optional>true</optional>
 		</dependency>
+		<!-- JAXB API-->
 		<dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>4.0.2</version>
         </dependency>
+
+		<!-- JAXB Implementation -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+
+		<!-- JAXB Core -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-core</artifactId>
+			<version>4.0.3</version>
+		</dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
@@ -197,25 +212,40 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xmlbeans-maven-plugin</artifactId>
-                <version>2.3.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>xmlbeans</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <schemaDirectory>src/main/java/SiiEnvio/schemas</schemaDirectory>
-                    <sourceGenerationDirectory>src/main/java/SiiEnvio/generated-sources</sourceGenerationDirectory>
-                    <classGenerationDirectory>target/classes</classGenerationDirectory>
-                    <outputDirectory>src/main/java/SiiEnvio/lib</outputDirectory>
-                    <javaSource>24</javaSource>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
+				<version>4.0.8</version>
+				<executions>
+					<execution>
+						<id>generate-sii-schemas</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>${project.basedir}/src/main/java/SiiEnvio/schemas</schemaDirectory>
+							<schemaIncludes>
+								<include>*.xsd</include>
+							</schemaIncludes>
+							<schemaExcludes>
+								<exclude>**/*.xsdconfig</exclude>
+							</schemaExcludes>
+							<generatePackage>cl.sii.siiDte</generatePackage>
+							<generateDirectory>${project.basedir}/src/main/java/SiiEnvio/generatedClasses</generateDirectory>
+							<extension>true</extension>
+							<strict>false</strict>
+							<verbose>true</verbose>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>jakarta.xml.bind</groupId>
+						<artifactId>jakarta.xml.bind-api</artifactId>
+						<version>4.0.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -1,0 +1,172 @@
+//
+// Este archivo ha sido generado por Eclipse Implementation of JAXB v4.0.5 
+// Visite https://eclipse-ee4j.github.io/jaxb-ri 
+// Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+//
+
+
+package SiiEnvio.generatedClasses.cl.sii.siiDte;
+
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * Tipos de Moneda de Aduana
+ * 
+ * <p>Clase Java para TipMonType.</p>
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.</p>
+ * <pre>{@code
+ * <simpleType name="TipMonType">
+ *   <restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *     <maxLength value="15"/>
+ *     <enumeration value="BOLIVAR"/>
+ *     <enumeration value="BOLIVIANO"/>
+ *     <enumeration value="CHELIN"/>
+ *     <enumeration value="CORONA DIN"/>
+ *     <enumeration value="CORONA NOR"/>
+ *     <enumeration value="CORONA SC"/>
+ *     <enumeration value="CRUZEIRO REAL"/>
+ *     <enumeration value="DIRHAM"/>
+ *     <enumeration value="DOLAR AUST"/>
+ *     <enumeration value="DOLAR CAN"/>
+ *     <enumeration value="DOLAR HK"/>
+ *     <enumeration value="DOLAR NZ"/>
+ *     <enumeration value="DOLAR SIN"/>
+ *     <enumeration value="DOLAR TAI"/>
+ *     <enumeration value="DOLAR USA"/>
+ *     <enumeration value="DRACMA"/>
+ *     <enumeration value="ESCUDO"/>
+ *     <enumeration value="EURO"/>
+ *     <enumeration value="FLORIN"/>
+ *     <enumeration value="FRANCO BEL"/>
+ *     <enumeration value="FRANCO FR"/>
+ *     <enumeration value="FRANCO SZ"/>
+ *     <enumeration value="GUARANI"/>
+ *     <enumeration value="LIBRA EST"/>
+ *     <enumeration value="LIRA"/>
+ *     <enumeration value="MARCO AL"/>
+ *     <enumeration value="MARCO FIN"/>
+ *     <enumeration value="NUEVO SOL"/>
+ *     <enumeration value="OTRAS MONEDAS"/>
+ *     <enumeration value="PESETA"/>
+ *     <enumeration value="PESO"/>
+ *     <enumeration value="PESO CL"/>
+ *     <enumeration value="PESO COL"/>
+ *     <enumeration value="PESO MEX"/>
+ *     <enumeration value="PESO URUG"/>
+ *     <enumeration value="RAND"/>
+ *     <enumeration value="RENMINBI"/>
+ *     <enumeration value="RUPIA"/>
+ *     <enumeration value="SUCRE"/>
+ *     <enumeration value="YEN"/>
+ *   </restriction>
+ * </simpleType>
+ * }</pre>
+ * 
+ */
+@XmlType(name = "TipMonType")
+@XmlEnum
+public enum TipMonType {
+
+    BOLIVAR("BOLIVAR"),
+    BOLIVIANO("BOLIVIANO"),
+    CHELIN("CHELIN"),
+    @XmlEnumValue("CORONA DIN")
+    CORONA_DIN("CORONA DIN"),
+    @XmlEnumValue("CORONA NOR")
+    CORONA_NOR("CORONA NOR"),
+    @XmlEnumValue("CORONA SC")
+    CORONA_SC("CORONA SC"),
+    @XmlEnumValue("CRUZEIRO REAL")
+    CRUZEIRO_REAL("CRUZEIRO REAL"),
+    DIRHAM("DIRHAM"),
+    @XmlEnumValue("DOLAR AUST")
+    DOLAR_AUST("DOLAR AUST"),
+    @XmlEnumValue("DOLAR CAN")
+    DOLAR_CAN("DOLAR CAN"),
+    @XmlEnumValue("DOLAR HK")
+    DOLAR_HK("DOLAR HK"),
+    @XmlEnumValue("DOLAR NZ")
+    DOLAR_NZ("DOLAR NZ"),
+    @XmlEnumValue("DOLAR SIN")
+    DOLAR_SIN("DOLAR SIN"),
+    @XmlEnumValue("DOLAR TAI")
+    DOLAR_TAI("DOLAR TAI"),
+    @XmlEnumValue("DOLAR USA")
+    DOLAR_USA("DOLAR USA"),
+    DRACMA("DRACMA"),
+    ESCUDO("ESCUDO"),
+    EURO("EURO"),
+    FLORIN("FLORIN"),
+    @XmlEnumValue("FRANCO BEL")
+    FRANCO_BEL("FRANCO BEL"),
+    @XmlEnumValue("FRANCO FR")
+    FRANCO_FR("FRANCO FR"),
+    @XmlEnumValue("FRANCO SZ")
+    FRANCO_SZ("FRANCO SZ"),
+    GUARANI("GUARANI"),
+    @XmlEnumValue("LIBRA EST")
+    LIBRA_EST("LIBRA EST"),
+    LIRA("LIRA"),
+    @XmlEnumValue("MARCO AL")
+    MARCO_AL("MARCO AL"),
+    @XmlEnumValue("MARCO FIN")
+    MARCO_FIN("MARCO FIN"),
+    @XmlEnumValue("NUEVO SOL")
+    NUEVO_SOL("NUEVO SOL"),
+    @XmlEnumValue("OTRAS MONEDAS")
+    OTRAS_MONEDAS("OTRAS MONEDAS"),
+    PESETA("PESETA"),
+    PESO("PESO"),
+    @XmlEnumValue("PESO CL")
+    PESO_CL("PESO CL"),
+    @XmlEnumValue("PESO COL")
+    PESO_COL("PESO COL"),
+    @XmlEnumValue("PESO MEX")
+    PESO_MEX("PESO MEX"),
+    @XmlEnumValue("PESO URUG")
+    PESO_URUG("PESO URUG"),
+    RAND("RAND"),
+    RENMINBI("RENMINBI"),
+    RUPIA("RUPIA"),
+    SUCRE("SUCRE"),
+    YEN("YEN");
+    private final String value;
+
+    TipMonType(String v) {
+        value = v;
+    }
+
+    /**
+     * Gets the value associated to the enum constant.
+     * 
+     * @return
+     *     The value linked to the enum.
+     */
+    public String value() {
+        return value;
+    }
+
+    /**
+     * Gets the enum associated to the value passed as parameter.
+     * 
+     * @param v
+     *     The value to get the enum from.
+     * @return
+     *     The enum which corresponds to the value, if it exists.
+     * @throws IllegalArgumentException
+     *     If no value matches in the enum declaration.
+     */
+    public static TipMonType fromValue(String v) {
+        for (TipMonType c: TipMonType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
+    }
+
+}

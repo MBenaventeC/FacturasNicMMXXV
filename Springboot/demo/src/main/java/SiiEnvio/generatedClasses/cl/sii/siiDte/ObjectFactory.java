@@ -1,0 +1,479 @@
+//
+// Este archivo ha sido generado por Eclipse Implementation of JAXB v4.0.5 
+// Visite https://eclipse-ee4j.github.io/jaxb-ri 
+// Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+//
+
+
+package SiiEnvio.generatedClasses.cl.sii.siiDte;
+
+import javax.xml.namespace.QName;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the cl.sii.siiDte package. 
+ * <p>An ObjectFactory allows you to programmatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+    private static final QName _AUTORIZACION_QNAME = new QName("http://www.sii.cl/SiiDte", "AUTORIZACION");
+    private static final QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cl.sii.siiDte
+     * 
+     */
+    public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link RECEPCIONDTE }
+     * 
+     * @return
+     *     the new instance of {@link RECEPCIONDTE }
+     */
+    public RECEPCIONDTE createRECEPCIONDTE() {
+        return new RECEPCIONDTE();
+    }
+
+    /**
+     * Create an instance of {@link GetToken }
+     * 
+     * @return
+     *     the new instance of {@link GetToken }
+     */
+    public GetToken createGetToken() {
+        return new GetToken();
+    }
+
+    /**
+     * Create an instance of {@link RESPUESTA }
+     * 
+     * @return
+     *     the new instance of {@link RESPUESTA }
+     */
+    public RESPUESTA createRESPUESTA() {
+        return new RESPUESTA();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode }
+     */
+    public TedBarcode createTedBarcode() {
+        return new TedBarcode();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED }
+     */
+    public TedBarcode.TED createTedBarcodeTED() {
+        return new TedBarcode.TED();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD }
+     */
+    public TedBarcode.TED.DD createTedBarcodeTEDDD() {
+        return new TedBarcode.TED.DD();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF }
+     */
+    public TedBarcode.TED.DD.CAF createTedBarcodeTEDDDCAF() {
+        return new TedBarcode.TED.DD.CAF();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF.DA }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF.DA }
+     */
+    public TedBarcode.TED.DD.CAF.DA createTedBarcodeTEDDDCAFDA() {
+        return new TedBarcode.TED.DD.CAF.DA();
+    }
+
+    /**
+     * Create an instance of {@link TEDType }
+     * 
+     * @return
+     *     the new instance of {@link TEDType }
+     */
+    public TEDType createTEDType() {
+        return new TEDType();
+    }
+
+    /**
+     * Create an instance of {@link CAFType }
+     * 
+     * @return
+     *     the new instance of {@link CAFType }
+     */
+    public CAFType createCAFType() {
+        return new CAFType();
+    }
+
+    /**
+     * Create an instance of {@link CAFType.DA }
+     * 
+     * @return
+     *     the new instance of {@link CAFType.DA }
+     */
+    public CAFType.DA createCAFTypeDA() {
+        return new CAFType.DA();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType }
+     */
+    public SignatureType createSignatureType() {
+        return new SignatureType();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.KeyInfo }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.KeyInfo }
+     */
+    public SignatureType.KeyInfo createSignatureTypeKeyInfo() {
+        return new SignatureType.KeyInfo();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.KeyInfo.KeyValue }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.KeyInfo.KeyValue }
+     */
+    public SignatureType.KeyInfo.KeyValue createSignatureTypeKeyInfoKeyValue() {
+        return new SignatureType.KeyInfo.KeyValue();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo }
+     */
+    public SignatureType.SignedInfo createSignatureTypeSignedInfo() {
+        return new SignatureType.SignedInfo();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.Reference }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.Reference }
+     */
+    public SignatureType.SignedInfo.Reference createSignatureTypeSignedInfoReference() {
+        return new SignatureType.SignedInfo.Reference();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.Reference.Transforms }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.Reference.Transforms }
+     */
+    public SignatureType.SignedInfo.Reference.Transforms createSignatureTypeSignedInfoReferenceTransforms() {
+        return new SignatureType.SignedInfo.Reference.Transforms();
+    }
+
+    /**
+     * Create an instance of {@link AutorizacionType }
+     * 
+     * @return
+     *     the new instance of {@link AutorizacionType }
+     */
+    public AutorizacionType createAutorizacionType() {
+        return new AutorizacionType();
+    }
+
+    /**
+     * Create an instance of {@link RECEPCIONDTE.DETAIL }
+     * 
+     * @return
+     *     the new instance of {@link RECEPCIONDTE.DETAIL }
+     */
+    public RECEPCIONDTE.DETAIL createRECEPCIONDTEDETAIL() {
+        return new RECEPCIONDTE.DETAIL();
+    }
+
+    /**
+     * Create an instance of {@link GetToken.Item }
+     * 
+     * @return
+     *     the new instance of {@link GetToken.Item }
+     */
+    public GetToken.Item createGetTokenItem() {
+        return new GetToken.Item();
+    }
+
+    /**
+     * Create an instance of {@link RESPUESTA.RESPBODY }
+     * 
+     * @return
+     *     the new instance of {@link RESPUESTA.RESPBODY }
+     */
+    public RESPUESTA.RESPBODY createRESPUESTARESPBODY() {
+        return new RESPUESTA.RESPBODY();
+    }
+
+    /**
+     * Create an instance of {@link RESPUESTA.RESPHDR }
+     * 
+     * @return
+     *     the new instance of {@link RESPUESTA.RESPHDR }
+     */
+    public RESPUESTA.RESPHDR createRESPUESTARESPHDR() {
+        return new RESPUESTA.RESPHDR();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.Barcode }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.Barcode }
+     */
+    public TedBarcode.Barcode createTedBarcodeBarcode() {
+        return new TedBarcode.Barcode();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.FRMT }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.FRMT }
+     */
+    public TedBarcode.TED.FRMT createTedBarcodeTEDFRMT() {
+        return new TedBarcode.TED.FRMT();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF.FRMA }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF.FRMA }
+     */
+    public TedBarcode.TED.DD.CAF.FRMA createTedBarcodeTEDDDCAFFRMA() {
+        return new TedBarcode.TED.DD.CAF.FRMA();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF.DA.RNG }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF.DA.RNG }
+     */
+    public TedBarcode.TED.DD.CAF.DA.RNG createTedBarcodeTEDDDCAFDARNG() {
+        return new TedBarcode.TED.DD.CAF.DA.RNG();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF.DA.RSAPK }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF.DA.RSAPK }
+     */
+    public TedBarcode.TED.DD.CAF.DA.RSAPK createTedBarcodeTEDDDCAFDARSAPK() {
+        return new TedBarcode.TED.DD.CAF.DA.RSAPK();
+    }
+
+    /**
+     * Create an instance of {@link TedBarcode.TED.DD.CAF.DA.DSAPK }
+     * 
+     * @return
+     *     the new instance of {@link TedBarcode.TED.DD.CAF.DA.DSAPK }
+     */
+    public TedBarcode.TED.DD.CAF.DA.DSAPK createTedBarcodeTEDDDCAFDADSAPK() {
+        return new TedBarcode.TED.DD.CAF.DA.DSAPK();
+    }
+
+    /**
+     * Create an instance of {@link TEDType.DD }
+     * 
+     * @return
+     *     the new instance of {@link TEDType.DD }
+     */
+    public TEDType.DD createTEDTypeDD() {
+        return new TEDType.DD();
+    }
+
+    /**
+     * Create an instance of {@link TEDType.FRMT }
+     * 
+     * @return
+     *     the new instance of {@link TEDType.FRMT }
+     */
+    public TEDType.FRMT createTEDTypeFRMT() {
+        return new TEDType.FRMT();
+    }
+
+    /**
+     * Create an instance of {@link CAFType.FRMA }
+     * 
+     * @return
+     *     the new instance of {@link CAFType.FRMA }
+     */
+    public CAFType.FRMA createCAFTypeFRMA() {
+        return new CAFType.FRMA();
+    }
+
+    /**
+     * Create an instance of {@link CAFType.DA.RNG }
+     * 
+     * @return
+     *     the new instance of {@link CAFType.DA.RNG }
+     */
+    public CAFType.DA.RNG createCAFTypeDARNG() {
+        return new CAFType.DA.RNG();
+    }
+
+    /**
+     * Create an instance of {@link CAFType.DA.RSAPK }
+     * 
+     * @return
+     *     the new instance of {@link CAFType.DA.RSAPK }
+     */
+    public CAFType.DA.RSAPK createCAFTypeDARSAPK() {
+        return new CAFType.DA.RSAPK();
+    }
+
+    /**
+     * Create an instance of {@link CAFType.DA.DSAPK }
+     * 
+     * @return
+     *     the new instance of {@link CAFType.DA.DSAPK }
+     */
+    public CAFType.DA.DSAPK createCAFTypeDADSAPK() {
+        return new CAFType.DA.DSAPK();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.KeyInfo.X509Data }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.KeyInfo.X509Data }
+     */
+    public SignatureType.KeyInfo.X509Data createSignatureTypeKeyInfoX509Data() {
+        return new SignatureType.KeyInfo.X509Data();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.KeyInfo.KeyValue.RSAKeyValue }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.KeyInfo.KeyValue.RSAKeyValue }
+     */
+    public SignatureType.KeyInfo.KeyValue.RSAKeyValue createSignatureTypeKeyInfoKeyValueRSAKeyValue() {
+        return new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.KeyInfo.KeyValue.DSAKeyValue }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.KeyInfo.KeyValue.DSAKeyValue }
+     */
+    public SignatureType.KeyInfo.KeyValue.DSAKeyValue createSignatureTypeKeyInfoKeyValueDSAKeyValue() {
+        return new SignatureType.KeyInfo.KeyValue.DSAKeyValue();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.CanonicalizationMethod }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.CanonicalizationMethod }
+     */
+    public SignatureType.SignedInfo.CanonicalizationMethod createSignatureTypeSignedInfoCanonicalizationMethod() {
+        return new SignatureType.SignedInfo.CanonicalizationMethod();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.SignatureMethod }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.SignatureMethod }
+     */
+    public SignatureType.SignedInfo.SignatureMethod createSignatureTypeSignedInfoSignatureMethod() {
+        return new SignatureType.SignedInfo.SignatureMethod();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.Reference.DigestMethod }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.Reference.DigestMethod }
+     */
+    public SignatureType.SignedInfo.Reference.DigestMethod createSignatureTypeSignedInfoReferenceDigestMethod() {
+        return new SignatureType.SignedInfo.Reference.DigestMethod();
+    }
+
+    /**
+     * Create an instance of {@link SignatureType.SignedInfo.Reference.Transforms.Transform }
+     * 
+     * @return
+     *     the new instance of {@link SignatureType.SignedInfo.Reference.Transforms.Transform }
+     */
+    public SignatureType.SignedInfo.Reference.Transforms.Transform createSignatureTypeSignedInfoReferenceTransformsTransform() {
+        return new SignatureType.SignedInfo.Reference.Transforms.Transform();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AutorizacionType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link AutorizacionType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.sii.cl/SiiDte", name = "AUTORIZACION")
+    public JAXBElement<AutorizacionType> createAUTORIZACION(AutorizacionType value) {
+        return new JAXBElement<>(_AUTORIZACION_QNAME, AutorizacionType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link SignatureType }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://www.w3.org/2000/09/xmldsig#", name = "Signature")
+    public JAXBElement<SignatureType> createSignature(SignatureType value) {
+        return new JAXBElement<>(_Signature_QNAME, SignatureType.class, null, value);
+    }
+
+}

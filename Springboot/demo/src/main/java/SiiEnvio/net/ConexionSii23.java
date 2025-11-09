@@ -17,6 +17,7 @@ package SiiEnvio.net;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.CookieHandler;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -35,6 +36,7 @@ import java.nio.file.Files;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 //Cambios a jakarta en vez de javax para soap
 import jakarta.xml.soap.MessageFactory;
@@ -50,6 +52,7 @@ import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPPart;
 
+import org.apache.http.client.ClientProtocolException;
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
 // import org.apache.http.HttpEntity;
@@ -76,19 +79,23 @@ import jakarta.xml.soap.SOAPPart;
 // XMLBeans
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 // Extensión?
 import org.xml.sax.SAXException;
 
 // Consultar de donde provienen los imports 'cl.sii.*'
 import SiiEnvio.generatedClasses.cl.sii.siiDte.GetToken;
 import SiiEnvio.util.GetTokenDocument;
+import SiiEnvio.util.RECEPCIONDTEDocument;
 import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
 //import SiiEnvio.generatedClasses.cl.sii.siiDte.RECEPCIONDTEDocument;
 //import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTADocument;
 import SiiBoleta.DTEDefType.Documento;
 
-public class ConexionSii {
+public class ConexionSii23 {
 
 	public boolean autentifica(PrivateKey pKey) {
 
@@ -108,19 +115,26 @@ public class ConexionSii {
 
 		String semilla = getSemilla();
 
-		GetTokenDocument req = GetTokenDocument.Factory.newInstance();
-
-		req.addNewGetToken().addNewItem().setSemilla(semilla);
+		GetTokenDocument req = GetTokenDocument.newInstance();
+    	req.addNewGetToken().addNewItem().setSemilla(semilla);
 
 		HashMap<String, String> namespaces = new HashMap<String, String>();
 		namespaces.put("", "http://www.sii.cl/SiiDte");
 		XmlOptions opts = new XmlOptions();
 
-		opts = new XmlOptions();
-		opts.setSaveImplicitNamespaces(namespaces);
-		opts.setLoadSubstituteNamespaces(namespaces);
-		opts.setSavePrettyPrint();
-		opts.setSavePrettyPrintIndent(0);
+		JAXBContext context = JAXBContext.newInstance(GetToken.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapper() {
+			@Override
+			public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
+				if ("http://www.sii.cl/SiiDte".equals(namespaceUri)) {
+					return "";
+				}
+				return suggestion;
+			}
+		});
 
 		req = GetTokenDocument.Factory.parse(req.newInputStream(opts), opts);
 
@@ -217,7 +231,7 @@ public class ConexionSii {
 		SOAPPart sp = responseSII.getSOAPPart();
 		SOAPBody b = sp.getEnvelope().getBody();
 
-		cl.sii.xmlSchema.RESPUESTADocument resp = null;
+		SiiEnvio.util.RESPUESTADocument resp = null;
 		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
 				.getEnvelope().createName("getSeedResponse", "ns1",
 						urlSolicitud)); res.hasNext();) {
@@ -295,10 +309,13 @@ public class ConexionSii {
 		String rutReceptor = dte.getEncabezado().getReceptor().getRUTRecep();
 		Integer tipoDTE = dte.getEncabezado().getIdDoc().getTipoDTE()
 				.intValue();
-		long folioDTE = dte.getEncabezado().getIdDoc().getFolio();
-		String fechaEmision = Utilities.fechaEstadoDte.format(dte
-				.getEncabezado().getIdDoc().getFchEmis().getTime());
-		long montoTotal = dte.getEncabezado().getTotales().getMntTotal();
+		BigInteger folioDTE = dte.getEncabezado().getIdDoc().getFolio();
+
+		XMLGregorianCalendar xmlDate = dte.getEncabezado().getIdDoc().getFchEmis();
+		String fechaEmision = Utilities.fechaEstadoDte.format(
+			xmlDate.toGregorianCalendar().getTime()
+		);
+		BigInteger montoTotal = dte.getEncabezado().getTotales().getMntTotal();
 
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection con = scFactory.createConnection();
@@ -348,7 +365,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("FolioDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(Long.toString(folioDTE));
+		toKsymbol.addTextNode(String.valueOf(folioDTE));
 
 		toKname = envelope.createName("FechaEmisionDte");
 		toKsymbol = gltp.addChildElement(toKname);
@@ -356,7 +373,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("MontoDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(Long.toString(montoTotal));
+		toKsymbol.addTextNode(String.valueOf(montoTotal));
 
 		toKname = envelope.createName("Token");
 		toKsymbol = gltp.addChildElement(toKname);
@@ -431,7 +448,7 @@ public class ConexionSii {
 	 */
 	public RECEPCIONDTEDocument uploadEnvioCertificacion(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token)
-			throws ClientProtocolException, ParseException, IOException,
+			throws ClientProtocolException, IOException,
 			XmlException {
 		String urlEnvio = Utilities.netLabels
 				.getString("URL_UPLOAD_CERTIFICACION");
