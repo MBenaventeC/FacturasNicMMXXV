@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the cl.sii.siiDte package. 
+ * generated in the SiiEnvio.generatedClasses.cl.sii.siiDte package. 
  * <p>An ObjectFactory allows you to programmatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -34,7 +34,7 @@ public class ObjectFactory {
     private static final QName _Signature_QNAME = new QName("http://www.w3.org/2000/09/xmldsig#", "Signature");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cl.sii.siiDte
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: SiiEnvio.generatedClasses.cl.sii.siiDte
      * 
      */
     public ObjectFactory() {
