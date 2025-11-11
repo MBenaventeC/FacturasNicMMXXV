@@ -1,14 +1,9 @@
 package SiiBoleta;
 
-import SiiSignature.SignatureType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
-import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,13 +11,16 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
-public class DTEGenerator {
+public class DTEGenerator2 {
     public static void main(String[] args) throws Exception {
         Generate("TEST");
     }
-    public static String Generate(String name) throws Exception {
+    public static Document Generate(String name) throws Exception {
         // 1. Create and populate your object
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
@@ -96,14 +94,14 @@ public class DTEGenerator {
             frmtElem.setTextContent(wrapped.toString().trim()); // replace text with wrapped Base64
         }*/
 
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
-        transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-        String out = "out/"+name+".xml";
-        Result output = new StreamResult(new File(out));
-        Source input = new DOMSource(doc);
-        transformer.transform(input, output);
-        return out;
+        //Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
+        //transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        //String out = "out/"+name+".xml";
+        //Result output = new StreamResult(new File(out));
+        //Source input = new DOMSource(doc);
+        //transformer.transform(input, output);
+        return doc;
     }
 }

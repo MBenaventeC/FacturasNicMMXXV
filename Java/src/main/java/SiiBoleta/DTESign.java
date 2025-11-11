@@ -16,6 +16,7 @@ import javax.xml.crypto.dsig.Transform;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
@@ -28,15 +29,55 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import SiiBoleta.SignXMLApache;
 
 public class DTESign {
-    public static void main(String[] args) throws Exception {
-        File inputXml = new File("out/DTE.xml");
+    public static String Sign(String name,String in) throws Exception {
+        File inputXml = new File(in);
         File pkcs12 = new File("Java/certificado.pfx");
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
-        File outputXml = new File("out/signed.xml");
+        String out = "out/"+name+".xml";
+        File outputXml = new File(out);
         //GgKBfGF01GXzoUt4ksLpKVNhFkk=
         DTEMakers.signXML(inputXml, pkcs12, password, outputXml);
+        return out;
+    }
+    public static void Sign2(String name,Document in) throws Exception {
+        File pkcs12 = new File("Java/certificado.pfx");
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
+        String out = "out/"+name+".xml";
+        File outputXml = new File(out);
+        //GgKBfGF01GXzoUt4ksLpKVNhFkk=
+        DTEMakers.signXMLD(in, pkcs12, password, outputXml);
+        return ;
+    }
+    public static void Sign3(String name,Document in) throws Exception {
+        File pkcs12 = new File("Java/certificado.pfx");
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
+        String out = "out/"+name+".xml";
+        File outputXml = new File(out);
+        //GgKBfGF01GXzoUt4ksLpKVNhFkk=
+        SignXMLApache.signXMLTS(in, pkcs12, password,"DTE-34-994321");
+        return ;
+    }
+    public static String Sign4(String name,String in,String ID) throws Exception {
+        File inputXml = new File(in);
+        // Load XML document
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        dbf.setIgnoringElementContentWhitespace(true);
+        DocumentBuilder builder = dbf.newDocumentBuilder();
+        Document doc = builder.parse(inputXml);
+        File pkcs12 = new File("Java/certificado.pfx");
+        Path filePath = Paths.get("password.txt");
+        String password = Files.readString(filePath);
+        String out = "out/"+name+".xml";
+        //GgKBfGF01GXzoUt4ksLpKVNhFkk=
+        SignXMLApache.signXMLTS(doc, pkcs12, password, ID);
+        SignXMLApache.saveDocumentToFile(doc,out);
+        return out;
     }
 }

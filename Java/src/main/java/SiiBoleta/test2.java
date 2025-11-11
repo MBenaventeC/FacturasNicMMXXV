@@ -4,8 +4,10 @@ import SIIEnvio.SetDTEGenerator;
 import SIIEnvio.envioGenerator;
 import SIIEnvio.insertDTEs;
 import SIIEnvio.signEnvio;
+import org.w3c.dom.Document;
+import SiiBoleta.SignXMLApache;
 
-public class test {
+public class test2 {
     public static void exmain(String[] args) throws Exception {
         //Genera DTE
         //DTEGenerator.main(args);
@@ -17,18 +19,17 @@ public class test {
         //signEnvio.main(args);
     }
     public static void main(String[] args) throws Exception {
-        //System.setProperty("org.apache.xml.security.ignoreLineBreaks", "true");
         //Genera DTE
-        String DTE = DTEGenerator.Generate("DTE");
+        Document DTE = DTEGenerator2.Generate("DTE");
         //firma DTE
-        String SignedDTE = DTESign.Sign4("signedDTE",DTE,"DTE-34-994321");
+        DTESign.Sign3("signedDTE",DTE);
         //Genera SetDTE vacío
-        String SetDTE = SetDTEGenerator.Generate("SetDTE");
+        Document SetDTE = SetDTEGenerator.Generate2("SetDTE");
         //inserta DTEs y añade a envíoDTE
-        String envio = insertDTEs.Insert(SetDTE,SignedDTE,"envio");
+        insertDTEs.Insert2(SetDTE,DTE,"envio");
         //Firma envio
-        String signedEnv = signEnvio.sign4(envio,"out/signedEnv.xml","EnvDte-63130");
+        String signedEnv = signEnvio.sign3(SetDTE,"signedEnv");
 
-        System.out.println("Envio DTE firmado: "+ signedEnv);
+        //System.out.println("Envio DTE firmado: "+ signedEnv);
     }
 }

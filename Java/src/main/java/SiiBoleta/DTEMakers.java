@@ -4,6 +4,7 @@ import javax.xml.crypto.Data;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.XMLStructure;
 import javax.xml.crypto.dom.DOMStructure;
+import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -55,7 +56,6 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-
 
 
 public class DTEMakers {
@@ -354,8 +354,8 @@ public class DTEMakers {
         X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
         KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
 
-        printNode(canonicalDoc);
-        System.out.println("");
+        //printNode(canonicalDoc);
+        //System.out.println("");
 
         // 10. Sign canonicalized document
         DOMSignContext dsc = new DOMSignContext(privateKey, canonicalDoc.getDocumentElement());
@@ -590,7 +590,7 @@ public class DTEMakers {
         );
 
         // 4. Create the Reference (to the ID) and SignedInfo - using exclusive C14N
-        Reference ref = fac.newReference(
+        /*Reference ref = fac.newReference(
                 "#" + idVal,
                 fac.newDigestMethod(DigestMethod.SHA1, null),
                 Arrays.asList(envelopedTransform, c14nTransform),
@@ -606,6 +606,22 @@ public class DTEMakers {
                 ),
                 fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
                 Collections.singletonList(ref)
+        );*/
+
+        Reference ref = fac.newReference("#"+idVal, fac.newDigestMethod(
+                DigestMethod.SHA1, null), Collections.singletonList(fac
+                .newTransform(Transform.ENVELOPED,
+                        (TransformParameterSpec) null)), null, null);
+
+
+        // Create SignedInfo
+        SignedInfo signedInfo = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(
+                        CanonicalizationMethod.INCLUSIVE,
+                        (C14NMethodParameterSpec) null
+                ),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                java.util.Collections.singletonList(ref)
         );
 
         // 5. KeyInfo
@@ -614,12 +630,12 @@ public class DTEMakers {
         X509Data xd = kif.newX509Data(Collections.singletonList(cert));
         KeyInfo ki = kif.newKeyInfo(Arrays.asList(kv, xd));
 
-        printNode(canonicalRoot);
+        //printNode(canonicalRoot);
 
         // 6. Sign the canonicalized document
         DOMSignContext dsc = new DOMSignContext(privateKey, canonicalRoot);
         dsc.setDefaultNamespacePrefix("ds");
-        XMLSignature signature = fac.newXMLSignature(si, ki);
+        XMLSignature signature = fac.newXMLSignature(signedInfo, ki);
         signature.sign(dsc);
 
         // 7. Extract Signature element from canonicalRoot (there should be exactly one)
@@ -972,8 +988,8 @@ public class DTEMakers {
     public static void signXML(File inputXml, File pkcs12File, String keyPassword, File outputXml) throws Exception {
         // Load XML document
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        dbf.setIgnoringElementContentWhitespace(true);
+        //dbf.setNamespaceAware(true);
+        //dbf.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
 
@@ -1001,8 +1017,8 @@ public class DTEMakers {
         Element elementToSign = (Element) list.item(0);*/
 
         Element root = doc.getDocumentElement();
-        root.normalize();
-        normalizeLineEndings(doc);
+        //root.normalize();
+        //normalizeLineEndings(doc);
         Element elementToSign = null;
         Node child = root.getFirstChild();
         while (child != null) {
@@ -1042,13 +1058,20 @@ public class DTEMakers {
                 null
         );
 
+        String method = SignatureMethod.RSA_SHA1; // default by SII
+
+        if ("DSA".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.DSA_SHA1;
+        else if ("HMAC".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.HMAC_SHA1;
+
         // Create SignedInfo
         SignedInfo signedInfo = sigFactory.newSignedInfo(
                 sigFactory.newCanonicalizationMethod(
                         CanonicalizationMethod.INCLUSIVE,
                         (C14NMethodParameterSpec) null
                 ),
-                sigFactory.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                sigFactory.newSignatureMethod(method, null),
                 java.util.Collections.singletonList(ref)
         );
 
@@ -1092,7 +1115,7 @@ public class DTEMakers {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
-        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
         // Do NOT indent — that can break signatures or add empty lines
@@ -1103,16 +1126,670 @@ public class DTEMakers {
         trans.transform(new DOMSource(doc), new StreamResult(baos));
 
         // Convert to string safely, removing only carriage return entities
-        String xmlClean = baos.toString("ISO-8859-1")
+        String xmlClean = baos.toString(StandardCharsets.ISO_8859_1)
                 //.replace("&#13;", "")
-                .replaceAll("><", ">\n<");
+                //.replaceAll("><", ">\r\n<")
+                ;
+                //.replaceAll("<DigestValue>", "<DigestValue>\r\n")
+                //.replaceAll("</DigestValue>", "\r\n</DigestValue>")
+                //.replaceAll("<SignatureValue>", "<SignatureValue>\r\n")
+                //.replaceAll("</SignatureValue>", "\r\n</SignatureValue>")
+                //.replaceAll("<Modulus>", "<Modulus>\r\n")
+                //.replaceAll("</Modulus>", "\r\n</Modulus>")
+                //.replaceAll("<Exponent>", "<Exponent>\r\n")
+                //.replaceAll("</Exponent>", "\r\n</Exponent>")
+                //.replaceAll("<X509Certificate>", "<X509Certificate>\r\n")
+                //.replaceAll("</X509Certificate>", "\r\n</X509Certificate>");
                 //.replaceAll(" standalone=\"no\"","")
                 //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
                 //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
         // Write back to file preserving your indentation
-        Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
+        //Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
+        try (OutputStream os = Files.newOutputStream(outputXml.toPath())) {
+            trans.transform(new DOMSource(doc), new StreamResult(os));
+        }
+        }
+
+    public static void signXMLD(Document doc, File pkcs12File, String keyPassword, File outputXml) throws Exception {
+
+        // Load the keystore (PKCS12)
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(pkcs12File)) {
+            ks.load(fis, keyPassword.toCharArray());
+        }
+
+        // Get private key and certificate
+        String alias = ks.aliases().nextElement();
+        Key privateKey = ks.getKey(alias, keyPassword.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+
+        // Create the XML Signature factory
+        XMLSignatureFactory sigFactory = XMLSignatureFactory.getInstance("DOM");
+
+        // Find the element to sign (example: <DTE ID="DTE-34-22295">)
+
+        // Find the <Documento> element
+        /*NodeList list = doc.getElementsByTagName("Documento");
+        if (list.getLength() == 0) {
+            throw new Exception("No <Documento> element found in XML!");
+        }
+        Element elementToSign = (Element) list.item(0);*/
+
+        Element root = doc.getDocumentElement();
+        //root.normalize();
+        //normalizeLineEndings(doc);
+        Element elementToSign = null;
+        Node child = root.getFirstChild();
+        while (child != null) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                elementToSign = (Element) child;
+                break;
+            }
+            child = child.getNextSibling();
+        }
+
+        if (elementToSign == null) {
+            throw new Exception("No child element found under root element!");
+        }
+
+        // Get the ID attribute
+        Attr idAttr = elementToSign.getAttributeNode("ID");
+        if (idAttr == null) {
+            throw new Exception("<Documento> element has no ID attribute!");
+        }
+
+        // Register the ID attribute properly (safe way)
+        elementToSign.setIdAttributeNode(idAttr, true);
+
+
+        // Extract its value
+        String referenceId = idAttr.getValue();
+
+        List<Transform> transforms = new ArrayList<>();
+        //transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
+
+        // Create a Reference to the entire document (enveloped)
+        Reference ref = sigFactory.newReference(
+                "#"+referenceId, // <-- match your actual ID attribute
+                sigFactory.newDigestMethod(DigestMethod.SHA1, null),
+                transforms,
+                null,
+                null
+        );
+
+        String method = SignatureMethod.RSA_SHA1; // default by SII
+
+        if ("DSA".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.DSA_SHA1;
+        else if ("HMAC".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.HMAC_SHA1;
+
+        // Create SignedInfo
+        SignedInfo signedInfo = sigFactory.newSignedInfo(
+                sigFactory.newCanonicalizationMethod(
+                        CanonicalizationMethod.INCLUSIVE,
+                        (C14NMethodParameterSpec) null
+                ),
+                sigFactory.newSignatureMethod(method, null),
+                java.util.Collections.singletonList(ref)
+        );
+
+        // Create KeyInfo (contains the X.509 certificate)
+        /*KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        X509Data x509Data = kif.newX509Data(java.util.Collections.singletonList(cert));
+        KeyInfo keyInfo = kif.newKeyInfo(java.util.Collections.singletonList(x509Data));*/
+
+        KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        List<XMLStructure> kiObjects = new ArrayList<>();
+
+        // Add public key
+        PublicKey publicKey = cert.getPublicKey();
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+        kiObjects.add(keyValue);
+
+        // Add certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+        kiObjects.add(x509Data);
+
+        KeyInfo keyInfo = kif.newKeyInfo(kiObjects);
+
+        // Create the XMLSignature
+        XMLSignature signature = sigFactory.newXMLSignature(signedInfo, keyInfo);
+
+        // Create a DOMSignContext (signing context)
+        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+
+        // Sign the document
+        signature.sign(dsc);
+
+
+        // Output the signed XML
+        //TransformerFactory tf = TransformerFactory.newInstance();
+        //Transformer trans = tf.newTransformer();
+        //trans.setOutputProperty(OutputKeys.INDENT, "yes");
+        //trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        //trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        //trans.transform(new DOMSource(doc), new StreamResult(outputXml));
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer trans = tf.newTransformer();
+        trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+//
+        //// Do NOT indent — that can break signatures or add empty lines
+        trans.setOutputProperty(OutputKeys.INDENT, "yes");
+//
+        //// Perform the transformation
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //trans.transform(new DOMSource(doc), new StreamResult(baos));
+//
+        //// Convert to string safely, removing only carriage return entities
+        //String xmlClean = baos.toString(StandardCharsets.ISO_8859_1)
+        //        //.replace("&#13;", "")
+        //        //.replaceAll("><", ">\r\n<")
+        //        ;
+        //.replaceAll("<DigestValue>", "<DigestValue>\r\n")
+        //.replaceAll("</DigestValue>", "\r\n</DigestValue>")
+        //.replaceAll("<SignatureValue>", "<SignatureValue>\r\n")
+        //.replaceAll("</SignatureValue>", "\r\n</SignatureValue>")
+        //.replaceAll("<Modulus>", "<Modulus>\r\n")
+        //.replaceAll("</Modulus>", "\r\n</Modulus>")
+        //.replaceAll("<Exponent>", "<Exponent>\r\n")
+        //.replaceAll("</Exponent>", "\r\n</Exponent>")
+        //.replaceAll("<X509Certificate>", "<X509Certificate>\r\n")
+        //.replaceAll("</X509Certificate>", "\r\n</X509Certificate>");
+        //.replaceAll(" standalone=\"no\"","")
+        //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
+        //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
+        // Write back to file preserving your indentation
+        //Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
+        try (OutputStream os = Files.newOutputStream(outputXml.toPath())) {
+            trans.transform(new DOMSource(doc), new StreamResult(os));
+        }
     }
+
     public static void signXMLT(File inputXml, File pkcs12File, String keyPassword, File outputXml) throws Exception {
+        // Load XML document
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        dbf.setIgnoringElementContentWhitespace(true);
+        DocumentBuilder builder = dbf.newDocumentBuilder();
+        Document doc = builder.parse(inputXml);
+
+        //printNode(doc);
+
+        // Load the keystore (PKCS12)
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(pkcs12File)) {
+            ks.load(fis, keyPassword.toCharArray());
+        }
+
+        // Get private key and certificate
+        String alias = ks.aliases().nextElement();
+        Key privateKey = ks.getKey(alias, keyPassword.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+
+        // Create the XML Signature factory
+        XMLSignatureFactory sigFactory = XMLSignatureFactory.getInstance("DOM");
+
+        // Find the element to sign (example: <DTE ID="DTE-34-22295">)
+
+        // Find the <Documento> element
+        /*NodeList list = doc.getElementsByTagName("Documento");
+        if (list.getLength() == 0) {
+            throw new Exception("No <Documento> element found in XML!");
+        }
+        Element elementToSign = (Element) list.item(0);*/
+
+        Element root = doc.getDocumentElement();
+        //root.normalize();
+        //normalizeLineEndings(doc);
+        Element elementToSign = null;
+        Node child = root.getFirstChild();
+        while (child != null) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                elementToSign = (Element) child;
+                break;
+            }
+            child = child.getNextSibling();
+        }
+
+        if (elementToSign == null) {
+            throw new Exception("No child element found under root element!");
+        }
+
+        // Get the ID attribute
+        Attr idAttr = elementToSign.getAttributeNode("ID");
+        if (idAttr == null) {
+            throw new Exception("element has no ID attribute!");
+        }
+
+        // Register the ID attribute properly (safe way)
+        elementToSign.setIdAttributeNode(idAttr, true);
+
+        // Extract its value
+        String referenceId = idAttr.getValue();
+
+        //List<Transform> transforms = new ArrayList<>();
+        //transforms.add(sigFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
+        //transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
+
+        // Create a Reference to the entire document (enveloped)
+        /*Reference ref = sigFactory.newReference(
+                "#"+referenceId, // <-- match your actual ID attribute
+                sigFactory.newDigestMethod(DigestMethod.SHA1, null),
+                transforms,
+                null,
+                null
+        );*/
+        Reference ref = sigFactory.newReference("#"+referenceId, sigFactory.newDigestMethod(
+                DigestMethod.SHA1, null), Collections.singletonList(sigFactory
+                .newTransform(Transform.ENVELOPED,
+                        (TransformParameterSpec) null)), null, null);
+
+
+        // Create SignedInfo
+        SignedInfo signedInfo = sigFactory.newSignedInfo(
+                sigFactory.newCanonicalizationMethod(
+                        CanonicalizationMethod.INCLUSIVE,
+                        (C14NMethodParameterSpec) null
+                ),
+                sigFactory.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                java.util.Collections.singletonList(ref)
+        );
+
+        // Create KeyInfo (contains the X.509 certificate)
+        /*KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        X509Data x509Data = kif.newX509Data(java.util.Collections.singletonList(cert));
+        KeyInfo keyInfo = kif.newKeyInfo(java.util.Collections.singletonList(x509Data));*/
+
+        KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        List<XMLStructure> kiObjects = new ArrayList<>();
+
+        // Add public key
+        PublicKey publicKey = cert.getPublicKey();
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+        kiObjects.add(keyValue);
+
+        // Add certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+        kiObjects.add(x509Data);
+
+        KeyInfo keyInfo = kif.newKeyInfo(kiObjects);
+
+        // Create the XMLSignature
+        XMLSignature signature = sigFactory.newXMLSignature(signedInfo, keyInfo);
+
+        // Create a DOMSignContext (signing context)
+        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+        dsc.setDefaultNamespacePrefix("ds");
+
+        // Sign the document
+        signature.sign(dsc);
+
+        /*NodeList nl = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        if (nl.getLength() == 0) {
+            throw new Exception("No Signature element found in document.");
+        }
+
+// Create a DOMValidateContext
+        DOMValidateContext valContext = new DOMValidateContext(cert.getPublicKey(), nl.item(1));
+
+// Create an XMLSignatureFactory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        valContext.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.FALSE);
+
+// Unmarshal the XMLSignature (parse it back into a Signature object)
+        XMLSignature signatureCheck = fac.unmarshalXMLSignature(valContext);
+
+// Validate the signature
+        boolean isValid = signatureCheck.validate(valContext);
+        System.out.println("Signature valid? " + isValid);
+
+// Optional: detailed checks
+        boolean sv = signatureCheck.getSignatureValue().validate(valContext);
+        System.out.println(" - SignatureValue valid? " + sv);
+
+        Iterator<?> i = signatureCheck.getSignedInfo().getReferences().iterator();
+        for (int j = 0; i.hasNext(); j++) {
+            boolean refValid = ((Reference) i.next()).validate(valContext);
+            System.out.println(" - Reference[" + j + "] valid? " + refValid);
+        }*/
+
+
+        // Output the signed XML
+        //TransformerFactory tf = TransformerFactory.newInstance();
+        //Transformer trans = tf.newTransformer();
+        //trans.setOutputProperty(OutputKeys.INDENT, "yes");
+        //trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        //trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        //trans.transform(new DOMSource(doc), new StreamResult(outputXml));
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer trans = tf.newTransformer();
+        trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+
+        // Do NOT indent — that can break signatures or add empty lines
+        //trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        //root.normalize();
+        //normalizeLineEndings(doc);
+
+        // Perform the transformation
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        trans.transform(new DOMSource(doc), new StreamResult(baos));
+
+
+        /*org.apache.xml.security.Init.init();
+
+        //printNode(doc);
+
+        Canonicalizer canon = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+        canon.canonicalizeSubtree(doc, baos2);
+        byte[] canonicalBytes = baos2.toByteArray();*/
+
+        //System.out.println(new String(canonicalBytes, StandardCharsets.ISO_8859_1));
+
+        // Convert to string safely, removing only carriage return entities
+        //String xmlClean = baos.toString(StandardCharsets.ISO_8859_1)
+                //.replace("&#13;", "")
+        //        .replaceAll("><", ">\r\n<")
+                //.replaceAll("<DigestValue>", "<DigestValue>\r\n")
+                //.replaceAll("</DigestValue>", "\r\n</DigestValue>")
+                //.replaceAll("<SignatureValue>", "<SignatureValue>\r\n")
+                //.replaceAll("</SignatureValue>", "\r\n</SignatureValue>")
+                //.replaceAll("<Modulus>", "<Modulus>\r\n")
+                //.replaceAll("</Modulus>", "\r\n</Modulus>")
+                //.replaceAll("<Exponent>", "<Exponent>\r\n")
+                //.replaceAll("</Exponent>", "\r\n</Exponent>")
+                //.replaceAll("<X509Certificate>", "<X509Certificate>\r\n")
+                //.replaceAll("</X509Certificate>", "\r\n</X509Certificate>")
+                //.replaceAll("\r\n\r","\r\n")
+                //.replaceAll("\r\r","\r")
+                //.replaceAll("\n\n","\n")
+                ;
+
+                //.replaceAll("\r","\rr")
+        //.replaceAll(" standalone=\"no\"","")
+        //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
+        //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
+        // Write back to file preserving your indentation
+        //Files.write(outputXml.toPath(), xmlClean.getBytes(StandardCharsets.ISO_8859_1));
+        try (OutputStream os = Files.newOutputStream(outputXml.toPath())) {
+            trans.transform(new DOMSource(doc), new StreamResult(os));
+        }
+    }
+
+    public static void signXMLTD(Document doc, File pkcs12File, String keyPassword, File outputXml) throws Exception {
+
+        // Load the keystore (PKCS12)
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(pkcs12File)) {
+            ks.load(fis, keyPassword.toCharArray());
+        }
+
+        // Get private key and certificate
+        String alias = ks.aliases().nextElement();
+        Key privateKey = ks.getKey(alias, keyPassword.toCharArray());
+        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+
+        // Create the XML Signature factory
+        XMLSignatureFactory sigFactory = XMLSignatureFactory.getInstance("DOM");
+
+        // Find the element to sign (example: <DTE ID="DTE-34-22295">)
+
+        // Find the <Documento> element
+        /*NodeList list = doc.getElementsByTagName("Documento");
+        if (list.getLength() == 0) {
+            throw new Exception("No <Documento> element found in XML!");
+        }
+        Element elementToSign = (Element) list.item(0);*/
+
+        Element root = doc.getDocumentElement();
+        //root.normalize();
+        //normalizeLineEndings(doc);
+        Element elementToSign = null;
+        Node child = root.getFirstChild();
+        while (child != null) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                elementToSign = (Element) child;
+                break;
+            }
+            child = child.getNextSibling();
+        }
+
+        if (elementToSign == null) {
+            throw new Exception("No child element found under root element!");
+        }
+
+        // Get the ID attribute
+        Attr idAttr = elementToSign.getAttributeNode("ID");
+        if (idAttr == null) {
+            throw new Exception("element has no ID attribute!");
+        }
+
+        // Register the ID attribute properly (safe way)
+        elementToSign.setIdAttributeNode(idAttr, true);
+
+        // Extract its value
+        String referenceId = idAttr.getValue();
+
+        //List<Transform> transforms = new ArrayList<>();
+        //transforms.add(sigFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
+        //transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
+
+        // Create a Reference to the entire document (enveloped)
+        /*Reference ref = sigFactory.newReference(
+                "#"+referenceId, // <-- match your actual ID attribute
+                sigFactory.newDigestMethod(DigestMethod.SHA1, null),
+                transforms,
+                null,
+                null
+        );*/
+        Reference ref = sigFactory.newReference("#"+referenceId, sigFactory.newDigestMethod(
+                DigestMethod.SHA1, null), Collections.singletonList(sigFactory
+                .newTransform(Transform.ENVELOPED,
+                        (TransformParameterSpec) null)), null, null);
+
+
+        // Create SignedInfo
+        SignedInfo signedInfo = sigFactory.newSignedInfo(
+                sigFactory.newCanonicalizationMethod(
+                        CanonicalizationMethod.INCLUSIVE,
+                        (C14NMethodParameterSpec) null
+                ),
+                sigFactory.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                java.util.Collections.singletonList(ref)
+        );
+
+        // Create KeyInfo (contains the X.509 certificate)
+        /*KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        X509Data x509Data = kif.newX509Data(java.util.Collections.singletonList(cert));
+        KeyInfo keyInfo = kif.newKeyInfo(java.util.Collections.singletonList(x509Data));*/
+
+        KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
+        List<XMLStructure> kiObjects = new ArrayList<>();
+
+        // Add public key
+        PublicKey publicKey = cert.getPublicKey();
+        KeyValue keyValue = kif.newKeyValue(publicKey);
+        kiObjects.add(keyValue);
+
+        // Add certificate
+        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
+        kiObjects.add(x509Data);
+
+        KeyInfo keyInfo = kif.newKeyInfo(kiObjects);
+
+        // Create the XMLSignature
+        XMLSignature signature = sigFactory.newXMLSignature(signedInfo, keyInfo);
+
+        // Create a DOMSignContext (signing context)
+        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
+        dsc.setDefaultNamespacePrefix("ds");
+
+        // Sign the document
+        signature.sign(dsc);
+
+        /*NodeList nl = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+        if (nl.getLength() == 0) {
+            throw new Exception("No Signature element found in document.");
+        }
+
+// Create a DOMValidateContext
+        DOMValidateContext valContext = new DOMValidateContext(cert.getPublicKey(), nl.item(1));
+
+// Create an XMLSignatureFactory
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        valContext.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.FALSE);
+
+// Unmarshal the XMLSignature (parse it back into a Signature object)
+        XMLSignature signatureCheck = fac.unmarshalXMLSignature(valContext);
+
+// Validate the signature
+        boolean isValid = signatureCheck.validate(valContext);
+        System.out.println("Signature valid? " + isValid);
+
+// Optional: detailed checks
+        boolean sv = signatureCheck.getSignatureValue().validate(valContext);
+        System.out.println(" - SignatureValue valid? " + sv);
+
+        Iterator<?> i = signatureCheck.getSignedInfo().getReferences().iterator();
+        for (int j = 0; i.hasNext(); j++) {
+            boolean refValid = ((Reference) i.next()).validate(valContext);
+            System.out.println(" - Reference[" + j + "] valid? " + refValid);
+        }*/
+
+
+        // Output the signed XML
+        //TransformerFactory tf = TransformerFactory.newInstance();
+        //Transformer trans = tf.newTransformer();
+        //trans.setOutputProperty(OutputKeys.INDENT, "yes");
+        //trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        //trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        //trans.transform(new DOMSource(doc), new StreamResult(outputXml));
+
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer trans = tf.newTransformer();
+        trans.setOutputProperty(OutputKeys.METHOD, "xml");
+        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        trans.setOutputProperty(OutputKeys.STANDALONE, "no");
+
+        // Do NOT indent — that can break signatures or add empty lines
+        trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        //root.normalize();
+        //normalizeLineEndings(doc);
+
+        // Perform the transformation
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        trans.transform(new DOMSource(doc), new StreamResult(baos));
+
+
+        /*org.apache.xml.security.Init.init();
+
+        //printNode(doc);
+
+        Canonicalizer canon = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+        canon.canonicalizeSubtree(doc, baos2);
+        byte[] canonicalBytes = baos2.toByteArray();*/
+
+        //System.out.println(new String(canonicalBytes, StandardCharsets.ISO_8859_1));
+
+        // Convert to string safely, removing only carriage return entities
+        //String xmlClean = baos.toString(StandardCharsets.ISO_8859_1)
+        //.replace("&#13;", "")
+        //        .replaceAll("><", ">\r\n<")
+        //.replaceAll("<DigestValue>", "<DigestValue>\r\n")
+        //.replaceAll("</DigestValue>", "\r\n</DigestValue>")
+        //.replaceAll("<SignatureValue>", "<SignatureValue>\r\n")
+        //.replaceAll("</SignatureValue>", "\r\n</SignatureValue>")
+        //.replaceAll("<Modulus>", "<Modulus>\r\n")
+        //.replaceAll("</Modulus>", "\r\n</Modulus>")
+        //.replaceAll("<Exponent>", "<Exponent>\r\n")
+        //.replaceAll("</Exponent>", "\r\n</Exponent>")
+        //.replaceAll("<X509Certificate>", "<X509Certificate>\r\n")
+        //.replaceAll("</X509Certificate>", "\r\n</X509Certificate>")
+        //.replaceAll("\r\n\r","\r\n")
+        //.replaceAll("\r\r","\r")
+        //.replaceAll("\n\n","\n")
+        ;
+
+        //.replaceAll("\r","\rr")
+        //.replaceAll(" standalone=\"no\"","")
+        //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
+        //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
+        // Write back to file preserving your indentation
+        //Files.write(outputXml.toPath(), xmlClean.getBytes(StandardCharsets.ISO_8859_1));
+        try (OutputStream os = Files.newOutputStream(outputXml.toPath())) {
+            trans.transform(new DOMSource(doc), new StreamResult(os));
+        }
+    }
+
+    public static void signEmbeded(Node doc, String uri, PrivateKey pKey,
+                                   X509Certificate cert) throws Exception {
+
+        // Create a DOM XMLSignatureFactory that will be used to generate the
+        // enveloped signature
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        // Create a Reference to the enveloped document (in this case we are
+        // signing the whole document, so a URI of "" signifies that) and
+        // also specify the SHA1 digest algorithm and the ENVELOPED Transform.
+
+        Reference ref = fac.newReference(uri, fac.newDigestMethod(
+                DigestMethod.SHA1, null), Collections.singletonList(fac
+                .newTransform(Transform.ENVELOPED,
+                        (TransformParameterSpec) null)), null, null);
+
+        // Create the SignedInfo
+        String method = SignatureMethod.RSA_SHA1; // default by SII
+
+        if ("DSA".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.DSA_SHA1;
+        else if ("HMAC".equals(cert.getPublicKey().getAlgorithm()))
+            method = SignatureMethod.HMAC_SHA1;
+
+        SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod(
+                CanonicalizationMethod.INCLUSIVE, // Default canonical and
+                // default by SII
+                (C14NMethodParameterSpec) null), fac.newSignatureMethod(method,
+                null), Collections.singletonList(ref));
+
+        KeyInfoFactory kif = fac.getKeyInfoFactory();
+        KeyValue kv = kif.newKeyValue(cert.getPublicKey());
+
+        // Create a KeyInfo and add the KeyValue to it
+        List<XMLStructure> kidata = new ArrayList<XMLStructure>();
+        kidata.add(kv);
+        kidata.add(kif.newX509Data(Collections.singletonList(cert)));
+        KeyInfo ki = kif.newKeyInfo(kidata);
+
+        //printNode(doc);
+
+        // Create a DOMSignContext and specify the PrivateKey and
+        // location of the resulting XMLSignature's parent element
+        DOMSignContext dsc = new DOMSignContext(pKey, doc);
+
+        // Create the XMLSignature (but don't sign it yet)
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+
+        // Marshal, generate (and sign) the enveloped signature
+        signature.sign(dsc);
+        //printNode(doc);
+
+    }
+
+    public static void signXMLNIC(File inputXml, File pkcs12File, String keyPassword, File outputXml) throws Exception {
         // Load XML document
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -1128,7 +1805,7 @@ public class DTEMakers {
 
         // Get private key and certificate
         String alias = ks.aliases().nextElement();
-        Key privateKey = ks.getKey(alias, keyPassword.toCharArray());
+        PrivateKey privateKey = (PrivateKey)ks.getKey(alias, keyPassword.toCharArray());
         X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
 
         // Create the XML Signature factory
@@ -1163,75 +1840,16 @@ public class DTEMakers {
         // Get the ID attribute
         Attr idAttr = elementToSign.getAttributeNode("ID");
         if (idAttr == null) {
-            throw new Exception("<Documento> element has no ID attribute!");
+            throw new Exception("element has no ID attribute!");
         }
 
         // Register the ID attribute properly (safe way)
         elementToSign.setIdAttributeNode(idAttr, true);
 
-
         // Extract its value
         String referenceId = idAttr.getValue();
 
-        List<Transform> transforms = new ArrayList<>();
-        transforms.add(sigFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
-        //transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
-
-        // Create a Reference to the entire document (enveloped)
-        Reference ref = sigFactory.newReference(
-                "#"+referenceId, // <-- match your actual ID attribute
-                sigFactory.newDigestMethod(DigestMethod.SHA1, null),
-                transforms,
-                null,
-                null
-        );
-
-        // Create SignedInfo
-        SignedInfo signedInfo = sigFactory.newSignedInfo(
-                sigFactory.newCanonicalizationMethod(
-                        CanonicalizationMethod.INCLUSIVE,
-                        (C14NMethodParameterSpec) null
-                ),
-                sigFactory.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
-                java.util.Collections.singletonList(ref)
-        );
-
-        // Create KeyInfo (contains the X.509 certificate)
-        /*KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
-        X509Data x509Data = kif.newX509Data(java.util.Collections.singletonList(cert));
-        KeyInfo keyInfo = kif.newKeyInfo(java.util.Collections.singletonList(x509Data));*/
-
-        KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
-        List<XMLStructure> kiObjects = new ArrayList<>();
-
-        // Add public key
-        PublicKey publicKey = cert.getPublicKey();
-        KeyValue keyValue = kif.newKeyValue(publicKey);
-        kiObjects.add(keyValue);
-
-        // Add certificate
-        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
-        kiObjects.add(x509Data);
-
-        KeyInfo keyInfo = kif.newKeyInfo(kiObjects);
-
-        // Create the XMLSignature
-        XMLSignature signature = sigFactory.newXMLSignature(signedInfo, keyInfo);
-
-        // Create a DOMSignContext (signing context)
-        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
-
-        // Sign the document
-        signature.sign(dsc);
-
-
-        // Output the signed XML
-        //TransformerFactory tf = TransformerFactory.newInstance();
-        //Transformer trans = tf.newTransformer();
-        //trans.setOutputProperty(OutputKeys.INDENT, "yes");
-        //trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-        //trans.setOutputProperty(OutputKeys.METHOD, "xml");
-        //trans.transform(new DOMSource(doc), new StreamResult(outputXml));
+        signEmbeded(doc.getDocumentElement(),"#"+referenceId,privateKey,cert);
 
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
@@ -1242,14 +1860,30 @@ public class DTEMakers {
         // Do NOT indent — that can break signatures or add empty lines
         trans.setOutputProperty(OutputKeys.INDENT, "no");
 
+        //root.normalize();
+        //normalizeLineEndings(doc);
+
         // Perform the transformation
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         trans.transform(new DOMSource(doc), new StreamResult(baos));
 
+
+        /*org.apache.xml.security.Init.init();
+
+        //printNode(doc);
+
+        Canonicalizer canon = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+        canon.canonicalizeSubtree(doc, baos2);
+        byte[] canonicalBytes = baos2.toByteArray();*/
+
+        //System.out.println(new String(canonicalBytes, StandardCharsets.ISO_8859_1));
+
         // Convert to string safely, removing only carriage return entities
         String xmlClean = baos.toString("ISO-8859-1")
                 //.replace("&#13;", "")
-                .replaceAll("><", ">\n<");
+                //.replaceAll("><", ">\n<")
+                ;
         //.replaceAll(" standalone=\"no\"","")
         //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
         //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
@@ -1387,7 +2021,7 @@ public class DTEMakers {
         //.replaceAll(" standalone=\"no\"","")
         //.replaceAll("</Signature>\n" + "</DTE>","</Signature></DTE>");
         //.replaceAll("[ \\t]+\\r\\n", ""); // only remove encoded CRs
-        System.out.println(xmlClean);
+        //System.out.println(xmlClean);
         // Write back to file preserving your indentation
         Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
     }

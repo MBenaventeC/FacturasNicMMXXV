@@ -66,6 +66,7 @@ public class FRMT {
         // Sign the canonicalized DD XML
         Signature signature = Signature.getInstance("SHA1withRSA");
         signature.initSign(privateKey);
+        //System.out.println(xmlString);
         signature.update(xmlString.getBytes("ISO-8859-1")); // must match encoding
         byte[] signedBytes = signature.sign();
 
