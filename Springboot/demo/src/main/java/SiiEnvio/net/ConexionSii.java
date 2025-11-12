@@ -51,6 +51,7 @@ import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPPart;
 
+import org.apache.http.client.ClientProtocolException;
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
 // import org.apache.http.HttpEntity;
@@ -83,6 +84,7 @@ import org.xml.sax.SAXException;
 // Consultar de donde provienen los imports 'cl.sii.*'
 import SiiEnvio.generatedClasses.cl.sii.siiDte.GetToken;
 import SiiEnvio.util.GetTokenDocument;
+import SiiEnvio.util.GetTokenSigner;
 import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
 import SiiEnvio.util.RECEPCIONDTEDocument;
@@ -112,22 +114,20 @@ public class ConexionSii {
 
 		req.addNewGetToken().addNewItem().setSemilla(semilla);
 
+
+
 		HashMap<String, String> namespaces = new HashMap<String, String>();
 		namespaces.put("", "http://www.sii.cl/SiiDte");
 		
-		
-		XmlOptions opts = new XmlOptions();
+		//Funcionalidades llevadas a GetTokenDocument
+		// XmlOptions opts = new XmlOptions();
+		// opts = new XmlOptions();
+		// opts.setSaveImplicitNamespaces(namespaces);
+		// opts.setLoadSubstituteNamespaces(namespaces);
+		// opts.setSavePrettyPrint();
+		// opts.setSavePrettyPrintIndent(0);
 
-
-		opts = new XmlOptions();
-		opts.setSaveImplicitNamespaces(namespaces);
-		opts.setLoadSubstituteNamespaces(namespaces);
-		opts.setSavePrettyPrint();
-		opts.setSavePrettyPrintIndent(0);
-
-		req = GetTokenDocument.Factory.parse(req.newInputStream(opts), opts);
-
-		// firmo
+		//firmo
 		req.sign(pKey, cert);
 
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
@@ -147,11 +147,14 @@ public class ConexionSii {
 
 		SOAPElement toKsymbol = gltp.addChildElement(toKname);
 
+
+		//Agregar estas funcionalidades a versión sin XMLBeans
 		opts = new XmlOptions();
 		opts.setCharacterEncoding("ISO-8859-1");
 		opts.setSaveImplicitNamespaces(namespaces);
 
 		toKsymbol.addTextNode(req.xmlText(opts));
+		toKsymbol.addTextNode(signedXml);
 
 		message.getMimeHeaders().addHeader("SOAPAction", "");
 

@@ -15,6 +15,13 @@ import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
+import java.util.HashMap;
+
+//Nuevo para reemplazo XMLOptions
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import javax.xml.namespace.QName;
 
 /**
  * Wrapper para GetToken que replica la funcionalidad de GetTokenDocument de XMLBeans
@@ -24,6 +31,7 @@ public class GetTokenDocument {
     private GetToken getToken;
     private PrivateKey privateKey;
     private X509Certificate certificate;
+    private final Map<String,String> namespaces = new HashMap<>();
     
     private GetTokenDocument() {
         this.getToken = new GetToken();
@@ -49,6 +57,8 @@ public class GetTokenDocument {
     public void sign(PrivateKey pKey, X509Certificate cert) throws Exception {
         this.privateKey = pKey;
         this.certificate = cert;
+        namespaces.clear();
+        namespaces.put("", "http://www.sii.cl/SiiDte");
     }
     
     /**
@@ -92,6 +102,10 @@ public class GetTokenDocument {
         Document doc = dbf.newDocumentBuilder().newDocument();
         
         marshaller.marshal(getToken, doc);
+        QName q = new QName(namespaces.getOrDefault("", "http://www.sii.cl/SiiDte"), "getToken");
+        jakarta.xml.bind.JAXBElement<GetToken> jaxb = new jakarta.xml.bind.JAXBElement<>(q, GetToken.class, getToken);
+        marshaller.marshal(jaxb, doc);
+
         
         // 2. Crear firma XML
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
