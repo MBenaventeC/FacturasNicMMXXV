@@ -46,7 +46,7 @@ public class DTEGenerator {
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-22295");
         DTEDefType dte = DTEMakers.makeDTE(documento,null);
         // ...set other fields...
 

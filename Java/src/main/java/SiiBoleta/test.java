@@ -21,7 +21,7 @@ public class test {
         //Genera DTE
         String DTE = DTEGenerator.Generate("DTE");
         //firma DTE
-        String SignedDTE = DTESign.Sign4("signedDTE",DTE,"DTE-34-994321");
+        String SignedDTE = DTESign.Sign4("signedDTE",DTE,"DTE-34-22295");
         //Genera SetDTE vacío
         String SetDTE = SetDTEGenerator.Generate("SetDTE");
         //inserta DTEs y añade a envíoDTE

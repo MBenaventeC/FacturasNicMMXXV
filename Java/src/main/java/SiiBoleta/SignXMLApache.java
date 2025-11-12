@@ -21,6 +21,8 @@ import java.io.*;
 import java.security.Key;
 import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
@@ -206,6 +208,24 @@ public class SignXMLApache {
         System.out.println("✅ Signed XML written to " + outputXml.getAbsolutePath());
     }
 
+    public static Object[] loadKeyAndChainFromPfx(String pfxPath, char[] password) throws Exception {
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        try (FileInputStream fis = new FileInputStream(pfxPath)) {
+            ks.load(fis, password);
+        }
+        String alias = ks.aliases().nextElement();
+
+        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password);
+        // CRUCIAL: Get the entire chain, not just the single cert
+        Certificate[] chain = ks.getCertificateChain(alias);
+
+        if (privateKey == null || chain == null || chain.length == 0) {
+            throw new Exception("No se pudo cargar la clave privada o la cadena de certificados del PFX.");
+        }
+
+        return new Object[]{privateKey, chain};
+    }
+
     public static void signXMLTS(Document doc, File pkcs12File, String keyPassword,String ID) throws Exception {
 
         // Load the keystore (PKCS12)
@@ -220,8 +240,13 @@ public class SignXMLApache {
 
         // Get private key and certificate
         String alias = ks.aliases().nextElement();
-        Key privateKey = ks.getKey(alias, keyPassword.toCharArray());
+        PrivateKey  privateKey = (PrivateKey)ks.getKey(alias, keyPassword.toCharArray());
         X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
+        Certificate[] chain = ks.getCertificateChain(alias);
+
+        //Object[] keyData = loadKeyAndChainFromPfx("Java/certificado.pfx", keyPassword.toCharArray());
+        //PrivateKey privateKey = (PrivateKey) keyData[0];
+        //Certificate[] certChain = (Certificate[]) keyData[1];
 
         org.apache.xml.security.Init.init();
         XMLSignature signature = new XMLSignature(doc, null, XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA1);
@@ -231,8 +256,14 @@ public class SignXMLApache {
         transforms.addTransform(Transforms.TRANSFORM_C14N_OMIT_COMMENTS);
         signature.addDocument("#"+ID, transforms, Constants.ALGO_ID_DIGEST_SHA1);
         doc.getDocumentElement().appendChild(signature.getElement());
+        //PublicKey publicKey = certChain[0].getPublicKey();
         signature.addKeyInfo(cert.getPublicKey());
         signature.addKeyInfo(cert);
+        //for (Certificate cert : certChain) {
+        //    if (cert instanceof X509Certificate) {
+        //        signature.addKeyInfo((X509Certificate) cert);
+        //    }
+        //}
         signature.sign(privateKey);
     }
     public static void saveDocumentToFile(Document document, String outputFilePath)
