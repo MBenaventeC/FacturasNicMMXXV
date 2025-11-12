@@ -90,7 +90,7 @@ public class Utilities {
 		if (prop1 != null)
 			conf1 = ResourceBundle.getBundle(prop1);
 		ResourceBundle conf2 = ResourceBundle
-				.getBundle("cl.nic.dte.resources.Configuration");
+				.getBundle("SiiEnvio.resources.Configuration");
 
 		Locale language;
 		if (conf1 != null && conf1.getString("LOCALE") != null)
@@ -99,13 +99,13 @@ public class Utilities {
     		language = Locale.forLanguageTag(conf2.getString("LOCALE").replace('_', '-'));
 
 		verificationLabels = ResourceBundle.getBundle(
-				"cl.nic.dte.resources.VerifyResults", language);
+				"SiiEnvio.resources.VerifyResults", language);
 
-		netLabels = ResourceBundle.getBundle("cl.nic.dte.resources.Net",
+		netLabels = ResourceBundle.getBundle("SiiEnvio.resources.Net",
 				language);
 
 		exceptions = ResourceBundle.getBundle(
-				"cl.nic.dte.resources.Exceptions", language);
+				"SiiEnvio.resources.Exceptions", language);
 
 		if (conf1 != null && conf1.getString("FECHA_TYPE_FORMAT") != null)
 			fechaFormat = new SimpleDateFormat(conf1

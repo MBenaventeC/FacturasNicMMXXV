@@ -18,6 +18,7 @@ package SiiEnvio.net;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.net.CookieHandler;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -250,11 +251,10 @@ public class ConexionSii2 {
         String rutEmisor = dte.getEncabezado().getEmisor().getRUTEmisor();
         String rutReceptor = dte.getEncabezado().getReceptor().getRUTRecep();
         Integer tipoDTE = dte.getEncabezado().getIdDoc().getTipoDTE().intValue();
-        long folioDTE = dte.getEncabezado().getIdDoc().getFolio();
+        BigInteger folioDTE = dte.getEncabezado().getIdDoc().getFolio();
         String fechaEmision = Utilities.fechaEstadoDte.format(
-            dte.getEncabezado().getIdDoc().getFchEmis().getTime()
-        );
-        long montoTotal = dte.getEncabezado().getTotales().getMntTotal();
+            dte.getEncabezado().getIdDoc().getFchEmis().getTime());
+        BigInteger montoTotal = dte.getEncabezado().getTotales().getMntTotal();
 
         SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
         SOAPConnection con = scFactory.createConnection();
@@ -269,7 +269,6 @@ public class ConexionSii2 {
         Name bodyName = envelope.createName("getEstDte", "m", urlSolicitud);
         SOAPBodyElement gltp = body.addBodyElement(bodyName);
 
-        // ✅ Agregar parámetros al mensaje SOAP
         addSOAPParameter(envelope, gltp, "RutConsultante", 
             rutConsultante.substring(0, rutConsultante.length() - 2));
         addSOAPParameter(envelope, gltp, "DvConsultante", 
@@ -283,9 +282,9 @@ public class ConexionSii2 {
         addSOAPParameter(envelope, gltp, "DvReceptor", 
             rutReceptor.substring(rutReceptor.length() - 1));
         addSOAPParameter(envelope, gltp, "TipoDte", Integer.toString(tipoDTE));
-        addSOAPParameter(envelope, gltp, "FolioDte", Long.toString(folioDTE));
+        addSOAPParameter(envelope, gltp, "FolioDte", folioDTE.toString());
         addSOAPParameter(envelope, gltp, "FechaEmisionDte", fechaEmision);
-        addSOAPParameter(envelope, gltp, "MontoDte", Long.toString(montoTotal));
+        addSOAPParameter(envelope, gltp, "MontoDte", montoTotal.toString());
         addSOAPParameter(envelope, gltp, "Token", token);
 
         message.getMimeHeaders().addHeader("SOAPAction", "");
@@ -296,7 +295,6 @@ public class ConexionSii2 {
         SOAPPart sp = responseSII.getSOAPPart();
         SOAPBody b = sp.getEnvelope().getBody();
 
-        // ✅ Procesar respuesta con JAXB
         for (Iterator<SOAPBodyElement> res = b.getChildElements(
                 sp.getEnvelope().createName("getEstDteResponse", "ns1", urlSolicitud)); 
                 res.hasNext();) {

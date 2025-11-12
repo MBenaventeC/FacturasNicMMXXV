@@ -17,6 +17,7 @@ package SiiEnvio.net;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.CookieHandler;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -84,8 +85,7 @@ import SiiEnvio.generatedClasses.cl.sii.siiDte.GetToken;
 import SiiEnvio.util.GetTokenDocument;
 import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
-//import SiiEnvio.generatedClasses.cl.sii.siiDte.RECEPCIONDTEDocument;
-//import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTADocument;
+import SiiEnvio.util.RECEPCIONDTEDocument;
 import SiiBoleta.DTEDefType.Documento;
 
 public class ConexionSii {
@@ -108,13 +108,16 @@ public class ConexionSii {
 
 		String semilla = getSemilla();
 
-		GetTokenDocument req = GetTokenDocument.Factory.newInstance();
+		GetTokenDocument req = GetTokenDocument.newInstance();
 
 		req.addNewGetToken().addNewItem().setSemilla(semilla);
 
 		HashMap<String, String> namespaces = new HashMap<String, String>();
 		namespaces.put("", "http://www.sii.cl/SiiDte");
+		
+		
 		XmlOptions opts = new XmlOptions();
+
 
 		opts = new XmlOptions();
 		opts.setSaveImplicitNamespaces(namespaces);
@@ -161,7 +164,7 @@ public class ConexionSii {
 		SOAPPart sp = responseSII.getSOAPPart();
 		SOAPBody b = sp.getEnvelope().getBody();
 
-		cl.sii.xmlSchema.RESPUESTADocument resp = null;
+		SiiEnvio.util.RESPUESTADocument resp = null;
 		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
 				.getEnvelope().createName("getTokenResponse", "ns1",
 						urlSolicitud)); res.hasNext();) {
@@ -217,7 +220,7 @@ public class ConexionSii {
 		SOAPPart sp = responseSII.getSOAPPart();
 		SOAPBody b = sp.getEnvelope().getBody();
 
-		cl.sii.xmlSchema.RESPUESTADocument resp = null;
+		SiiEnvio.util.RESPUESTADocument resp = null;
 		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
 				.getEnvelope().createName("getSeedResponse", "ns1",
 						urlSolicitud)); res.hasNext();) {
@@ -295,10 +298,12 @@ public class ConexionSii {
 		String rutReceptor = dte.getEncabezado().getReceptor().getRUTRecep();
 		Integer tipoDTE = dte.getEncabezado().getIdDoc().getTipoDTE()
 				.intValue();
-		long folioDTE = dte.getEncabezado().getIdDoc().getFolio();
+		BigInteger folioDTE = dte.getEncabezado().getIdDoc().getFolio();
+		//No tenemos información acerca del formato de fecha que quieren.
+		//El formato está en configuration.properties que se ocupa en utilities
 		String fechaEmision = Utilities.fechaEstadoDte.format(dte
-				.getEncabezado().getIdDoc().getFchEmis().getTime());
-		long montoTotal = dte.getEncabezado().getTotales().getMntTotal();
+				.getEncabezado().getIdDoc().getFchEmis().toGregorianCalendar().getTime());
+		BigInteger montoTotal = dte.getEncabezado().getTotales().getMntTotal();
 
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection con = scFactory.createConnection();
@@ -348,7 +353,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("FolioDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(Long.toString(folioDTE));
+		toKsymbol.addTextNode(folioDTE.toString());
 
 		toKname = envelope.createName("FechaEmisionDte");
 		toKsymbol = gltp.addChildElement(toKname);
@@ -356,7 +361,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("MontoDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(Long.toString(montoTotal));
+		toKsymbol.addTextNode(montoTotal.toString());
 
 		toKname = envelope.createName("Token");
 		toKsymbol = gltp.addChildElement(toKname);
