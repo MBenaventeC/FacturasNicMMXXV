@@ -17,7 +17,6 @@ package SiiEnvio.net;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.CookieHandler;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -32,12 +31,17 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.math.BigInteger;
 import java.nio.file.Files;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.parsers.ParserConfigurationException;
 //Cambios a jakarta en vez de javax para soap
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.Name;
 import jakarta.xml.soap.SOAPBody;
@@ -51,7 +55,6 @@ import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPPart;
 
-import org.apache.http.client.ClientProtocolException;
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
 // import org.apache.http.HttpEntity;
@@ -83,12 +86,24 @@ import org.xml.sax.SAXException;
 
 // Consultar de donde provienen los imports 'cl.sii.*'
 import SiiEnvio.generatedClasses.cl.sii.siiDte.GetToken;
+import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTA;
 import SiiEnvio.util.GetTokenDocument;
 import SiiEnvio.util.GetTokenSigner;
 import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
 import SiiEnvio.util.RECEPCIONDTEDocument;
+
 import SiiBoleta.DTEDefType.Documento;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
 
 public class ConexionSii {
 
@@ -114,8 +129,6 @@ public class ConexionSii {
 
 		req.addNewGetToken().addNewItem().setSemilla(semilla);
 
-
-
 		HashMap<String, String> namespaces = new HashMap<String, String>();
 		namespaces.put("", "http://www.sii.cl/SiiDte");
 		
@@ -127,7 +140,7 @@ public class ConexionSii {
 		// opts.setSavePrettyPrint();
 		// opts.setSavePrettyPrintIndent(0);
 
-		//firmo
+		// firmo
 		req.sign(pKey, cert);
 
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
@@ -147,8 +160,6 @@ public class ConexionSii {
 
 		SOAPElement toKsymbol = gltp.addChildElement(toKname);
 
-
-		//Agregar estas funcionalidades a versión sin XMLBeans
 		opts = new XmlOptions();
 		opts.setCharacterEncoding("ISO-8859-1");
 		opts.setSaveImplicitNamespaces(namespaces);
@@ -164,34 +175,20 @@ public class ConexionSii {
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
-		SOAPPart sp = responseSII.getSOAPPart();
-		SOAPBody b = sp.getEnvelope().getBody();
-
-		SiiEnvio.util.RESPUESTADocument resp = null;
-		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
-				.getEnvelope().createName("getTokenResponse", "ns1",
-						urlSolicitud)); res.hasNext();) {
-			for (Iterator<SOAPBodyElement> ret = res.next().getChildElements(
-					sp.getEnvelope().createName("getTokenReturn", "ns1",
-							urlSolicitud)); ret.hasNext();) {
-
-				namespaces = new HashMap<String, String>();
-				namespaces.put("", "http://www.sii.cl/XMLSchema");
-				opts.setLoadSubstituteNamespaces(namespaces);
-
-				resp = RESPUESTADocument.Factory.parse(ret.next().getValue(),
-						opts);
-			}
+		// --- Reemplazo para la parte de parsing en getToken() ---
+		Document doc = responseSII.getSOAPBody().extractContentAsDocument();
+		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
+		if (nl != null && nl.getLength() > 0) {
+		    RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
+		    if (respuesta.getRESPHDR().getESTADO() == 0) {
+		        return respuesta.getRESPBODY().getTOKEN();
+		    } else {
+		        throw new ConexionSiiException("No obtuvo Token: Codigo: "
+		            + respuesta.getRESPHDR().getESTADO()
+		            + "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
+		    }
 		}
-
-		if (resp != null && resp.getRESPUESTA().getRESPHDR().getESTADO() == 0) {
-			return resp.getRESPUESTA().getRESPBODY().getTOKEN();
-		} else {
-			throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
-					+ resp.getRESPUESTA().getRESPHDR().getESTADO()
-					+ "; Glosa: " + resp.getRESPUESTA().getRESPHDR().getGLOSA());
-		}
-
+		throw new ConexionSiiException("Respuesta inválida del SII (getToken)");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -220,35 +217,24 @@ public class ConexionSii {
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
-		SOAPPart sp = responseSII.getSOAPPart();
-		SOAPBody b = sp.getEnvelope().getBody();
-
-		SiiEnvio.util.RESPUESTADocument resp = null;
-		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
-				.getEnvelope().createName("getSeedResponse", "ns1",
-						urlSolicitud)); res.hasNext();) {
-			for (Iterator<SOAPBodyElement> ret = res.next().getChildElements(
-					sp.getEnvelope().createName("getSeedReturn", "ns1",
-							urlSolicitud)); ret.hasNext();) {
-
-				HashMap<String, String> namespaces = new HashMap<String, String>();
-				namespaces.put("", "http://www.sii.cl/XMLSchema");
-				XmlOptions opts = new XmlOptions();
-				opts.setLoadSubstituteNamespaces(namespaces);
-
-				resp = RESPUESTADocument.Factory.parse(ret.next().getValue(),
-						opts);
-
-			}
+		// Extraer DOM y unmarshall con JAXB (RESPUESTAType)
+		Document doc = responseSII.getSOAPBody().extractContentAsDocument();
+		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
+		if (nl != null && nl.getLength() > 0) {
+		    try {
+		        RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
+		        if (respuesta.getRESPHDR().getESTADO() == 0) {
+		            return respuesta.getRESPBODY().getSEMILLA();
+		        } else {
+		            throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
+		                    + respuesta.getRESPHDR().getESTADO()
+		                    + "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
+		        }
+		    } catch (JAXBException je) {
+		        throw new XmlException("Error unmarshalling RESPUESTA (semilla): " + je.getMessage(), je);
+		    }
 		}
-
-		if (resp != null && resp.getRESPUESTA().getRESPHDR().getESTADO() == 0) {
-			return resp.getRESPUESTA().getRESPBODY().getSEMILLA();
-		} else {
-			throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
-					+ resp.getRESPUESTA().getRESPHDR().getESTADO()
-					+ "; Glosa: " + resp.getRESPUESTA().getRESPHDR().getGLOSA());
-		}
+		throw new ConexionSiiException("Respuesta inválida del SII (getSemilla)");
 	}
 
 	/**
@@ -299,14 +285,14 @@ public class ConexionSii {
 
 		String rutEmisor = dte.getEncabezado().getEmisor().getRUTEmisor();
 		String rutReceptor = dte.getEncabezado().getReceptor().getRUTRecep();
-		Integer tipoDTE = dte.getEncabezado().getIdDoc().getTipoDTE()
-				.intValue();
-		BigInteger folioDTE = dte.getEncabezado().getIdDoc().getFolio();
-		//No tenemos información acerca del formato de fecha que quieren.
-		//El formato está en configuration.properties que se ocupa en utilities
-		String fechaEmision = Utilities.fechaEstadoDte.format(dte
-				.getEncabezado().getIdDoc().getFchEmis().toGregorianCalendar().getTime());
-		BigInteger montoTotal = dte.getEncabezado().getTotales().getMntTotal();
+		Integer tipoDTE = dte.getEncabezado().getIdDoc().getTipoDTE().intValue();
+		// folio puede venir como BigInteger desde JAXB: manejar null y conversión segura
+		BigInteger folioBI = dte.getEncabezado().getIdDoc().getFolio();
+		long folioDTE = (folioBI == null) ? 0L : folioBI.longValue();
+		String fechaEmision = Utilities.fechaEstadoDte.format(dte.getEncabezado().getIdDoc().getFchEmis().toGregorianCalendar().getTime());
+		// monto total puede ser BigInteger también
+		BigInteger montoBI = dte.getEncabezado().getTotales().getMntTotal();
+		long montoTotal = (montoBI == null) ? 0L : montoBI.longValue();
 
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection con = scFactory.createConnection();
@@ -356,7 +342,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("FolioDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(folioDTE.toString());
+		toKsymbol.addTextNode(Long.toString(folioDTE));
 
 		toKname = envelope.createName("FechaEmisionDte");
 		toKsymbol = gltp.addChildElement(toKname);
@@ -364,7 +350,7 @@ public class ConexionSii {
 
 		toKname = envelope.createName("MontoDte");
 		toKsymbol = gltp.addChildElement(toKname);
-		toKsymbol.addTextNode(montoTotal.toString());
+		toKsymbol.addTextNode(Long.toString(montoTotal));
 
 		toKname = envelope.createName("Token");
 		toKsymbol = gltp.addChildElement(toKname);
@@ -376,28 +362,29 @@ public class ConexionSii {
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
-		SOAPPart sp = responseSII.getSOAPPart();
-		SOAPBody b = sp.getEnvelope().getBody();
-
-		for (Iterator<SOAPBodyElement> res = b.getChildElements(sp
-				.getEnvelope().createName("getEstDteResponse", "ns1",
-						urlSolicitud)); res.hasNext();) {
-			for (Iterator<SOAPBodyElement> ret = res.next().getChildElements(
-					sp.getEnvelope().createName("getEstDteReturn", "ns1",
-							urlSolicitud)); ret.hasNext();) {
+		// Extraer DOM, serializar nodo RESPUESTA a String y parsear con RESPUESTADocument (XMLBeans)
+		Document doc = responseSII.getSOAPBody().extractContentAsDocument();
+		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
+		if (nl != null && nl.getLength() > 0) {
+			try {
+				TransformerFactory tf = TransformerFactory.newInstance();
+				Transformer transformer = tf.newTransformer();
+				StringWriter writer = new StringWriter();
+				transformer.transform(new DOMSource(nl.item(0)), new StreamResult(writer));
+				String respuestaXml = writer.toString();
 
 				HashMap<String, String> namespaces = new HashMap<String, String>();
 				namespaces.put("", "http://www.sii.cl/XMLSchema");
 				XmlOptions opts = new XmlOptions();
 				opts.setLoadSubstituteNamespaces(namespaces);
 
-				return RESPUESTADocument.Factory.parse(ret.next().getValue(),
-						opts);
+				return RESPUESTADocument.Factory.parse(respuestaXml, opts);
+			} catch (TransformerException te) {
+				throw new XmlException("Error transformando DOM a XML: " + te.getMessage(), te);
 			}
 		}
 
 		return null;
-
 	}
 
 	/**
@@ -432,26 +419,24 @@ public class ConexionSii {
 	 * @param archivoEnviarSII
 	 * @param token
 	 * @return
-	 * @throws ClientProtocolException
-	 * @throws ParseException
 	 * @throws IOException
 	 * @throws XmlException
+	 * @throws InterruptedException
 	 */
 	public RECEPCIONDTEDocument uploadEnvioCertificacion(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token)
-			throws ClientProtocolException, ParseException, IOException,
-			XmlException {
-		String urlEnvio = Utilities.netLabels
-				.getString("URL_UPLOAD_CERTIFICACION");
-		String hostEnvio = Utilities.netLabels
-				.getString("HOST_UPLOAD_CERTIFICACION");
-		return uploadEnvio(rutEnvia, rutCompania, archivoEnviarSII, token,
-				urlEnvio, hostEnvio);
-	}
+			throws IOException, XmlException, InterruptedException {          // <- cambiado
+        String urlEnvio = Utilities.netLabels
+                .getString("URL_UPLOAD_CERTIFICACION");
+        String hostEnvio = Utilities.netLabels
+                .getString("HOST_UPLOAD_CERTIFICACION");
+        return uploadEnvio(rutEnvia, rutCompania, archivoEnviarSII, token,
+                urlEnvio, hostEnvio);
+    }
 
 	private RECEPCIONDTEDocument uploadEnvio(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token,
-			String urlEnvio, String hostEnvio) throws IOException, XmlException {
+			String urlEnvio, String hostEnvio) throws IOException, XmlException, InterruptedException { // <- agregado InterruptedException
 
 		// Crear boundary para multipart
 		String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
@@ -514,12 +499,36 @@ public class ConexionSii {
 			XmlOptions opts = new XmlOptions();
 			opts.setLoadSubstituteNamespaces(namespaces);
 
+			// usar el parse que envuelve excepciones de parsing (XmlException/IOException)
 			return RECEPCIONDTEDocument.Factory.parse(response.body(), opts);
-			
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-			throw new IOException("Request interrupted", e);
-		}
+            
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw e; // ya declarado en la firma
+        }
 	}
+
+    // JAXB helper integrado: reutiliza JAXBContext para el paquete generado
+    private static JAXBContext siiJaxbContext;
+
+    private static synchronized JAXBContext getSiiJaxbContext() throws JAXBException {
+        if (siiJaxbContext == null) {
+            // ajustar el package si tu plugin JAXB generó otro
+            siiJaxbContext = JAXBContext.newInstance("SiiEnvio.generatedClasses.cl.sii.siiDte");
+        }
+        return siiJaxbContext;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T unmarshalNode(Node node, Class<T> clazz) throws JAXBException {
+        Unmarshaller un = getSiiJaxbContext().createUnmarshaller();
+        Object obj = un.unmarshal(node); // usar la variante genérica
+        if (obj instanceof JAXBElement) {
+            Object value = ((JAXBElement<?>) obj).getValue();
+            return clazz.cast(value);
+        } else {
+            return clazz.cast(obj);
+        }
+    }
 
 }
