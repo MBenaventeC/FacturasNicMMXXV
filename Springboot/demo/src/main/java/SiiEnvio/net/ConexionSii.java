@@ -30,7 +30,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.math.BigInteger;
 import java.nio.file.Files;
 
@@ -55,6 +54,7 @@ import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPPart;
 
+import org.apache.http.client.ClientProtocolException;
 // Consultar por qué hacen uso de httpClient de Apache y no nativo de Java (desde 11+ es nativo en Java)
 // HTTP
 // import org.apache.http.HttpEntity;
@@ -84,11 +84,8 @@ import org.apache.xmlbeans.XmlOptions;
 // Extensión?
 import org.xml.sax.SAXException;
 
-// Consultar de donde provienen los imports 'cl.sii.*'
-import SiiEnvio.generatedClasses.cl.sii.siiDte.GetToken;
 import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTA;
 import SiiEnvio.util.GetTokenDocument;
-import SiiEnvio.util.GetTokenSigner;
 import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
 import SiiEnvio.util.RECEPCIONDTEDocument;
@@ -118,7 +115,7 @@ public class ConexionSii {
 			InvalidAlgorithmParameterException, KeyException, MarshalException,
 			XMLSignatureException, SAXException, IOException,
 			ParserConfigurationException, XmlException,
-			UnsupportedOperationException, SOAPException, ConexionSiiException {
+			UnsupportedOperationException, SOAPException, ConexionSiiException, Exception {
 
 		String urlSolicitud = Utilities.netLabels
 				.getString("URL_SOLICITUD_TOKEN");
@@ -158,13 +155,14 @@ public class ConexionSii {
 
 		Name toKname = envelope.createName("pszXml");
 
+		// opts = new XmlOptions();
+		// opts.setCharacterEncoding("ISO-8859-1");
+		// opts.setSaveImplicitNamespaces(namespaces);
+
+		// toKsymbol.addTextNode(req.xmlText(opts));
+
 		SOAPElement toKsymbol = gltp.addChildElement(toKname);
-
-		opts = new XmlOptions();
-		opts.setCharacterEncoding("ISO-8859-1");
-		opts.setSaveImplicitNamespaces(namespaces);
-
-		toKsymbol.addTextNode(req.xmlText(opts));
+		String signedXml = req.xmlText();
 		toKsymbol.addTextNode(signedXml);
 
 		message.getMimeHeaders().addHeader("SOAPAction", "");
@@ -362,29 +360,39 @@ public class ConexionSii {
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
-		// Extraer DOM, serializar nodo RESPUESTA a String y parsear con RESPUESTADocument (XMLBeans)
+		// Extraer DOM y buscar RESPUESTA
 		Document doc = responseSII.getSOAPBody().extractContentAsDocument();
+		
+		// Buscar en ambos namespaces posibles
 		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
+		if (nl == null || nl.getLength() == 0) {
+			// Fallback: buscar sin namespace
+			nl = doc.getElementsByTagName("RESPUESTA");
+		}
+		
 		if (nl != null && nl.getLength() > 0) {
 			try {
+				// Serializar nodo a String y parsear con namespace handling
 				TransformerFactory tf = TransformerFactory.newInstance();
 				Transformer transformer = tf.newTransformer();
 				StringWriter writer = new StringWriter();
 				transformer.transform(new DOMSource(nl.item(0)), new StreamResult(writer));
 				String respuestaXml = writer.toString();
-
-				HashMap<String, String> namespaces = new HashMap<String, String>();
+				
+				// Parsear con sustitución de namespace
+				HashMap<String, String> namespaces = new HashMap<>();
 				namespaces.put("", "http://www.sii.cl/XMLSchema");
 				XmlOptions opts = new XmlOptions();
 				opts.setLoadSubstituteNamespaces(namespaces);
-
+				
 				return RESPUESTADocument.Factory.parse(respuestaXml, opts);
-			} catch (TransformerException te) {
-				throw new XmlException("Error transformando DOM a XML: " + te.getMessage(), te);
+				
+			} catch (TransformerException e) {
+				throw new XmlException("Error procesando RESPUESTA (getEstadoDTE): " + e.getMessage(), e);
 			}
 		}
 
-		return null;
+		throw new XmlException("No se encontró elemento RESPUESTA en la respuesta del SII");
 	}
 
 	/**

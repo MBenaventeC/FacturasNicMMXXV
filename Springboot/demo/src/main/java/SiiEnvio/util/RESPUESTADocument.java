@@ -1,122 +1,90 @@
 package SiiEnvio.util;
-import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTA;
 
-import org.apache.xmlbeans.*;
-import org.apache.xmlbeans.impl.values.XmlComplexContentImpl;
-import javax.xml.namespace.QName;
+import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTA;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlOptions;
 import java.io.*;
 
 /**
- * Documento wrapper para RESPUESTA usando XMLBeans
+ * Wrapper para RESPUESTA compatible con XMLBeans API pero usando JAXB internamente
+ * Basado en el patrón de GetTokenDocument
  */
-public interface RESPUESTADocument extends XmlObject {
+public class RESPUESTADocument {
     
-    public static final SchemaType type = (SchemaType) XmlBeans.typeSystemForClassLoader(
-        RESPUESTADocument.class.getClassLoader(), 
-        "schemaorg_apache_xmlbeans.system.sXMLSCHEMA"
-    ).resolveHandle("respuesta");
+    private RESPUESTA respuesta;
 
     /**
      * Obtiene el elemento RESPUESTA
      */
-    RESPUESTA getRESPUESTA();
-    
+    public RESPUESTA getRESPUESTA() {
+        return respuesta;
+    }
+
     /**
      * Define el elemento RESPUESTA
      */
-    void setRESPUESTA(RESPUESTA respuesta);
-    
-    /**
-     * Añade un nuevo elemento RESPUESTA
-     */
-    RESPUESTA addNewRESPUESTA();
+    public void setRESPUESTA(RESPUESTA respuesta) {
+        this.respuesta = respuesta;
+    }
 
     /**
-     * Clase Factory para crear instancias
+     * Clase Factory para mantener compatibilidad con XMLBeans
      */
-    public static final class Factory {
+    public static class Factory {
         
-        private static final QName RESPUESTA_QNAME = new QName(
-            "http://www.sii.cl/XMLSchema", 
-            "RESPUESTA"
-        );
+        private static JAXBContext jaxbContext;
+        
+        static {
+            try {
+                jaxbContext = JAXBContext.newInstance(RESPUESTA.class);
+            } catch (JAXBException e) {
+                throw new RuntimeException("Error inicializando JAXB para RESPUESTA", e);
+            }
+        }
 
         /**
-         * Crea una nueva instancia vacía
+         * Crea nueva instancia vacía
          */
         public static RESPUESTADocument newInstance() {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().newInstance(
-                type, 
-                null
-            );
+            RESPUESTADocument doc = new RESPUESTADocument();
+            doc.setRESPUESTA(new RESPUESTA());
+            return doc;
         }
 
         /**
-         * Crea una nueva instancia con opciones
-         */
-        public static RESPUESTADocument newInstance(XmlOptions options) {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().newInstance(
-                type, 
-                options
-            );
-        }
-
-        /**
-         * Parsea desde String
+         * Parsea desde String (ignora XmlOptions para compatibilidad)
          */
         public static RESPUESTADocument parse(String xmlAsString) throws XmlException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                xmlAsString, 
-                type, 
-                null
-            );
+            return parse(xmlAsString, null);
         }
 
         /**
-         * Parsea desde String con opciones
+         * Parsea desde String con opciones XMLBeans
          */
         public static RESPUESTADocument parse(String xmlAsString, XmlOptions options) 
                 throws XmlException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                xmlAsString, 
-                type, 
-                options
-            );
-        }
+            try {
+                // Limpiar el XML de posibles caracteres problemáticos
+                String cleanXml = xmlAsString
+                    .replaceAll("&#13;", "")
+                    .replaceAll("&#10;", "")
+                    .trim();
 
-        /**
-         * Parsea desde File
-         */
-        public static RESPUESTADocument parse(File file) throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                file, 
-                type, 
-                null
-            );
-        }
-
-        /**
-         * Parsea desde File con opciones
-         */
-        public static RESPUESTADocument parse(File file, XmlOptions options) 
-                throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                file, 
-                type, 
-                options
-            );
-        }
-
-        /**
-         * Parsea desde InputStream
-         */
-        public static RESPUESTADocument parse(InputStream is) 
-                throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                is, 
-                type, 
-                null
-            );
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                StringReader reader = new StringReader(cleanXml);
+                
+                RESPUESTA respuesta = (RESPUESTA) unmarshaller.unmarshal(reader);
+                
+                RESPUESTADocument doc = new RESPUESTADocument();
+                doc.setRESPUESTA(respuesta);
+                
+                return doc;
+            } catch (JAXBException e) {
+                throw new XmlException("Error parseando XML RESPUESTA: " + e.getMessage(), e);
+            }
         }
 
         /**
@@ -124,100 +92,60 @@ public interface RESPUESTADocument extends XmlObject {
          */
         public static RESPUESTADocument parse(InputStream is, XmlOptions options) 
                 throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                is, 
-                type, 
-                options
-            );
-        }
-
-        /**
-         * Parsea desde Reader
-         */
-        public static RESPUESTADocument parse(Reader r) throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                r, 
-                type, 
-                null
-            );
+            try {
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                RESPUESTA respuesta = (RESPUESTA) unmarshaller.unmarshal(is);
+                
+                RESPUESTADocument doc = new RESPUESTADocument();
+                doc.setRESPUESTA(respuesta);
+                
+                return doc;
+            } catch (JAXBException e) {
+                throw new XmlException("Error parseando XML RESPUESTA: " + e.getMessage(), e);
+            }
         }
 
         /**
          * Parsea desde Reader con opciones
          */
-        public static RESPUESTADocument parse(Reader r, XmlOptions options) 
+        public static RESPUESTADocument parse(Reader reader, XmlOptions options) 
                 throws XmlException, IOException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                r, 
-                type, 
-                options
-            );
-        }
-
-        /**
-         * Parsea desde XMLStreamReader
-         */
-        public static RESPUESTADocument parse(javax.xml.stream.XMLStreamReader sr) 
-                throws XmlException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                sr, 
-                type, 
-                null
-            );
-        }
-
-        /**
-         * Parsea desde XMLStreamReader con opciones
-         */
-        public static RESPUESTADocument parse(javax.xml.stream.XMLStreamReader sr, 
-                XmlOptions options) throws XmlException {
-            return (RESPUESTADocument) XmlBeans.getContextTypeLoader().parse(
-                sr, 
-                type, 
-                options
-            );
+            try {
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                RESPUESTA respuesta = (RESPUESTA) unmarshaller.unmarshal(reader);
+                
+                RESPUESTADocument doc = new RESPUESTADocument();
+                doc.setRESPUESTA(respuesta);
+                
+                return doc;
+            } catch (JAXBException e) {
+                throw new XmlException("Error parseando XML RESPUESTA: " + e.getMessage(), e);
+            }
         }
 
         private Factory() { }
     }
 
     /**
-     * Implementación concreta del documento
+     * Convierte el documento a String XML
      */
-    public static class RESPUESTADocumentImpl extends XmlComplexContentImpl 
-            implements RESPUESTADocument {
-        
-        private static final long serialVersionUID = 1L;
-        
-        private RESPUESTA respuesta;
+    public String xmlText() {
+        return xmlText(null);
+    }
 
-        public RESPUESTADocumentImpl(SchemaType sType) {
-            super(sType);
-        }
-
-        @Override
-        public RESPUESTA getRESPUESTA() {
-            synchronized (monitor()) {
-                check_orphaned();
-                return respuesta;
-            }
-        }
-
-        @Override
-        public void setRESPUESTA(RESPUESTA newRespuesta) {
-            synchronized (monitor()) {
-                check_orphaned();
-                this.respuesta = newRespuesta;
-            }
-        }
-
-        @Override
-        public RESPUESTA addNewRESPUESTA() {
-            synchronized (monitor()) {
-                check_orphaned();
-                this.respuesta = new RESPUESTA();
-                return this.respuesta;
-            }
+    /**
+     * Convierte el documento a String XML con opciones
+     */
+    public String xmlText(XmlOptions options) {
+        try {
+            StringWriter writer = new StringWriter();
+            jakarta.xml.bind.Marshaller marshaller = Factory.jaxbContext.createMarshaller();
+            marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(jakarta.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.marshal(respuesta, writer);
+            return writer.toString();
+        } catch (JAXBException e) {
+            return "<error>Error generando XML: " + e.getMessage() + "</error>";
         }
     }
 }

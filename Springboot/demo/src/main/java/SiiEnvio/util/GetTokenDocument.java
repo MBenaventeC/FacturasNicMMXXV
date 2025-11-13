@@ -14,8 +14,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.util.Collections;
-import java.util.HashMap;
 
 //Nuevo para reemplazo XMLOptions
 import java.util.Collections;
@@ -92,20 +90,34 @@ public class GetTokenDocument {
     }
     
     private String signAndGetXml() throws Exception {
-        // 1. Marshal GetToken a DOM
+        // 1. Marshal GetToken a DOM usando namespace mapping similar a XmlOptions
         JAXBContext context = JAXBContext.newInstance(GetToken.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true); // sin declaración XML
+        
+        // Intentar establecer NamespacePrefixMapper (si la impl. de JAXB lo soporta)
+        try {
+            marshaller.setProperty("org.glassfish.jaxb.namespacePrefixMapper",
+                new org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper() {
+                    @Override
+                    public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
+                        if ("http://www.sii.cl/SiiDte".equals(namespaceUri)) return "";
+                        if ("http://www.w3.org/2000/09/xmldsig#".equals(namespaceUri)) return "ds";
+                        return suggestion;
+                    }
+                });
+        } catch (Exception pe) {
+            // ignorar si no soporta
+        }
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         Document doc = dbf.newDocumentBuilder().newDocument();
         
-        marshaller.marshal(getToken, doc);
         QName q = new QName(namespaces.getOrDefault("", "http://www.sii.cl/SiiDte"), "getToken");
         jakarta.xml.bind.JAXBElement<GetToken> jaxb = new jakarta.xml.bind.JAXBElement<>(q, GetToken.class, getToken);
         marshaller.marshal(jaxb, doc);
-
         
         // 2. Crear firma XML
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
@@ -138,10 +150,12 @@ public class GetTokenDocument {
         XMLSignature signature = fac.newXMLSignature(si, ki);
         signature.sign(dsc);
         
-        // 4. Convertir a String
+        // 4. Convertir a String con encoding ISO-8859-1
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
-        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes"); // sin <?xml...?>
+        trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+        trans.setOutputProperty(OutputKeys.INDENT, "no"); // sin pretty-print
         
         StringWriter sw = new StringWriter();
         trans.transform(new DOMSource(doc), new StreamResult(sw));

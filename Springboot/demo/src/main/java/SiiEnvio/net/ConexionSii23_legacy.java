@@ -95,7 +95,7 @@ import SiiEnvio.util.Utilities;
 //import SiiEnvio.generatedClasses.cl.sii.siiDte.RESPUESTADocument;
 import SiiBoleta.DTEDefType.Documento;
 
-public class ConexionSii23 {
+public class ConexionSii23_legacy {
 
 	public boolean autentifica(PrivateKey pKey) {
 

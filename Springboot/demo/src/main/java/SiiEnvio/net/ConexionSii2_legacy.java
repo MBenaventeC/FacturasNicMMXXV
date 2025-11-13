@@ -69,7 +69,7 @@ import SiiEnvio.util.RESPUESTADocument;
 import SiiEnvio.util.Utilities;
 import SiiBoleta.DTEDefType.Documento;
 
-public class ConexionSii2 {
+public class ConexionSii2_legacy {
 
     public boolean autentifica(PrivateKey pKey) {
         return false;
