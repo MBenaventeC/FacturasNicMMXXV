@@ -90,7 +90,7 @@ public class Utilities {
 		if (prop1 != null)
 			conf1 = ResourceBundle.getBundle(prop1);
 		ResourceBundle conf2 = ResourceBundle
-				.getBundle("SiiEnvio.resources.Configuration");
+				.getBundle("Configuration");
 
 		Locale language;
 		if (conf1 != null && conf1.getString("LOCALE") != null)
@@ -99,13 +99,13 @@ public class Utilities {
     		language = Locale.forLanguageTag(conf2.getString("LOCALE").replace('_', '-'));
 
 		verificationLabels = ResourceBundle.getBundle(
-				"SiiEnvio.resources.VerifyResults", language);
+				"VerifyResults", language);
 
-		netLabels = ResourceBundle.getBundle("SiiEnvio.resources.Net",
+		netLabels = ResourceBundle.getBundle("Net",
 				language);
 
 		exceptions = ResourceBundle.getBundle(
-				"SiiEnvio.resources.Exceptions", language);
+				"Exceptions", language);
 
 		if (conf1 != null && conf1.getString("FECHA_TYPE_FORMAT") != null)
 			fechaFormat = new SimpleDateFormat(conf1
@@ -190,7 +190,7 @@ public class Utilities {
 			throws NoSuchAlgorithmException {
 
 		ResourceBundle labels = ResourceBundle
-				.getBundle("cl.nic.dte.resources.Exceptions");
+				.getBundle("Exceptions");
 
 		if (!pubKey.getAlgorithm().equals(prvKey.getAlgorithm()))
 			return false;

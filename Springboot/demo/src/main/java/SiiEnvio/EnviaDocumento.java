@@ -47,6 +47,8 @@ public class EnviaDocumento {
         options.addOption("s", "password", true, "Contraseña del certificado");
         options.addOption("f", "compania", true, "RUT compañía");
 
+        System.out.println("Checkpoint 1");
+
         // Parsear argumentos
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
@@ -58,6 +60,8 @@ public class EnviaDocumento {
             System.exit(2);
             return;
         }
+
+        System.out.println("Checkpoint 2");
 
         String certS = cmd.getOptionValue("c");
         String passS = cmd.getOptionValue("s");
@@ -77,6 +81,8 @@ public class EnviaDocumento {
 
         ConexionSii con = new ConexionSii();
 
+        System.out.println("Checkpoint 3");
+
         // leo certificado y llave privada del archivo pkcs12
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(certS), passS.toCharArray());
@@ -84,10 +90,17 @@ public class EnviaDocumento {
         System.out.println("Usando certificado " + alias
                 + " del archivo PKCS12: " + certS);
 
+
+        System.out.println("Checkpoint 4");
+
         X509Certificate x509 = (X509Certificate) ks.getCertificate(alias);
         PrivateKey pKey = (PrivateKey) ks.getKey(alias, passS.toCharArray());
 
+        System.out.println("Checkpoint 5");
+
         String token = con.getToken(pKey, x509);
+
+        System.out.println("Checkpoint 6");
 
         System.out.println("Token: " + token);
         

@@ -192,11 +192,12 @@ public class ConexionSii {
 	@SuppressWarnings("unchecked")
 	private String getSemilla() throws UnsupportedOperationException,
 			SOAPException, IOException, XmlException, ConexionSiiException {
+				
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection con = scFactory.createConnection();
 		MessageFactory factory = MessageFactory.newInstance();
 		SOAPMessage message = factory.createMessage();
-		SOAPPart soapPart = message.getSOAPPart();
+		SOAPPart soapPart = message.getSOAPPart(); //
 		SOAPEnvelope envelope = soapPart.getEnvelope();
 		SOAPHeader header = envelope.getHeader();
 		SOAPBody body = envelope.getBody();
