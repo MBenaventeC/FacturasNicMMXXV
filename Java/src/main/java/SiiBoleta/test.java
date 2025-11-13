@@ -29,6 +29,8 @@ public class test {
         //Firma envio
         String signedEnv = signEnvio.sign4(envio,"out/signedEnv.xml","EnvDte-63130");
 
-        System.out.println("Envio DTE firmado: "+ signedEnv);
+        String Fixed =  signEnvio.Fix(signedEnv,"signedEnvFixed");
+
+        System.out.println("Envio DTE firmado: "+ Fixed);
     }
 }
