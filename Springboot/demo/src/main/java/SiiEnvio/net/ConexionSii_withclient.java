@@ -15,6 +15,7 @@
 
 package SiiEnvio.net;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.CookieHandler;
@@ -30,12 +31,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.XMLSignatureException;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 //Cambios a jakarta en vez de javax para soap
 import jakarta.xml.bind.JAXBContext;
@@ -103,12 +105,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.xml.sax.InputSource;
-import java.io.StringReader;
-
-public class ConexionSii {
+public class ConexionSii_withclient {
 
 	public boolean autentifica(PrivateKey pKey) {
 
@@ -146,129 +143,52 @@ public class ConexionSii {
 		// firmo
 		req.sign(pKey, cert);
 
+		String PostGetToken = 
+        """
+        <getToken xmlns="%s">
+            <pszXml>%s</pszXml>
+        </getToken>
+        """.formatted(urlSolicitud, req.xmlText());
 
+		HttpClient client = HttpClient.newBuilder().build();
 
-		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
-		SOAPConnection con = scFactory.createConnection();
-		MessageFactory factory = MessageFactory.newInstance();
-		SOAPMessage message = factory.createMessage();
-		SOAPPart soapPart = message.getSOAPPart();
-		SOAPEnvelope envelope = soapPart.getEnvelope();
-		SOAPHeader header = envelope.getHeader();
-		SOAPBody body = envelope.getBody();
-		header.detachNode();
+		HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(urlSolicitud))
+        .header("Content-Type", "text/xml; charset=UTF-8")
+        .POST(HttpRequest.BodyPublishers.ofString(req.xmlText()))
+        .build();
 
-		Name bodyName = envelope.createName("getToken", "m", urlSolicitud);
-		SOAPBodyElement gltp = body.addBodyElement(bodyName);
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		
+		String respuestaXML = response.body();
+		System.out.println("Respuesta SII:");
+		System.out.println(respuestaXML);
 
-		Name toKname = envelope.createName("pszXml");
+		Document doc = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder()
+				.parse(new ByteArrayInputStream(respuestaXML.getBytes(StandardCharsets.UTF_8)));
 
-		// opts = new XmlOptions();
-		// opts.setCharacterEncoding("ISO-8859-1");
-		// opts.setSaveImplicitNamespaces(namespaces);
-
-		// toKsymbol.addTextNode(req.xmlText(opts));
-
-		SOAPElement toKsymbol = gltp.addChildElement(toKname);
-		String signedXml = req.xmlText();
-		toKsymbol.addTextNode(signedXml);
-
-		message.getMimeHeaders().addHeader("SOAPAction", "");
-
-		//URL endpoint = new URL(urlSolicitud);
-		URI uri = URI.create(urlSolicitud);
-		URL endpoint = uri.toURL();
-
-		message.writeTo(System.out);
-
-		SOAPMessage responseSII = con.call(message, endpoint);
-
-		//Mismo que getSemilla pero ahora con getToken para parsear la respuesta
-		SOAPBody responseBody = responseSII.getSOAPBody();
-		Iterator<?> it = responseBody.getChildElements();
-		String xmlResponse = null;
-		while (it.hasNext()) {
-			Object obj = it.next();
-			if (obj instanceof SOAPBodyElement) {
-				SOAPBodyElement element = (SOAPBodyElement) obj;
-				
-				// Buscar getSeedReturn
-				Iterator<?> children = element.getChildElements();
-				while (children.hasNext()) {
-					Object child = children.next();
-					if (child instanceof SOAPElement) {
-						SOAPElement returnElement = (SOAPElement) child;
-						
-						// Obtener el valor de texto (el XML escapado)
-						xmlResponse = returnElement.getValue();
-						System.out.println("\n===== XML Extraído (getToken)=====");
-						System.out.println(xmlResponse);
-						System.out.println("========================\n");
-						break;
-					}
-				}
-			}
-			if (xmlResponse != null) break;
-		}
-
-		if (xmlResponse == null || xmlResponse.isEmpty()) {
-			throw new ConexionSiiException("No se encontró contenido en getSeedReturn");
-		}
-
-		String cleanXml = xmlResponse
-        	.replaceAll("<SII:", "<")
-        	.replaceAll("</SII:", "</")
-        	.replaceAll("xmlns:SII=\"http://www.sii.cl/XMLSchema\"", "xmlns=\"http://www.sii.cl/XMLSchema\"");
-
-		//Intento parseo XML a DOM
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		dbf.setNamespaceAware(true);
-		Document doc;
-		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			doc = db.parse(new InputSource(new StringReader(cleanXml)));
-		} catch (ParserConfigurationException | SAXException e) {
-			throw new XmlException("Error parseando XML de respuesta: " + e.getMessage(), e);
-		}	
 		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
 
 		if (nl != null && nl.getLength() > 0) {
-			try{
-				RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
-				if (respuesta.getRESPHDR().getESTADO() == 0) {
-					return respuesta.getRESPBODY().getTOKEN();
-				} else {
-					throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
-							+ respuesta.getRESPHDR().getESTADO()
-							+ "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
-				}
-			} catch (JAXBException je) {
-				throw new XmlException("Error unmarshalling RESPUESTA ((getToken)): " + je.getMessage(), je);
+
+			RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
+
+			if (respuesta.getRESPHDR().getESTADO() == 0) {
+				return respuesta.getRESPBODY().getTOKEN();
+			} else {
+				throw new ConexionSiiException("No obtuvo Token: Codigo: "
+						+ respuesta.getRESPHDR().getESTADO()
+						+ "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
 			}
 		}
-		System.out.println("Checkpoint 16 (getToken)");
 		throw new ConexionSiiException("Respuesta inválida del SII (getToken)");
-
-		// // --- Reemplazo para la parte de parsing en getToken() ---
-		// Document doc = responseSII.getSOAPBody().extractContentAsDocument();
-		// NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
-		// if (nl != null && nl.getLength() > 0) {
-		//     RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
-		//     if (respuesta.getRESPHDR().getESTADO() == 0) {
-		//         return respuesta.getRESPBODY().getTOKEN();
-		//     } else {
-		//         throw new ConexionSiiException("No obtuvo Token: Codigo: "
-		//             + respuesta.getRESPHDR().getESTADO()
-		//             + "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
-		//     }
-		// }
-		// throw new ConexionSiiException("Respuesta invalida del SII (getToken)");
 	}
 
 	@SuppressWarnings("unchecked")
 	private String getSemilla() throws UnsupportedOperationException,
 			SOAPException, IOException, XmlException, ConexionSiiException {
-		
+				
 		SOAPConnectionFactory scFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection con = scFactory.createConnection();
 		MessageFactory factory = MessageFactory.newInstance();
@@ -283,87 +203,35 @@ public class ConexionSii {
 				.getString("URL_SOLICITUD_SEMILLA");
 
 		Name bodyName = envelope.createName("getSeed", "m", urlSolicitud);
+
 		message.getMimeHeaders().addHeader("SOAPAction", "");
+
 		body.addBodyElement(bodyName);
-		
-		//URL endpoint = new URL(urlSolicitud);
-		URI uri = URI.create(urlSolicitud);
-		URL endpoint = uri.toURL();
+
+		URL endpoint = new URL(urlSolicitud);
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
-		// Antiguo: Extraer DOM y unmarshall con JAXB (RESPUESTAType)
-		//Document doc = responseSII.getSOAPBody().extractContentAsDocument();
-		//NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
-		
-		//Buscamos seed
-		SOAPBody responseBody = responseSII.getSOAPBody();
-		Iterator<?> it = responseBody.getChildElements();
-		String xmlResponse = null;
-		while (it.hasNext()) {
-			Object obj = it.next();
-			if (obj instanceof SOAPBodyElement) {
-				SOAPBodyElement element = (SOAPBodyElement) obj;
-				
-				// Buscar getSeedReturn
-				Iterator<?> children = element.getChildElements();
-				while (children.hasNext()) {
-					Object child = children.next();
-					if (child instanceof SOAPElement) {
-						SOAPElement returnElement = (SOAPElement) child;
-						
-						// Obtener el valor de texto (el XML escapado)
-						xmlResponse = returnElement.getValue();
-						System.out.println("\n===== XML Extraído =====");
-						System.out.println(xmlResponse);
-						System.out.println("========================\n");
-						break;
-					}
-				}
-			}
-			if (xmlResponse != null) break;
-		}
-
-		if (xmlResponse == null || xmlResponse.isEmpty()) {
-			throw new ConexionSiiException("No se encontró contenido en getSeedReturn");
-		}
-
-		String cleanXml = xmlResponse
-        	.replaceAll("<SII:", "<")
-        	.replaceAll("</SII:", "</")
-        	.replaceAll("xmlns:SII=\"http://www.sii.cl/XMLSchema\"", "xmlns=\"http://www.sii.cl/XMLSchema\"");
-
-		//Intento parseo XML a DOM
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		dbf.setNamespaceAware(true);
-		Document doc;
-		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			doc = db.parse(new InputSource(new StringReader(cleanXml)));
-		} catch (ParserConfigurationException | SAXException e) {
-			throw new XmlException("Error parseando XML de respuesta: " + e.getMessage(), e);
-		}	
+		// Extraer DOM y unmarshall con JAXB (RESPUESTAType)
+		Document doc = responseSII.getSOAPBody().extractContentAsDocument();
 		NodeList nl = doc.getElementsByTagNameNS("http://www.sii.cl/XMLSchema", "RESPUESTA");
-
 		if (nl != null && nl.getLength() > 0) {
-			try{
-				RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
-				if (respuesta.getRESPHDR().getESTADO() == 0) {
-					System.out.println(respuesta.getRESPBODY().getSEMILLA());
-					return respuesta.getRESPBODY().getSEMILLA();
-				} else {
-					throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
-							+ respuesta.getRESPHDR().getESTADO()
-							+ "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
-				}
-			} catch (JAXBException je) {
-				throw new XmlException("Error unmarshalling RESPUESTA (semilla): " + je.getMessage(), je);
-			}
+		    try {
+		        RESPUESTA respuesta = unmarshalNode(nl.item(0), RESPUESTA.class);
+		        if (respuesta.getRESPHDR().getESTADO() == 0) {
+		            return respuesta.getRESPBODY().getSEMILLA();
+		        } else {
+		            throw new ConexionSiiException("No obtuvo Semilla: Codigo: "
+		                    + respuesta.getRESPHDR().getESTADO()
+		                    + "; Glosa: " + respuesta.getRESPHDR().getGLOSA());
+		        }
+		    } catch (JAXBException je) {
+		        throw new XmlException("Error unmarshalling RESPUESTA (semilla): " + je.getMessage(), je);
+		    }
 		}
 		throw new ConexionSiiException("Respuesta inválida del SII (getSemilla)");
 	}
 
-	
 	/**
 	 * Consulta el estado de un DTE en el ambiente de produccion del SII
 	 * 
@@ -485,9 +353,7 @@ public class ConexionSii {
 
 		message.getMimeHeaders().addHeader("SOAPAction", "");
 
-		//URL endpoint = new URL(urlSolicitud);
-		URI uri = URI.create(urlSolicitud);
-		URL endpoint = uri.toURL();
+		URL endpoint = new URL(urlSolicitud);
 
 		SOAPMessage responseSII = con.call(message, endpoint);
 
@@ -607,8 +473,7 @@ public class ConexionSii {
 		multipartBody.append("Content-Type: application/xml\r\n\r\n");
 		
 		// Leer contenido del archivo
-		String fileContent = Files.readString(archivoEnviarSII.toPath(), 
-        java.nio.charset.StandardCharsets.ISO_8859_1);
+		String fileContent = Files.readString(archivoEnviarSII.toPath());
 		multipartBody.append(fileContent).append("\r\n");
 		
 		// Cerrar multipart
@@ -616,7 +481,7 @@ public class ConexionSii {
 
 		// Crear HTTP Client
 		HttpClient client = HttpClient.newBuilder()
-			.cookieHandler(new java.net.CookieManager())
+			.cookieHandler(CookieHandler.getDefault())
 			.build();
 
 		// Crear request
@@ -633,12 +498,6 @@ public class ConexionSii {
 			HttpResponse<String> response = client.send(request, 
 				HttpResponse.BodyHandlers.ofString());
 
-			String cleanedResponse = response.body()
-            .trim()
-            .replaceAll("&#13;", "")
-            .replaceAll("&#10;", "");
-			
-
 			// Parsear respuesta
 			HashMap<String, String> namespaces = new HashMap<>();
 			namespaces.put("", "http://www.sii.cl/SiiDte");
@@ -646,18 +505,11 @@ public class ConexionSii {
 			opts.setLoadSubstituteNamespaces(namespaces);
 
 			// usar el parse que envuelve excepciones de parsing (XmlException/IOException)
-			//Aqui falla ahora
-			try {
-				return RECEPCIONDTEDocument.Factory.parse(cleanedResponse, opts);
-			} catch (XmlException xe) {
-				System.err.println("Error parseando RECEPCIONDTE:");
-				System.err.println("XML recibido:\n" + cleanedResponse);
-				xe.printStackTrace();
-				throw new XmlException("Error parseando respuesta del SII: " + xe.getMessage(), xe);
-			}
+			return RECEPCIONDTEDocument.Factory.parse(response.body(), opts);
+            
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw e;
+            throw e; // ya declarado en la firma
         }
 	}
 

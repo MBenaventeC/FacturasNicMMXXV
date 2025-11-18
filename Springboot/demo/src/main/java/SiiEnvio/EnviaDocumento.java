@@ -103,11 +103,18 @@ public class EnviaDocumento {
         System.out.println("Checkpoint 6");
 
         System.out.println("Token: " + token);
+
+        /// AQUI VOY
         
         String enviadorS = Utilities.getRutFromCertificate(x509);
+        
+        System.out.println(enviadorS);
+        System.out.println("Checkpoint 7");
 
         RECEPCIONDTEDocument recp = con.uploadEnvioCertificacion(enviadorS, compaS,
                 new File(otherArgs[0]), token);
+
+        System.out.println("Checkpoint 8");
 
         System.out.println(recp.xmlText());
 
