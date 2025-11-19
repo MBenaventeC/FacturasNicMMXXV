@@ -269,8 +269,8 @@ public class DTEMakers {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
         documento.initializeDetalle();
-        for (int i = 0; i < detalles.length(); i++) {
-            documento.addDetalle(detalles(i));
+        for (int i = 0; i < detalles.size(); i++) {
+            documento.addDetalle(detalles.get(i));
         }
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);

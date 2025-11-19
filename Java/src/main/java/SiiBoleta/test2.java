@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class test2 {
@@ -24,23 +25,21 @@ public class test2 {
         //signEnvio.main(args);
     }
 
-    public static JSONArray leerJsonArray(String ruta) throws Exception {
-        String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
-        return new JSONArray(contenido);
-    }
-
     public static void main(String[] args) throws Exception {
         //Encuentra la ruta al template (o archivo Json con el contenido del documento)
-        String jsonRuta = Files.readString(Paths.get("jsonTemplate.json"));
+        String contenido = Files.readString(Paths.get("Java/jsonTemplate.json"));
+        JSONObject root = new JSONObject(contenido);
+
         //Lee el archivo como un Array Json
-        JSONArray arrayJson = leerJsonArray(jsonRuta);
+        JSONArray dtes = root.getJSONArray("DTEs");
+
         //Genera SetDTE vacío
         Document SetDTE = SetDTEGenerator.Generate2("SetDTE");
         //Iteramos por cada DTE
-        for (int i = 0; i < arrayJson.length(); i++) {
-            JSONObject jsonDoc = arrayJson.getJSONObject(i);
+        for (int i = 0; i < dtes.length(); i++) {
+            JSONObject jsonDoc = dtes.getJSONObject(i);
             //Genera DTE
-            Document DTE = DTEGenerator2.Generate("DTE",jsonDoc);
+            Document DTE = DTEGenerator2.Generate("DTE",jsonDoc, "Java/FoliosSII609100003422295202510171815.xml");
             //firma DTE
             DTESign.Sign3("signedDTE",DTE);
             //inserta DTEs y añade a envíoDTE

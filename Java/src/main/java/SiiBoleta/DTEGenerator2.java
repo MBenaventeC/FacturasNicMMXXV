@@ -26,9 +26,9 @@ public class DTEGenerator2 {
     public static void main(String[] args) throws Exception {
         String ruta= Files.readString(Paths.get("jsonTemplate.json"));
         String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
-        Generate("TEST",new JSONObject(contenido));
+        Generate("TEST",new JSONObject(contenido), "Java/FoliosSII609100003422295202510171815.xml");
     }
-    public static Document Generate(String name, JSONObject jsonDoc) throws Exception {
+    public static Document Generate(String name, JSONObject jsonDoc, String cafPath) throws Exception {
         // 1. Create and populate your object
         JSONObject idoc = jsonDoc.getJSONObject("documento");
         int tipoDoc = idoc.getInt("tipoDocumento");
@@ -66,14 +66,15 @@ public class DTEGenerator2 {
         DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
 
         JSONArray detallesJson = jsonDoc.getJSONArray("detalles");
-        JSONObject detalleJson = detallesJson.getJSONObject(1);
+        System.out.println(detallesJson);
+        JSONObject detalleJson = detallesJson.getJSONObject(0); // El primero es 0
         String IT1 = detalleJson.getString("nmbItem");
         List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
         //DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
+        File cafFile = new File(cafPath);
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
