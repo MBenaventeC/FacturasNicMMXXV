@@ -576,7 +576,7 @@ public class ConexionSii {
 	private RECEPCIONDTEDocument uploadEnvio(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token,
 			String urlEnvio, String hostEnvio) throws IOException, XmlException, InterruptedException { // <- agregado InterruptedException
-
+		
 		// Crear boundary para multipart
 		String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
 		
@@ -620,13 +620,24 @@ public class ConexionSii {
 			.build();
 
 		// Crear request
+		// HttpRequest request = HttpRequest.newBuilder()
+		// 	.uri(URI.create(urlEnvio))
+		// 	.header("Content-Type", "multipart/form-data; boundary=" + boundary + "; charset=ISO-8859-1")
+		// 	.header("Cookie", "TOKEN=" + token)
+		// 	.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
+		// 	.POST(HttpRequest.BodyPublishers.ofString(
+		// 		multipartBody.toString(), 
+		// 		java.nio.charset.StandardCharsets.ISO_8859_1  // ← AGREGAR CHARSET
+		// 	))
+		// 	.build();
+		
 		HttpRequest request = HttpRequest.newBuilder()
-			.uri(URI.create(urlEnvio))
-			.header("Content-Type", "multipart/form-data; boundary=" + boundary)
-			.header("Cookie", "TOKEN=" + token)
-			.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
-			.POST(HttpRequest.BodyPublishers.ofString(multipartBody.toString()))
-			.build();
+		 	.uri(URI.create(urlEnvio))
+		 	.header("Content-Type", "multipart/form-data; boundary=" + boundary)
+		 	.header("Cookie", "TOKEN=" + token)
+		 	.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
+		 	.POST(HttpRequest.BodyPublishers.ofString(multipartBody.toString()))
+		 	.build();
 
 		try {
 			// Enviar request
@@ -634,10 +645,11 @@ public class ConexionSii {
 				HttpResponse.BodyHandlers.ofString());
 
 			String cleanedResponse = response.body()
-            .trim()
-            .replaceAll("&#13;", "")
-            .replaceAll("&#10;", "");
-			
+			.trim()
+			.replaceAll("&#13;", "")
+			.replaceAll("&#10;", "")
+			.replaceAll("<RECEPCIONDTE>", "<RECEPCIONDTE xmlns=\"http://www.sii.cl/SiiDte\">");
+					
 
 			// Parsear respuesta
 			HashMap<String, String> namespaces = new HashMap<>();
