@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestEscapeXml",
+            "request": "launch",
+            "mainClass": "TestEscapeXml",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Debug generatePDFclass",
             "request": "launch",
             "mainClass": "SiiPDF.Utilities.generatePDFclass",

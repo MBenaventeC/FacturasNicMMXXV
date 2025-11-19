@@ -57,6 +57,9 @@ import org.w3c.dom.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class DTEMakers {
 
@@ -84,7 +87,8 @@ public class DTEMakers {
      * @throws DatatypeConfigurationException
      */
     public static DTEDefType.Documento.Encabezado.IdDoc makeIdDoc
-            (int folio,
+            (int tipoDoc,
+             int folio,
              int indServicio,
              int fmaPago,
              MedioPagoType medioPago
@@ -105,7 +109,7 @@ public class DTEMakers {
          * - 112 for "Export Credit Note"
          */
         // Sii DTE Document Type set to 34, representing a 'Factura Exenta' or an 'Electronic Tax-Exempt Invoice'
-        idDoc.setTipoDTE(new BigInteger("34"));
+        idDoc.setTipoDTE(BigInteger.valueOf(tipoDoc));
 
         // @params folio
         idDoc.setFolio(BigInteger.valueOf(folio));
@@ -231,21 +235,43 @@ public class DTEMakers {
     public static DTEDefType.Documento.Detalle makeDetalle(
             int nroLinDet,
             String nmbItem,
+            int qtyItem,
             double prcItem){
         DTEDefType.Documento.Detalle detalle = new DTEDefType.Documento.Detalle();
         detalle.setNroLinDet(nroLinDet); //Cantidad de lineas de detalle x es el numero de esta linea en especifico
         detalle.setNmbItem("dominio "+nmbItem); //Nombre del dominio, debe empezar por "dominio "
-        detalle.setQtyItem(BigDecimal.valueOf(1));// cantidad del item
+        detalle.setQtyItem(BigDecimal.valueOf(qtyItem));// cantidad del item
         detalle.setPrcItem(BigDecimal.valueOf(prcItem));// precio del item
-        detalle.setMontoItem(BigDecimal.valueOf(1).multiply(BigDecimal.valueOf(prcItem)).toBigInteger());//qty*prc
+        detalle.setMontoItem(BigDecimal.valueOf(qtyItem).multiply(BigDecimal.valueOf(prcItem)).toBigInteger());//qty*prc
         return detalle;
     }
 
-    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, DTEDefType.Documento.Detalle detalle,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
+    /** Idea: Add n detalles to < Detalle > section, from a JSON Array
+     * @param detallesJson JSON Array containing n detalles values
+     * @return List of Detalle objects
+     */
+    public static List<DTEDefType.Documento.Detalle> makeDetalles(JSONArray detallesJson) {
+        List<DTEDefType.Documento.Detalle> detalles = new ArrayList<>();
+        for (int i = 0; i < detallesJson.length(); i++) {
+            JSONObject detalleJson = detallesJson.getJSONObject(i);
+            int nroLinDet = i+1;
+            String nmbItem = detalleJson.getString("nmbItem");
+            int qtyItem = detalleJson.getInt("qtyItem");
+            double prcItem = detalleJson.getDouble("prcItem");
+
+            DTEDefType.Documento.Detalle detalle = makeDetalle(nroLinDet, nmbItem, qtyItem, prcItem);
+            detalles.add(detalle);
+        }
+        return detalles;
+    }
+
+    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, List<DTEDefType.Documento.Detalle> detalles,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
         documento.initializeDetalle();
-        documento.addDetalle(detalle);
+        for (int i = 0; i < detalles.length(); i++) {
+            documento.addDetalle(detalles(i));
+        }
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);

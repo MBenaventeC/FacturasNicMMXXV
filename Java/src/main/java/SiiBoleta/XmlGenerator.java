@@ -362,7 +362,7 @@ public class XmlGenerator {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
         subTotDTEList.add(subTot);
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20848882-1","60803000-K",0,subTotDTEList);
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("19791396-6","60803000-K",0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
         EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,null);

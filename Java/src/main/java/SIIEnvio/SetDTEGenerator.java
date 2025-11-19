@@ -111,6 +111,10 @@ public class SetDTEGenerator {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
         subTotDTEList.add(subTot);
+        /** Reemplazar: 1-rutReceptor, 2-rutEnvia
+         * 1) 60803000-k -> 12345678-9
+         * 2) 20445188-5 -> rut personal.
+         * */
         EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20445188-5","60803000-K",0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"EnvDte-63130");

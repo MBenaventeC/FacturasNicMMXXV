@@ -60,7 +60,9 @@ public class DTESign {
         String out = "out/"+name+".xml";
         File outputXml = new File(out);
         //GgKBfGF01GXzoUt4ksLpKVNhFkk=
-        SignXMLApache.signXMLTS(in, pkcs12, password,"DTE-34-994321");
+        Element documento = (Element) in.getElementsByTagName("Documento").item(0);
+        String id = documento.getAttribute("ID");
+        SignXMLApache.signXMLTS(in, pkcs12, password,id);
         return ;
     }
     public static String Sign4(String name,String in,String ID) throws Exception {

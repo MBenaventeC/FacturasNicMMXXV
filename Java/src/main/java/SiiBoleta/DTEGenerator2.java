@@ -11,30 +11,72 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class DTEGenerator2 {
     public static void main(String[] args) throws Exception {
-        Generate("TEST");
+        String ruta= Files.readString(Paths.get("jsonTemplate.json"));
+        String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
+        Generate("TEST",new JSONObject(contenido));
     }
-    public static Document Generate(String name) throws Exception {
+    public static Document Generate(String name, JSONObject jsonDoc) throws Exception {
         // 1. Create and populate your object
-        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
+        JSONObject idoc = jsonDoc.getJSONObject("documento");
+        int tipoDoc = idoc.getInt("tipoDocumento");
+        int folio = idoc.getInt("folio");
+        int indSer = idoc.getInt("indServicio");
+        int fmaPago = idoc.getInt("fmaPago");
+        String medioPago = idoc.getString("medioPago");
+        MedioPagoType mdPago = MedioPagoType.fromValue(medioPago);
+        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(tipoDoc,folio,indSer,fmaPago,mdPago);
+
+        JSONObject emi = jsonDoc.getJSONObject("emisor");
+        String rutEm = emi.getString("rutEmisor");
+        String rznEm = emi.getString("rznSoc");
+        String girEm = emi.getString("giroEmis");
+        String suc = emi.getString("sucursal");
+        String dirOr = emi.getString("dirOrigen");
+        String cmnaOr = emi.getString("cmnaOrigen");
+        String ciudadOr = emi.getString("ciudadOrigen");
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
-        DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","HM","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
-        DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
+
+        JSONObject recep = jsonDoc.getJSONObject("receptor");
+        String rutRe = recep.getString("rutReceptor");
+        String rznScR = recep.getString("rznSocRecep");
+        String girRec = recep.getString("giroRecep");
+        String contact = recep.getString("contacto");
+        String dirR = recep.getString("dirRecep");
+        String cmnaR = recep.getString("cmnaRecep");
+        String ciudadR = recep.getString("ciudadRecep");
+        DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor(rutRe,rznScR,girRec,contact,dirR,cmnaR,ciudadR);
+
+
+        JSONObject tot = jsonDoc.getJSONObject("totales");
+        int mnttotal = tot.getInt("montoTotal");
+        DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(mnttotal);
         DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
-        DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
+
+        JSONArray detallesJson = jsonDoc.getJSONArray("detalles");
+        JSONObject detalleJson = detallesJson.getJSONObject(1);
+        String IT1 = detalleJson.getString("nmbItem");
+        List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
+        //DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
         GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,22295,"12345678-9","Hola",100000,"Servicio de Consultoria en TI",cafFromXml);
+        DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
 
 
         //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
@@ -44,7 +86,8 @@ public class DTEGenerator2 {
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
+        String id = name+"-"+tipoDoc+"-"+folio;
+        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalles,ted,id);
         DTEDefType dte = DTEMakers.makeDTE(documento,null);
         // ...set other fields...
 
