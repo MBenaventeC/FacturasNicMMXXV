@@ -23,8 +23,22 @@ import java.security.cert.X509Certificate;
 
 import SiiEnvio.net.ConexionSii;
 import SiiEnvio.util.Utilities;
+import jakarta.xml.bind.JAXBContext;
 import SiiEnvio.util.RECEPCIONDTEDocument;
+import SiiEnvio.util.RESPUESTADocument;
+
 import org.apache.commons.cli.*;
+
+import SiiBoleta.AUTORIZACION;
+import SiiBoleta.DTEDefType;
+import SiiBoleta.DTEMakers;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.io.IOException;
+
+
 
 /**
  * Esta clase se encarga de enviar al SII un archivo XML que cumple con el formato de EnvioDTE. 
@@ -47,8 +61,6 @@ public class EnviaDocumento {
         options.addOption("s", "password", true, "Contraseña del certificado");
         options.addOption("f", "compania", true, "RUT compañía");
 
-        System.out.println("Checkpoint 1");
-
         // Parsear argumentos
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
@@ -60,8 +72,6 @@ public class EnviaDocumento {
             System.exit(2);
             return;
         }
-
-        System.out.println("Checkpoint 2");
 
         String certS = cmd.getOptionValue("c");
         String passS = cmd.getOptionValue("s");
@@ -81,8 +91,6 @@ public class EnviaDocumento {
 
         ConexionSii con = new ConexionSii();
 
-        System.out.println("Checkpoint 3");
-
         // leo certificado y llave privada del archivo pkcs12
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(new FileInputStream(certS), passS.toCharArray());
@@ -90,33 +98,64 @@ public class EnviaDocumento {
         System.out.println("Usando certificado " + alias
                 + " del archivo PKCS12: " + certS);
 
-
-        System.out.println("Checkpoint 4");
-
         X509Certificate x509 = (X509Certificate) ks.getCertificate(alias);
         PrivateKey pKey = (PrivateKey) ks.getKey(alias, passS.toCharArray());
 
-        System.out.println("Checkpoint 5");
-
         String token = con.getToken(pKey, x509);
-
-        System.out.println("Checkpoint 6");
-
         System.out.println("Token: " + token);
 
-        /// AQUI VOY
-        
         String enviadorS = Utilities.getRutFromCertificate(x509);
         
         System.out.println(enviadorS);
-        System.out.println("Checkpoint 7");
 
-        RECEPCIONDTEDocument recp = con.uploadEnvioCertificacion(enviadorS, compaS,
-                new File(otherArgs[0]), token);
+        // Envio con reintento
+        RECEPCIONDTEDocument recp = null;
+        int maxRetries = 3;
+        Exception lastException = null;
 
-        System.out.println("Checkpoint 8");
+        for (int i = 0; i < maxRetries; i++) {
+            try {
+                System.out.println("Intento " + (i + 1) + " de " + maxRetries + "...");
+                
+                // Si es retry, obtener nuevo token
+                if (i > 0) {
+                    System.out.println("Obteniendo nuevo token para retry...");
+                    token = con.getToken(pKey, x509);
+                    System.out.println("Nuevo token: " + token);
+                }
+                
+                recp = con.uploadEnvioCertificacion(enviadorS, compaS,
+                        new File(otherArgs[0]), token);
+                
+                System.out.println("Envio exitoso!");
+                break;  // Éxito, salir del loop
+                
+            } catch (IOException e) {
+                lastException = e;
+                
+                if (i < maxRetries - 1) {
+                    System.err.println("Error en intento " + (i + 1) + ": " + e.getMessage());
+                    System.err.println("Esperando " + (3 * (i + 1)) + " segundos antes de reintentar...");
+                    Thread.sleep(3000 * (i + 1));  // Backoff: 3s, 6s, 9s
+                } else {
+                    System.err.println("Falló después de " + maxRetries + " intentos");
+                    throw e;
+                }
+            }
+        }
+
+        if (recp == null) {
+            throw new Exception("No se pudo enviar el documento al SII después de " + 
+                maxRetries + " intentos", lastException);
+        }
 
         System.out.println(recp.xmlText());
+
+        // List<Object> trackId = recp.getRECEPCIONDTE().getTRACKIDOrDETAIL();
+        // if (trackId.stream().anyMatch(e -> e instanceof Integer)){
+        //     String token2 = con.getToken(pKey, x509);
+        //     RESPUESTADocument estado = getEstadoDTECertificacion("20829287-0"); 
+        // }
 
     }
 

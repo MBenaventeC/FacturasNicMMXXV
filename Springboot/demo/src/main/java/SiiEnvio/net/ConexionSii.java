@@ -580,64 +580,69 @@ public class ConexionSii {
 		// Crear boundary para multipart
 		String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
 		
-		// Construir cuerpo multipart manualmente
-		StringBuilder multipartBody = new StringBuilder();
+		//Reemplazo Multipartbody con ByteArray
+		java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+    	java.nio.charset.Charset charset = java.nio.charset.StandardCharsets.ISO_8859_1;
 		
-		// Agregar campos de texto
-		multipartBody.append("--").append(boundary).append("\r\n");
-		multipartBody.append("Content-Disposition: form-data; name=\"rutSender\"\r\n\r\n");
-		multipartBody.append(rutEnvia.substring(0, rutEnvia.length() - 2)).append("\r\n");
+		//RutSender
+		String field1 = "--" + boundary + "\r\n" +
+                   "Content-Disposition: form-data; name=\"rutSender\"\r\n\r\n" +
+                   rutEnvia.substring(0, rutEnvia.length() - 2) + "\r\n";
+    	baos.write(field1.getBytes(charset));
+		//dvSender
+		String field2 = "--" + boundary + "\r\n" +
+                   "Content-Disposition: form-data; name=\"dvSender\"\r\n\r\n" +
+                   rutEnvia.substring(rutEnvia.length() - 1) + "\r\n";
+    				baos.write(field2.getBytes(charset));
+		//rutCompany
+		String field3 = "--" + boundary + "\r\n" +
+                   "Content-Disposition: form-data; name=\"rutCompany\"\r\n\r\n" +
+                   rutCompania.substring(0, rutCompania.length() - 2) + "\r\n";
+    				baos.write(field3.getBytes(charset));
 		
-		multipartBody.append("--").append(boundary).append("\r\n");
-		multipartBody.append("Content-Disposition: form-data; name=\"dvSender\"\r\n\r\n");
-		multipartBody.append(rutEnvia.substring(rutEnvia.length() - 1)).append("\r\n");
+		//dvCompany
+		String field4 = "--" + boundary + "\r\n" +
+                   "Content-Disposition: form-data; name=\"dvCompany\"\r\n\r\n" +
+                   rutCompania.substring(rutCompania.length() - 1) + "\r\n";
+    				baos.write(field4.getBytes(charset));
 		
-		multipartBody.append("--").append(boundary).append("\r\n");
-		multipartBody.append("Content-Disposition: form-data; name=\"rutCompany\"\r\n\r\n");
-		multipartBody.append(rutCompania.substring(0, rutCompania.length() - 2)).append("\r\n");
-		
-		multipartBody.append("--").append(boundary).append("\r\n");
-		multipartBody.append("Content-Disposition: form-data; name=\"dvCompany\"\r\n\r\n");
-		multipartBody.append(rutCompania.substring(rutCompania.length() - 1)).append("\r\n");
-		
-		// Agregar archivo
-		multipartBody.append("--").append(boundary).append("\r\n");
-		multipartBody.append("Content-Disposition: form-data; name=\"archivo\"; filename=\"")
-					.append(archivoEnviarSII.getName()).append("\"\r\n");
-		multipartBody.append("Content-Type: application/xml\r\n\r\n");
-		
-		// Leer contenido del archivo
-		String fileContent = Files.readString(archivoEnviarSII.toPath(), 
-        java.nio.charset.StandardCharsets.ISO_8859_1);
-		multipartBody.append(fileContent).append("\r\n");
-		
-		// Cerrar multipart
-		multipartBody.append("--").append(boundary).append("--\r\n");
+		//Archivo
+		String fileHeader = "--" + boundary + "\r\n" +
+                       "Content-Disposition: form-data; name=\"archivo\"; filename=\"" +
+                       archivoEnviarSII.getName() + "\"\r\n" +
+                       "Content-Type: application/xml\r\n\r\n";
+    					baos.write(fileHeader.getBytes(charset));
 
+		byte[] fileBytes = Files.readAllBytes(archivoEnviarSII.toPath());
+    	baos.write(fileBytes);
+    	baos.write("\r\n".getBytes(charset));
+		String footer = "--" + boundary + "--\r\n";
+    	baos.write(footer.getBytes(charset));
+		byte[] bodyBytes = baos.toByteArray();
+		
 		// Crear HTTP Client
 		HttpClient client = HttpClient.newBuilder()
 			.cookieHandler(new java.net.CookieManager())
 			.build();
 
 		// Crear request
-		// HttpRequest request = HttpRequest.newBuilder()
-		// 	.uri(URI.create(urlEnvio))
-		// 	.header("Content-Type", "multipart/form-data; boundary=" + boundary + "; charset=ISO-8859-1")
-		// 	.header("Cookie", "TOKEN=" + token)
-		// 	.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
-		// 	.POST(HttpRequest.BodyPublishers.ofString(
-		// 		multipartBody.toString(), 
-		// 		java.nio.charset.StandardCharsets.ISO_8859_1  // ← AGREGAR CHARSET
-		// 	))
-		// 	.build();
-		
 		HttpRequest request = HttpRequest.newBuilder()
 		 	.uri(URI.create(urlEnvio))
 		 	.header("Content-Type", "multipart/form-data; boundary=" + boundary)
-		 	.header("Cookie", "TOKEN=" + token)
+			.header("Cookie", "TOKEN=" + token)
 		 	.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
-		 	.POST(HttpRequest.BodyPublishers.ofString(multipartBody.toString()))
+		 	.header("Accept", "*/*")
+			.POST(HttpRequest.BodyPublishers.ofByteArray(bodyBytes))
+			.timeout(java.time.Duration.ofMinutes(5))
 		 	.build();
+		
+		// HttpRequest request = HttpRequest.newBuilder()
+		//  	.uri(URI.create(urlEnvio))
+		//  	.header("Content-Type", "multipart/form-data; boundary=" + boundary)
+		//  	.header("Cookie", "TOKEN=" + token)
+		//  	.header("User-Agent", Utilities.netLabels.getString("UPLOAD_SII_HEADER_VALUE"))
+		//  	.POST(HttpRequest.BodyPublishers.ofString(multipartBody.toString()))
+		//  	.build();
 
 		try {
 			// Enviar request

@@ -276,12 +276,12 @@
 								<classpath/>
 								<argument>SiiEnvio.EnviaDocumento</argument>
 								<argument>-c</argument>
-								<argument>cert.pfx</argument>
+								<argument>certABC.pfx</argument>
 								<argument>-s</argument>
 								<argument>contraseña</argument>
 								<argument>-f</argument>
 								<argument>60910000-1</argument>
-								<argument>envioprueba.xml</argument>
+								<argument>envioprueba2.xml</argument>
 							</arguments>
 						</configuration>
 					</execution>
