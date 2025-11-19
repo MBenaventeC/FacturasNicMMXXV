@@ -7,6 +7,8 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,18 +107,44 @@ public class SetDTEGenerator {
         Source input2 = new DOMSource(doc2);
         transformer2.transform(input2, output2);*/
     }
-    public static Document Generate2(String out) throws DatatypeConfigurationException, JAXBException, ParserConfigurationException, IOException, SAXException, TransformerException {
+
+    public static Map<Integer, Integer> contarPorTipoDocumento(JSONArray dtes) {
+        Map<Integer, Integer> conteo = new HashMap<>();
+        for (int i = 0; i < dtes.length(); i++) {
+            JSONObject dte = dtes.getJSONObject(i);
+            JSONObject jsonDoc = dte.getJSONObject("documento");
+            int tipo = jsonDoc.getInt("tipoDocumento");
+            // Incrementar conteo
+            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+        }
+        return conteo;
+    }
+
+    public static Document Generate2(String out, JSONArray DTEs) throws DatatypeConfigurationException, JAXBException, ParserConfigurationException, IOException, SAXException, TransformerException {
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
 
-        EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
+        Map<Integer, Integer> conteo = contarPorTipoDocumento(DTEs);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
-        subTotDTEList.add(subTot);
+        for (Map.Entry<Integer, Integer> entry : conteo.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(key, value);
+            subTotDTEList.add(subTot);
+        }
+
+        /** Rut del enviador, debe existir una archivo texto con el rut de la misma persona que tenga
+         *  el certificado para validar en el SII (en target, añadir al git ignore).
+         */
+        String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
+        JSONObject dte = DTEs.getJSONObject(0);
+        JSONObject recep = dte.getJSONObject("receptor");
+        String rutRec = recep.getString("rutRec");
         /** Reemplazar: 1-rutReceptor, 2-rutEnvia
          * 1) 60803000-k -> 12345678-9
          * 2) 20445188-5 -> rut personal.
          * */
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20445188-5","60803000-K",0,subTotDTEList);
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv.toCharArray(),rutRec,0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"EnvDte-63130");
         EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,null);
