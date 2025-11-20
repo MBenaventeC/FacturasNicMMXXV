@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ns0:EnvioDTE xmlns:ns0="http://www.sii.cl/SiiDte" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioDTE_v10.xsd"><SetDTE ID="EnvDte-63130"><Caratula version="1.0"><RutEmisor>60910000-1</RutEmisor><RutEnvia>20445188-5</RutEnvia><RutReceptor>60803000-K</RutReceptor><FchResol>2002-10-20</FchResol><NroResol>0</NroResol><TmstFirmaEnv>2002-10-20T00:00:00</TmstFirmaEnv><SubTotDTE><TpoDTE>34</TpoDTE><NroDTE>1</NroDTE></SubTotDTE></Caratula><DTE version="1.0"><Documento ID="DTE-34-22295"><Encabezado><IdDoc><TipoDTE>34</TipoDTE><Folio>22295</Folio><FchEmis>2025-11-19</FchEmis><IndServicio>2</IndServicio><FmaPago>1</FmaPago><FchCancel>2025-11-19</FchCancel><MedioPago>EF</MedioPago><FchVenc>2025-11-19</FchVenc></IdDoc><Emisor><RUTEmisor>60910000-1</RUTEmisor><RznSoc>Universidad de Chile</RznSoc><GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis><Acteco>803010</Acteco><Sucursal>NIC Chile</Sucursal><CdgSIISucur>67051191</CdgSIISucur><DirOrigen>Miraflores 222, Piso 14</DirOrigen><CmnaOrigen>Santiago</CmnaOrigen><CiudadOrigen>Santiago</CiudadOrigen></Emisor><Receptor><RUTRecep>12345678-9</RUTRecep><RznSocRecep>HM</RznSocRecep><GiroRecep>Comercio al por mayor</GiroRecep><Contacto>Juan Pérez</Contacto><DirRecep>Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444</DirRecep><CmnaRecep>Providencia</CmnaRecep><CiudadRecep>Santiago</CiudadRecep></Receptor><Totales><MntExe>300000</MntExe><MntTotal>300000</MntTotal></Totales></Encabezado><Detalle><NroLinDet>1</NroLinDet><NmbItem>dominio ServiciodeConsultoriaenTI/1/</NmbItem><QtyItem>2</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>200000</MontoItem></Detalle><Detalle><NroLinDet>2</NroLinDet><NmbItem>dominio dominio2</NmbItem><QtyItem>1</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>100000</MontoItem></Detalle><TED version="1.0"><DD><RE>60910000-1</RE><TD>34</TD><F>22295</F><FE>2025-11-19</FE><RR>12345678-9</RR><RSR>HM</RSR><MNT>300000</MNT><IT1>ServiciodeConsultoriaenTI/1/</IT1><CAF version="1.0"><DA><RE>60910000-1</RE><RS>UNIVERSIDAD DE CHILE</RS><TD>34</TD><RNG><D>22295</D><H>22394</H></RNG><FA>2025-10-17</FA><RSAPK><M>w7W+oc9ggB7SDZ+EbxYBptSHaGowijVCq15GhvLkoMQmiKqpW/AMeiUN7ungRwD92G2zhglWwo9PvAjeQVwtVw==</M><E>Aw==</E></RSAPK><IDK>100</IDK></DA><FRMA algoritmo="SHA1withRSA">fl860cCvS3AW4YWFp5Z4UN45yMaLQXptOvRQjqAo0WyTYJtrq36uO3Ae8zJFO5XE5qB5TMlJCF/J3paD3XnFhw==</FRMA></CAF><TSTED>2025-11-19T20:39:23</TSTED></DD><FRMT algoritmo="SHA1withRSA">tH6zJV2tsU/CcjuI3EMDVGp6Wii/ilxHXi492SuyzKU+vY+7igahT+lDpjSw1jamugc9DtWi7Qi7nqSMWpMueA==</FRMT></TED><TmstFirma>2025-11-19T20:39:23</TmstFirma></Documento><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ns0:EnvioDTE xmlns:ns0="http://www.sii.cl/SiiDte" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioDTE_v10.xsd"><SetDTE ID="EnvDte-63130"><Caratula version="1.0"><RutEmisor>60910000-1</RutEmisor><RutEnvia>20445188-5</RutEnvia><RutReceptor>60803000-K</RutReceptor><FchResol>2002-10-20</FchResol><NroResol>0</NroResol><TmstFirmaEnv>2002-10-20T00:00:00</TmstFirmaEnv><SubTotDTE><TpoDTE>34</TpoDTE><NroDTE>1</NroDTE></SubTotDTE></Caratula><DTE version="1.0"><Documento ID="DTE-34-22295"><Encabezado><IdDoc><TipoDTE>34</TipoDTE><Folio>22295</Folio><FchEmis>2025-11-19</FchEmis><IndServicio>2</IndServicio><FmaPago>1</FmaPago><FchCancel>2025-11-19</FchCancel><MedioPago>EF</MedioPago><FchVenc>2025-11-19</FchVenc></IdDoc><Emisor><RUTEmisor>60910000-1</RUTEmisor><RznSoc>Universidad de Chile</RznSoc><GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis><Acteco>803010</Acteco><Sucursal>NIC Chile</Sucursal><CdgSIISucur>67051191</CdgSIISucur><DirOrigen>Miraflores 222, Piso 14</DirOrigen><CmnaOrigen>Santiago</CmnaOrigen><CiudadOrigen>Santiago</CiudadOrigen></Emisor><Receptor><RUTRecep>12345678-9</RUTRecep><RznSocRecep>HM</RznSocRecep><GiroRecep>Comercio al por mayor</GiroRecep><Contacto>Juan Pérez</Contacto><DirRecep>Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444</DirRecep><CmnaRecep>Providencia</CmnaRecep><CiudadRecep>Santiago</CiudadRecep></Receptor><Totales><MntExe>300000</MntExe><MntTotal>300000</MntTotal></Totales></Encabezado><Detalle><NroLinDet>1</NroLinDet><NmbItem>dominio ServiciodeConsultoriaenTI/1/</NmbItem><QtyItem>2</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>200000</MontoItem></Detalle><Detalle><NroLinDet>2</NroLinDet><NmbItem>dominio dominio2</NmbItem><QtyItem>1</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>100000</MontoItem></Detalle><TED version="1.0"><DD><RE>60910000-1</RE><TD>34</TD><F>22295</F><FE>2025-11-19</FE><RR>12345678-9</RR><RSR>HM</RSR><MNT>300000</MNT><IT1>ServiciodeConsultoriaenTI/1/</IT1><CAF version="1.0"><DA><RE>60910000-1</RE><RS>UNIVERSIDAD DE CHILE</RS><TD>34</TD><RNG><D>22295</D><H>22394</H></RNG><FA>2025-10-17</FA><RSAPK><M>w7W+oc9ggB7SDZ+EbxYBptSHaGowijVCq15GhvLkoMQmiKqpW/AMeiUN7ungRwD92G2zhglWwo9PvAjeQVwtVw==</M><E>Aw==</E></RSAPK><IDK>100</IDK></DA><FRMA algoritmo="SHA1withRSA">fl860cCvS3AW4YWFp5Z4UN45yMaLQXptOvRQjqAo0WyTYJtrq36uO3Ae8zJFO5XE5qB5TMlJCF/J3paD3XnFhw==</FRMA></CAF><TSTED>2025-11-19T21:34:54</TSTED></DD><FRMT algoritmo="SHA1withRSA">Fopygk9Nq0Svei5Nr7h/ZhdyHzvcOCCtUGWdRFcWFBMv47KTtRdAisnCSCf48ZGQ7C5+yBsVfY9+Ts0zsj1+kg==</FRMT></TED><TmstFirma>2025-11-19T21:34:55</TmstFirma></Documento><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 <ds:SignedInfo>
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
@@ -7,15 +7,15 @@
 <ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>lUnOhUTrT1v2wiQSNdn8prL5oqg=</ds:DigestValue>
+<ds:DigestValue>+HWtfWoacn5laz2acH/FzkubWxE=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
 <ds:SignatureValue>
-gpf5H0jZuW4aVWJq0wKIAe3vgow//WMmZh93im246eQ7IGEpj8Be7eE7l7RuYUXV39xS4NrcBzyl&#13;
-EJtAmeB/7nHg7Iq7+HUX39MnOw5UvCu5BeZFGwynWiC9vErPcjZnFqu1bGcvfxGVo+OZEgspsAig&#13;
-e9IXTEloaCJt237InE7ZD9DSQ7F+cxhK8iQvWJBlcDIbfpZWQK7W+COooIiWYsSy2YhYvSPkgAnn&#13;
-4c+VspqtO2Aj/Xaq7BK/qTpcYrA4pLedfKMCdDIf8vCQt7ESjwSTf5YBbSMX84CjDhsjDplRWYjy&#13;
-GeJwg1yVsPbOS60BhMcxyq1sURWCoGfSspwboA==
+Fb3K2ur6hpRzJVM7uM67UDrgM8+5vedL2OR3ts7rvIMqdiydJNNfZDz59JwBHWDWyaFEqqFpXuGl&#13;
+YWUlguiSS6kWW0fY9QfHGIrR0G5xv3kfT3eQncWE3/unahgA/HqBR8cW/Er7QN7Uy+7KBfyt5Lnz&#13;
+Kg64neRyevgEot4kB6fgQmJ3IqU/6x976pKEZ2NCcjX7EsCuox5JzToshlkuNJRqn+sEbIaJ2hZC&#13;
+oCpfampudNNc26pqUa7Rhz+sMtiInxP9XaRuZksAqQ3qIq29GygqKyvW8heMAoKt/JSEDPuEsgcu&#13;
+vW/xzrSncgkkDtp6e+drluIauu8NHC76Y0hBEw==
 </ds:SignatureValue>
 <ds:KeyInfo>
 <ds:KeyValue>
@@ -63,7 +63,7 @@ MXeb8Vw5JPTgKT4pqQUy+yiNf/g7iDgsuQWAcXqmYivQNxb/pqtY55/jr6HnYt7L+mVywMyUMY4r&#13
 </ds:X509Certificate>
 </ds:X509Data>
 </ds:KeyInfo>
-</ds:Signature></DTE><DTE version="1.0"><Documento ID="DTE-34-22296"><Encabezado><IdDoc><TipoDTE>34</TipoDTE><Folio>22296</Folio><FchEmis>2025-11-19</FchEmis><IndServicio>2</IndServicio><FmaPago>1</FmaPago><FchCancel>2025-11-19</FchCancel><MedioPago>EF</MedioPago><FchVenc>2025-11-19</FchVenc></IdDoc><Emisor><RUTEmisor>60910000-1</RUTEmisor><RznSoc>Universidad de Chile</RznSoc><GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis><Acteco>803010</Acteco><Sucursal>NIC Chile</Sucursal><CdgSIISucur>67051191</CdgSIISucur><DirOrigen>Miraflores 222, Piso 14</DirOrigen><CmnaOrigen>Santiago</CmnaOrigen><CiudadOrigen>Santiago</CiudadOrigen></Emisor><Receptor><RUTRecep>98765432-1</RUTRecep><RznSocRecep>Zara</RznSocRecep><GiroRecep>Comercio al por mayor</GiroRecep><Contacto>Juan Pérez</Contacto><DirRecep>Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444</DirRecep><CmnaRecep>Providencia</CmnaRecep><CiudadRecep>Santiago</CiudadRecep></Receptor><Totales><MntExe>100000</MntExe><MntTotal>100000</MntTotal></Totales></Encabezado><Detalle><NroLinDet>1</NroLinDet><NmbItem>dominio ServiciodeConsultoriaenTI/2/</NmbItem><QtyItem>1</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>100000</MontoItem></Detalle><TED version="1.0"><DD><RE>60910000-1</RE><TD>34</TD><F>22296</F><FE>2025-11-19</FE><RR>98765432-1</RR><RSR>Zara</RSR><MNT>100000</MNT><IT1>ServiciodeConsultoriaenTI/2/</IT1><CAF version="1.0"><DA><RE>60910000-1</RE><RS>UNIVERSIDAD DE CHILE</RS><TD>34</TD><RNG><D>22295</D><H>22394</H></RNG><FA>2025-10-17</FA><RSAPK><M>w7W+oc9ggB7SDZ+EbxYBptSHaGowijVCq15GhvLkoMQmiKqpW/AMeiUN7ungRwD92G2zhglWwo9PvAjeQVwtVw==</M><E>Aw==</E></RSAPK><IDK>100</IDK></DA><FRMA algoritmo="SHA1withRSA">fl860cCvS3AW4YWFp5Z4UN45yMaLQXptOvRQjqAo0WyTYJtrq36uO3Ae8zJFO5XE5qB5TMlJCF/J3paD3XnFhw==</FRMA></CAF><TSTED>2025-11-19T20:39:24</TSTED></DD><FRMT algoritmo="SHA1withRSA">qDeTBnRI3wpKzaf0FnqTgrdKrdh0MLM7+d4ePemLOS+J6Y6hIKpDTeNksTWdFzO5hMi0AXFlxgEPshLUOPy+PA==</FRMT></TED><TmstFirma>2025-11-19T20:39:24</TmstFirma></Documento><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+</ds:Signature></DTE><DTE version="1.0"><Documento ID="DTE-34-22296"><Encabezado><IdDoc><TipoDTE>34</TipoDTE><Folio>22296</Folio><FchEmis>2025-11-19</FchEmis><IndServicio>2</IndServicio><FmaPago>1</FmaPago><FchCancel>2025-11-19</FchCancel><MedioPago>EF</MedioPago><FchVenc>2025-11-19</FchVenc></IdDoc><Emisor><RUTEmisor>60910000-1</RUTEmisor><RznSoc>Universidad de Chile</RznSoc><GiroEmis>Corporación Educacional y Servicios Profesionales</GiroEmis><Acteco>803010</Acteco><Sucursal>NIC Chile</Sucursal><CdgSIISucur>67051191</CdgSIISucur><DirOrigen>Miraflores 222, Piso 14</DirOrigen><CmnaOrigen>Santiago</CmnaOrigen><CiudadOrigen>Santiago</CiudadOrigen></Emisor><Receptor><RUTRecep>98765432-1</RUTRecep><RznSocRecep>Zara</RznSocRecep><GiroRecep>Comercio al por mayor</GiroRecep><Contacto>Juan Pérez</Contacto><DirRecep>Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444</DirRecep><CmnaRecep>Providencia</CmnaRecep><CiudadRecep>Santiago</CiudadRecep></Receptor><Totales><MntExe>100000</MntExe><MntTotal>100000</MntTotal></Totales></Encabezado><Detalle><NroLinDet>1</NroLinDet><NmbItem>dominio ServiciodeConsultoriaenTI/2/</NmbItem><QtyItem>1</QtyItem><PrcItem>100000.0</PrcItem><MontoItem>100000</MontoItem></Detalle><TED version="1.0"><DD><RE>60910000-1</RE><TD>34</TD><F>22296</F><FE>2025-11-19</FE><RR>98765432-1</RR><RSR>Zara</RSR><MNT>100000</MNT><IT1>ServiciodeConsultoriaenTI/2/</IT1><CAF version="1.0"><DA><RE>60910000-1</RE><RS>UNIVERSIDAD DE CHILE</RS><TD>34</TD><RNG><D>22295</D><H>22394</H></RNG><FA>2025-10-17</FA><RSAPK><M>w7W+oc9ggB7SDZ+EbxYBptSHaGowijVCq15GhvLkoMQmiKqpW/AMeiUN7ungRwD92G2zhglWwo9PvAjeQVwtVw==</M><E>Aw==</E></RSAPK><IDK>100</IDK></DA><FRMA algoritmo="SHA1withRSA">fl860cCvS3AW4YWFp5Z4UN45yMaLQXptOvRQjqAo0WyTYJtrq36uO3Ae8zJFO5XE5qB5TMlJCF/J3paD3XnFhw==</FRMA></CAF><TSTED>2025-11-19T21:34:55</TSTED></DD><FRMT algoritmo="SHA1withRSA">smANWoN3h7lvXVEXNrhdvFPH9VOOKPOeitluYWN3jqrsAeb4DqtqiFJi6mjhb94uznG3lloVRn6/ZF6BCGvChg==</FRMT></TED><TmstFirma>2025-11-19T21:34:55</TmstFirma></Documento><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 <ds:SignedInfo>
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
@@ -72,15 +72,15 @@ MXeb8Vw5JPTgKT4pqQUy+yiNf/g7iDgsuQWAcXqmYivQNxb/pqtY55/jr6HnYt7L+mVywMyUMY4r&#13
 <ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>fHDovjmZ9/Rdl8VHigMKc/AklR8=</ds:DigestValue>
+<ds:DigestValue>G0AkO1+M/ZhtGh3fx/SE6e+KPPE=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
 <ds:SignatureValue>
-rzb5mNrTZA5BfmSFTTUAjhrWAvcd4FtT7z7yLPHAhXvOzbxWRXr0xqX6q4oPItSRzuVo+hggizDw&#13;
-YvETYWxQiMDEKEfW78/CHJVEHnkgFbjdSzEVDCyjpnDI6mZFvtlm8qr5pFbR1/ALKaYcpBwWbQNF&#13;
-lP1TLu9yIneyEKbTLr6yY6QboNGDJybLiSPpgpn6jgUg/cq2WpgmcX9hsyx9FtZ8uPgqaXgJ6joC&#13;
-aZttM69Wz3RNTCg0aQ1qWNmBVDETjtQSkyEO1rij2vfJa2jYzaCKgIQ1uCxjKLvBycynl6hgXC9s&#13;
-Wc/rLxtYZ0xKoaYMgyxafrbYWtF7uDCYTxEDsw==
+K5wDuPnUpPcOofVnX7aqeGYjZdRyiB4bzdNdY95QIXQkLvCJ+X9N7q3RGt9KBvcEFhtND5wdPHM6&#13;
+aTxE7KJ2cpXrU2T2UvW1r3zFM19+eQ/ri0GjJ8uGUFQU7H69zj8rHSRuq5P9NHeP3hU2L3TqtLHo&#13;
+J9Lv1c4eQ7w2pfOHERlRUIyQYPjcNzWYT0EjlJE04QI7GY/bnxyeF3nbcXwzsmCL8jo/4rAOFlT2&#13;
+yFxUp2cw2x2cWjRsiAE2QLcwNA/nU4ja6CBdODDqw0Rj3dxk8yps3B2uMYP/pmPFNRxsRuQp3YEN&#13;
+oSIUcoD6/eSO6YLROV1ZBheLolhTW9EaESVTqg==
 </ds:SignatureValue>
 <ds:KeyInfo>
 <ds:KeyValue>
@@ -137,15 +137,15 @@ MXeb8Vw5JPTgKT4pqQUy+yiNf/g7iDgsuQWAcXqmYivQNxb/pqtY55/jr6HnYt7L+mVywMyUMY4r&#13
 <ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>ARSobLe8VJLu1gGF8Bovkc6Skek=</ds:DigestValue>
+<ds:DigestValue>BEdeI1kX4iGfbQLBOEc6EmdofiQ=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
 <ds:SignatureValue>
-A3I0EdL/j5EPyqHnTqCSzBGzyTt1VFPbNDDaS0lvHuLJLWRyakRURykGwDTeAI/K9tMVW55W3tlD&#13;
-tBUp0TtqW1RCmTyJEK06hoYGAqqoJVvbm4iC+QZQ/CKLVyxcpOQdBVxNzhxikFkSnM8rrw2W0c4t&#13;
-S/gxHLv5IFFvIhZJvuN1HXsZG4CZZgm7RFQ6niul57vsoc8GA22odFAeCfpPQ0YA+YdbVvVYZ8J8&#13;
-1eEcYRL66h/+dOYHbmaHQ+AXc1FoRJ7bOhM4nJGKosfrtpYcNiEdChr5Br2dxFKTuqEI6tUzzZ/Q&#13;
-HhJs0jC3sU2nRIQnZCCW8tRWhRcXlcCebaMulQ==
+c/XAkCN2uMg2Pe4q7eYsQDekmNV5+xhcrCqySVj3rlzJiKvMmPIbnJGoFZq69118x53GWySAeb1I&#13;
+RPhU3PUJERDZKHxZnggsENKeCtxHWumJiYEon08m8O7jXFQcpRaZ4UwNXqk4p+Lr5cb6yJ6QsvBr&#13;
+sbZJHq6XPt7dvnr/3mPR1d0+bXQ1KmA1Ov3GjwZsrGKCozshz462ptjDiFW7EuISp41zn1rF2cUM&#13;
+PhUvXv9RbKO/1An1z0gBKwZZzcz4LdYWbxM9H/CfbLuidl9a7ZZAeBZmmHFY0LuNrIecM1OWlqYo&#13;
+69R5bW0GSiGxxCZ8GhpbA7AqSPbIWjqxi+jjCw==
 </ds:SignatureValue>
 <ds:KeyInfo>
 <ds:KeyValue>

@@ -33,6 +33,10 @@ public class test2 {
         //Lee el archivo como un Array Json
         JSONArray dtes = root.getJSONArray("DTEs");
 
+        // Valida que se cumplan las exigencias de input en cada DTE. Si alguno
+        // no cumple, se lanza una excepcion.
+        Validate.validateDTEs(dtes);
+
         //Genera SetDTE vacío
         Document SetDTE = SetDTEGenerator.Generate2("SetDTE");
         //Iteramos por cada DTE
