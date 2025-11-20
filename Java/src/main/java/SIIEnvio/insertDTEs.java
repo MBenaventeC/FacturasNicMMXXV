@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class insertDTEs {
     public static void insertXmlAtStringPosition(File baseXml, File xmlToInsert, File output, String afterMarker) throws IOException {
@@ -27,20 +29,29 @@ public class insertDTEs {
 
         // Insert content after marker
         //String merged = baseContent.substring(0, pos + afterMarker.length()) + "\n" + insertContent + baseContent.substring(pos + afterMarker.length());
-        String merged = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + "\r\n" + "<EnvioDTE xmlns=\"http://www.sii.cl/SiiDte\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0\" xsi:schemaLocation=\"http://www.sii.cl/SiiDte EnvioDTE_v10.xsd\">" + "\r\n" +baseContent.substring(0, pos) + insertContent + "\r\n" + baseContent.substring(pos)+ "</EnvioDTE>";
+        String merged = baseContent.substring(0, pos) + insertContent + "\r\n" +
+                baseContent.substring(pos);
 
         // Write output
         Files.writeString(output.toPath(), merged, StandardCharsets.ISO_8859_1);
     }
-    public static String Insert(String base,String dte, String out) throws IOException {
-        File xmlToInsert = new File(dte);
+    public static String Insert(String base,List<String> dtes, String out) throws IOException {
+        // base es una dirección al archivo SetDTE
         File baseXml = new File(base);
-
         File output = new File("out/"+out+".xml");
         String afterMarker = "</SetDTE>";
-
-        insertXmlAtStringPosition(baseXml, xmlToInsert, output, afterMarker);
-
+        for(int i=0;i<dtes.size();i++) {
+            String dte = dtes.get(i);
+            File xmlToInsert = new File(dte);
+            insertXmlAtStringPosition(baseXml, xmlToInsert, baseXml, afterMarker);
+        }
+        // Ahora si insertaremos el header de xml
+        String baseContent = Files.readString(baseXml.toPath(), StandardCharsets.ISO_8859_1);
+        String finalContent = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + "\r\n" +
+                "<EnvioDTE xmlns=\"http://www.sii.cl/SiiDte\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0\" xsi:schemaLocation=\"http://www.sii.cl/SiiDte EnvioDTE_v10.xsd\">" + "\r\n" +
+                baseContent + "</EnvioDTE>";
+        // Write output
+        Files.writeString(output.toPath(), finalContent, StandardCharsets.ISO_8859_1);
         return "out/"+out+".xml";
     }
     public static void Insert2(Document base, Document dte, String out) throws IOException {

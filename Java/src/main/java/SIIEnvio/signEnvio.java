@@ -40,7 +40,7 @@ public class signEnvio {
         String out = "out/" + name + ".xml";
         File outputXml = new File(out);
         //GgKBfGF01GXzoUt4ksLpKVNhFkk=
-        SignXMLApache.signXMLTS(in, pkcs12, password, "EnvDte-63130");
+        SignXMLApache.signXMLTS(in, pkcs12, password, "SetDoc");
         SignXMLApache.saveDocumentToFile(in, out);
         return "out/" + out + ".xml";
     }

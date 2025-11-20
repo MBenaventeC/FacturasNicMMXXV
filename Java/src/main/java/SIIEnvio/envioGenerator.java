@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,8 @@ public class envioGenerator {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
         subTotDTEList.add(subTot);
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20848882-1","60803000-K",0,subTotDTEList);
+        String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv, "12345678-9","60803000-K",0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
         EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,null);

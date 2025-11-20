@@ -4,6 +4,14 @@ import SIIEnvio.SetDTEGenerator;
 import SIIEnvio.envioGenerator;
 import SIIEnvio.insertDTEs;
 import SIIEnvio.signEnvio;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class test {
     public static void exmain(String[] args) throws Exception {
@@ -17,18 +25,39 @@ public class test {
         //signEnvio.main(args);
     }
     public static void main(String[] args) throws Exception {
+        //Encuentra la ruta al template (o archivo Json con el contenido del documento)
+        String contenido = new String(
+                test.class.getClassLoader().getResourceAsStream("jsonTemplate.json").readAllBytes(),
+                StandardCharsets.UTF_8
+        );
+        JSONObject jsonObj = new JSONObject(contenido);
+        //Lee el archivo como un Array Json
+        JSONArray jsonDTEs = jsonObj.getJSONArray("DTEs");
         //System.setProperty("org.apache.xml.security.ignoreLineBreaks", "true");
-        //Genera DTE
-        String DTE = DTEGenerator.Generate("DTE");
-        //firma DTE
-        String SignedDTE = DTESign.Sign4("signedDTE",DTE,"DTE-34-22295");
+
+        //Para guardar las archivos DTE firmados
+        List<String> SignedDTEs = new ArrayList<>();
         //Genera SetDTE vacío
         String SetDTE = SetDTEGenerator.Generate("SetDTE");
-        //inserta DTEs y añade a envíoDTE
-        String envio = insertDTEs.Insert(SetDTE,SignedDTE,"envio");
-        //Firma envio
-        String signedEnv = signEnvio.sign4(envio,"out/signedEnv.xml","EnvDte-63130");
+        //Iteramos por cada DTE
+        for (int i=0;i<jsonDTEs.length();i++){
+            JSONObject jsonDTE = jsonDTEs.getJSONObject(i);
+            JSONObject idoc = jsonDTE.getJSONObject("documento");
+            int tipoDoc = idoc.getInt("tipoDocumento");
+            int folio = idoc.getInt("folio");
+            String ID = "DTE-"+tipoDoc+"-"+folio;
+            //Genera DTE
+            String DTE = DTEGenerator.Generate("DTE",jsonDTE);
+            //firma DTE
+            String SignedDTE = DTESign.Sign4("signedDTE"+i,DTE,ID);
+            //Guarda DTE firmado
+            SignedDTEs.add(SignedDTE);
+        }
 
+        //inserta DTEs y añade a envíoDTE
+        String envio = insertDTEs.Insert(SetDTE,SignedDTEs,"envio");
+        //Firma envio
+        String signedEnv = signEnvio.sign4(envio,"out/signedEnv.xml","SetDoc");
         String Fixed =  signEnvio.Fix(signedEnv,"signedEnvFixed");
 
         System.out.println("Envio DTE firmado: "+ Fixed);

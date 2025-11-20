@@ -30,6 +30,7 @@ public class DTEGenerator2 {
     }
     public static Document Generate(String name, JSONObject jsonDoc) throws Exception {
         // 1. Create and populate your object
+        // First take the idoc Json and fill <idDoc>
         JSONObject idoc = jsonDoc.getJSONObject("documento");
         int tipoDoc = idoc.getInt("tipoDocumento");
         int folio = idoc.getInt("folio");
@@ -39,6 +40,7 @@ public class DTEGenerator2 {
         MedioPagoType mdPago = MedioPagoType.fromValue(medioPago);
         DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(tipoDoc,folio,indSer,fmaPago,mdPago);
 
+        // repeat process for <Emisor> (thou right now we use a fix <Emisor>)
         JSONObject emi = jsonDoc.getJSONObject("emisor");
         String rutEm = emi.getString("rutEmisor");
         String rznEm = emi.getString("rznSoc");
@@ -49,6 +51,7 @@ public class DTEGenerator2 {
         String ciudadOr = emi.getString("ciudadOrigen");
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
 
+        // Extract values from json to <Receptor>
         JSONObject recep = jsonDoc.getJSONObject("receptor");
         String rutRe = recep.getString("rutReceptor");
         String rznScR = recep.getString("rznSocRecep");
@@ -59,7 +62,7 @@ public class DTEGenerator2 {
         String ciudadR = recep.getString("ciudadRecep");
         DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor(rutRe,rznScR,girRec,contact,dirR,cmnaR,ciudadR);
 
-
+        //
         JSONObject tot = jsonDoc.getJSONObject("totales");
         int mnttotal = tot.getInt("montoTotal");
         DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(mnttotal);

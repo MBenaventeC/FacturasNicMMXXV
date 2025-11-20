@@ -1,4 +1,4 @@
-package SiiBoleta;
+/**package SiiBoleta;
 
 import SIIEnvio.EnvioDTE;
 import SiiSignature.SignatureType;
@@ -105,3 +105,4 @@ public class FirmaDoc {
         transformer.transform(input, output);
     }
 }
+*/

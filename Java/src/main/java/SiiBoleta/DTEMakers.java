@@ -265,12 +265,17 @@ public class DTEMakers {
         return detalles;
     }
 
+    public static JSONArray leerJsonArray(String ruta) throws Exception {
+        String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
+        return new JSONArray(contenido);
+    }
+
     public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, List<DTEDefType.Documento.Detalle> detalles,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
         documento.initializeDetalle();
-        for (int i = 0; i < detalles.length(); i++) {
-            documento.addDetalle(detalles(i));
+        for (int i = 0; i < detalles.size(); i++) {
+            documento.addDetalle(detalles.get(i));
         }
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
@@ -287,7 +292,7 @@ public class DTEMakers {
      * @param documento
      * @return
      * @throws Exception
-     */
+     *
     public static SignatureType makeSignature(DTEDefType.Documento documento) throws Exception {
         // Initialize Apache XML Security library
         Init.init();
@@ -320,7 +325,7 @@ public class DTEMakers {
 
         // 4. Marshal JAXB → DOM
         JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName(""/*http://www.sii.cl/SiiDte*/, "Documento"),
+                new QName(""/*http://www.sii.cl/SiiDte*""/, "Documento"),
                 DTEDefType.Documento.class,
                 documento);
         marshaller.marshal(jaxbElement, doc);
@@ -330,7 +335,7 @@ public class DTEMakers {
             root.setPrefix(null);
         }
         root.removeAttribute("xmlns:ns0");
-        root.setAttribute("xmlns", "http://www.sii.cl/SiiDte");*/
+        root.setAttribute("xmlns", "http://www.sii.cl/SiiDte");*""/
 
         // 5. Mark ID attribute
         doc.getDocumentElement().setIdAttribute("ID", true);
@@ -398,16 +403,17 @@ public class DTEMakers {
         Element signatureElement = (Element) sigList.item(0);
         Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
         return (SignatureType) unmarshaller.unmarshal(new DOMSource(signatureElement));
-    }
+    }*/
 
 
+    /**
     public static SignatureType makeSignatureO(DTEDefType.Documento documento) throws Exception {
         /*2. Load the XML Document
           Use a DOM parser to load your XML into a Document object:
-        */
+        *""/
         /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
+        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*""/
 
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         // 1) Cargar el archivo .p12 o .pfx ===
@@ -415,11 +421,11 @@ public class DTEMakers {
          * AÑADAN SU ARCHIVO .PFX A LA CARPETA JAVA
          * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
          * Y PEGAR SU RUTA A rutaPFX
-         */
+         *""/
         String rutaPFX = "Java/certificado.pfx";
         /**
          * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
-         */
+         *""/
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
 
@@ -452,7 +458,7 @@ public class DTEMakers {
 
         // Marshal directly into the DOM
         JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName(/*"http://www.sii.cl/SiiDte",*/"Documento"),
+                new QName(/*"http://www.sii.cl/SiiDte",*""/"Documento"),
                 DTEDefType.Documento.class,
                 documento
         );
@@ -503,12 +509,12 @@ public class DTEMakers {
 
         //6. Create KeyInfo
         KeyInfoFactory kif = fac.getKeyInfoFactory();
-        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kif.newX509Data(Collections.singletonList(cert))));*/
+        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kif.newX509Data(Collections.singletonList(cert))));*""/
 
         //7. Sign the Document
         /*DOMSignContext dsc = new DOMSignContext(pk, doc.getDocumentElement());
         XMLSignature signature = fac.newXMLSignature(si, ki);
-        signature.sign(dsc);*/
+        signature.sign(dsc);*""/
         //DTEMakers.formatKeyValueElements(doc,64,0);
         NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
         FRMTFixSig(FRMT, 64,doc);
@@ -518,7 +524,7 @@ public class DTEMakers {
                 Collections.singletonList(
                         fac.getKeyInfoFactory().newX509Data(Collections.singletonList(cert))
                 )
-        );*/
+        );*""/
         KeyInfoFactory kif = fac.getKeyInfoFactory();
 
         KeyValue keyValue = kif.newKeyValue(publicKey);
@@ -541,7 +547,7 @@ public class DTEMakers {
         //signatureJaxb.setURI(documento.getID());
 
         return signatureJaxb;
-    }
+    }*/
 
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -2081,24 +2087,31 @@ public class DTEMakers {
         return dte;
     }
 
-    public static EnvioDTE.SetDTE.Caratula makeCaratula(String rutEnvia, String rutReceptor,
+    public static EnvioDTE.SetDTE.Caratula makeCaratula(String rutEnvia, String rutEmisor, String rutReceptor,
                                                         /*XMLGregorianCalendar fchResol,*/ int nroResol,
                                                         /*XMLGregorianCalendar tmstFirmaEnv,*/
                                                         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTE) throws DatatypeConfigurationException {
         EnvioDTE.SetDTE.Caratula caratula = new EnvioDTE.SetDTE.Caratula();
-        caratula.setRutEmisor("60910000-1");
+        // Rut Contribuyente Emisor de los DTE
+        caratula.setRutEmisor(rutEmisor);
+        // Rut Persona que envía los DTE
         caratula.setRutEnvia(rutEnvia);
+        // Rut Contribuyente Receptor de los DTE
         caratula.setRutReceptor(rutReceptor);
         GregorianCalendar calendar = new GregorianCalendar(2002, GregorianCalendar.OCTOBER,20);
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         xmlDate.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
+        // Fecha Resolución SII que autoriza al emisor
         caratula.setFchResol(xmlDate);
+        // Nº de resolución SII que autoriza al emisor
         caratula.setNroResol(BigInteger.valueOf(nroResol));
         XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate2.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         xmlDate2.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
+        // Fecha y hora de firma del envío AAAAMMDDHHMMSS
         caratula.setTmstFirmaEnv(xmlDate2);
+        // Uno o más Subtotales por tipo de DTE
         caratula.setSubTotDTE(subTotDTE);
         caratula.setVersion(BigDecimal.valueOf(1.0));
         return caratula;

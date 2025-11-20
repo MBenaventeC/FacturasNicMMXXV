@@ -3,6 +3,7 @@ package SIIEnvio;
 import SiiBoleta.DTEDefType;
 import SiiBoleta.DTEMakers;
 import SiiBoleta.XmlGenerator;
+import SiiBoleta.test;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -29,6 +30,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,7 +46,12 @@ public class SetDTEGenerator {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
         subTotDTEList.add(subTot);
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula("20445188-5","60803000-K",0,subTotDTEList);
+        String rutEnv = new String(
+                test.class.getClassLoader().getResourceAsStream("rutEnvia.txt").readAllBytes(),
+                StandardCharsets.UTF_8
+        );
+        //String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv,"12345678-9","60803000-K",0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"EnvDte-63130");
         // ...set other fields...
@@ -124,29 +131,29 @@ public class SetDTEGenerator {
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
 
+        // Mapeo que asocia un tipo DTE a una cantidad del mismo
         Map<Integer, Integer> conteo = contarPorTipoDocumento(DTEs);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
+        // Por cada (tipoDTE,value) crea y añade a nuestra lista subTotales DTE
         for (Map.Entry<Integer, Integer> entry : conteo.entrySet()) {
-            Integer key = entry.getKey();
+            Integer tipoDte = entry.getKey();
             Integer value = entry.getValue();
-            EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(key, value);
+            EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(tipoDte, value);
             subTotDTEList.add(subTot);
         }
 
-        /** Rut del enviador, debe existir una archivo texto con el rut de la misma persona que tenga
-         *  el certificado para validar en el SII (en target, añadir al git ignore).
-         */
+        // Rut del enviador, debe existir una archivo texto con el rut de la misma persona que tenga
+        // el certificado para validar en el SII (en target, añadir al git ignore).
         String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
         JSONObject dte = DTEs.getJSONObject(0);
         JSONObject recep = dte.getJSONObject("receptor");
         String rutRec = recep.getString("rutRec");
-        /** Reemplazar: 1-rutReceptor, 2-rutEnvia
-         * 1) 60803000-k -> 12345678-9
-         * 2) 20445188-5 -> rut personal.
-         * */
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv.toCharArray(),rutRec,0,subTotDTEList);
+        JSONObject emiso = dte.getJSONObject("emisor");
+        String rutEmi = emiso.getString("rutEmisor");
+        // Crea la caratula
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv,rutEmi,rutRec,0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
-        EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"EnvDte-63130");
+        EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
         EnvioDTE envioDTE = DTEMakers.makeEnvioDTE(setDTE,null);
         // ...set other fields...
 

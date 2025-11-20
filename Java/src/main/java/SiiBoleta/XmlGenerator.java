@@ -5,10 +5,14 @@ package SiiBoleta;
 import SIIEnvio.EnvioDTE;
 import SiiSignature.SignatureType;
 import org.eclipse.persistence.oxm.NamespacePrefixMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.*;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 // JAXB core
@@ -220,68 +224,131 @@ public class XmlGenerator {
     }
 
 
+   /** public static void main(String[] args) throws Exception {
+        // Search for a JSON array, with all DTEs to process
+        String jsonRuta = Files.readString(Paths.get("jsonTemplate.json"));
+        JSONArray jsonDTEs = DTEMakers.leerJsonArray(jsonRuta);
 
-    public static void main(String[] args) throws Exception {
-        //DTE
-        // 1. Create and populate your object
-        DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(22295,2,1,MedioPagoType.EF);
-        DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
-        DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor("12345678-9","H&M","Comercio al por mayo","Juan Pérez","Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444","Providencia","Santiago");
-        DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(100000);
-        DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
-        DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
-        GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
-
+        // DTEs
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        //System.out.println(System.getProperty("user.dir"));
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,22295,"12345678-9","Hola",100000,"Servicio de Consultoría en TI",cafFromXml);
+        for (int i = 0; i < jsonDTEs.length(); i++) {
+            JSONObject jsonDTE = jsonDTEs.getJSONObject(i);
+            // DTE
+            // 1. Create and populate your object
+            // First extract <idDoc> values from JSON
+            JSONObject idoc = jsonDTE.getJSONObject("documento");
+            int tipoDoc = idoc.getInt("tipoDocumento");
+            int folio = idoc.getInt("folio");
+            int indSer = idoc.getInt("indServicio");
+            int fmaPago = idoc.getInt("fmaPago");
+            String medioPago = idoc.getString("medioPago");
+            MedioPagoType mdPago = MedioPagoType.fromValue(medioPago);
+            DTEDefType.Documento.Encabezado.IdDoc idDoc = DTEMakers.makeIdDoc(tipoDoc,folio,indSer,fmaPago,mdPago);
 
+            // repeat process for <Emisor> (thou right now we use a fix <Emisor>)
+            JSONObject emi = jsonDTE.getJSONObject("emisor");
+            String rutEm = emi.getString("rutEmisor");
+            String rznEm = emi.getString("rznSoc");
+            String girEm = emi.getString("giroEmis");
+            String suc = emi.getString("sucursal");
+            String dirOr = emi.getString("dirOrigen");
+            String cmnaOr = emi.getString("cmnaOrigen");
+            String ciudadOr = emi.getString("ciudadOrigen");
+            DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
 
+            // Extract values of <Receptor> from json to <Receptor>
+            JSONObject recep = jsonDTE.getJSONObject("receptor");
+            String rutRe = recep.getString("rutReceptor");
+            String rznScR = recep.getString("rznSocRecep");
+            String girRec = recep.getString("giroRecep");
+            String contact = recep.getString("contacto");
+            String dirR = recep.getString("dirRecep");
+            String cmnaR = recep.getString("cmnaRecep");
+            String ciudadR = recep.getString("ciudadRecep");
+            DTEDefType.Documento.Encabezado.Receptor receptor = DTEMakers.makeReceptor(rutRe,rznScR,girRec,contact,dirR,cmnaR,ciudadR);
 
-        //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
-        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
-        DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
+            // Extract values of <Totales> from json to <Receptor>
+            JSONObject tot = jsonDTE.getJSONObject("totales");
+            int mnttotal = tot.getInt("montoTotal");
+            DTEDefType.Documento.Encabezado.Totales totales = DTEMakers.makeTotales(mnttotal);
+            DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
 
-        // Se genera el codigo de barras
-        //Image barcode = TED.makeBarcode(ted);
+            JSONArray detallesJson = jsonDTE.getJSONArray("detalles");
+            JSONObject detalleJson = detallesJson.getJSONObject(1);
+            String IT1 = detalleJson.getString("nmbItem");
+            List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
+            DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",1,100000.0);
+            GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
-        DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-22295"); // folio
-        //DTEMakers.makeSignature2(documento);
-        SignatureType signature = DTEMakers.makeSignature(documento);
-        DTEDefType dte = DTEMakers.makeDTE(documento,null);
-        // ...set other fields...
+            DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
 
-        // 2. Initialize JAXBContext
-        //JAXBContext context = JAXBContext.newInstance(EnvioDTE.class);
+            //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
+            DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
+            DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
-        // 3. Create marshaller and enable pretty-print
-        Map<String, Object> props = new HashMap<>();
-        props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
+            // Se genera el codigo de barras
+            //Image barcode = TED.makeBarcode(ted);
 
-        JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
-                new Class[] { DTEDefType.class },
-                props
-        );
+            String id = "DTE-"+tipoDoc+"-"+folio;
+            DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalles,ted,id);
+            //DTEMakers.makeSignature2(documento);
+            SignatureType signature = DTEMakers.makeSignature(documento);
+            DTEDefType dte = DTEMakers.makeDTE(documento,null);
+            // ...set other fields...
 
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
-        marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
+            // 2. Initialize JAXBContext
+            //JAXBContext context = JAXBContext.newInstance(EnvioDTE.class);
 
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        Document doc = dbf.newDocumentBuilder().newDocument();
+            // 3. Create marshaller and enable pretty-print
+            Map<String, Object> props = new HashMap<>();
+            props.put("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
 
-        JAXBElement<DTEDefType> jaxbElement2 = new JAXBElement<>(
-                new QName("","DTE"),
-                DTEDefType.class,
-                dte
-        );
+            JAXBContext context = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
+                    new Class[] { DTEDefType.class },
+                    props
+            );
 
-        marshaller.marshal(jaxbElement2, doc);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+            marshaller.setProperty("eclipselink.namespace-prefix-mapper", new XmlGenerator.CustomNamespacePrefixMapper3());
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
+            Document doc = dbf.newDocumentBuilder().newDocument();
+
+            JAXBElement<DTEDefType> jaxbElement2 = new JAXBElement<>(
+                    new QName("DTE"),
+                    DTEDefType.class,
+                    dte
+            );
+
+            marshaller.marshal(jaxbElement2, doc);
+            // return doc
+
+            // Sign DTE
+            JAXBContext sigContext = JAXBContext.newInstance(SignatureType.class);
+            Marshaller sigMarshaller = sigContext.createMarshaller();
+            sigMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            sigMarshaller.setProperty(Marshaller.JAXB_ENCODING, "ISO-8859-1");
+
+            Document sigDoc = dbf.newDocumentBuilder().newDocument();
+            sigMarshaller.marshal(signature, sigDoc);
+
+            Node signatureNode = doc.importNode(sigDoc.getDocumentElement(), true);
+
+            NodeList dteList = doc.getElementsByTagName("DTE");
+            if (dteList.getLength() > 0) {
+                Element dteE = (Element) dteList.item(0);
+                dteE.appendChild(signatureNode); // or insertBefore if needed
+            }
+
+            DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
+            dbf2.setNamespaceAware(true);
+        }
 
         //sig2
         JAXBContext sigContext = JAXBContext.newInstance(SignatureType.class);
@@ -304,16 +371,16 @@ public class XmlGenerator {
 
         /*Document doct = dbf.newDocumentBuilder().newDocument();
         Node importedRoot = doct.importNode(doc.getDocumentElement(), true);
-        doct.appendChild(importedRoot);*/
+        doct.appendChild(importedRoot);*""/
 
         /*Element setDTEElementDTE = (Element) doc.getElementsByTagName("Documento").item(0);
         setDTEElementDTE.removeAttribute("xmlns:ns0");
 
         Element setDTEElementDTE2 = (Element) doc.getElementsByTagName("DTE").item(0);
         setDTEElementDTE2.removeAttribute("xmlns:xsi");
-        setDTEElementDTE2.removeAttribute("xmlns");*/
+        setDTEElementDTE2.removeAttribute("xmlns");*""/
 
-        /*printNode(doct);*/
+        /*printNode(doct);*""/
         /*Element oldElement = (Element) doc.getElementsByTagName("DTE").item(0);
 
         Element newElement = doc.createElementNS("http://www.sii.cl/SiiDte", oldElement.getLocalName());
@@ -321,16 +388,16 @@ public class XmlGenerator {
             newElement.appendChild(oldElement.getFirstChild());
         }
 
-        printNode(newElement);*/
+        printNode(newElement);*""/
 
         /*Node parent = oldElement.getParentNode();
-        parent.replaceChild(newElement, oldElement);*/
+        parent.replaceChild(newElement, oldElement);*""/
 
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
         /*DTEMakers.formatKeyValueElements(doc,64,0);
         NodeList FRMT = doc.getElementsByTagNameNS("*", "FRMT");
-        DTEMakers.FRMTFix(FRMT, 64,doc,0);*/
+        DTEMakers.FRMTFix(FRMT, 64,doc,0);*""/
 
         /*DocumentBuilder builder = dbf.newDocumentBuilder();
 
@@ -341,7 +408,7 @@ public class XmlGenerator {
 
         // Rebuild it (and its descendants) with the SII namespace
         Node newRoot = renameNodeWithNamespace(newDoc, oldRoot, "http://www.sii.cl/SiiDte");
-        newDoc.appendChild(newRoot);*/
+        newDoc.appendChild(newRoot);*""/
 
         //printNode(newDoc);
 
@@ -376,7 +443,7 @@ public class XmlGenerator {
         // Create MOXy JAXBContext with both EnvioDTE and SignatureType
         props.put("eclipselink.namespace-prefix-mapper", new CustomNamespacePrefixMapper());
         JAXBContext context3 = org.eclipse.persistence.jaxb.JAXBContextFactory.createContext(
-                new Class[] { EnvioDTE.class,EnvioDTE.SetDTE.class/*, SignatureType.class*/}, // include SignatureType to isolate its namespace
+                new Class[] { EnvioDTE.class,EnvioDTE.SetDTE.class/*, SignatureType.class*""/}, // include SignatureType to isolate its namespace
                 props
         );
 
@@ -425,7 +492,7 @@ public class XmlGenerator {
 
         FRMT = doc2.getElementsByTagNameNS("*", "FRMT");
         //DTEMakers.FRMTFix(FRMT, 64,doc2,1);
-        DTEMakers.fixKeyValueElements(doc2,0);*/
+        DTEMakers.fixKeyValueElements(doc2,0);*""/
         SignatureType signatureEnv = DTEMakers.makeSignatureEnv(dteE2);
 
         // 1. Marshal signatureEnv into a DOM node
@@ -456,7 +523,7 @@ public class XmlGenerator {
         DTEMakers.fixKeyValueElements(doc2,0);
 
         DTEMakers.formatKeyValueElements(doc,64,0);
-        /*NodeList */FRMT = doc.getElementsByTagNameNS("*", "FRMT");
+        /*NodeList *""/FRMT = doc.getElementsByTagNameNS("*", "FRMT");
         DTEMakers.FRMTFix(FRMT, 64,doc,0);
 
         /*Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -470,7 +537,7 @@ public class XmlGenerator {
 
         Result output = new StreamResult(outputFile);
         Source input = new DOMSource(doc);
-        transformer.transform(input, output);*/
+        transformer.transform(input, output);*""/
 
         TransformerFactory transformerf2 = TransformerFactory.newInstance();
         //transformerf2.setAttribute("indent-number", 4);
@@ -483,5 +550,5 @@ public class XmlGenerator {
         Result output2 = new StreamResult(new File("out/EnvioDTE.xml"));
         Source input2 = new DOMSource(doc2);
         transformer2.transform(input2, output2);
-    }
+    }*/
 }
