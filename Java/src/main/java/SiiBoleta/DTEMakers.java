@@ -517,6 +517,7 @@ public class DTEMakers {
         return signatureJaxb;
     }
 
+
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -889,13 +890,11 @@ public class DTEMakers {
 
     public static void signXML3(File inputXml, File pkcs12File, String keyPassword, File outputXml) throws Exception {
 
-        // 1️⃣ Parse XML
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
 
-        // 2️⃣ Load PKCS#12 keystore
         KeyStore ks = KeyStore.getInstance("PKCS12");
         try (FileInputStream fis = new FileInputStream(pkcs12File)) {
             ks.load(fis, keyPassword.toCharArray());
@@ -905,10 +904,8 @@ public class DTEMakers {
         PrivateKey privateKey = (PrivateKey) ks.getKey(alias, keyPassword.toCharArray());
         X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
 
-        // 3️⃣ Create the XMLSignatureFactory
         XMLSignatureFactory sigFactory = XMLSignatureFactory.getInstance("DOM");
 
-        // 4️⃣ Locate <Documento> to sign
         Element elemento = (Element) doc.getElementsByTagName("Documento").item(0);
         if (elemento == null)
             throw new Exception("No <Documento> element found!");
@@ -917,16 +914,13 @@ public class DTEMakers {
         if (idAttr == null)
             throw new Exception("<Documento> element has no ID attribute!");
 
-        // Mark the ID attribute so XMLDSig can find it
         elemento.setIdAttributeNode(idAttr, true);
         String referenceId = idAttr.getValue();
 
-        // 5️⃣ Create transforms: enveloped + canonicalization
         List<Transform> transforms = new ArrayList<>();
         transforms.add(sigFactory.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
         transforms.add(sigFactory.newTransform(CanonicalizationMethod.INCLUSIVE, (TransformParameterSpec) null));
 
-        // 6️⃣ Reference the Documento element (by ID)
         Reference ref = sigFactory.newReference(
                 "#" + referenceId,
                 sigFactory.newDigestMethod(DigestMethod.SHA1, null),
@@ -935,7 +929,6 @@ public class DTEMakers {
                 null
         );
 
-        // 7️⃣ SignedInfo (canonicalize SignedInfo as well)
         SignedInfo signedInfo = sigFactory.newSignedInfo(
                 sigFactory.newCanonicalizationMethod(
                         CanonicalizationMethod.INCLUSIVE,
@@ -945,23 +938,18 @@ public class DTEMakers {
                 Collections.singletonList(ref)
         );
 
-        // 8️⃣ KeyInfo (embed certificate)
         KeyInfoFactory kif = sigFactory.getKeyInfoFactory();
         X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
         KeyInfo keyInfo = kif.newKeyInfo(Collections.singletonList(x509Data));
 
-        // 9️⃣ DOMSignContext — insert Signature under root (not inside Documento)
         Element root = doc.getDocumentElement();
         DOMSignContext dsc = new DOMSignContext(privateKey, root);
 
-        // Initialize the library once
         org.apache.xml.security.Init.init();
 
-        // 🔟 Create and sign
         XMLSignature signature = sigFactory.newXMLSignature(signedInfo, keyInfo);
         signature.sign(dsc);
 
-        // 11️⃣ Output result
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
         trans.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -969,9 +957,13 @@ public class DTEMakers {
         trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         trans.transform(new DOMSource(doc), new StreamResult(outputXml));
 
-        System.out.println("✅ Signed XML created: " + outputXml.getAbsolutePath());
+        System.out.println("Signed XML created: " + outputXml.getAbsolutePath());
     }
 
+    /** Given a Node, CRLF or CR are replaced with LF.
+     *  Method modify the Node and returns void.
+     * @param node
+     */
     private static void normalizeLineEndings(Node node) {
         NodeList list = node.getChildNodes();
         for (int i = 0; i < list.getLength(); i++) {
@@ -2129,6 +2121,14 @@ public class DTEMakers {
         Fix2nd(FRMT,index);
     }
 
+    /** Given a NodeList, the Base64 content of the specified node is broken into lines of the desired length to satisfy the format required by the SII.
+     *
+     * @param nodes List containing the Node to modify.
+     * @param lineLength Desired Line Length.
+     * @param document Document containing the Node Information.
+     * @param index Index of the node in the NodeList.
+     * @param type Int 0 or else to define the correct indent for each type.
+     */
     private static void formatBase64Nodes(NodeList nodes, int lineLength,Document document,int index,int type) {
         Node node = nodes.item(index);
         String indent="                ";
@@ -2155,6 +2155,12 @@ public class DTEMakers {
         node.setTextContent(node.getTextContent().replace("\n","\n    "));
     }
 
+    /** Add indent for FRMT value in Signature
+     *
+     * @param nodes Node List from where the first node is going to be modified.
+     * @param lineLength Desired Line Length.
+     * @param document Document where new Nodes are saved into
+     */
     private static void FRMTFixSig(NodeList nodes, int lineLength,Document document) {
         Node node = nodes.item(0);
         String indent="        ";
@@ -2239,6 +2245,13 @@ public class DTEMakers {
         }
     }
 
+    /** Given a Base 64 content, a new line break is inserted into it every 'lineLength' characters.
+     *
+     * @param base64 Content where new Line Breaks are going to be added.
+     * @param lineLength Desired Line Length.
+     * @param indent Indentation String. Ex.: "       ", "    ", etc.
+     * @return Formatted String.
+     */
     private static String insertLineBreaks(String base64, int lineLength, String indent) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < base64.length(); i += lineLength) {
