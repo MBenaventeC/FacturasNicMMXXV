@@ -5,7 +5,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
 import org.apache.xml.security.c14n.Canonicalizer;
-import org.eclipse.persistence.oxm.NamespacePrefixMapper;
+//import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

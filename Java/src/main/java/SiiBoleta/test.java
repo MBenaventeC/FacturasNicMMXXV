@@ -26,10 +26,7 @@ public class test {
     }
     public static void main(String[] args) throws Exception {
         //Encuentra la ruta al template (o archivo Json con el contenido del documento)
-        String contenido = new String(
-                test.class.getClassLoader().getResourceAsStream("jsonTemplate.json").readAllBytes(),
-                StandardCharsets.UTF_8
-        );
+        String contenido = Files.readString(Paths.get("jsonTemplate.json"));
         JSONObject jsonObj = new JSONObject(contenido);
         //Lee el archivo como un Array Json
         JSONArray jsonDTEs = jsonObj.getJSONArray("DTEs");
@@ -38,7 +35,7 @@ public class test {
         //Para guardar las archivos DTE firmados
         List<String> SignedDTEs = new ArrayList<>();
         //Genera SetDTE vacío
-        String SetDTE = SetDTEGenerator.Generate("SetDTE");
+        String SetDTE = SetDTEGenerator.Generate("SetDTE", jsonDTEs);
         //Iteramos por cada DTE
         for (int i=0;i<jsonDTEs.length();i++){
             JSONObject jsonDTE = jsonDTEs.getJSONObject(i);

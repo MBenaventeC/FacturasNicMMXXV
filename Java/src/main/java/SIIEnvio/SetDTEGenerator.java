@@ -39,21 +39,50 @@ import java.util.List;
 import java.util.Map;
 
 public class SetDTEGenerator {
-    public static String Generate(String out) throws DatatypeConfigurationException, JAXBException, ParserConfigurationException, IOException, SAXException, TransformerException {
+
+    public static Map<Integer, Integer> contarPorTipoDocumento(JSONArray dtes) {
+        Map<Integer, Integer> conteo = new HashMap<>();
+        for (int i = 0; i < dtes.length(); i++) {
+            JSONObject dte = dtes.getJSONObject(i);
+            JSONObject jsonDoc = dte.getJSONObject("documento");
+            int tipo = jsonDoc.getInt("tipoDocumento");
+            // Incrementar conteo
+            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+        }
+        return conteo;
+    }
+
+    public static String Generate(String out, JSONArray DTEs) throws DatatypeConfigurationException, JAXBException, ParserConfigurationException, IOException, SAXException, TransformerException {
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
         dbf2.setNamespaceAware(true);
 
-        EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(34,1);
+        // Mapeo que asocia un tipo DTE a una cantidad del mismo
+        Map<Integer, Integer> conteo = contarPorTipoDocumento(DTEs);
         List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTEList = new ArrayList<>();
-        subTotDTEList.add(subTot);
+        // Por cada (tipoDTE,value) crea y añade a nuestra lista subTotales DTE
+        for (Map.Entry<Integer, Integer> entry : conteo.entrySet()) {
+            Integer tipoDte = entry.getKey();
+            Integer value = entry.getValue();
+            EnvioDTE.SetDTE.Caratula.SubTotDTE subTot = DTEMakers.makeSubTotDTE(tipoDte, value);
+            subTotDTEList.add(subTot);
+        }
+
+        // Rut del enviador, debe existir una archivo texto con el rut de la misma persona que tenga
+        // el certificado para validar en el SII (en target, añadir al git ignore).
         String rutEnv = new String(
                 test.class.getClassLoader().getResourceAsStream("rutEnvia.txt").readAllBytes(),
                 StandardCharsets.UTF_8
         );
+        JSONObject dte = DTEs.getJSONObject(0);
+        JSONObject recep = dte.getJSONObject("receptor");
+        String rutRec = recep.getString("rutRec");
+        JSONObject emiso = dte.getJSONObject("emisor");
+        String rutEmi = emiso.getString("rutEmisor");
+
         //String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
-        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv,"12345678-9","60803000-K",0,subTotDTEList);
+        EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv,rutEmi,rutRec,0,subTotDTEList);
         List<DTEDefType> DTEList = new ArrayList<>();
-        EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"EnvDte-63130");
+        EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
         // ...set other fields...
 
         // 2. Initialize JAXBContext
@@ -113,18 +142,6 @@ public class SetDTEGenerator {
         /*Result output2 = new StreamResult(new File("out/EnvioDTE.xml"));
         Source input2 = new DOMSource(doc2);
         transformer2.transform(input2, output2);*/
-    }
-
-    public static Map<Integer, Integer> contarPorTipoDocumento(JSONArray dtes) {
-        Map<Integer, Integer> conteo = new HashMap<>();
-        for (int i = 0; i < dtes.length(); i++) {
-            JSONObject dte = dtes.getJSONObject(i);
-            JSONObject jsonDoc = dte.getJSONObject("documento");
-            int tipo = jsonDoc.getInt("tipoDocumento");
-            // Incrementar conteo
-            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
-        }
-        return conteo;
     }
 
     public static Document Generate2(String out, JSONArray DTEs) throws DatatypeConfigurationException, JAXBException, ParserConfigurationException, IOException, SAXException, TransformerException {

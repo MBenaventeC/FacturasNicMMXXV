@@ -4,7 +4,7 @@ import SiiSignature.SignatureType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
-import org.eclipse.persistence.oxm.NamespacePrefixMapper;
+//import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -69,11 +69,11 @@ public class DTEGenerator {
         DTEDefType.Documento.Encabezado encabezado = DTEMakers.makeEncabezado(idDoc,emisor,receptor,totales);
 
         JSONArray detallesJson = jsonDoc.getJSONArray("detalles");
-        JSONObject detalleJson = detallesJson.getJSONObject(1);
+        JSONObject detalleJson = detallesJson.getJSONObject(0);
         String IT1 = detalleJson.getString("nmbItem");
         List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
         //DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
-        GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
+        //GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
         File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
