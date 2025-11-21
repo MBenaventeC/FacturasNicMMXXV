@@ -7,6 +7,8 @@ import SIIEnvio.signEnvio;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,7 +28,12 @@ public class test {
     }
     public static void main(String[] args) throws Exception {
         //Encuentra la ruta al template (o archivo Json con el contenido del documento)
-        String contenido = Files.readString(Paths.get("jsonTemplate.json"));
+        InputStream is = test.class.getClassLoader().getResourceAsStream("jsonTemplate.json");
+        if (is == null) {
+            throw new FileNotFoundException("No se encontró jsonTemplate.json en resources");
+        }
+
+        String contenido = new String(is.readAllBytes(), StandardCharsets.UTF_8);
         JSONObject jsonObj = new JSONObject(contenido);
         //Lee el archivo como un Array Json
         JSONArray jsonDTEs = jsonObj.getJSONArray("DTEs");
@@ -50,9 +57,10 @@ public class test {
             //Genera DTE
             String DTE = DTEGenerator.Generate("DTE",jsonDTE);
             //firma DTE
-            String SignedDTE = DTESign.Sign4("signedDTE"+i,DTE,ID);
+            String signedDTE = DTESign.Sign4("signedDTE"+i,DTE,ID);
+
             //Guarda DTE firmado
-            SignedDTEs.add(SignedDTE);
+            SignedDTEs.add(signedDTE);
         }
 
         //inserta DTEs y añade a envíoDTE

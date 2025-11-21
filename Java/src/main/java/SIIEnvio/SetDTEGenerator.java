@@ -75,7 +75,7 @@ public class SetDTEGenerator {
         );
         JSONObject dte = DTEs.getJSONObject(0);
         JSONObject recep = dte.getJSONObject("receptor");
-        String rutRec = recep.getString("rutRec");
+        String rutRec = recep.getString("rutReceptor");
         JSONObject emiso = dte.getJSONObject("emisor");
         String rutEmi = emiso.getString("rutEmisor");
 
@@ -135,6 +135,8 @@ public class SetDTEGenerator {
         //System.out.println(xmlClean);
         // Write back to file preserving your indentation
         File outputXml = new File("out/"+out+".xml");
+        // Crear carpeta "out" si no existe
+        outputXml.getParentFile().mkdirs();
         Files.write(outputXml.toPath(), xmlClean.getBytes("ISO-8859-1"));
 
         return "out/"+out+".xml";

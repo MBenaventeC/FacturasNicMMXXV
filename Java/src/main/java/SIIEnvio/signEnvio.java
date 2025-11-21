@@ -68,6 +68,7 @@ public class signEnvio {
         String baseContent = Files.readString(Xml.toPath(), StandardCharsets.ISO_8859_1);
 
         baseContent = baseContent.replace("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>", "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+        baseContent = baseContent.replace("</EnvioDTE>", "\r\n</EnvioDTE>");
 
         //System.out.println("baseContent: " + baseContent);
 
