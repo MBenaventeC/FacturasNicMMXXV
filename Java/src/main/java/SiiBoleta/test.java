@@ -30,6 +30,10 @@ public class test {
         JSONObject jsonObj = new JSONObject(contenido);
         //Lee el archivo como un Array Json
         JSONArray jsonDTEs = jsonObj.getJSONArray("DTEs");
+
+        // Validación de datos en cada DTE
+        Validate.validateDTEs(jsonDTEs);
+
         //System.setProperty("org.apache.xml.security.ignoreLineBreaks", "true");
 
         //Para guardar las archivos DTE firmados

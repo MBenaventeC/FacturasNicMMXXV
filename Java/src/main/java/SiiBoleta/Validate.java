@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.*;
 
 /**
@@ -159,5 +161,38 @@ public class Validate {
         }
 
         public Key getKey() { return pk; }
+    }
+
+    public static void validateDTEs (JSONArray dtes) throws Exception {
+        for (int i = 0; i < dtes.length(); i++) {
+            boolean validateDTE = validateDTE(dtes.getJSONObject(i));
+            if (!validateDTE) {
+                throw new Exception("Uno o más DTE no cumple con las limitaciones exigidas en el input");
+            }
+        }
+
+    }
+    public static boolean validateDTE(JSONObject dte) {
+        JSONObject receptor = dte.getJSONObject("receptor");
+
+        // Razon social del receptor debe ser máximo 40 caracteres
+        String rsr = receptor.getString("rznSocRecep");
+
+        if (rsr.length() > 40) {
+            return false;
+        }
+
+        // Descripcion del item en detalles con maximo 40 caracteres
+        JSONArray detallesJson = dte.getJSONArray("detalles");
+
+        for (int i = 0; i < detallesJson.length(); i++) {
+            JSONObject detalle = detallesJson.getJSONObject(i);
+            String nmbItem = detalle.getString("nmbItem");
+            if (nmbItem.length() > 40) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
