@@ -10,22 +10,10 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class test {
-    public static void exmain(String[] args) throws Exception {
-        //Genera DTE
-        //DTEGenerator.main(args);
-        //firma DTE
-        //DTESign.main(args);
-        //Genera Envio
-        envioGenerator.main(args);
-        //Firma envio
-        //signEnvio.main(args);
-    }
     public static void main(String[] args) throws Exception {
         //Encuentra la ruta al template (o archivo Json con el contenido del documento)
         InputStream is = test.class.getClassLoader().getResourceAsStream("jsonTemplate.json");
