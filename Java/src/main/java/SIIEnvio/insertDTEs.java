@@ -13,6 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class insertDTEs {
+    /** Given a base XML file, a XML is inserted in 'afterMarker' and save into output path
+     * , an output path and a reference to where the XML must be inserted
+     * @param baseXml Xml file where 'xmlToInsert' is going to be inserted.
+     * @param xmlToInsert Xml file to be inserted.
+     * @param output path to save the XML into.
+     * @param afterMarker reference of where to insert 'xmlToInsert' in 'baseXml'.
+     * @throws IOException
+     */
     public static void insertXmlAtStringPosition(File baseXml, File xmlToInsert, File output, String afterMarker) throws IOException {
         // Read both files as strings
         String baseContent = Files.readString(baseXml.toPath(), StandardCharsets.ISO_8859_1);
@@ -25,9 +33,6 @@ public class insertDTEs {
         insertContent = insertContent.substring(0, closeDTEpos) + "\r\n" +
                 insertContent.substring(closeDTEpos);
 
-
-
-        //System.out.println("baseContent: " + baseContent);
 
         // Remove XML declaration from the second file if present
         insertContent = insertContent.replaceFirst("<\\?xml.*?\\?>\\s*", "");
@@ -44,8 +49,19 @@ public class insertDTEs {
         // Write output
         Files.writeString(output.toPath(), merged, StandardCharsets.ISO_8859_1);
     }
+
+    /** Given a SetDTE file, a list of DTEs and an output path,
+     * the method inserts DTE files into the SetDTE file, and save it in output path.
+     *
+     * @param base path to Xml file where 'dtes' are going to be inserted.
+     * @param dtes list of paths to DTE files to be inserted into 'base' XML file.
+     * @param out path to save the XML into.
+     * @return
+     * @throws IOException
+     */
     public static String Insert(String base,List<String> dtes, String out) throws IOException {
         // base es una dirección al archivo SetDTE
+        // base is the path to SetDTE file
         File baseXml = new File(base);
         File output = new File("out/"+out+".xml");
         String afterMarker = "</SetDTE>";
@@ -62,15 +78,5 @@ public class insertDTEs {
         // Write output
         Files.writeString(output.toPath(), finalContent, StandardCharsets.ISO_8859_1);
         return "out/"+out+".xml";
-    }
-    public static void Insert2(Document base, Document dte, String out) throws IOException {
-
-        Element dteElement = (Element) dte.getElementsByTagName("DTE").item(0);
-        Node importedDTE = base.importNode(dteElement, true);
-        //Element newElement = base.createElementNS("http://www.sii.cl/SiiDte","DTE");
-
-        NodeList dteList2 = base.getElementsByTagName("SetDTE");
-        Element dteE2 = (Element) dteList2.item(0);
-        dteE2.appendChild(importedDTE);
     }
 }
