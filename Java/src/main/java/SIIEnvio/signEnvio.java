@@ -1,6 +1,5 @@
 package SIIEnvio;
 
-import SiiBoleta.DTEMakers;
 import SiiBoleta.SignXMLApache;
 import org.w3c.dom.Document;
 
@@ -14,38 +13,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class signEnvio {
-    public static String sign(String envio, String out) throws Exception {
-        File inputXml = new File(envio);
-        File pkcs12 = new File("Java/certificado.pfx");
-        Path filePath = Paths.get("password.txt");
-        String password = Files.readString(filePath);
-        File outputXml = new File("out/" + out + ".xml");
-        DTEMakers.signXMLT(inputXml, pkcs12, password, outputXml);
-        return "out/" + out + ".xml";
-    }
-
-    public static String sign2(Document envio, String out) throws Exception {
-        File pkcs12 = new File("Java/certificado.pfx");
-        Path filePath = Paths.get("password.txt");
-        String password = Files.readString(filePath);
-        File outputXml = new File("out/" + out + ".xml");
-        DTEMakers.signXMLTD(envio, pkcs12, password, outputXml);
-        return "out/" + out + ".xml";
-    }
-
-    public static String sign3(Document in, String name) throws Exception {
-        File pkcs12 = new File("Java/certificado.pfx");
-        Path filePath = Paths.get("password.txt");
-        String password = Files.readString(filePath);
-        String out = "out/" + name + ".xml";
-        File outputXml = new File(out);
-        //GgKBfGF01GXzoUt4ksLpKVNhFkk=
-        SignXMLApache.signXMLTS(in, pkcs12, password, "SetDoc");
-        SignXMLApache.saveDocumentToFile(in, out);
-        return "out/" + out + ".xml";
-    }
-
-    public static String sign4(String envio, String out, String ID) throws Exception {
+    /** Given a XML file, sign XML file using SII-validated certificate certificate.
+     *
+     * @param envio path to XML file to be signed.
+     * @param out path to save Signed XML file into.
+     * @param ID Section ID to be signed (ex.: "SetDoc").
+     * @return path to where Signed XML file was save.
+     * @throws Exception
+     */
+    public static String sign(String envio, String out, String ID) throws Exception {
         File inputXml = new File(envio);
         // Load XML document
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -53,7 +29,9 @@ public class signEnvio {
         dbf.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
+        // write path to SII-validated certificate
         File pkcs12 = new File("Java/certificado.pfx");
+        // write path to password of SII-validated certificate
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
         SignXMLApache.signXMLTS(doc, pkcs12, password, ID);
@@ -61,6 +39,13 @@ public class signEnvio {
         return out;
     }
 
+    /** Given a XML file, the method fixes the format to satisfy SII-valid format.
+     *
+     * @param base path to XML file to be fixed
+     * @param out path to save Fixed XML into
+     * @return path to where Fixed XML was save into
+     * @throws IOException
+     */
     public static String Fix(String base, String out) throws IOException {
         File Xml = new File(base);
         File output = new File("out/"+out+".xml");
@@ -69,13 +54,9 @@ public class signEnvio {
 
         baseContent = baseContent.replace("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>", "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
         baseContent = baseContent.replace("</EnvioDTE>", "\r\n</EnvioDTE>");
-
-        //System.out.println("baseContent: " + baseContent);
-
         // Remove XML declaration from the second file if present
         // Write output
         Files.writeString(output.toPath(), baseContent, StandardCharsets.ISO_8859_1);
-
         return "out/" + out + ".xml";
     }
 }

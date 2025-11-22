@@ -1,7 +1,6 @@
 package SiiBoleta;
 
 import SIIEnvio.SetDTEGenerator;
-import SIIEnvio.envioGenerator;
 import SIIEnvio.insertDTEs;
 import SIIEnvio.signEnvio;
 import org.json.JSONArray;
@@ -54,7 +53,7 @@ public class test {
         //inserta DTEs y añade a envíoDTE
         String envio = insertDTEs.Insert(SetDTE,SignedDTEs,"envio");
         //Firma envio
-        String signedEnv = signEnvio.sign4(envio,"out/signedEnv.xml","SetDoc");
+        String signedEnv = signEnvio.sign(envio,"out/signedEnv.xml","SetDoc");
         String Fixed =  signEnvio.Fix(signedEnv,"signedEnvFixed");
 
         System.out.println("Envio DTE firmado: "+ Fixed);
