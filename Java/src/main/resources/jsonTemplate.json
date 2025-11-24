@@ -18,10 +18,10 @@
         "ciudadOrigen": "Santiago"
       },
       "receptor": {
-        "rutReceptor": "12345678-9",
+        "rutReceptor": "60803000-K",
         "rznSocRecep": "HM",
         "giroRecep": "Comercio al por mayor",
-        "contacto": "Juan Pérez",
+        "contacto": "Andrés Salazar",
         "dirRecep": "Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444",
         "cmnaRecep": "Providencia",
         "ciudadRecep": "Santiago"
@@ -61,10 +61,10 @@
         "ciudadOrigen": "Santiago"
       },
       "receptor": {
-        "rutReceptor": "12345678-9",
+        "rutReceptor": "60803000-K",
         "rznSocRecep": "Zara",
         "giroRecep": "Comercio al por mayor",
-        "contacto": "Juan Pérez",
+        "contacto": "Andrés Salazar",
         "dirRecep": "Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444",
         "cmnaRecep": "Providencia",
         "ciudadRecep": "Santiago"

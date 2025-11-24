@@ -43,9 +43,8 @@ import org.apache.xml.security.Init;
 import SIIEnvio.EnvioDTE;
 import SiiSignature.SignatureType;
 import jakarta.xml.bind.*;
-import org.w3c.dom.Document;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.w3c.dom.*;
 import org.w3c.dom.Element;
@@ -2099,6 +2098,7 @@ public class DTEMakers {
         // Rut Contribuyente Receptor de los DTE
         caratula.setRutReceptor(rutReceptor);
         GregorianCalendar calendar = new GregorianCalendar(2002, GregorianCalendar.OCTOBER,20);
+        GregorianCalendar calendarActual = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         xmlDate.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
@@ -2106,7 +2106,7 @@ public class DTEMakers {
         caratula.setFchResol(xmlDate);
         // Nº de resolución SII que autoriza al emisor
         caratula.setNroResol(BigInteger.valueOf(nroResol));
-        XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendarActual);
         xmlDate2.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         xmlDate2.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
         // Fecha y hora de firma del envío AAAAMMDDHHMMSS
