@@ -18,9 +18,16 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+
+//Imports para PDF
+import SiiBoleta.SiiPDF.Utilities.generatePDFclass;
 
 public class DTEGenerator {
     public static void main(String[] args) throws Exception {
@@ -86,6 +93,8 @@ public class DTEGenerator {
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
+        //
+
         // Se genera el codigo de barras
         //Image barcode = TED.makeBarcode(ted);
 
@@ -144,10 +153,18 @@ public class DTEGenerator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-        String out = "out/"+name+".xml";
+        String out = "Java/out/"+name+".xml";
         Result output = new StreamResult(new File(out));
         Source input = new DOMSource(doc);
         transformer.transform(input, output);
+
+
+        //Aprovechamos de hacer un PDF
+        InputStream xmlFile = new FileInputStream("Java/out/DTE.xml");
+        InputStream xslFile = new FileInputStream("Java/In/plantillas/plantilla_PDF_FExE.xsl");
+        OutputStream pdfFile = new FileOutputStream("Java/Out/PDFMuestra.pdf");
+        generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
+
         return out;
     }
 }

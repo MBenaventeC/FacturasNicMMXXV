@@ -48,7 +48,9 @@ public class signEnvio {
      */
     public static String Fix(String base, String out) throws IOException {
         File Xml = new File(base);
-        File output = new File("out/"+out+".xml");
+        //File output = new File("out/"+out+".xml");
+        File output = new File(out+".xml");
+        
 
         String baseContent = Files.readString(Xml.toPath(), StandardCharsets.ISO_8859_1);
 

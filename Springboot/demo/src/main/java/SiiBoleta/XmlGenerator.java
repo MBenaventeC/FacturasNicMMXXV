@@ -47,7 +47,6 @@ public class XmlGenerator {
         DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",34,994321,args.get("rut").toString(),"Empresa Ejemplo S.A.",(int)precioUnitario, args.get("detalle").toString(),cafFromXml);
 
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
-        
 
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalle,ted,"DTE-34-994321");
