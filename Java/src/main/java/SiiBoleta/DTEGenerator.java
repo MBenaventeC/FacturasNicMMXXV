@@ -83,7 +83,7 @@ public class DTEGenerator {
         //GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
+        File cafFile = new File("FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
@@ -153,16 +153,16 @@ public class DTEGenerator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-        String out = "Java/out/"+name+".xml";
+        String out = "out/"+name+".xml";
         Result output = new StreamResult(new File(out));
         Source input = new DOMSource(doc);
         transformer.transform(input, output);
 
 
         //Aprovechamos de hacer un PDF
-        InputStream xmlFile = new FileInputStream("Java/out/DTE.xml");
-        InputStream xslFile = new FileInputStream("Java/In/plantillas/plantilla_PDF_FExE.xsl");
-        OutputStream pdfFile = new FileOutputStream("Java/Out/PDFMuestra.pdf");
+        InputStream xmlFile = new FileInputStream("out/DTE.xml");
+        InputStream xslFile = new FileInputStream("In/plantillas/plantilla_PDF_FExE.xsl");
+        OutputStream pdfFile = new FileOutputStream("Out/PDFMuestra.pdf");
         generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
 
         return out;

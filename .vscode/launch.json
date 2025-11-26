@@ -3,18 +3,60 @@
     "configurations": [
         {
             "type": "java",
-            "name": "TestEscapeXml",
+            "name": "generatePDFclass",
             "request": "launch",
-            "mainClass": "TestEscapeXml",
-            "projectName": ""
+            "mainClass": "SiiBoleta.generatePDFclass",
+            "projectName": "facturacion",
+            "cwd": "${workspaceFolder}/FacturasNicMMXXV/Java",
+            "env": {
+                "JAVA_HOME": "D:\\Java\\jdk-25",
+                "PATH": "D:\\Java\\jdk-25\\bin;${env:PATH}"
+            }
         },
         {
             "type": "java",
-            "name": "Debug generatePDFclass",
+            "name": "DTEGenerator",
             "request": "launch",
-            "mainClass": "SiiPDF.Utilities.generatePDFclass",
+            "mainClass": "SiiBoleta.DTEGenerator",
+            "projectName": "facturacion",
+            "cwd": "${workspaceFolder}/FacturasNicMMXXV/Java",
+            "env": {
+                "JAVA_HOME": "D:\\Java\\jdk-25",
+                "PATH": "D:\\Java\\jdk-25\\bin;${env:PATH}"
+            }
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "SiiBoleta.test",
+            "projectName": "facturacion",
+            "cwd": "${workspaceFolder}/FacturasNicMMXXV/Java",
+            "env": {
+                "JAVA_HOME": "D:\\Java\\jdk-25",
+                "PATH": "D:\\Java\\jdk-25\\bin;${env:PATH}"
+            }
+        },
+        {
+            "type": "java",
+            "name": "XmlGenerator",
+            "request": "launch",
+            "mainClass": "SiiBoleta.XmlGenerator",
             "projectName": "demo",
-            "cwd": "${workspaceFolder}/Springboot/demo"
+            "env": {
+                "JAVA_HOME": "D:\\Java\\jdk-25",
+                "PATH": "D:\\Java\\jdk-25\\bin;${env:PATH}"
+            }
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "env": {
+                "JAVA_HOME": "D:\\Java\\jdk-25",
+                "PATH": "D:\\Java\\jdk-25\\bin;${env:PATH}"
+            }
         }
     ]
 }

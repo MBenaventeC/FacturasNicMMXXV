@@ -1,0 +1,12 @@
+{
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "D:\\Java\\jdk-25",
+            "default": true
+        }
+    ],
+    "java.home": "D:\\Java\\jdk-25",
+    "maven.terminal.useJavaHome": true,
+    "java.jdt.ls.java.home": "D:\\Java\\jdk-25"
+}

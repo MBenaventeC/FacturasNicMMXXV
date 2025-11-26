@@ -73,7 +73,7 @@ public class DTESign {
         dbf.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
-        File pkcs12 = new File("Java/certificado.pfx");
+        File pkcs12 = new File("certificado.pfx");
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
         String out = "out/"+name+".xml";

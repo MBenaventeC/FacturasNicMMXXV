@@ -57,7 +57,7 @@ public class FRMT {
 
         // Load CAF and private key
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
+        File cafFile = new File("FoliosSII609100003422295202510171815.xml");
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
 
         String pemPrivateKey = autorizacion.getRSASK();

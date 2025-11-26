@@ -14,7 +14,12 @@ import java.util.List;
 
 public class test {
     public static void main(String[] args) throws Exception {
+        System.out.println("Java version: " + System.getProperty("java.version"));
+        System.out.println("Java vendor: " + System.getProperty("java.vendor"));
+        System.out.println("Java home: " + System.getProperty("java.home"));
+        System.out.println("----------------------------------------");
         //Encuentra la ruta al template (o archivo Json con el contenido del documento)
+        System.out.println("cwd = " + System.getProperty("user.dir"));
         InputStream is = test.class.getClassLoader().getResourceAsStream("jsonTemplate.json");
         if (is == null) {
             throw new FileNotFoundException("No se encontró jsonTemplate.json en resources");
@@ -42,6 +47,7 @@ public class test {
             int folio = idoc.getInt("folio");
             String ID = "DTE-"+tipoDoc+"-"+folio;
             //Genera DTE
+            System.out.println("cwd = " + System.getProperty("user.dir"));
             String DTE = DTEGenerator.Generate("DTE",jsonDTE);
             //firma DTE
             String signedDTE = DTESign.Sign4("signedDTE"+i,DTE,ID);
@@ -53,8 +59,8 @@ public class test {
         //inserta DTEs y añade a envíoDTE
         String envio = insertDTEs.Insert(SetDTE,SignedDTEs,"envio");
         //Firma envio
-        String signedEnv = signEnvio.sign(envio,"Java/out/signedEnv.xml","SetDoc");
-        String Fixed =  signEnvio.Fix(signedEnv,"Java/out/signedEnvFixed");
+        String signedEnv = signEnvio.sign(envio,"out/signedEnv.xml","SetDoc");
+        String Fixed =  signEnvio.Fix(signedEnv,"out/signedEnvFixed");
 
         System.out.println("Envio DTE firmado: "+ Fixed);
     }

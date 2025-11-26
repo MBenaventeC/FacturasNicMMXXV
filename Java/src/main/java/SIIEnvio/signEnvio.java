@@ -30,7 +30,7 @@ public class signEnvio {
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
         // write path to SII-validated certificate
-        File pkcs12 = new File("Java/certificado.pfx");
+        File pkcs12 = new File("certificado.pfx");
         // write path to password of SII-validated certificate
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
@@ -54,8 +54,10 @@ public class signEnvio {
 
         String baseContent = Files.readString(Xml.toPath(), StandardCharsets.ISO_8859_1);
 
-        baseContent = baseContent.replace("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>", "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-        baseContent = baseContent.replace("</EnvioDTE>", "\r\n</EnvioDTE>");
+        // baseContent = baseContent.replace("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>", "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+        // baseContent = baseContent.replace("</EnvioDTE>", "\r\n</EnvioDTE>");
+        baseContent = baseContent.replaceFirst("(<\\?xml[^>]*\\?>)\\s*(<)", "$1\r\n$2");
+        baseContent = baseContent.replaceFirst("\\s*</EnvioDTE>\\s*$", "\r\n</EnvioDTE>");
         // Remove XML declaration from the second file if present
         // Write output
         Files.writeString(output.toPath(), baseContent, StandardCharsets.ISO_8859_1);
