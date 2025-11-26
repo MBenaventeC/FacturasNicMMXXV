@@ -87,8 +87,11 @@ public class generatePDFclass{
         );
         bufferedImage.getGraphics().drawImage(awtImage, 0, 0, null);
         
-        // 4. Borrar la imagen temporal anterior
+        // Borrar la imagen temporal anterior
         String path = "out/ted_temp/ted_barcode.png";
+        File outputFile = new File(path);
+        outputFile.getParentFile().mkdirs();
+
         deleteTemporaryImage(path);
 
         // Guardar imagen temporal

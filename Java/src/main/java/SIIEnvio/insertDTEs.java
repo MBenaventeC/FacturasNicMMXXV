@@ -25,7 +25,6 @@ public class insertDTEs {
         // Read both files as strings
         String baseContent = Files.readString(baseXml.toPath(), StandardCharsets.ISO_8859_1);
         String insertContent = Files.readString(xmlToInsert.toPath(), StandardCharsets.ISO_8859_1);
-        System.out.println(insertContent);
         // Find the insertion point
         int closeDTEpos = insertContent.indexOf("</DTE>");
         if (closeDTEpos == -1) throw new IllegalArgumentException("Marker not found in base XML");

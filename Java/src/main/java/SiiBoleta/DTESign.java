@@ -77,7 +77,6 @@ public class DTESign {
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
         String out = "out/"+name+".xml";
-        //GgKBfGF01GXzoUt4ksLpKVNhFkk=
         SignXMLApache.signXMLTS(doc, pkcs12, password, ID);
         SignXMLApache.saveDocumentToFile(doc,out);
         return out;
