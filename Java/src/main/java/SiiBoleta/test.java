@@ -33,8 +33,6 @@ public class test {
         // Validación de datos en cada DTE
         Validate.validateDTEs(jsonDTEs);
 
-        //System.setProperty("org.apache.xml.security.ignoreLineBreaks", "true");
-
         //Para guardar las archivos DTE firmados
         List<String> SignedDTEs = new ArrayList<>();
         //Genera SetDTE vacío

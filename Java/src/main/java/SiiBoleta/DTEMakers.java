@@ -1,10 +1,7 @@
 package SiiBoleta;
 
-import javax.xml.crypto.Data;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.XMLStructure;
-import javax.xml.crypto.dom.DOMStructure;
-import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -47,14 +44,6 @@ import jakarta.xml.bind.*;
 import org.w3c.dom.Element;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.w3c.dom.*;
-import org.w3c.dom.Element;
-
-import javax.xml.crypto.dsig.*;
-import javax.xml.crypto.dsig.spec.*;
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

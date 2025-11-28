@@ -3,7 +3,7 @@
     {
       "documento": {
         "tipoDocumento": 34,
-        "folio": 22301,
+        "folio": 22303,
         "indServicio": 2,
         "fmaPago": 1,
         "medioPago": "EF"
@@ -22,7 +22,7 @@
         "rznSocRecep": "HM",
         "giroRecep": "Comercio al por mayor",
         "contacto": "Andrés Salazar",
-        "dirRecep": "Av. Siempre Viva 123, Oficina 4B Tel:+56.22333444",
+        "dirRecep": "Av. Siempre Viva 123, Oficina 4B Tel:+56.22333555",
         "cmnaRecep": "Providencia",
         "ciudadRecep": "Santiago"
       },
@@ -46,7 +46,7 @@
     {
       "documento": {
         "tipoDocumento": 34,
-        "folio": 22302,
+        "folio": 22304,
         "indServicio": 2,
         "fmaPago": 1,
         "medioPago": "EF"

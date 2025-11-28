@@ -12,13 +12,11 @@ public class DD {
     public static DTEDefType.Documento.TED.DD makeDD(String re,
                                                      int td,
                                                      int f,
-                                                     //XMLGregorianCalendar fe,
                                                      String rr,
                                                      String rsr,
                                                      int mnt,
                                                      String it1,
-                                                     DTEDefType.Documento.TED.DD.CAF caf//,
-                                                     //XMLGregorianCalendar tsted
+                                                     DTEDefType.Documento.TED.DD.CAF caf
     ) throws DatatypeConfigurationException {
 
         DTEDefType.Documento.TED.DD dd = new DTEDefType.Documento.TED.DD();

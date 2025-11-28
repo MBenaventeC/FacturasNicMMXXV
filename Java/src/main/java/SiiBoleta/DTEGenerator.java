@@ -1,16 +1,11 @@
 package SiiBoleta;
 
-import SiiSignature.SignatureType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
-//import org.eclipse.persistence.oxm.NamespacePrefixMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,12 +45,13 @@ public class DTEGenerator {
         // repeat process for <Emisor> (thou right now we use a fix <Emisor>)
         JSONObject emi = jsonDoc.getJSONObject("emisor");
         String rutEm = emi.getString("rutEmisor");
-        String rznEm = emi.getString("rznSoc");
-        String girEm = emi.getString("giroEmis");
-        String suc = emi.getString("sucursal");
-        String dirOr = emi.getString("dirOrigen");
-        String cmnaOr = emi.getString("cmnaOrigen");
-        String ciudadOr = emi.getString("ciudadOrigen");
+        //Datos permanentes del NIC, en caso de querer usarlos pueden ponerse en jsonTemplate.json
+        // String rznEm = emi.getString("rznSoc");
+        // String girEm = emi.getString("giroEmis");
+        // String suc = emi.getString("sucursal");
+        // String dirOr = emi.getString("dirOrigen");
+        // String cmnaOr = emi.getString("cmnaOrigen");
+        // String ciudadOr = emi.getString("ciudadOrigen");
         DTEDefType.Documento.Encabezado.Emisor emisor = DTEMakers.makeEmisor();
 
         // Extract values from json to <Receptor>
@@ -79,8 +75,6 @@ public class DTEGenerator {
         JSONObject detalleJson = detallesJson.getJSONObject(0);
         String IT1 = detalleJson.getString("nmbItem");
         List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
-        //DTEDefType.Documento.Detalle detalle = DTEMakers.makeDetalle(1,"ServiciodeConsultoriaenTI/1/",100000.0);
-        //GregorianCalendar calendar = new GregorianCalendar(2025, Calendar.APRIL, 9);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
         File cafFile = new File("FoliosSII609100003422295202510171815.xml");
@@ -88,23 +82,13 @@ public class DTEGenerator {
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
 
-
-        //DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT("S1QA/yHpklCZ8Xog2UJrV/GeFzO80pPYhwclyoHM0lFSJrwPaACEXto03H1NJlN9FiZLr5RjYFwaBrVwIwjFRA==".getBytes());
         DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
-
-        //
-
-        // Se genera el codigo de barras
-        //Image barcode = TED.makeBarcode(ted);
 
         String id = name+"-"+tipoDoc+"-"+folio;
         DTEDefType.Documento documento = DTEMakers.makeDocumento(encabezado,detalles,ted,id);
         DTEDefType dte = DTEMakers.makeDTE(documento,null);
         // ...set other fields...
-
-        // 2. Initialize JAXBContext
-        //JAXBContext context = JAXBContext.newInstance(EnvioDTE.class);
 
         // 3. Create marshaller and enable pretty-print
         Map<String, Object> props = new HashMap<>();
@@ -131,23 +115,6 @@ public class DTEGenerator {
         );
 
         marshaller.marshal(jaxbElement2, doc);
-
-        /*NodeList frmtNodes = doc.getElementsByTagName("FRMT");
-        if (frmtNodes.getLength() > 0) {
-            Element frmtElem = (Element) frmtNodes.item(0);
-            String base64 = frmtElem.getTextContent().replaceAll("\\s+", "");
-
-            // 3. Wrap at 76 characters per line
-            StringBuilder wrapped = new StringBuilder();
-            int index = 0;
-            while (index < base64.length()) {
-                int end = Math.min(index + 76, base64.length());
-                wrapped.append(base64, index, end).append("\n");
-                index = end;
-            }
-
-            frmtElem.setTextContent(wrapped.toString().trim()); // replace text with wrapped Base64
-        }*/
 
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
