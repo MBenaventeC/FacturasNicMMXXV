@@ -364,7 +364,7 @@
 			top="-0.5cm">
 			<fo:block>
 				<fo:external-graphic
-					src="url('In/logoUchile3.png')"
+					src="url('Java/In/logoUchile3.png')"
 					content-width="2.5cm"
     				content-height="4cm"/>
 			</fo:block>

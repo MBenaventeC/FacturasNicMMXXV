@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "SiiBoleta.test",
+            "projectName": "jakarta.xml.bind-api"
+        },
+        {
+            "type": "java",
             "name": "generatePDFclass",
             "request": "launch",
             "mainClass": "SiiBoleta.generatePDFclass",

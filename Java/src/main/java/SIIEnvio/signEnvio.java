@@ -30,7 +30,7 @@ public class signEnvio {
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.parse(inputXml);
         // write path to SII-validated certificate
-        File pkcs12 = new File("certificado.pfx");
+        File pkcs12 = new File("Java/certificado.pfx");
         // write path to password of SII-validated certificate
         Path filePath = Paths.get("password.txt");
         String password = Files.readString(filePath);
@@ -61,6 +61,6 @@ public class signEnvio {
         // Remove XML declaration from the second file if present
         // Write output
         Files.writeString(output.toPath(), baseContent, StandardCharsets.ISO_8859_1);
-        return "out/" + out + ".xml";
+        return out + ".xml";
     }
 }

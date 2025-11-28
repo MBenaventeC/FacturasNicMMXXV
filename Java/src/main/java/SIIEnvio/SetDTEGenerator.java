@@ -1,6 +1,5 @@
 package SIIEnvio;
 
-import SiiBoleta.DTEDefType;
 import SiiBoleta.DTEMakers;
 import SiiBoleta.XmlGenerator;
 import SiiBoleta.test;
@@ -100,9 +99,7 @@ public class SetDTEGenerator {
         JSONObject emiso = dte.getJSONObject("emisor");
         String rutEmi = emiso.getString("rutEmisor");
 
-        //String rutEnv = Files.readString(Paths.get("rutEnvia.txt"));
         EnvioDTE.SetDTE.Caratula caratula = DTEMakers.makeCaratula(rutEnv,rutEmi,rutRec,0,subTotDTEList);
-        List<DTEDefType> DTEList = new ArrayList<>();
         EnvioDTE.SetDTE setDTE = DTEMakers.makeSetDTE(caratula,null,"SetDoc");
 
         // Create MOXy JAXBContext with both EnvioDTE and SignatureType
@@ -131,20 +128,17 @@ public class SetDTEGenerator {
         marshaller2.marshal(jaxbElement3, doc2);
 
         TransformerFactory transformerf2 = TransformerFactory.newInstance();
-        //transformerf2.setAttribute("indent-number", 4);
         Transformer transformer2 = transformerf2.newTransformer();
         transformer2.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer2.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer2.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
         transformer2.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        //transformer2.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         transformer2.transform(new DOMSource(doc2), new StreamResult(baos));
 
         // Convert to string safely, removing only carriage return entities
         String xmlClean = baos.toString("ISO-8859-1"); // only remove encoded CRs
-        //System.out.println(xmlClean);
         // Write back to file preserving your indentation
         File outputXml = new File("out/"+out+".xml");
         // Crear carpeta "out" si no existe

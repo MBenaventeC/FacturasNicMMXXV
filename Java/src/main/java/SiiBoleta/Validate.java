@@ -2,12 +2,10 @@ package SiiBoleta;
 
 import javax.xml.crypto.*;
 import javax.xml.crypto.dsig.*;
-import javax.xml.crypto.dom.*;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.crypto.dsig.keyinfo.*;
 import java.io.FileInputStream;
 import java.security.*;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -93,7 +91,7 @@ public class Validate {
             boolean sv = signature.getSignatureValue().validate(valContext);
             System.out.println("signature validation status: " + sv);
             // check the validation status of each Reference
-            Iterator i = signature.getSignedInfo().getReferences().iterator();
+            Iterator<?> i = signature.getSignedInfo().getReferences().iterator();
             for (int j=0; i.hasNext(); j++) {
                 boolean refValid =
                     ((Reference) i.next()).validate(valContext);
@@ -120,7 +118,7 @@ public class Validate {
                 throw new KeySelectorException("Null KeyInfo object!");
             }
             SignatureMethod sm = (SignatureMethod) method;
-            List list = keyInfo.getContent();
+            List<?> list = keyInfo.getContent();
 
             for (int i = 0; i < list.size(); i++) {
                 XMLStructure xmlStructure = (XMLStructure) list.get(i);
