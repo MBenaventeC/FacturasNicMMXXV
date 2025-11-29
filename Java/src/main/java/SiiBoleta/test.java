@@ -6,12 +6,16 @@ import SIIEnvio.signEnvio;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Ejemplo de uso de la librería
+ */
 public class test {
     public static void main(String[] args) throws Exception {
         System.out.println("Java version: " + System.getProperty("java.version"));
@@ -63,5 +67,13 @@ public class test {
         String Fixed =  signEnvio.Fix(signedEnv,"out/signedEnvFixed");
 
         System.out.println("Envio DTE firmado: "+ Fixed);
+        File DTEXML = new File("out/DTE.xml");
+        File envioXML = new File("out/envio.xml");
+        File setXML = new File("out/SetDTE.xml");
+        File signedEnvXML = new File("out/signedEnv.xml");
+        DTEXML.delete();
+        envioXML.delete();
+        setXML.delete();
+        signedEnvXML.delete();
     }
 }
