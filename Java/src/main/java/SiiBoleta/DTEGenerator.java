@@ -29,9 +29,9 @@ public class DTEGenerator {
     public static void main(String[] args) throws Exception {
         String ruta= Files.readString(Paths.get("jsonTemplate.json"));
         String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
-        Generate("TEST",new JSONObject(contenido));
+        Generate("TEST",new JSONObject(contenido),"Java/FoliosSII609100003422295202510171815.xml");
     }
-    public static String Generate(String name, JSONObject jsonDoc) throws Exception {
+    public static String Generate(String name, JSONObject jsonDoc, String folios) throws Exception {
         // 1. Create and populate your object
         // First take the idoc Json and fill <idDoc>
         JSONObject idoc = jsonDoc.getJSONObject("documento");
@@ -78,12 +78,12 @@ public class DTEGenerator {
         List<DTEDefType.Documento.Detalle> detalles = DTEMakers.makeDetalles(detallesJson);
 
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
+        File cafFile = new File(folios);
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
         DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
         DTEDefType.Documento.TED.DD dd = DD.makeDD(rutEm,tipoDoc,folio,rutRe,rznScR,mnttotal,IT1,cafFromXml);
 
-        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
+        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd,folios);
         DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
 
         String id = name+"-"+tipoDoc+"-"+folio;
@@ -121,16 +121,16 @@ public class DTEGenerator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "0");
         transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
-        String out = "Java/Out/"+name+".xml";
+        String out = "out/"+name+".xml";
         Result output = new StreamResult(new File(out));
         Source input = new DOMSource(doc);
         transformer.transform(input, output);
 
 
         //Aprovechamos de hacer un PDF
-        InputStream xmlFile = new FileInputStream("Java/Out/DTE.xml");
+        InputStream xmlFile = new FileInputStream("out/DTE.xml");
         InputStream xslFile = new FileInputStream("Java/In/plantillas/plantilla_PDF_FExE.xsl");
-        OutputStream pdfFile = new FileOutputStream("Java/Out/PDFMuestra.pdf");
+        OutputStream pdfFile = new FileOutputStream("out/PDFMuestra.pdf");
         generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
 
         return out;

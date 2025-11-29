@@ -24,7 +24,8 @@ public class FRMT {
         return new JcaPEMKeyConverter().getPrivateKey(keyPair.getPrivateKeyInfo());
     }
 
-    public static DTEDefType.Documento.TED.FRMT makeFRMT(DTEDefType.Documento.TED.DD DD) throws Exception {
+
+    public static DTEDefType.Documento.TED.FRMT makeFRMT(DTEDefType.Documento.TED.DD DD,String folios) throws Exception {
 
         DTEDefType.Documento.TED.FRMT frmt = new DTEDefType.Documento.TED.FRMT();
 
@@ -46,8 +47,9 @@ public class FRMT {
         xmlString = xmlString.replaceAll(">\\s+<", "><");
 
         // Load CAF and private key
+        //This method can be modified to receive autorizacion as input when used in dteGenerator
         JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-        File cafFile = new File("Java/FoliosSII609100003422295202510171815.xml");
+        File cafFile = new File(folios);
         AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
 
         String pemPrivateKey = autorizacion.getRSASK();

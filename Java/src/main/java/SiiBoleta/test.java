@@ -48,7 +48,7 @@ public class test {
             String ID = "DTE-"+tipoDoc+"-"+folio;
             //Genera DTE
             System.out.println("cwd = " + System.getProperty("user.dir"));
-            String DTE = DTEGenerator.Generate("DTE",jsonDTE);
+            String DTE = DTEGenerator.Generate("DTE",jsonDTE, "Java/FoliosSII609100003422295202510171815.xml");
             //firma DTE
             String signedDTE = DTESign.Sign4("signedDTE"+i,DTE,ID);
 
