@@ -1,1 +1,0 @@
-# Archivo de pruebas para Python

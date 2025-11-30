@@ -63,15 +63,7 @@ public class generatePDFclass{
     }
 	public static void generatePDFWithTED(InputStream xmlFile, InputStream xslFile,
                                          OutputStream pdfFile,DTEDefType.Documento.TED ted) throws Exception {
-        
-        // Parseamos el XML para extraer el TED
-//		JAXBContext cafContext = JAXBContext.newInstance(AUTORIZACION.class);
-//        File cafFile = new File("src/main/java/SiiPDF/Autorizacion.xml"); //
-//        AUTORIZACION autorizacion = (AUTORIZACION) cafContext.createUnmarshaller().unmarshal(cafFile);
-//        DTEDefType.Documento.TED.DD.CAF cafFromXml = autorizacion.getCAF();
-//        DTEDefType.Documento.TED.DD dd = DD.makeDD("60910000-1",41,1370000,"60910000-1","Dise�o",9990,"item1aaa",cafFromXml);
-//        DTEDefType.Documento.TED.FRMT frmt = FRMT.makeFRMT(dd);
-//        DTEDefType.Documento.TED ted= TED.makeTED(dd,frmt);
+
         
         // Creamos imagen del timbre
         BarcodePDF417 barcode = TED.makeBarcode(ted);
@@ -116,17 +108,5 @@ public class generatePDFclass{
             System.err.println("Error al eliminar la imagen: " + e.getMessage());
         }
     }
-
-    // Ejemplo de uso
-//    public static void main(String[] args) throws Exception {
-//        try (
-//            InputStream xmlFile = new FileInputStream("test_files/xml/test_xmlDemo.xml");
-//            InputStream xslFile = new FileInputStream("src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
-//            OutputStream pdfFile = new FileOutputStream("test_files/Out/test_pdf_FExE_Demo_3.pdf")
-//        ) {
-//            generatePDFWithTED(xmlFile, xslFile, pdfFile);
-//            System.out.println("PDF generado correctamente.");
-//        }
-//    }
 
 }

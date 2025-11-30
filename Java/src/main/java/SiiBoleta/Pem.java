@@ -132,19 +132,4 @@ public class Pem {
                 .replaceAll("-----END [^-]+-----", "")
                 .replaceAll("\\s+", "");
     }
-
-    /* ===================== DEMO ===================== */
-
-    public static void main(String[] args) throws Exception {
-        ensureBC();
-
-        Path caf = Path.of("C:/universidad/proyecto_de_software/FacturasNicMMXXV/Java/Autorizacion.xml");
-
-        PrivateKey priv = loadPrivateKeyFromCaf(caf);
-        PublicKey  pub  = loadPublicKeyFromCaf(caf);
-
-        boolean ok = privateMatchesPublic(priv, pub);
-        System.out.println("Privada == Pública: " + (ok ? "COINCIDEN" : "NO COINCIDEN"));
-
-    }
 }

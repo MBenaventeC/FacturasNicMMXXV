@@ -172,26 +172,4 @@ public class SiiTED {
         String caf = extraerCAF(xmlPath);
         return Pem.extractTagInnerPem(caf, tagName);
     }
-
-    public static void main(String[] args) throws Exception {
-
-        // inventamos datos de prueba
-        Map<String,String> datos = new HashMap<>();
-        datos.put("RE", "20.828.882-1");
-        datos.put("TD", "33");
-        datos.put("F", "67");
-        datos.put("FE", "2025-09-03");
-        datos.put("RR", "39729847-1");
-        datos.put("RSR", "Comprador de prueba");
-        datos.put("MNT", "10990");
-        datos.put("IT1", "Prueba");
-
-        // indicamos donde esta la ruta del xml que contiene el caf y llaves
-        String ruta = "C:/universidad/proyecto_de_software/FacturasNicMMXXV/Java/Autorizacion.xml";
-        Path xmlPath = Paths.get(ruta);
-
-        // Hacemos el timbre electronico
-        makeTed(datos, xmlPath);
-    }
-
 }
