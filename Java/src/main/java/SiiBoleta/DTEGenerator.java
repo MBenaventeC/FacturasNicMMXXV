@@ -130,7 +130,7 @@ public class DTEGenerator {
         //Aprovechamos de hacer un PDF
         InputStream xmlFile = new FileInputStream("out/DTE.xml");
         InputStream xslFile = new FileInputStream("Java/In/plantillas/plantilla_PDF_FExE.xsl");
-        OutputStream pdfFile = new FileOutputStream("out/PDFMuestra.pdf");
+        OutputStream pdfFile = new FileOutputStream("out/" + id + ".pdf");
         generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
 
         return out;
