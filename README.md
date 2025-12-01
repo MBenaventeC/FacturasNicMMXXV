@@ -1,7 +1,8 @@
 # FacturasNicMMXXV
 
-Esta librería tiene como objetivo la creación de DTEs de manera compatible con los requisitos del SII.
-Actualmente implementa solo Facturas electrónicas Excentas, pero es extensible a cualquier tipo de DTE.
+Esta librería tiene como objetivo la creación de DTEs, su representación PDF y envío de los DTE de manera compatible
+con los requisitos del SII.
+Actualmente implementa solo Facturas Electrónicas Exentas, pero es extensible a cualquier tipo de DTE.
 
 ## Requisitos previos a la ejecución
 Se recomienda ejecutar el proyecto en el IDE Intellij para mayor facilidad en la instalación
