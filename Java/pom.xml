@@ -248,18 +248,19 @@
 				<executions>
 					<execution>
 						<id>generate-sii-schemas</id>
+                        <phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<schemaDirectory>${project.basedir}/src/main/java/SiiEnvio/schemas</schemaDirectory>
+							<schemaDirectory>${project.basedir}/src/main/java/SiiEnvioApi/schemas</schemaDirectory>
 							<schemaIncludes>
 								<include>*.xsd</include>
 							</schemaIncludes>
 							<schemaExcludes>
 								<exclude>**/*.xsdconfig</exclude>
 							</schemaExcludes>
-							<generatePackage>SiiEnvio.generatedClasses.cl.sii.siiDte</generatePackage>
+							<generatePackage>SiiEnvioApi.generatedClasses.cl.sii.siiDte</generatePackage>
 							<generateDirectory>${project.basedir}/src/main/java/</generateDirectory>
 							<extension>true</extension>
 							<strict>false</strict>
