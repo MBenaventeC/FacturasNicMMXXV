@@ -611,7 +611,7 @@ public class ConexionSii {
    private static synchronized JAXBContext getSiiJaxbContext() throws JAXBException {
        if (siiJaxbContext == null) {
            // ajustar el package si tu plugin JAXB generó otro
-           siiJaxbContext = JAXBContext.newInstance("SiiEnvio.generatedClasses.cl.sii.siiDte");
+           siiJaxbContext = JAXBContext.newInstance("SiiEnvioApi.generatedClasses.cl.sii.siiDte");
        }
        return siiJaxbContext;
    }

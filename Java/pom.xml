@@ -228,14 +228,14 @@
 								<argument>--add-exports=java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED</argument>
 								<argument>-classpath</argument>
 								<classpath/>
-								<argument>src/main/java/SiiEnvioApi.EnviaDocumento</argument>
+								<argument>SiiEnvioApi.EnviaDocumento</argument>
 								<argument>-c</argument>
 								<argument>certABC.pfx</argument>
 								<argument>-s</argument>
 								<argument>contraseña</argument>
 								<argument>-f</argument>
 								<argument>60910000-1</argument>
-								<argument>envioprueba2.xml</argument>
+								<argument>src/main/java/SiiEnvioApi/util/envioprueba2.xml</argument>
 							</arguments>
 						</configuration>
 					</execution>

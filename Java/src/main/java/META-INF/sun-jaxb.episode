@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por Eclipse Implementation of JAXB v4.0.5 
+Visite https://eclipse-ee4j.github.io/jaxb-ri 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2025.12.01 a las 10:37:42 AM GMT-03:00
+  -->
+  <bindings scd="x-schema::tns" if-exists="true" auto-acknowledge="true" xmlns:tns="http://www.sii.cl/SiiDte">
+    <schemaBindings map="false">
+      <package name="SiiEnvioApi.generatedClasses.cl.sii.siiDte"/>
+    </schemaBindings>
+    <bindings scd="tns:RECEPCIONDTE" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.RECEPCIONDTE"/>
+    </bindings>
+    <bindings scd="tns:getToken" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.GetToken"/>
+    </bindings>
+    <bindings scd="~tns:TEDType" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.TEDType"/>
+    </bindings>
+    <bindings scd="~tns:CAFType" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.CAFType"/>
+    </bindings>
+    <bindings scd="~tns:AutorizacionType" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.AutorizacionType"/>
+    </bindings>
+    <bindings scd="~tns:MedioPagoType" if-exists="true" auto-acknowledge="true">
+      <typesafeEnumClass ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.MedioPagoType"/>
+    </bindings>
+    <bindings scd="~tns:TipMonType" if-exists="true" auto-acknowledge="true">
+      <typesafeEnumClass ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.TipMonType"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" if-exists="true" auto-acknowledge="true" xmlns:tns="http://www.sii.cl/XMLSchema">
+    <schemaBindings map="false">
+      <package name="SiiEnvioApi.generatedClasses.cl.sii.siiDte"/>
+    </schemaBindings>
+    <bindings scd="tns:RESPUESTA" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.RESPUESTA"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" if-exists="true" auto-acknowledge="true" xmlns:tns="http://www.nic.cl/SiiDte">
+    <schemaBindings map="false">
+      <package name="SiiEnvioApi.generatedClasses.cl.sii.siiDte"/>
+    </schemaBindings>
+    <bindings scd="tns:TedBarcode" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.TedBarcode"/>
+    </bindings>
+  </bindings>
+  <bindings scd="x-schema::tns" if-exists="true" auto-acknowledge="true" xmlns:tns="http://www.w3.org/2000/09/xmldsig#">
+    <schemaBindings map="false">
+      <package name="SiiEnvioApi.generatedClasses.cl.sii.siiDte"/>
+    </schemaBindings>
+    <bindings scd="~tns:SignatureType" if-exists="true" auto-acknowledge="true">
+      <class ref="SiiEnvioApi.generatedClasses.cl.sii.siiDte.SignatureType"/>
+    </bindings>
+  </bindings>
+</bindings>
+
