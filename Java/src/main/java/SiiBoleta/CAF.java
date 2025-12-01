@@ -2,6 +2,12 @@ package SiiBoleta;
 
 public class CAF {
 
+    /**
+     * Creates CAF with given values and returns it
+     * @param da
+     * @param frma
+     * @return
+     */
     public static DTEDefType.Documento.TED.DD.CAF makeCAF(DTEDefType.Documento.TED.DD.CAF.DA da,
                                             DTEDefType.Documento.TED.DD.CAF.FRMA frma) {
 

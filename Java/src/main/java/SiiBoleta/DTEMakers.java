@@ -236,11 +236,26 @@ public class DTEMakers {
         return detalles;
     }
 
+    /**
+     * Reads JSON file
+     * @param ruta
+     * @return
+     * @throws Exception
+     */
     public static JSONArray leerJsonArray(String ruta) throws Exception {
         String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
         return new JSONArray(contenido);
     }
 
+    /**
+     * Creates Documento with given values and returns it
+     * @param encabezado
+     * @param detalles
+     * @param ted
+     * @param id
+     * @return
+     * @throws DatatypeConfigurationException
+     */
     public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, List<DTEDefType.Documento.Detalle> detalles,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
@@ -258,6 +273,11 @@ public class DTEMakers {
         return documento;
     }
 
+    /**
+     * Prints node for debugging
+     * @param node
+     * @throws Exception
+     */
     public static void printNode(Node node) throws Exception {
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -268,6 +288,12 @@ public class DTEMakers {
         transformer.transform(new DOMSource(node), new StreamResult(System.out));
     }
 
+    /**
+     * Creates DTE with given values and returns it
+     * @param documento
+     * @param signature
+     * @return
+     */
     public static DTEDefType makeDTE(DTEDefType.Documento documento, SignatureType signature) {
         DTEDefType dte = new DTEDefType();
         dte.setDocumento(documento);
@@ -276,6 +302,16 @@ public class DTEMakers {
         return dte;
     }
 
+    /**
+     * Creates Caratula with given values and returns it
+     * @param rutEnvia
+     * @param rutEmisor
+     * @param rutReceptor
+     * @param nroResol
+     * @param subTotDTE
+     * @return
+     * @throws DatatypeConfigurationException
+     */
     public static EnvioDTE.SetDTE.Caratula makeCaratula(String rutEnvia, String rutEmisor, String rutReceptor,
                                                         /*XMLGregorianCalendar fchResol,*/ int nroResol,
                                                         /*XMLGregorianCalendar tmstFirmaEnv,*/
@@ -307,6 +343,12 @@ public class DTEMakers {
         return caratula;
     }
 
+    /**
+     * Creates SubTotDTE with given values and returns it
+     * @param tpoDTE
+     * @param nroDTE
+     * @return
+     */
     public static EnvioDTE.SetDTE.Caratula.SubTotDTE makeSubTotDTE(int tpoDTE,int nroDTE) {
         EnvioDTE.SetDTE.Caratula.SubTotDTE subTot =  new EnvioDTE.SetDTE.Caratula.SubTotDTE();
         subTot.setTpoDTE(BigInteger.valueOf(tpoDTE));
@@ -314,6 +356,13 @@ public class DTEMakers {
         return subTot;
     }
 
+    /**
+     * Creates SetDTE with given values and returns it
+     * @param caratula
+     * @param DteList
+     * @param id
+     * @return
+     */
     public static EnvioDTE.SetDTE makeSetDTE(EnvioDTE.SetDTE.Caratula caratula,List<SiiBoleta.DTEDefType> DteList,String id){
         EnvioDTE.SetDTE  setDTE = new EnvioDTE.SetDTE();
         setDTE.setCaratula(caratula);
@@ -322,6 +371,12 @@ public class DTEMakers {
         return setDTE;
     }
 
+    /**
+     * Creates EnvioDTE with given values and returns it
+     * @param setDTE
+     * @param signature
+     * @return
+     */
     public static EnvioDTE makeEnvioDTE(EnvioDTE.SetDTE setDTE, SignatureType signature){
         EnvioDTE envioDTE = new EnvioDTE();
         envioDTE.setSetDTE(setDTE);

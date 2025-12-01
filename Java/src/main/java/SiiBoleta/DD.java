@@ -9,6 +9,19 @@ import java.util.GregorianCalendar;
 
 public class DD {
 
+    /**
+     * Creates DD with given values and returns it
+     * @param re
+     * @param td
+     * @param f
+     * @param rr
+     * @param rsr
+     * @param mnt
+     * @param it1
+     * @param caf
+     * @return
+     * @throws DatatypeConfigurationException
+     */
     public static DTEDefType.Documento.TED.DD makeDD(String re,
                                                      int td,
                                                      int f,

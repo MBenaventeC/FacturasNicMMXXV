@@ -14,25 +14,14 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
 public class SignXMLApache {
-
-    public static Object[] loadKeyAndChainFromPfx(String pfxPath, char[] password) throws Exception {
-        KeyStore ks = KeyStore.getInstance("PKCS12");
-        try (FileInputStream fis = new FileInputStream(pfxPath)) {
-            ks.load(fis, password);
-        }
-        String alias = ks.aliases().nextElement();
-
-        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password);
-        // CRUCIAL: Get the entire chain, not just the single cert
-        Certificate[] chain = ks.getCertificateChain(alias);
-
-        if (privateKey == null || chain == null || chain.length == 0) {
-            throw new Exception("No se pudo cargar la clave privada o la cadena de certificados del PFX.");
-        }
-
-        return new Object[]{privateKey, chain};
-    }
-
+    /**
+     * Signs a document with given certificate
+     * @param doc: document to sign
+     * @param pkcs12File: certificate
+     * @param keyPassword: password of the certificate
+     * @param ID: ID of element to sign
+     * @throws Exception
+     */
     public static void signXMLTS(Document doc, File pkcs12File, String keyPassword,String ID) throws Exception {
 
         // Load the keystore (PKCS12)
@@ -59,6 +48,13 @@ public class SignXMLApache {
         signature.addKeyInfo(cert);
         signature.sign(privateKey);
     }
+
+    /**
+     * Saves document to file
+     * @param document: the document to save
+     * @param outputFilePath: path to the location where document is to be saved
+     * @throws Exception
+     */
     public static void saveDocumentToFile(Document document, String outputFilePath)
             throws Exception {
 
@@ -85,6 +81,15 @@ public class SignXMLApache {
         os.close();
         System.out.println("Signed XML document successfully saved to: " + outputFilePath);
     }
+
+    /**
+     * Finds the element closest to the root of a document that has an ID and registers said ID as an ID so that it can be signed
+     * @param document: document to be signed
+     * @param elementIdValue: expected ID
+     * @param attributeName: name of the attribute, usually "ID"
+     * @return
+     * @throws Exception
+     */
     public static Element findAndRegisterFirstChildId(Document document, String elementIdValue, String attributeName)
             throws Exception {
 

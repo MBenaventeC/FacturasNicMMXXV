@@ -15,6 +15,12 @@ import java.security.*;
 
 public class FRMT {
 
+    /**
+     * extracts privatekey from RSASK (which is in the folios xml file)
+     * @param pem: RSASK
+     * @return
+     * @throws Exception
+     */
     public static PrivateKey extractPrivateKey(String pem) throws Exception {
         PEMParser parser = new PEMParser(new StringReader(pem));
         Object obj = parser.readObject();
@@ -24,7 +30,13 @@ public class FRMT {
         return new JcaPEMKeyConverter().getPrivateKey(keyPair.getPrivateKeyInfo());
     }
 
-
+    /**
+     * Creates FRMT and returns it
+     * @param DD
+     * @param folios: path and name of "folios" file
+     * @return
+     * @throws Exception
+     */
     public static DTEDefType.Documento.TED.FRMT makeFRMT(DTEDefType.Documento.TED.DD DD,String folios) throws Exception {
 
         DTEDefType.Documento.TED.FRMT frmt = new DTEDefType.Documento.TED.FRMT();

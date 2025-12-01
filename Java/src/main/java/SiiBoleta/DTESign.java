@@ -11,6 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DTESign {
+
+    /**
+     * Signing function that receives a document instead of a xml so that creation of unsigned xml can be skiped (unfinished, missing saveDocumentToFile, should work after adding call to save function)
+     * @param name: name of the new file
+     * @param in: path and name of the file to be signed
+     * @throws Exception
+     */
     public static void Sign3(String name,Document in) throws Exception {
         File pkcs12 = new File("Java/certificado.pfx");
         Path filePath = Paths.get("password.txt");
@@ -20,6 +27,15 @@ public class DTESign {
         SignXMLApache.signXMLTS(in, pkcs12, password,id);
         return ;
     }
+
+    /**
+     * Signs DTE in path "in", taking element with ID "ID" as digest and saves it with name "name"
+     * @param name: name of the signed xml
+     * @param in: path and name of document to sign
+     * @param ID: ID of the element to be used for signing
+     * @return
+     * @throws Exception
+     */
     public static String Sign4(String name,String in,String ID) throws Exception {
         File inputXml = new File(in);
         // Load XML document

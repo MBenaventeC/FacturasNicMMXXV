@@ -13,8 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Ejemplo de uso de la librería
+/**
+ * Ejemplo de uso de la librería
  */
 public class test {
     public static void main(String[] args) throws Exception {

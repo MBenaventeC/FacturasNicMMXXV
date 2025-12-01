@@ -19,6 +19,12 @@ import java.nio.charset.StandardCharsets;
 
 public class TED {
 
+    /**
+     * Creates a TED with given elements and returns it
+     * @param dd
+     * @param frmt
+     * @return
+     */
     public static DTEDefType.Documento.TED makeTED(DTEDefType.Documento.TED.DD dd,
                                                    DTEDefType.Documento.TED.FRMT frmt) {
 

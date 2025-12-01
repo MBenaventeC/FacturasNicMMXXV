@@ -5,6 +5,17 @@ import java.math.BigInteger;
 
 public class DA {
 
+    /**
+     * Creates DA with given values and returns it
+     * @param re
+     * @param rs
+     * @param td
+     * @param rng
+     * @param fa
+     * @param rsapk
+     * @param idk
+     * @return
+     */
     public static DTEDefType.Documento.TED.DD.CAF.DA makeDA(String re,
                                               String rs,
                                               int td,

@@ -31,6 +31,15 @@ public class DTEGenerator {
         String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
         Generate("TEST",new JSONObject(contenido),"Java/FoliosSII609100003422295202510171815.xml");
     }
+
+    /**
+     * Generates a DTE
+     * @param name:Name of the DTE
+     * @param jsonDoc:JSON with the data
+     * @param folios: Document containing cad
+     * @return
+     * @throws Exception
+     */
     public static String Generate(String name, JSONObject jsonDoc, String folios) throws Exception {
         // 1. Create and populate your object
         // First take the idoc Json and fill <idDoc>

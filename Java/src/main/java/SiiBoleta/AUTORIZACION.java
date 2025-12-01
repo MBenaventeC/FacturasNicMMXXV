@@ -3,6 +3,9 @@ package SiiBoleta;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Class that represents the "folios" file, used for unmarshalling
+ */
 @XmlRootElement(name = "AUTORIZACION")
 public class AUTORIZACION {
     @XmlElement(name = "CAF")
