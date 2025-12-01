@@ -37,6 +37,15 @@ public class TED {
         return ted;
     }
 
+    /**
+     * marshalls ted into a string
+     * @param ted
+     * @return
+     * @throws JAXBException
+     * @throws DocumentException
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
     public static String serializeTedString(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
@@ -60,7 +69,15 @@ public class TED {
     }
 
 
-    //Se le cambio el tipo de retorno de la función de Image a Barcode417
+    /**
+     * Creates the image of the barcode in BarcodePDF417 format
+     * @param ted
+     * @return
+     * @throws JAXBException
+     * @throws DocumentException
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
     public static BarcodePDF417 makeBarcode(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
@@ -88,15 +105,15 @@ public class TED {
         return pdf417; // .getImage();
     }
 
-    public static void saveBarcodeToPdf(Image image, String outputPath)
-            throws DocumentException, FileNotFoundException {
-
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(outputPath));
-
-        document.open();
-        document.add(image);
-        document.close();
-
-    }
+    //public static void saveBarcodeToPdf(Image image, String outputPath)
+    //        throws DocumentException, FileNotFoundException {
+//
+    //    Document document = new Document();
+    //    PdfWriter.getInstance(document, new FileOutputStream(outputPath));
+//
+    //    document.open();
+    //    document.add(image);
+    //    document.close();
+//
+    //}
 }
