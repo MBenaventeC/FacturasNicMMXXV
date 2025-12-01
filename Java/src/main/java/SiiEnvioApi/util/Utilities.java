@@ -45,13 +45,13 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// Safe (pues usamos Java 24)
+// Safe (pues usamos Java 24+)
 import javax.crypto.Cipher;
 import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-// Safe (pues usamos Java 24)
+// Safe (pues usamos Java 24+)
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -67,6 +67,11 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 
+
+/**
+	 * Clase de Utilities traida desde el REPO de NIC, fue adaptado para no romperse en la ejecución con nuevas versiones de 
+	 * Java y las funciones necesarias para el proyecto fueron actualizadas
+*/
 public class Utilities {
 
 	public static DateFormat fechaFormat = null;
@@ -223,7 +228,7 @@ public class Utilities {
 
 	}
 
-	//Versión antigua, la actual está en un archivo aparte
+	//Versión antigua de generatePDF traido desde el reto de NIC, la actual está en SiiBoleta/SiiPDF
 	public static void generatePDF(InputStream xmlFile, InputStream xslFile,
         OutputStream pdfFile) throws FOPException, FileNotFoundException,
         TransformerException {
@@ -252,6 +257,12 @@ public class Utilities {
 		// Start XSLT transformation and FOP processing
 		transformer.transform(src, res);
 	}
+
+	/**
+	 * Formatea un rut
+	 * @param rut
+	 * @return
+	 */
 
 	public static String getRutFormatted(String rut) {
 		rut = rut.substring(0, rut.length() - 8) + "."

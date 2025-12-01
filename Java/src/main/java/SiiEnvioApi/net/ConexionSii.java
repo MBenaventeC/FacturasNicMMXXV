@@ -89,6 +89,26 @@ public class ConexionSii {
 		return false;
 	}
 
+	/**
+	 * Getter del Token de la autenticación del SII, se requiere certificado y su firma para autenticarse
+	 * @param pKey
+	 * @param cert
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws KeyException
+	 * @throws MarshalException
+	 * @throws XMLSignatureException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 * @throws XmlException
+	 * @throws UnsupportedOperationException
+	 * @throws SOAPException
+	 * @throws ConexionSiiExcepction
+	 * @throws Exception
+	 */
+
 	@SuppressWarnings("unchecked")
 	public String getToken(PrivateKey pKey, X509Certificate cert)
 			throws NoSuchAlgorithmException,
@@ -208,6 +228,16 @@ public class ConexionSii {
 
 	}
 
+	/**
+	 * Getter de la semilla dada por el SII para la autenticación del Envio
+	 * @return
+	 * @throws UnsupportedOperationException
+	 * @throws SOAPException
+	 * @throws IOException
+	 * @throws XmlException
+	 * @throws ConexionSiiException
+	 */
+
 	@SuppressWarnings("unchecked")
 	private String getSemilla() throws UnsupportedOperationException,
 			SOAPException, IOException, XmlException, ConexionSiiException {
@@ -304,7 +334,7 @@ public class ConexionSii {
 
 	/**
 	 * Consulta el estado de un DTE en el ambiente de produccion del SII
-	 *
+	 * No arreglado
 	 * @param rutConsultante
 	 * @param dte
 	 * @param token
@@ -324,7 +354,7 @@ public class ConexionSii {
 
 	/**
 	 * Consulta el estado de un DTE en el ambiente de certificacion del SII
-	 *
+	 * No arreglado
 	 * @param rutConsultante
 	 * @param dte
 	 * @param token
@@ -341,6 +371,20 @@ public class ConexionSii {
 				.getString("URL_CONSULTA_ESTADO_DTE_CERTIFICACION");
 		return getEstadoDTE(rutConsultante, dte, token, urlSolicitud);
 	}
+
+	/**
+	 * Consulta el estado de un DTE en el ambiente del SII
+	 * No arreglado
+	 * @param rutConsultante
+	 * @param dte
+	 * @param token
+	 * @param urlSolicitud
+	 * @return
+	 * @throws UnsupportedOperationException
+	 * @throws SOAPException
+	 * @throws MalformedURLException
+	 * @throws XmlException
+	 */
 
 	@SuppressWarnings("unchecked")
 	private RESPUESTADocument getEstadoDTE(String rutConsultante,
@@ -510,6 +554,21 @@ public class ConexionSii {
                urlEnvio, hostEnvio);
    }
 
+   /**
+	 * Envia el archivo XML al SII
+	 *
+	 * @param rutEnvia
+	 * @param rutCompania
+	 * @param archivoEnviarSII
+	 * @param token
+	 * @param urlEnvio
+	 * @param archivoEnviarSII
+	 * @return
+	 * @throws IOException
+	 * @throws XmlException
+	 * @throws InterruptedException
+	 */
+
 	private RECEPCIONDTEDocument uploadEnvio(String rutEnvia,
 			String rutCompania, File archivoEnviarSII, String token,
 			String urlEnvio, String hostEnvio) throws IOException, XmlException, InterruptedException {
@@ -518,7 +577,7 @@ public class ConexionSii {
 
 		//Reemplazo Multipartbody con ByteArray
 		java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
-   	java.nio.charset.Charset charset = java.nio.charset.StandardCharsets.ISO_8859_1;
+   		java.nio.charset.Charset charset = java.nio.charset.StandardCharsets.ISO_8859_1;
 
 		//RutSender
 		String field1 = "--" + boundary + "\r\n" +
