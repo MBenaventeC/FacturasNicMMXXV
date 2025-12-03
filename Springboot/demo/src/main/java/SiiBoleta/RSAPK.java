@@ -2,6 +2,12 @@ package SiiBoleta;
 
 public class RSAPK {
 
+    /**
+     * Creates RSAPK and returns it
+     * @param m
+     * @param e
+     * @return
+     */
     public static DTEDefType.Documento.TED.DD.CAF.DA.RSAPK makeRSAPK(byte[] m,
                                                        byte[] e) {
 

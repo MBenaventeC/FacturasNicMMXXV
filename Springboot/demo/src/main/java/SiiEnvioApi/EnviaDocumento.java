@@ -1,0 +1,175 @@
+/**
+ * Copyright [2009] [NIC Labs]
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the 	License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or 
+ * agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ * 
+ **/
+
+package SiiEnvioApi;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+
+import SiiEnvioApi.net.ConexionSii;
+import SiiEnvioApi.util.Utilities;
+import SiiEnvioApi.util.RECEPCIONDTEDocument;
+
+import org.apache.commons.cli.*;
+
+import java.io.IOException;
+
+
+
+/**
+* Esta clase se encarga de enviar al SII un archivo XML que cumple con el formato de EnvioDTE.
+* Consideración: La función utiliza algunos metodos antiguos, la conexión original necesitaba acceder a clases internas de java
+* que con el tiempo dejaron de ser abiertas para el uso, pero es posible dejar que se usen mediante argumentos en la ejecución,
+* en el plugin del pom están los argumentos para el uso liberando estas clases.
+*/
+public class EnviaDocumento {
+
+   private static void printUsage(Options options) {
+       HelpFormatter formatter = new HelpFormatter();
+       formatter.printHelp("EnviaDocumento", options);
+   }
+
+   /**
+    * @param args
+    */
+   public static void main(String[] args) throws Exception {
+
+       // Crear opciones
+       Options options = new Options();
+       options.addOption("c", "cert", true, "Certificado digital PKCS12");
+       options.addOption("s", "password", true, "Contraseña del certificado");
+       options.addOption("f", "compania", true, "RUT compañía");
+
+       // Parsear argumentos
+       CommandLineParser parser = new DefaultParser();
+       CommandLine cmd;
+
+       try {
+           cmd = parser.parse(options, args);
+       } catch (ParseException e) {
+           printUsage(options);
+           System.exit(2);
+           return ;
+       }
+
+       String certS = cmd.getOptionValue("c");
+       String passS = cmd.getOptionValue("s");
+       String compaS = cmd.getOptionValue("f");
+
+       if (certS == null || passS == null || compaS == null) {
+           printUsage(options);
+           System.exit(2);
+       }
+
+       String[] otherArgs = cmd.getArgs();
+
+       if (otherArgs.length != 1) {
+           printUsage(options);
+           System.exit(2);
+       }
+
+       ConexionSii con = new ConexionSii();
+
+       // leo certificado y llave privada del archivo pkcs12
+       KeyStore ks = KeyStore.getInstance("PKCS12");
+       ks.load(new FileInputStream(certS), passS.toCharArray());
+       String alias = ks.aliases().nextElement();
+       System.out.println("Usando certificado " + alias
+               + " del archivo PKCS12: " + certS);
+
+       X509Certificate x509 = (X509Certificate) ks.getCertificate(alias);
+       PrivateKey pKey = (PrivateKey) ks.getKey(alias, passS.toCharArray());
+
+       String token = con.getToken(pKey, x509);
+       System.out.println("Token: " + token);
+
+       String enviadorS = Utilities.getRutFromCertificate(x509);
+
+       System.out.println(enviadorS);
+
+       // Envio con reintento - Hubo ocasiones donde la primera iteración fallaba por lo que se implementó con reintentos
+       RECEPCIONDTEDocument recp = null;
+       int maxRetries = 3;
+       Exception lastException = null;
+
+       for (int i = 0; i < maxRetries; i++) {
+           try {
+               System.out.println("Intento " + (i + 1) + " de " + maxRetries + "...");
+
+               // Si es retry, obtener nuevo token
+               if (i > 0) {
+                   System.out.println("Obteniendo nuevo token para retry...");
+                   token = con.getToken(pKey, x509);
+                   System.out.println("Nuevo token: " + token);
+               }
+
+               // Intento de verificación de archivo
+
+               File envioFile = new File(otherArgs[0]);
+               System.out.println("Buscando archivo para enviar: " + envioFile.getAbsolutePath());
+
+               if (!envioFile.exists()) {
+                   System.err.println("ERROR: No se encontró el archivo. Ruta buscada: " + envioFile.getAbsolutePath());
+                   System.err.println("Directorio de trabajo actual: " + System.getProperty("user.dir"));
+                   System.exit(2);
+               }
+               if (!envioFile.isFile()) {
+                   System.err.println("ERROR: La ruta existe pero no es un archivo regular: " + envioFile.getAbsolutePath());
+                   System.exit(2);
+               }
+               if (!envioFile.canRead()) {
+                   System.err.println("ERROR: El archivo no es legible (permisos): " + envioFile.getAbsolutePath());
+                   System.exit(2);
+               }
+
+               // Llamada con el File comprobado
+               recp = con.uploadEnvioCertificacion(enviadorS, compaS, envioFile, token);
+
+               // hasta aqui
+
+            
+            //    recp = con.uploadEnvioCertificacion(enviadorS, compaS,
+            //            new File(otherArgs[0]), token);
+
+               System.out.println("Envio exitoso!");
+               break;  // Éxito, salir del loop
+
+           } catch (IOException e) {
+               lastException = e;
+
+               if (i < maxRetries - 1) {
+                   System.err.println("Error en intento " + (i + 1) + ": " + e.getMessage());
+                   System.err.println("Esperando " + (3 * (i + 1)) + " segundos antes de reintentar...");
+                   Thread.sleep(3000 * (i + 1));  // Backoff: 3s, 6s, 9s
+               } else {
+                   System.err.println("Falló después de " + maxRetries + " intentos");
+                   throw e;
+               }
+           }
+       }
+
+       if (recp == null) {
+           throw new Exception("No se pudo enviar el documento al SII después de " +
+               maxRetries + " intentos", lastException);
+       }
+
+       System.out.println(recp.xmlText());
+
+   }
+
+}

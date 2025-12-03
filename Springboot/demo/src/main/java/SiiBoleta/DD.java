@@ -9,16 +9,27 @@ import java.util.GregorianCalendar;
 
 public class DD {
 
+    /**
+     * Creates DD with given values and returns it
+     * @param re
+     * @param td
+     * @param f
+     * @param rr
+     * @param rsr
+     * @param mnt
+     * @param it1
+     * @param caf
+     * @return
+     * @throws DatatypeConfigurationException
+     */
     public static DTEDefType.Documento.TED.DD makeDD(String re,
                                                      int td,
                                                      int f,
-                                                     //XMLGregorianCalendar fe,
                                                      String rr,
                                                      String rsr,
                                                      int mnt,
                                                      String it1,
-                                                     DTEDefType.Documento.TED.DD.CAF caf//,
-                                                     //XMLGregorianCalendar tsted
+                                                     DTEDefType.Documento.TED.DD.CAF caf
     ) throws DatatypeConfigurationException {
 
         DTEDefType.Documento.TED.DD dd = new DTEDefType.Documento.TED.DD();
@@ -27,6 +38,7 @@ public class DD {
         dd.setF(BigInteger.valueOf(f));
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         dd.setFE(xmlDate);
         dd.setRR(rr);

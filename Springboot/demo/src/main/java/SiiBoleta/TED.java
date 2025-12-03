@@ -1,8 +1,10 @@
 package SiiBoleta;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BarcodePDF417;
+import com.itextpdf.text.pdf.PdfWriter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -10,12 +12,19 @@ import jakarta.xml.bind.Marshaller;
 
 import javax.xml.namespace.QName;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 public class TED {
 
+    /**
+     * Creates a TED with given elements and returns it
+     * @param dd
+     * @param frmt
+     * @return
+     */
     public static DTEDefType.Documento.TED makeTED(DTEDefType.Documento.TED.DD dd,
                                                    DTEDefType.Documento.TED.FRMT frmt) {
 
@@ -28,6 +37,15 @@ public class TED {
         return ted;
     }
 
+    /**
+     * marshalls ted into a string
+     * @param ted
+     * @return
+     * @throws JAXBException
+     * @throws DocumentException
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
     public static String serializeTedString(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
@@ -51,7 +69,15 @@ public class TED {
     }
 
 
-    //Se le cambio el tipo de retorno de la función de Image a Barcode417
+    /**
+     * Creates the image of the barcode in BarcodePDF417 format
+     * @param ted
+     * @return
+     * @throws JAXBException
+     * @throws DocumentException
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
     public static BarcodePDF417 makeBarcode(DTEDefType.Documento.TED ted) throws JAXBException, DocumentException, FileNotFoundException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.TED.class);
 
@@ -78,4 +104,16 @@ public class TED {
         pdf417.setText(new String(tedString.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)); // Ojo con charset
         return pdf417; // .getImage();
     }
+
+    //public static void saveBarcodeToPdf(Image image, String outputPath)
+    //        throws DocumentException, FileNotFoundException {
+//
+    //    Document document = new Document();
+    //    PdfWriter.getInstance(document, new FileOutputStream(outputPath));
+//
+    //    document.open();
+    //    document.add(image);
+    //    document.close();
+//
+    //}
 }

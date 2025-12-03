@@ -26,6 +26,9 @@ import org.springframework.core.io.FileSystemResource;
 
 import com.NicFacturas.NicFacturasDemo.services.AppService;
 
+import SiiBoleta.test;
+import com.NicFacturas.NicFacturasDemo.util.MavenLauncher;
+
 //import SiiFact.XmlGenerator;
 import SiiBoleta.XmlGenerator;
 import SiiPDF.Utilities.generatePDFclass;
@@ -57,12 +60,20 @@ public class AppController {
 
         // Genera el XML con los datos del formulario
         try {
-            DTEDefType.Documento.TED ted = XmlGenerator.generateFacturaXML(model.asMap());
+            //DTEDefType.Documento.TED ted = XmlGenerator.generateFacturaXML(model.asMap());
             // Necesitamos donde se guarda el XML, tipo de documento para pasarlo a elegir XSL y dirección output
-            InputStream xmlFile = new FileInputStream("Springboot/demo/test_files/xml/dte.xml");
-            InputStream xslFile = new FileInputStream("Springboot/demo/src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
-            OutputStream pdfFile = new FileOutputStream("Springboot/demo/test_files/Out/PDFDemo2.pdf");
-            generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
+            // InputStream xmlFile = new FileInputStream("Springboot/demo/test_files/xml/dte.xml");
+            // InputStream xslFile = new FileInputStream("Springboot/demo/src/main/java/SiiPDF/plantillas/plantilla_PDF_FExE.xsl");
+            // OutputStream pdfFile = new FileOutputStream("Springboot/demo/test_files/Out/PDFDemo2.pdf");
+            //generatePDFclass.generatePDFWithTED(xmlFile, xslFile, pdfFile,ted);
+            SiiBoleta.test.main(new String[0]);
+            //java.nio.file.Path pomPath = java.nio.file.Paths.get("pom.xml").toAbsolutePath().normalize();
+            
+            //
+            java.nio.file.Path pomPath = java.nio.file.Paths.get("Springboot", "demo", "pom.xml")
+                .toAbsolutePath().normalize();
+            System.out.println("Invocando Maven con POM en: " + pomPath);
+            MavenLauncher.runRunEnvio(pomPath.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

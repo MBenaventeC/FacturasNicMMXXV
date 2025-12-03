@@ -6,14 +6,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlSchemaType;
-import jakarta.xml.bind.annotation.XmlType;
-import jakarta.xml.bind.annotation.XmlValue;
+
+import SiiSignature.SignatureType;
+import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -3079,12 +3074,13 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * 
  */
+@XmlRootElement(name = "DTE"/*,namespace = "http://www.sii.cl/SiiDte"*/)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DTEDefType"/*, namespace = "http://www.sii.cl/SiiDte"*/, propOrder = {
     "documento",
     "liquidacion",
-    "exportaciones",
-    "signature"
+    "exportaciones"/*,
+    "signature"*/
 })
 public class DTEDefType {
 
@@ -3094,18 +3090,18 @@ public class DTEDefType {
     protected DTEDefType.Liquidacion liquidacion;
     @XmlElement(name = "Exportaciones"/*, namespace = "http://www.sii.cl/SiiDte"*/)
     protected DTEDefType.Exportaciones exportaciones;
-    @XmlElement(name = "Signature", namespace = "http://www.w3.org/2000/09/xmldsig#", required = true)
+    @XmlTransient
     protected SignatureType signature;
     @XmlAttribute(name = "version", required = true)
     protected BigDecimal version;
 
     /**
      * Gets the value of the documento property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DTEDefType.Documento }
-     *     
+     *
      */
     public DTEDefType.Documento getDocumento() {
         return documento;
@@ -3113,11 +3109,11 @@ public class DTEDefType {
 
     /**
      * Sets the value of the documento property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DTEDefType.Documento }
-     *     
+     *
      */
     public void setDocumento(DTEDefType.Documento value) {
         this.documento = value;
@@ -3125,11 +3121,11 @@ public class DTEDefType {
 
     /**
      * Gets the value of the liquidacion property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DTEDefType.Liquidacion }
-     *     
+     *
      */
     public DTEDefType.Liquidacion getLiquidacion() {
         return liquidacion;
@@ -3137,11 +3133,11 @@ public class DTEDefType {
 
     /**
      * Sets the value of the liquidacion property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DTEDefType.Liquidacion }
-     *     
+     *
      */
     public void setLiquidacion(DTEDefType.Liquidacion value) {
         this.liquidacion = value;
@@ -3149,11 +3145,11 @@ public class DTEDefType {
 
     /**
      * Gets the value of the exportaciones property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DTEDefType.Exportaciones }
-     *     
+     *
      */
     public DTEDefType.Exportaciones getExportaciones() {
         return exportaciones;
@@ -3161,11 +3157,11 @@ public class DTEDefType {
 
     /**
      * Sets the value of the exportaciones property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DTEDefType.Exportaciones }
-     *     
+     *
      */
     public void setExportaciones(DTEDefType.Exportaciones value) {
         this.exportaciones = value;
@@ -3173,11 +3169,11 @@ public class DTEDefType {
 
     /**
      * Firma Digital sobre Documento
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SignatureType }
-     *     
+     *
      */
     public SignatureType getSignature() {
         return signature;
@@ -3185,11 +3181,11 @@ public class DTEDefType {
 
     /**
      * Sets the value of the signature property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SignatureType }
-     *     
+     *
      */
     public void setSignature(SignatureType value) {
         this.signature = value;
@@ -3197,11 +3193,11 @@ public class DTEDefType {
 
     /**
      * Gets the value of the version property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BigDecimal }
-     *     
+     *
      */
     public BigDecimal getVersion() {
         if (version == null) {
@@ -3213,11 +3209,11 @@ public class DTEDefType {
 
     /**
      * Sets the value of the version property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BigDecimal }
-     *     
+     *
      */
     public void setVersion(BigDecimal value) {
         this.version = value;
@@ -3226,9 +3222,9 @@ public class DTEDefType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -4446,8 +4442,8 @@ public class DTEDefType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -4487,11 +4483,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the encabezado property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Documento.Encabezado }
-         *     
+         *
          */
         public DTEDefType.Documento.Encabezado getEncabezado() {
             return encabezado;
@@ -4499,11 +4495,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the encabezado property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Documento.Encabezado }
-         *     
+         *
          */
         public void setEncabezado(DTEDefType.Documento.Encabezado value) {
             this.encabezado = value;
@@ -4524,25 +4520,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the detalle property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the detalle property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDetalle().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Documento.Detalle }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Documento.Detalle> getDetalle() {
             if (detalle == null) {
@@ -4563,25 +4559,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the subTotInfo property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the subTotInfo property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSubTotInfo().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Documento.SubTotInfo }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Documento.SubTotInfo> getSubTotInfo() {
             if (subTotInfo == null) {
@@ -4592,25 +4588,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the dscRcgGlobal property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the dscRcgGlobal property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDscRcgGlobal().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Documento.DscRcgGlobal }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Documento.DscRcgGlobal> getDscRcgGlobal() {
             if (dscRcgGlobal == null) {
@@ -4621,25 +4617,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the referencia property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the referencia property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getReferencia().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Documento.Referencia }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Documento.Referencia> getReferencia() {
             if (referencia == null) {
@@ -4650,25 +4646,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the comisiones property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the comisiones property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getComisiones().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Documento.Comisiones }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Documento.Comisiones> getComisiones() {
             if (comisiones == null) {
@@ -4679,11 +4675,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the ted property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Documento.TED }
-         *     
+         *
          */
         public DTEDefType.Documento.TED getTED() {
             return ted;
@@ -4691,11 +4687,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the ted property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Documento.TED }
-         *     
+         *
          */
         public void setTED(DTEDefType.Documento.TED value) {
             this.ted = value;
@@ -4703,11 +4699,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the tmstFirma property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public XMLGregorianCalendar getTmstFirma() {
             return tmstFirma;
@@ -4715,11 +4711,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the tmstFirma property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public void setTmstFirma(XMLGregorianCalendar value) {
             this.tmstFirma = value;
@@ -4727,11 +4723,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the id property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getID() {
             return id;
@@ -4739,11 +4735,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the id property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setID(String value) {
             this.id = value;
@@ -4752,9 +4748,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -4793,8 +4789,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -4828,7 +4824,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinCom property.
-             * 
+             *
              */
             public int getNroLinCom() {
                 return nroLinCom;
@@ -4836,7 +4832,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinCom property.
-             * 
+             *
              */
             public void setNroLinCom(int value) {
                 this.nroLinCom = value;
@@ -4844,11 +4840,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tipoMovim property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTipoMovim() {
                 return tipoMovim;
@@ -4856,11 +4852,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tipoMovim property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTipoMovim(String value) {
                 this.tipoMovim = value;
@@ -4868,11 +4864,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosa property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosa() {
                 return glosa;
@@ -4880,11 +4876,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosa property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosa(String value) {
                 this.glosa = value;
@@ -4892,11 +4888,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tasaComision property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getTasaComision() {
                 return tasaComision;
@@ -4904,11 +4900,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tasaComision property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setTasaComision(BigDecimal value) {
                 this.tasaComision = value;
@@ -4916,11 +4912,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComNeto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComNeto() {
                 return valComNeto;
@@ -4928,11 +4924,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComNeto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComNeto(BigInteger value) {
                 this.valComNeto = value;
@@ -4940,11 +4936,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComExe property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComExe() {
                 return valComExe;
@@ -4952,11 +4948,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComExe property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComExe(BigInteger value) {
                 this.valComExe = value;
@@ -4964,11 +4960,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComIVA property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComIVA() {
                 return valComIVA;
@@ -4976,11 +4972,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComIVA property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComIVA(BigInteger value) {
                 this.valComIVA = value;
@@ -4991,9 +4987,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -5178,8 +5174,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -5266,7 +5262,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinDet property.
-             * 
+             *
              */
             public int getNroLinDet() {
                 return nroLinDet;
@@ -5274,7 +5270,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinDet property.
-             * 
+             *
              */
             public void setNroLinDet(int value) {
                 this.nroLinDet = value;
@@ -5282,25 +5278,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the cdgItem property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the cdgItem property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getCdgItem().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Documento.Detalle.CdgItem }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Documento.Detalle.CdgItem> getCdgItem() {
                 if (cdgItem == null) {
@@ -5311,11 +5307,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indExe property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndExe() {
                 return indExe;
@@ -5323,11 +5319,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indExe property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndExe(BigInteger value) {
                 this.indExe = value;
@@ -5335,11 +5331,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the retenedor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Detalle.Retenedor }
-             *     
+             *
              */
             public DTEDefType.Documento.Detalle.Retenedor getRetenedor() {
                 return retenedor;
@@ -5347,11 +5343,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the retenedor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Detalle.Retenedor }
-             *     
+             *
              */
             public void setRetenedor(DTEDefType.Documento.Detalle.Retenedor value) {
                 this.retenedor = value;
@@ -5359,11 +5355,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nmbItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getNmbItem() {
                 return nmbItem;
@@ -5371,11 +5367,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nmbItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setNmbItem(String value) {
                 this.nmbItem = value;
@@ -5383,11 +5379,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dscItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getDscItem() {
                 return dscItem;
@@ -5395,11 +5391,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dscItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setDscItem(String value) {
                 this.dscItem = value;
@@ -5407,11 +5403,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyRef() {
                 return qtyRef;
@@ -5419,11 +5415,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyRef(BigDecimal value) {
                 this.qtyRef = value;
@@ -5431,11 +5427,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdRef() {
                 return unmdRef;
@@ -5443,11 +5439,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdRef(String value) {
                 this.unmdRef = value;
@@ -5455,11 +5451,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcRef() {
                 return prcRef;
@@ -5467,11 +5463,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcRef(BigDecimal value) {
                 this.prcRef = value;
@@ -5479,11 +5475,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyItem() {
                 return qtyItem;
@@ -5491,11 +5487,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyItem(BigDecimal value) {
                 this.qtyItem = value;
@@ -5503,25 +5499,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subcantidad property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subcantidad property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubcantidad().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Documento.Detalle.Subcantidad }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Documento.Detalle.Subcantidad> getSubcantidad() {
                 if (subcantidad == null) {
@@ -5532,11 +5528,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchElabor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchElabor() {
                 return fchElabor;
@@ -5544,11 +5540,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchElabor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchElabor(XMLGregorianCalendar value) {
                 this.fchElabor = value;
@@ -5556,11 +5552,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchVencim property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchVencim() {
                 return fchVencim;
@@ -5568,11 +5564,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchVencim property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchVencim(XMLGregorianCalendar value) {
                 this.fchVencim = value;
@@ -5580,11 +5576,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdItem() {
                 return unmdItem;
@@ -5592,11 +5588,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdItem(String value) {
                 this.unmdItem = value;
@@ -5604,11 +5600,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcItem() {
                 return prcItem;
@@ -5616,11 +5612,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcItem(BigDecimal value) {
                 this.prcItem = value;
@@ -5628,11 +5624,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the otrMnda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Detalle.OtrMnda }
-             *     
+             *
              */
             public DTEDefType.Documento.Detalle.OtrMnda getOtrMnda() {
                 return otrMnda;
@@ -5640,11 +5636,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the otrMnda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Detalle.OtrMnda }
-             *     
+             *
              */
             public void setOtrMnda(DTEDefType.Documento.Detalle.OtrMnda value) {
                 this.otrMnda = value;
@@ -5652,11 +5648,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the descuentoPct property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getDescuentoPct() {
                 return descuentoPct;
@@ -5664,11 +5660,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the descuentoPct property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setDescuentoPct(BigDecimal value) {
                 this.descuentoPct = value;
@@ -5676,11 +5672,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the descuentoMonto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getDescuentoMonto() {
                 return descuentoMonto;
@@ -5688,11 +5684,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the descuentoMonto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setDescuentoMonto(BigInteger value) {
                 this.descuentoMonto = value;
@@ -5700,25 +5696,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subDscto property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subDscto property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubDscto().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Documento.Detalle.SubDscto }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Documento.Detalle.SubDscto> getSubDscto() {
                 if (subDscto == null) {
@@ -5729,11 +5725,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the recargoPct property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getRecargoPct() {
                 return recargoPct;
@@ -5741,11 +5737,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the recargoPct property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setRecargoPct(BigDecimal value) {
                 this.recargoPct = value;
@@ -5753,11 +5749,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the recargoMonto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getRecargoMonto() {
                 return recargoMonto;
@@ -5765,11 +5761,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the recargoMonto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setRecargoMonto(BigInteger value) {
                 this.recargoMonto = value;
@@ -5777,25 +5773,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subRecargo property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subRecargo property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubRecargo().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Documento.Detalle.SubRecargo }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Documento.Detalle.SubRecargo> getSubRecargo() {
                 if (subRecargo == null) {
@@ -5806,25 +5802,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the codImpAdic property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the codImpAdic property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getCodImpAdic().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link String }
-             * 
-             * 
+             *
+             *
              */
             public List<String> getCodImpAdic() {
                 if (codImpAdic == null) {
@@ -5835,11 +5831,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the montoItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getMontoItem() {
                 return montoItem;
@@ -5847,11 +5843,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the montoItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setMontoItem(BigInteger value) {
                 this.montoItem = value;
@@ -5860,9 +5856,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -5887,8 +5883,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -5904,11 +5900,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCodigo() {
                     return tpoCodigo;
@@ -5916,11 +5912,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCodigo(String value) {
                     this.tpoCodigo = value;
@@ -5928,11 +5924,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getVlrCodigo() {
                     return vlrCodigo;
@@ -5940,11 +5936,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setVlrCodigo(String value) {
                     this.vlrCodigo = value;
@@ -5955,9 +5951,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -5980,8 +5976,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -6009,11 +6005,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the prcOtrMon property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getPrcOtrMon() {
                     return prcOtrMon;
@@ -6021,11 +6017,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the prcOtrMon property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setPrcOtrMon(BigDecimal value) {
                     this.prcOtrMon = value;
@@ -6033,11 +6029,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the moneda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getMoneda() {
                     return moneda;
@@ -6045,11 +6041,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the moneda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setMoneda(String value) {
                     this.moneda = value;
@@ -6057,11 +6053,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fctConv property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getFctConv() {
                     return fctConv;
@@ -6069,11 +6065,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fctConv property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setFctConv(BigDecimal value) {
                     this.fctConv = value;
@@ -6081,11 +6077,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dctoOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getDctoOtrMnda() {
                     return dctoOtrMnda;
@@ -6093,11 +6089,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dctoOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setDctoOtrMnda(BigDecimal value) {
                     this.dctoOtrMnda = value;
@@ -6105,11 +6101,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the recargoOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getRecargoOtrMnda() {
                     return recargoOtrMnda;
@@ -6117,11 +6113,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the recargoOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setRecargoOtrMnda(BigDecimal value) {
                     this.recargoOtrMnda = value;
@@ -6129,11 +6125,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the montoItemOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMontoItemOtrMnda() {
                     return montoItemOtrMnda;
@@ -6141,11 +6137,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the montoItemOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMontoItemOtrMnda(BigDecimal value) {
                     this.montoItemOtrMnda = value;
@@ -6156,9 +6152,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -6180,8 +6176,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -6206,11 +6202,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indAgente property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIndAgente() {
                     return indAgente;
@@ -6218,11 +6214,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indAgente property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIndAgente(String value) {
                     this.indAgente = value;
@@ -6230,11 +6226,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntBaseFaena property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntBaseFaena() {
                     return mntBaseFaena;
@@ -6242,11 +6238,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntBaseFaena property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntBaseFaena(BigInteger value) {
                     this.mntBaseFaena = value;
@@ -6254,11 +6250,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntMargComer property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntMargComer() {
                     return mntMargComer;
@@ -6266,11 +6262,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntMargComer property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntMargComer(BigInteger value) {
                     this.mntMargComer = value;
@@ -6278,11 +6274,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the prcConsFinal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getPrcConsFinal() {
                     return prcConsFinal;
@@ -6290,11 +6286,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the prcConsFinal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setPrcConsFinal(BigInteger value) {
                     this.prcConsFinal = value;
@@ -6305,9 +6301,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -6320,8 +6316,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -6337,11 +6333,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDscto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTipoDscto() {
                     return tipoDscto;
@@ -6349,11 +6345,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDscto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTipoDscto(String value) {
                     this.tipoDscto = value;
@@ -6361,11 +6357,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the valorDscto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getValorDscto() {
                     return valorDscto;
@@ -6373,11 +6369,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the valorDscto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setValorDscto(BigDecimal value) {
                     this.valorDscto = value;
@@ -6388,9 +6384,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -6403,8 +6399,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -6420,11 +6416,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoRecargo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTipoRecargo() {
                     return tipoRecargo;
@@ -6432,11 +6428,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoRecargo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTipoRecargo(String value) {
                     this.tipoRecargo = value;
@@ -6444,11 +6440,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the valorRecargo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getValorRecargo() {
                     return valorRecargo;
@@ -6456,11 +6452,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the valorRecargo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setValorRecargo(BigDecimal value) {
                     this.valorRecargo = value;
@@ -6471,9 +6467,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -6492,8 +6488,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -6509,11 +6505,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subQty property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getSubQty() {
                     return subQty;
@@ -6521,11 +6517,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subQty property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setSubQty(BigDecimal value) {
                     this.subQty = value;
@@ -6533,11 +6529,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subCod property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSubCod() {
                     return subCod;
@@ -6545,11 +6541,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subCod property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSubCod(String value) {
                     this.subCod = value;
@@ -6562,9 +6558,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -6602,8 +6598,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -6635,11 +6631,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getNroLinDR() {
                 return nroLinDR;
@@ -6647,11 +6643,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setNroLinDR(BigInteger value) {
                 this.nroLinDR = value;
@@ -6659,11 +6655,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoMov property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoMov() {
                 return tpoMov;
@@ -6671,11 +6667,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoMov property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoMov(String value) {
                 this.tpoMov = value;
@@ -6683,11 +6679,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosaDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosaDR() {
                 return glosaDR;
@@ -6695,11 +6691,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosaDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosaDR(String value) {
                 this.glosaDR = value;
@@ -6707,11 +6703,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoValor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoValor() {
                 return tpoValor;
@@ -6719,11 +6715,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoValor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoValor(String value) {
                 this.tpoValor = value;
@@ -6731,11 +6727,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valorDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValorDR() {
                 return valorDR;
@@ -6743,11 +6739,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valorDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValorDR(BigDecimal value) {
                 this.valorDR = value;
@@ -6755,11 +6751,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valorDROtrMnda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValorDROtrMnda() {
                 return valorDROtrMnda;
@@ -6767,11 +6763,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valorDROtrMnda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValorDROtrMnda(BigDecimal value) {
                 this.valorDROtrMnda = value;
@@ -6779,11 +6775,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indExeDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndExeDR() {
                 return indExeDR;
@@ -6791,11 +6787,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indExeDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndExeDR(BigInteger value) {
                 this.indExeDR = value;
@@ -6806,9 +6802,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -7519,8 +7515,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -7554,11 +7550,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the idDoc property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.IdDoc }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.IdDoc getIdDoc() {
                 return idDoc;
@@ -7566,11 +7562,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the idDoc property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.IdDoc }
-             *     
+             *
              */
             public void setIdDoc(DTEDefType.Documento.Encabezado.IdDoc value) {
                 this.idDoc = value;
@@ -7578,11 +7574,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the emisor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.Emisor }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.Emisor getEmisor() {
                 return emisor;
@@ -7590,11 +7586,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the emisor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.Emisor }
-             *     
+             *
              */
             public void setEmisor(DTEDefType.Documento.Encabezado.Emisor value) {
                 this.emisor = value;
@@ -7602,11 +7598,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the rutMandante property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRUTMandante() {
                 return rutMandante;
@@ -7614,11 +7610,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the rutMandante property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRUTMandante(String value) {
                 this.rutMandante = value;
@@ -7626,11 +7622,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the receptor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.Receptor }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.Receptor getReceptor() {
                 return receptor;
@@ -7638,11 +7634,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the receptor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.Receptor }
-             *     
+             *
              */
             public void setReceptor(DTEDefType.Documento.Encabezado.Receptor value) {
                 this.receptor = value;
@@ -7650,11 +7646,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the rutSolicita property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRUTSolicita() {
                 return rutSolicita;
@@ -7662,11 +7658,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the rutSolicita property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRUTSolicita(String value) {
                 this.rutSolicita = value;
@@ -7674,11 +7670,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the transporte property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.Transporte }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.Transporte getTransporte() {
                 return transporte;
@@ -7686,11 +7682,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the transporte property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.Transporte }
-             *     
+             *
              */
             public void setTransporte(DTEDefType.Documento.Encabezado.Transporte value) {
                 this.transporte = value;
@@ -7698,11 +7694,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the totales property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.Totales }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.Totales getTotales() {
                 return totales;
@@ -7710,11 +7706,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the totales property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.Totales }
-             *     
+             *
              */
             public void setTotales(DTEDefType.Documento.Encabezado.Totales value) {
                 this.totales = value;
@@ -7722,11 +7718,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the otraMoneda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.Encabezado.OtraMoneda }
-             *     
+             *
              */
             public DTEDefType.Documento.Encabezado.OtraMoneda getOtraMoneda() {
                 return otraMoneda;
@@ -7734,11 +7730,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the otraMoneda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.Encabezado.OtraMoneda }
-             *     
+             *
              */
             public void setOtraMoneda(DTEDefType.Documento.Encabezado.OtraMoneda value) {
                 this.otraMoneda = value;
@@ -7747,9 +7743,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -7851,8 +7847,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -7904,11 +7900,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTEmisor() {
                     return rutEmisor;
@@ -7916,11 +7912,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTEmisor(String value) {
                     this.rutEmisor = value;
@@ -7928,11 +7924,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSoc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSoc() {
                     return rznSoc;
@@ -7940,11 +7936,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSoc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSoc(String value) {
                     this.rznSoc = value;
@@ -7952,11 +7948,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroEmis() {
                     return giroEmis;
@@ -7964,11 +7960,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroEmis(String value) {
                     this.giroEmis = value;
@@ -7976,25 +7972,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the telefono property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the telefono property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getTelefono().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link String }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<String> getTelefono() {
                     if (telefono == null) {
@@ -8005,11 +8001,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoEmisor() {
                     return correoEmisor;
@@ -8017,11 +8013,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoEmisor(String value) {
                     this.correoEmisor = value;
@@ -8029,25 +8025,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the acteco property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the acteco property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getActeco().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link BigInteger }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<BigInteger> getActeco() {
                     if (acteco == null) {
@@ -8063,11 +8059,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the guiaExport property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.Encabezado.Emisor.GuiaExport }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.Encabezado.Emisor.GuiaExport getGuiaExport() {
                     return guiaExport;
@@ -8075,11 +8071,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the guiaExport property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.Encabezado.Emisor.GuiaExport }
-                 *     
+                 *
                  */
                 public void setGuiaExport(DTEDefType.Documento.Encabezado.Emisor.GuiaExport value) {
                     this.guiaExport = value;
@@ -8087,11 +8083,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the sucursal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSucursal() {
                     return sucursal;
@@ -8099,11 +8095,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the sucursal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSucursal(String value) {
                     this.sucursal = value;
@@ -8111,11 +8107,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getCdgSIISucur() {
                     return cdgSIISucur;
@@ -8123,11 +8119,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setCdgSIISucur(BigInteger value) {
                     this.cdgSIISucur = value;
@@ -8135,11 +8131,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirOrigen() {
                     return dirOrigen;
@@ -8147,11 +8143,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirOrigen(String value) {
                     this.dirOrigen = value;
@@ -8159,11 +8155,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaOrigen() {
                     return cmnaOrigen;
@@ -8171,11 +8167,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaOrigen(String value) {
                     this.cmnaOrigen = value;
@@ -8183,11 +8179,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadOrigen() {
                     return ciudadOrigen;
@@ -8195,11 +8191,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadOrigen(String value) {
                     this.ciudadOrigen = value;
@@ -8207,11 +8203,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgVendedor() {
                     return cdgVendedor;
@@ -8219,11 +8215,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgVendedor(String value) {
                     this.cdgVendedor = value;
@@ -8231,11 +8227,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the idAdicEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIdAdicEmisor() {
                     return idAdicEmisor;
@@ -8243,11 +8239,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the idAdicEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIdAdicEmisor(String value) {
                     this.idAdicEmisor = value;
@@ -8256,9 +8252,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -8282,8 +8278,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -8304,11 +8300,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the cdgTraslado property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCdgTraslado() {
                         return cdgTraslado;
@@ -8316,11 +8312,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the cdgTraslado property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCdgTraslado(BigInteger value) {
                         this.cdgTraslado = value;
@@ -8328,11 +8324,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the folioAut property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getFolioAut() {
                         return folioAut;
@@ -8340,11 +8336,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the folioAut property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setFolioAut(BigInteger value) {
                         this.folioAut = value;
@@ -8352,11 +8348,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the fchAut property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public XMLGregorianCalendar getFchAut() {
                         return fchAut;
@@ -8364,11 +8360,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the fchAut property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public void setFchAut(XMLGregorianCalendar value) {
                         this.fchAut = value;
@@ -8381,9 +8377,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -8541,8 +8537,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -8637,11 +8633,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDTE property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTipoDTE() {
                     return tipoDTE;
@@ -8649,11 +8645,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDTE property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTipoDTE(BigInteger value) {
                     this.tipoDTE = value;
@@ -8661,11 +8657,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the folio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFolio() {
                     return folio;
@@ -8673,11 +8669,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the folio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFolio(BigInteger value) {
                     this.folio = value;
@@ -8685,11 +8681,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchEmis() {
                     return fchEmis;
@@ -8697,11 +8693,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchEmis(XMLGregorianCalendar value) {
                     this.fchEmis = value;
@@ -8709,11 +8705,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indNoRebaja property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIndNoRebaja() {
                     return indNoRebaja;
@@ -8721,11 +8717,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indNoRebaja property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIndNoRebaja(BigInteger value) {
                     this.indNoRebaja = value;
@@ -8733,11 +8729,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDespacho property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTipoDespacho() {
                     return tipoDespacho;
@@ -8745,11 +8741,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDespacho property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTipoDespacho(BigInteger value) {
                     this.tipoDespacho = value;
@@ -8757,11 +8753,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indTraslado property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIndTraslado() {
                     return indTraslado;
@@ -8769,11 +8765,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indTraslado property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIndTraslado(BigInteger value) {
                     this.indTraslado = value;
@@ -8781,11 +8777,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoImpresion property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoImpresion() {
                     return tpoImpresion;
@@ -8793,11 +8789,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoImpresion property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoImpresion(String value) {
                     this.tpoImpresion = value;
@@ -8805,11 +8801,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indServicio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIndServicio() {
                     return indServicio;
@@ -8817,11 +8813,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indServicio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIndServicio(BigInteger value) {
                     this.indServicio = value;
@@ -8829,11 +8825,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntBruto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntBruto() {
                     return mntBruto;
@@ -8841,11 +8837,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntBruto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntBruto(BigInteger value) {
                     this.mntBruto = value;
@@ -8853,11 +8849,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fmaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFmaPago() {
                     return fmaPago;
@@ -8865,11 +8861,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fmaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFmaPago(BigInteger value) {
                     this.fmaPago = value;
@@ -8877,11 +8873,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fmaPagExp property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFmaPagExp() {
                     return fmaPagExp;
@@ -8889,11 +8885,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fmaPagExp property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFmaPagExp(BigInteger value) {
                     this.fmaPagExp = value;
@@ -8901,11 +8897,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchCancel() {
                     return fchCancel;
@@ -8913,11 +8909,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchCancel(XMLGregorianCalendar value) {
                     this.fchCancel = value;
@@ -8925,11 +8921,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntCancel() {
                     return mntCancel;
@@ -8937,11 +8933,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntCancel(BigInteger value) {
                     this.mntCancel = value;
@@ -8949,11 +8945,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the saldoInsol property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getSaldoInsol() {
                     return saldoInsol;
@@ -8961,11 +8957,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the saldoInsol property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setSaldoInsol(BigInteger value) {
                     this.saldoInsol = value;
@@ -8973,25 +8969,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getMntPagos().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Documento.Encabezado.IdDoc.MntPagos }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Documento.Encabezado.IdDoc.MntPagos> getMntPagos() {
                     if (mntPagos == null) {
@@ -9002,11 +8998,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoDesde property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoDesde() {
                     return periodoDesde;
@@ -9014,11 +9010,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoDesde property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoDesde(XMLGregorianCalendar value) {
                     this.periodoDesde = value;
@@ -9026,11 +9022,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoHasta property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoHasta() {
                     return periodoHasta;
@@ -9038,11 +9034,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoHasta property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoHasta(XMLGregorianCalendar value) {
                     this.periodoHasta = value;
@@ -9050,11 +9046,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the medioPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public MedioPagoType getMedioPago() {
                     return medioPago;
@@ -9062,11 +9058,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the medioPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public void setMedioPago(MedioPagoType value) {
                     this.medioPago = value;
@@ -9074,11 +9070,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCtaPago() {
                     return tpoCtaPago;
@@ -9086,11 +9082,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCtaPago(String value) {
                     this.tpoCtaPago = value;
@@ -9098,11 +9094,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the numCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getNumCtaPago() {
                     return numCtaPago;
@@ -9110,11 +9106,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the numCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setNumCtaPago(String value) {
                     this.numCtaPago = value;
@@ -9122,11 +9118,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the bcoPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getBcoPago() {
                     return bcoPago;
@@ -9134,11 +9130,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the bcoPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setBcoPago(String value) {
                     this.bcoPago = value;
@@ -9146,11 +9142,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoCdg() {
                     return termPagoCdg;
@@ -9158,11 +9154,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoCdg(String value) {
                     this.termPagoCdg = value;
@@ -9170,11 +9166,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoGlosa() {
                     return termPagoGlosa;
@@ -9182,11 +9178,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoGlosa(String value) {
                     this.termPagoGlosa = value;
@@ -9194,11 +9190,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoDias property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTermPagoDias() {
                     return termPagoDias;
@@ -9206,11 +9202,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoDias property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTermPagoDias(BigInteger value) {
                     this.termPagoDias = value;
@@ -9218,11 +9214,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchVenc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchVenc() {
                     return fchVenc;
@@ -9230,11 +9226,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchVenc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchVenc(XMLGregorianCalendar value) {
                     this.fchVenc = value;
@@ -9243,9 +9239,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -9265,8 +9261,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -9287,11 +9283,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the fchPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public XMLGregorianCalendar getFchPago() {
                         return fchPago;
@@ -9299,11 +9295,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the fchPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public void setFchPago(XMLGregorianCalendar value) {
                         this.fchPago = value;
@@ -9311,11 +9307,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getMntPago() {
                         return mntPago;
@@ -9323,11 +9319,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setMntPago(BigInteger value) {
                         this.mntPago = value;
@@ -9335,11 +9331,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the glosaPagos property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getGlosaPagos() {
                         return glosaPagos;
@@ -9347,11 +9343,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the glosaPagos property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setGlosaPagos(String value) {
                         this.glosaPagos = value;
@@ -9364,9 +9360,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -9399,8 +9395,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -9441,11 +9437,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public TipMonType getTpoMoneda() {
                     return tpoMoneda;
@@ -9453,11 +9449,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public void setTpoMoneda(TipMonType value) {
                     this.tpoMoneda = value;
@@ -9465,11 +9461,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCambio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getTpoCambio() {
                     return tpoCambio;
@@ -9477,11 +9473,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCambio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setTpoCambio(BigDecimal value) {
                     this.tpoCambio = value;
@@ -9489,11 +9485,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntNetoOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntNetoOtrMnda() {
                     return mntNetoOtrMnda;
@@ -9501,11 +9497,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntNetoOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntNetoOtrMnda(BigDecimal value) {
                     this.mntNetoOtrMnda = value;
@@ -9513,11 +9509,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntExeOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntExeOtrMnda() {
                     return mntExeOtrMnda;
@@ -9525,11 +9521,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntExeOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntExeOtrMnda(BigDecimal value) {
                     this.mntExeOtrMnda = value;
@@ -9537,11 +9533,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntFaeCarneOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntFaeCarneOtrMnda() {
                     return mntFaeCarneOtrMnda;
@@ -9549,11 +9545,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntFaeCarneOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntFaeCarneOtrMnda(BigDecimal value) {
                     this.mntFaeCarneOtrMnda = value;
@@ -9561,11 +9557,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntMargComOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntMargComOtrMnda() {
                     return mntMargComOtrMnda;
@@ -9573,11 +9569,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntMargComOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntMargComOtrMnda(BigDecimal value) {
                     this.mntMargComOtrMnda = value;
@@ -9585,11 +9581,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getIVAOtrMnda() {
                     return ivaOtrMnda;
@@ -9597,11 +9593,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setIVAOtrMnda(BigDecimal value) {
                     this.ivaOtrMnda = value;
@@ -9609,25 +9605,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the impRetOtrMnda property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the impRetOtrMnda property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getImpRetOtrMnda().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Documento.Encabezado.OtraMoneda.ImpRetOtrMnda }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Documento.Encabezado.OtraMoneda.ImpRetOtrMnda> getImpRetOtrMnda() {
                     if (impRetOtrMnda == null) {
@@ -9638,11 +9634,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaNoRetOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getIVANoRetOtrMnda() {
                     return ivaNoRetOtrMnda;
@@ -9650,11 +9646,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaNoRetOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setIVANoRetOtrMnda(BigDecimal value) {
                     this.ivaNoRetOtrMnda = value;
@@ -9662,11 +9658,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntTotOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntTotOtrMnda() {
                     return mntTotOtrMnda;
@@ -9674,11 +9670,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntTotOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntTotOtrMnda(BigDecimal value) {
                     this.mntTotOtrMnda = value;
@@ -9687,9 +9683,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -9703,8 +9699,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -9723,11 +9719,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tipoImpOtrMnda property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getTipoImpOtrMnda() {
                         return tipoImpOtrMnda;
@@ -9735,11 +9731,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tipoImpOtrMnda property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setTipoImpOtrMnda(String value) {
                         this.tipoImpOtrMnda = value;
@@ -9747,11 +9743,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tasaImpOtrMnda property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getTasaImpOtrMnda() {
                         return tasaImpOtrMnda;
@@ -9759,11 +9755,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tasaImpOtrMnda property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setTasaImpOtrMnda(BigDecimal value) {
                         this.tasaImpOtrMnda = value;
@@ -9771,11 +9767,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the vlrImpOtrMnda property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getVlrImpOtrMnda() {
                         return vlrImpOtrMnda;
@@ -9783,11 +9779,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the vlrImpOtrMnda property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setVlrImpOtrMnda(BigDecimal value) {
                         this.vlrImpOtrMnda = value;
@@ -9800,9 +9796,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -9881,8 +9877,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -9931,11 +9927,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTRecep() {
                     return rutRecep;
@@ -9943,11 +9939,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTRecep(String value) {
                     this.rutRecep = value;
@@ -9955,11 +9951,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgIntRecep() {
                     return cdgIntRecep;
@@ -9967,11 +9963,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgIntRecep(String value) {
                     this.cdgIntRecep = value;
@@ -9979,11 +9975,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSocRecep() {
                     return rznSocRecep;
@@ -9991,11 +9987,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSocRecep(String value) {
                     this.rznSocRecep = value;
@@ -10003,11 +9999,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the extranjero property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.Encabezado.Receptor.Extranjero }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.Encabezado.Receptor.Extranjero getExtranjero() {
                     return extranjero;
@@ -10015,11 +10011,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the extranjero property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.Encabezado.Receptor.Extranjero }
-                 *     
+                 *
                  */
                 public void setExtranjero(DTEDefType.Documento.Encabezado.Receptor.Extranjero value) {
                     this.extranjero = value;
@@ -10027,11 +10023,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroRecep() {
                     return giroRecep;
@@ -10039,11 +10035,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroRecep(String value) {
                     this.giroRecep = value;
@@ -10051,11 +10047,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the contacto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getContacto() {
                     return contacto;
@@ -10063,11 +10059,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the contacto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setContacto(String value) {
                     this.contacto = value;
@@ -10075,11 +10071,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoRecep() {
                     return correoRecep;
@@ -10087,11 +10083,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoRecep(String value) {
                     this.correoRecep = value;
@@ -10099,11 +10095,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirRecep() {
                     return dirRecep;
@@ -10111,11 +10107,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirRecep(String value) {
                     this.dirRecep = value;
@@ -10123,11 +10119,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaRecep() {
                     return cmnaRecep;
@@ -10135,11 +10131,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaRecep(String value) {
                     this.cmnaRecep = value;
@@ -10147,11 +10143,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadRecep() {
                     return ciudadRecep;
@@ -10159,11 +10155,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadRecep(String value) {
                     this.ciudadRecep = value;
@@ -10171,11 +10167,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirPostal() {
                     return dirPostal;
@@ -10183,11 +10179,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirPostal(String value) {
                     this.dirPostal = value;
@@ -10195,11 +10191,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaPostal() {
                     return cmnaPostal;
@@ -10207,11 +10203,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaPostal(String value) {
                     this.cmnaPostal = value;
@@ -10219,11 +10215,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadPostal() {
                     return ciudadPostal;
@@ -10231,11 +10227,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadPostal(String value) {
                     this.ciudadPostal = value;
@@ -10244,9 +10240,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -10273,8 +10269,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -10290,11 +10286,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the numId property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNumId() {
                         return numId;
@@ -10302,11 +10298,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the numId property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNumId(String value) {
                         this.numId = value;
@@ -10314,11 +10310,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nacionalidad property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNacionalidad() {
                         return nacionalidad;
@@ -10326,11 +10322,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nacionalidad property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNacionalidad(String value) {
                         this.nacionalidad = value;
@@ -10343,9 +10339,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -10404,8 +10400,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -10480,11 +10476,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntNeto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntNeto() {
                     return mntNeto;
@@ -10492,11 +10488,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntNeto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntNeto(BigInteger value) {
                     this.mntNeto = value;
@@ -10504,11 +10500,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntExe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntExe() {
                     return mntExe;
@@ -10516,11 +10512,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntExe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntExe(BigInteger value) {
                     this.mntExe = value;
@@ -10528,11 +10524,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntBase property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntBase() {
                     return mntBase;
@@ -10540,11 +10536,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntBase property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntBase(BigInteger value) {
                     this.mntBase = value;
@@ -10552,11 +10548,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntMargenCom property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntMargenCom() {
                     return mntMargenCom;
@@ -10564,11 +10560,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntMargenCom property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntMargenCom(BigInteger value) {
                     this.mntMargenCom = value;
@@ -10576,11 +10572,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tasaIVA property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getTasaIVA() {
                     return tasaIVA;
@@ -10588,11 +10584,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tasaIVA property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setTasaIVA(BigDecimal value) {
                     this.tasaIVA = value;
@@ -10600,11 +10596,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the iva property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVA() {
                     return iva;
@@ -10612,11 +10608,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the iva property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVA(BigInteger value) {
                     this.iva = value;
@@ -10624,11 +10620,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaProp property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVAProp() {
                     return ivaProp;
@@ -10636,11 +10632,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaProp property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVAProp(BigInteger value) {
                     this.ivaProp = value;
@@ -10648,11 +10644,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaTerc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVATerc() {
                     return ivaTerc;
@@ -10660,11 +10656,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaTerc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVATerc(BigInteger value) {
                     this.ivaTerc = value;
@@ -10672,25 +10668,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the imptoReten property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the imptoReten property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getImptoReten().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Documento.Encabezado.Totales.ImptoReten }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Documento.Encabezado.Totales.ImptoReten> getImptoReten() {
                     if (imptoReten == null) {
@@ -10701,11 +10697,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaNoRet property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVANoRet() {
                     return ivaNoRet;
@@ -10713,11 +10709,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaNoRet property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVANoRet(BigInteger value) {
                     this.ivaNoRet = value;
@@ -10725,11 +10721,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the credEC property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getCredEC() {
                     return credEC;
@@ -10737,11 +10733,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the credEC property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setCredEC(BigInteger value) {
                     this.credEC = value;
@@ -10749,11 +10745,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the grntDep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getGrntDep() {
                     return grntDep;
@@ -10761,11 +10757,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the grntDep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setGrntDep(BigInteger value) {
                     this.grntDep = value;
@@ -10773,11 +10769,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the comisiones property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.Encabezado.Totales.Comisiones }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.Encabezado.Totales.Comisiones getComisiones() {
                     return comisiones;
@@ -10785,11 +10781,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the comisiones property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.Encabezado.Totales.Comisiones }
-                 *     
+                 *
                  */
                 public void setComisiones(DTEDefType.Documento.Encabezado.Totales.Comisiones value) {
                     this.comisiones = value;
@@ -10797,11 +10793,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntTotal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntTotal() {
                     return mntTotal;
@@ -10809,11 +10805,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntTotal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntTotal(BigInteger value) {
                     this.mntTotal = value;
@@ -10821,11 +10817,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the montoNF property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMontoNF() {
                     return montoNF;
@@ -10833,11 +10829,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the montoNF property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMontoNF(BigInteger value) {
                     this.montoNF = value;
@@ -10845,11 +10841,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the montoPeriodo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMontoPeriodo() {
                     return montoPeriodo;
@@ -10857,11 +10853,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the montoPeriodo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMontoPeriodo(BigInteger value) {
                     this.montoPeriodo = value;
@@ -10869,11 +10865,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the saldoAnterior property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getSaldoAnterior() {
                     return saldoAnterior;
@@ -10881,11 +10877,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the saldoAnterior property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setSaldoAnterior(BigInteger value) {
                     this.saldoAnterior = value;
@@ -10893,11 +10889,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the vlrPagar property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getVlrPagar() {
                     return vlrPagar;
@@ -10905,11 +10901,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the vlrPagar property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setVlrPagar(BigInteger value) {
                     this.vlrPagar = value;
@@ -10918,9 +10914,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -10934,8 +10930,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -10957,11 +10953,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComNeto() {
                         return valComNeto;
@@ -10969,11 +10965,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComNeto(BigInteger value) {
                         this.valComNeto = value;
@@ -10981,11 +10977,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComExe property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComExe() {
                         return valComExe;
@@ -10993,11 +10989,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComExe property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComExe(BigInteger value) {
                         this.valComExe = value;
@@ -11005,11 +11001,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComIVA property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComIVA() {
                         return valComIVA;
@@ -11017,11 +11013,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComIVA property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComIVA(BigInteger value) {
                         this.valComIVA = value;
@@ -11032,9 +11028,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -11054,8 +11050,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -11075,11 +11071,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tipoImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getTipoImp() {
                         return tipoImp;
@@ -11087,11 +11083,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tipoImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setTipoImp(String value) {
                         this.tipoImp = value;
@@ -11099,11 +11095,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tasaImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getTasaImp() {
                         return tasaImp;
@@ -11111,11 +11107,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tasaImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setTasaImp(BigDecimal value) {
                         this.tasaImp = value;
@@ -11123,11 +11119,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the montoImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getMontoImp() {
                         return montoImp;
@@ -11135,11 +11131,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the montoImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setMontoImp(BigInteger value) {
                         this.montoImp = value;
@@ -11152,9 +11148,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -11427,8 +11423,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -11459,11 +11455,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the patente property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getPatente() {
                     return patente;
@@ -11471,11 +11467,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the patente property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setPatente(String value) {
                     this.patente = value;
@@ -11483,11 +11479,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutTrans property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTTrans() {
                     return rutTrans;
@@ -11495,11 +11491,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutTrans property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTTrans(String value) {
                     this.rutTrans = value;
@@ -11507,11 +11503,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the chofer property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.Encabezado.Transporte.Chofer }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.Encabezado.Transporte.Chofer getChofer() {
                     return chofer;
@@ -11519,11 +11515,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the chofer property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.Encabezado.Transporte.Chofer }
-                 *     
+                 *
                  */
                 public void setChofer(DTEDefType.Documento.Encabezado.Transporte.Chofer value) {
                     this.chofer = value;
@@ -11531,11 +11527,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirDest() {
                     return dirDest;
@@ -11543,11 +11539,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirDest(String value) {
                     this.dirDest = value;
@@ -11555,11 +11551,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaDest() {
                     return cmnaDest;
@@ -11567,11 +11563,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaDest(String value) {
                     this.cmnaDest = value;
@@ -11579,11 +11575,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadDest() {
                     return ciudadDest;
@@ -11591,11 +11587,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadDest(String value) {
                     this.ciudadDest = value;
@@ -11603,11 +11599,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the aduana property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.Encabezado.Transporte.Aduana }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.Encabezado.Transporte.Aduana getAduana() {
                     return aduana;
@@ -11615,11 +11611,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the aduana property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.Encabezado.Transporte.Aduana }
-                 *     
+                 *
                  */
                 public void setAduana(DTEDefType.Documento.Encabezado.Transporte.Aduana value) {
                     this.aduana = value;
@@ -11628,9 +11624,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -11858,8 +11854,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -11950,11 +11946,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codModVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodModVenta() {
                         return codModVenta;
@@ -11962,11 +11958,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codModVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodModVenta(BigInteger value) {
                         this.codModVenta = value;
@@ -11974,11 +11970,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codClauVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodClauVenta() {
                         return codClauVenta;
@@ -11986,11 +11982,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codClauVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodClauVenta(BigInteger value) {
                         this.codClauVenta = value;
@@ -11998,11 +11994,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totClauVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getTotClauVenta() {
                         return totClauVenta;
@@ -12010,11 +12006,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totClauVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setTotClauVenta(BigDecimal value) {
                         this.totClauVenta = value;
@@ -12022,11 +12018,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codViaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodViaTransp() {
                         return codViaTransp;
@@ -12034,11 +12030,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codViaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodViaTransp(BigInteger value) {
                         this.codViaTransp = value;
@@ -12046,11 +12042,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nombreTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNombreTransp() {
                         return nombreTransp;
@@ -12058,11 +12054,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nombreTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNombreTransp(String value) {
                         this.nombreTransp = value;
@@ -12070,11 +12066,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the rutCiaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getRUTCiaTransp() {
                         return rutCiaTransp;
@@ -12082,11 +12078,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the rutCiaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setRUTCiaTransp(String value) {
                         this.rutCiaTransp = value;
@@ -12094,11 +12090,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nomCiaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNomCiaTransp() {
                         return nomCiaTransp;
@@ -12106,11 +12102,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nomCiaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNomCiaTransp(String value) {
                         this.nomCiaTransp = value;
@@ -12118,11 +12114,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicTransp() {
                         return idAdicTransp;
@@ -12130,11 +12126,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicTransp(String value) {
                         this.idAdicTransp = value;
@@ -12142,11 +12138,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the booking property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getBooking() {
                         return booking;
@@ -12154,11 +12150,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the booking property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setBooking(String value) {
                         this.booking = value;
@@ -12166,11 +12162,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the operador property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getOperador() {
                         return operador;
@@ -12178,11 +12174,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the operador property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setOperador(String value) {
                         this.operador = value;
@@ -12190,11 +12186,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPtoEmbarque property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPtoEmbarque() {
                         return codPtoEmbarque;
@@ -12202,11 +12198,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPtoEmbarque property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPtoEmbarque(BigInteger value) {
                         this.codPtoEmbarque = value;
@@ -12214,11 +12210,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicPtoEmb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicPtoEmb() {
                         return idAdicPtoEmb;
@@ -12226,11 +12222,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicPtoEmb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicPtoEmb(String value) {
                         this.idAdicPtoEmb = value;
@@ -12238,11 +12234,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPtoDesemb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPtoDesemb() {
                         return codPtoDesemb;
@@ -12250,11 +12246,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPtoDesemb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPtoDesemb(BigInteger value) {
                         this.codPtoDesemb = value;
@@ -12262,11 +12258,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicPtoDesemb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicPtoDesemb() {
                         return idAdicPtoDesemb;
@@ -12274,11 +12270,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicPtoDesemb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicPtoDesemb(String value) {
                         this.idAdicPtoDesemb = value;
@@ -12286,11 +12282,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tara property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTara() {
                         return tara;
@@ -12298,11 +12294,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tara property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTara(BigInteger value) {
                         this.tara = value;
@@ -12310,11 +12306,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidMedTara property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidMedTara() {
                         return codUnidMedTara;
@@ -12322,11 +12318,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidMedTara property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidMedTara(BigInteger value) {
                         this.codUnidMedTara = value;
@@ -12334,11 +12330,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the pesoBruto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getPesoBruto() {
                         return pesoBruto;
@@ -12346,11 +12342,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the pesoBruto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setPesoBruto(BigDecimal value) {
                         this.pesoBruto = value;
@@ -12358,11 +12354,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidPesoBruto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidPesoBruto() {
                         return codUnidPesoBruto;
@@ -12370,11 +12366,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidPesoBruto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidPesoBruto(BigInteger value) {
                         this.codUnidPesoBruto = value;
@@ -12382,11 +12378,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the pesoNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getPesoNeto() {
                         return pesoNeto;
@@ -12394,11 +12390,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the pesoNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setPesoNeto(BigDecimal value) {
                         this.pesoNeto = value;
@@ -12406,11 +12402,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidPesoNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidPesoNeto() {
                         return codUnidPesoNeto;
@@ -12418,11 +12414,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidPesoNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidPesoNeto(BigInteger value) {
                         this.codUnidPesoNeto = value;
@@ -12430,11 +12426,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totItems property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTotItems() {
                         return totItems;
@@ -12442,11 +12438,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totItems property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTotItems(BigInteger value) {
                         this.totItems = value;
@@ -12454,11 +12450,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totBultos property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTotBultos() {
                         return totBultos;
@@ -12466,11 +12462,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totBultos property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTotBultos(BigInteger value) {
                         this.totBultos = value;
@@ -12478,25 +12474,25 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tipoBultos property.
-                     * 
+                     *
                      * <p>
                      * This accessor method returns a reference to the live list,
                      * not a snapshot. Therefore any modification you make to the
                      * returned list will be present inside the Jakarta XML Binding object.
                      * This is why there is not a <CODE>set</CODE> method for the tipoBultos property.
-                     * 
+                     *
                      * <p>
                      * For example, to add a new item, do as follows:
                      * <pre>
                      *    getTipoBultos().add(newItem);
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      * <p>
                      * Objects of the following type(s) are allowed in the list
                      * {@link DTEDefType.Documento.Encabezado.Transporte.Aduana.TipoBultos }
-                     * 
-                     * 
+                     *
+                     *
                      */
                     public List<DTEDefType.Documento.Encabezado.Transporte.Aduana.TipoBultos> getTipoBultos() {
                         if (tipoBultos == null) {
@@ -12507,11 +12503,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntFlete property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getMntFlete() {
                         return mntFlete;
@@ -12519,11 +12515,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntFlete property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setMntFlete(BigDecimal value) {
                         this.mntFlete = value;
@@ -12531,11 +12527,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntSeguro property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getMntSeguro() {
                         return mntSeguro;
@@ -12543,11 +12539,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntSeguro property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setMntSeguro(BigDecimal value) {
                         this.mntSeguro = value;
@@ -12555,11 +12551,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPaisRecep property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPaisRecep() {
                         return codPaisRecep;
@@ -12567,11 +12563,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPaisRecep property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPaisRecep(BigInteger value) {
                         this.codPaisRecep = value;
@@ -12579,11 +12575,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPaisDestin property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPaisDestin() {
                         return codPaisDestin;
@@ -12591,11 +12587,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPaisDestin property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPaisDestin(BigInteger value) {
                         this.codPaisDestin = value;
@@ -12604,9 +12600,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;complexContent&gt;
@@ -12659,8 +12655,8 @@ public class DTEDefType {
                      *   &lt;/complexContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -12688,11 +12684,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the codTpoBultos property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getCodTpoBultos() {
                             return codTpoBultos;
@@ -12700,11 +12696,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the codTpoBultos property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setCodTpoBultos(BigInteger value) {
                             this.codTpoBultos = value;
@@ -12712,11 +12708,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the cantBultos property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getCantBultos() {
                             return cantBultos;
@@ -12724,11 +12720,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the cantBultos property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setCantBultos(BigInteger value) {
                             this.cantBultos = value;
@@ -12736,11 +12732,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the marcas property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getMarcas() {
                             return marcas;
@@ -12748,11 +12744,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the marcas property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setMarcas(String value) {
                             this.marcas = value;
@@ -12760,11 +12756,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the idContainer property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getIdContainer() {
                             return idContainer;
@@ -12772,11 +12768,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the idContainer property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setIdContainer(String value) {
                             this.idContainer = value;
@@ -12784,11 +12780,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the sello property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getSello() {
                             return sello;
@@ -12796,11 +12792,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the sello property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setSello(String value) {
                             this.sello = value;
@@ -12808,11 +12804,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the emisorSello property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getEmisorSello() {
                             return emisorSello;
@@ -12820,11 +12816,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the emisorSello property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setEmisorSello(String value) {
                             this.emisorSello = value;
@@ -12837,9 +12833,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -12858,8 +12854,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -12875,11 +12871,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the rutChofer property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getRUTChofer() {
                         return rutChofer;
@@ -12887,11 +12883,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the rutChofer property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setRUTChofer(String value) {
                         this.rutChofer = value;
@@ -12899,11 +12895,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nombreChofer property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNombreChofer() {
                         return nombreChofer;
@@ -12911,11 +12907,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nombreChofer property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNombreChofer(String value) {
                         this.nombreChofer = value;
@@ -12930,9 +12926,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -12985,8 +12981,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -13021,7 +13017,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinRef property.
-             * 
+             *
              */
             public int getNroLinRef() {
                 return nroLinRef;
@@ -13029,7 +13025,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinRef property.
-             * 
+             *
              */
             public void setNroLinRef(int value) {
                 this.nroLinRef = value;
@@ -13037,11 +13033,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoDocRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoDocRef() {
                 return tpoDocRef;
@@ -13049,11 +13045,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoDocRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoDocRef(String value) {
                 this.tpoDocRef = value;
@@ -13061,11 +13057,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indGlobal property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndGlobal() {
                 return indGlobal;
@@ -13073,11 +13069,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indGlobal property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndGlobal(BigInteger value) {
                 this.indGlobal = value;
@@ -13085,11 +13081,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the folioRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getFolioRef() {
                 return folioRef;
@@ -13097,11 +13093,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the folioRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setFolioRef(String value) {
                 this.folioRef = value;
@@ -13109,11 +13105,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the rutOtr property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRUTOtr() {
                 return rutOtr;
@@ -13121,11 +13117,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the rutOtr property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRUTOtr(String value) {
                 this.rutOtr = value;
@@ -13133,11 +13129,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchRef() {
                 return fchRef;
@@ -13145,11 +13141,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchRef(XMLGregorianCalendar value) {
                 this.fchRef = value;
@@ -13157,11 +13153,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the codRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getCodRef() {
                 return codRef;
@@ -13169,11 +13165,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the codRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setCodRef(BigInteger value) {
                 this.codRef = value;
@@ -13181,11 +13177,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the razonRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRazonRef() {
                 return razonRef;
@@ -13193,11 +13189,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the razonRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRazonRef(String value) {
                 this.razonRef = value;
@@ -13208,9 +13204,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -13253,8 +13249,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -13291,7 +13287,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroSTI property.
-             * 
+             *
              */
             public int getNroSTI() {
                 return nroSTI;
@@ -13299,7 +13295,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroSTI property.
-             * 
+             *
              */
             public void setNroSTI(int value) {
                 this.nroSTI = value;
@@ -13307,11 +13303,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosaSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosaSTI() {
                 return glosaSTI;
@@ -13319,11 +13315,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosaSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosaSTI(String value) {
                 this.glosaSTI = value;
@@ -13331,11 +13327,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the ordenSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link Integer }
-             *     
+             *
              */
             public Integer getOrdenSTI() {
                 return ordenSTI;
@@ -13343,11 +13339,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the ordenSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link Integer }
-             *     
+             *
              */
             public void setOrdenSTI(Integer value) {
                 this.ordenSTI = value;
@@ -13355,11 +13351,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotNetoSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotNetoSTI() {
                 return subTotNetoSTI;
@@ -13367,11 +13363,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotNetoSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotNetoSTI(BigDecimal value) {
                 this.subTotNetoSTI = value;
@@ -13379,11 +13375,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotIVASTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotIVASTI() {
                 return subTotIVASTI;
@@ -13391,11 +13387,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotIVASTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotIVASTI(BigDecimal value) {
                 this.subTotIVASTI = value;
@@ -13403,11 +13399,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotAdicSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotAdicSTI() {
                 return subTotAdicSTI;
@@ -13415,11 +13411,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotAdicSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotAdicSTI(BigDecimal value) {
                 this.subTotAdicSTI = value;
@@ -13427,11 +13423,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotExeSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotExeSTI() {
                 return subTotExeSTI;
@@ -13439,11 +13435,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotExeSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotExeSTI(BigDecimal value) {
                 this.subTotExeSTI = value;
@@ -13451,11 +13447,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valSubtotSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValSubtotSTI() {
                 return valSubtotSTI;
@@ -13463,11 +13459,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valSubtotSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValSubtotSTI(BigDecimal value) {
                 this.valSubtotSTI = value;
@@ -13475,25 +13471,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the lineasDeta property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the lineasDeta property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getLineasDeta().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link BigInteger }
-             * 
-             * 
+             *
+             *
              */
             public List<BigInteger> getLineasDeta() {
                 if (lineasDeta == null) {
@@ -13507,9 +13503,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -13652,8 +13648,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -13672,11 +13668,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dd property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.TED.DD }
-             *     
+             *
              */
             public DTEDefType.Documento.TED.DD getDD() {
                 return dd;
@@ -13697,11 +13693,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dd property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.TED.DD }
-             *     
+             *
              */
             public void setDD(DTEDefType.Documento.TED.DD value) {
                 this.dd = value;
@@ -13709,11 +13705,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the frmt property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Documento.TED.FRMT }
-             *     
+             *
              */
             public DTEDefType.Documento.TED.FRMT getFRMT() {
                 return frmt;
@@ -13721,11 +13717,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the frmt property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Documento.TED.FRMT }
-             *     
+             *
              */
             public void setFRMT(DTEDefType.Documento.TED.FRMT value) {
                 this.frmt = value;
@@ -13733,11 +13729,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the version property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getVersion() {
                 if (version == null) {
@@ -13749,11 +13745,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the version property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setVersion(String value) {
                 this.version = value;
@@ -13762,9 +13758,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -13880,8 +13876,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -13926,11 +13922,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the re property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRE() {
                     return re;
@@ -13951,11 +13947,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the re property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRE(String value) {
                     this.re = value;
@@ -13963,11 +13959,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the td property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTD() {
                     return td;
@@ -13986,11 +13982,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the td property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTD(BigInteger value) {
                     this.td = value;
@@ -13998,11 +13994,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the f property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getF() {
                     return f;
@@ -14021,11 +14017,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the f property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setF(BigInteger value) {
                     this.f = value;
@@ -14033,11 +14029,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFE() {
                     return fe;
@@ -14056,11 +14052,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFE(XMLGregorianCalendar value) {
                     this.fe = value;
@@ -14068,11 +14064,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRR() {
                     return rr;
@@ -14091,11 +14087,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRR(String value) {
                     this.rr = value;
@@ -14103,11 +14099,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rsr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRSR() {
                     return rsr;
@@ -14126,11 +14122,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rsr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRSR(String value) {
                     this.rsr = value;
@@ -14138,11 +14134,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mnt property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMNT() {
                     return mnt;
@@ -14161,11 +14157,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mnt property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMNT(BigInteger value) {
                     this.mnt = value;
@@ -14173,11 +14169,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the it1 property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIT1() {
                     return it1;
@@ -14196,11 +14192,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the it1 property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIT1(String value) {
                     this.it1 = value;
@@ -14208,11 +14204,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the caf property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Documento.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public DTEDefType.Documento.TED.DD.CAF getCAF() {
                     return caf;
@@ -14231,11 +14227,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the caf property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Documento.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public void setCAF(DTEDefType.Documento.TED.DD.CAF value) {
                     this.caf = value;
@@ -14243,11 +14239,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tsted property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getTSTED() {
                     return tsted;
@@ -14265,11 +14261,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tsted property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setTSTED(XMLGregorianCalendar value) {
                     this.tsted = value;
@@ -14302,9 +14298,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -14387,8 +14383,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -14407,11 +14403,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the da property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Documento.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public DTEDefType.Documento.TED.DD.CAF.DA getDA() {
                         return da;
@@ -14419,11 +14415,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the da property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Documento.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public void setDA(DTEDefType.Documento.TED.DD.CAF.DA value) {
                         this.da = value;
@@ -14431,11 +14427,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the frma property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Documento.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public DTEDefType.Documento.TED.DD.CAF.FRMA getFRMA() {
                         return frma;
@@ -14443,11 +14439,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the frma property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Documento.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public void setFRMA(DTEDefType.Documento.TED.DD.CAF.FRMA value) {
                         this.frma = value;
@@ -14455,11 +14451,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the version property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getVersion() {
                         if (version == null) {
@@ -14471,11 +14467,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the version property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setVersion(String value) {
                         this.version = value;
@@ -14488,9 +14484,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;complexContent&gt;
@@ -14553,8 +14549,8 @@ public class DTEDefType {
                      *   &lt;/complexContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -14590,11 +14586,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the re property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRE() {
                             return re;
@@ -14613,11 +14609,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the re property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRE(String value) {
                             this.re = value;
@@ -14625,11 +14621,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rs property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRS() {
                             return rs;
@@ -14648,11 +14644,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rs property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRS(String value) {
                             this.rs = value;
@@ -14660,11 +14656,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the td property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getTD() {
                             return td;
@@ -14683,11 +14679,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the td property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setTD(BigInteger value) {
                             this.td = value;
@@ -14695,11 +14691,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rng property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public DTEDefType.Documento.TED.DD.CAF.DA.RNG getRNG() {
                             return rng;
@@ -14718,11 +14714,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rng property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public void setRNG(DTEDefType.Documento.TED.DD.CAF.DA.RNG value) {
                             this.rng = value;
@@ -14730,11 +14726,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the fa property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public XMLGregorianCalendar getFA() {
                             return fa;
@@ -14752,11 +14748,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the fa property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public void setFA(XMLGregorianCalendar value) {
                             this.fa = value;
@@ -14764,11 +14760,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Documento.TED.DD.CAF.DA.RSAPK getRSAPK() {
                             return rsapk;
@@ -14786,11 +14782,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public void setRSAPK(DTEDefType.Documento.TED.DD.CAF.DA.RSAPK value) {
                             this.rsapk = value;
@@ -14798,11 +14794,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the dsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Documento.TED.DD.CAF.DA.DSAPK getDSAPK() {
                             return dsapk;
@@ -14810,11 +14806,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the dsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Documento.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public void setDSAPK(DTEDefType.Documento.TED.DD.CAF.DA.DSAPK value) {
                             this.dsapk = value;
@@ -14822,7 +14818,7 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the idk property.
-                         * 
+                         *
                          */
                         public long getIDK() {
                             return idk;
@@ -14841,7 +14837,7 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the idk property.
-                         * 
+                         *
                          */
                         public void setIDK(long value) {
                             this.idk = value;
@@ -14871,9 +14867,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -14888,8 +14884,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -14911,7 +14907,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the p property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -14922,7 +14918,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the p property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -14933,7 +14929,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the q property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -14944,7 +14940,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the q property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -14955,7 +14951,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the g property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -14966,7 +14962,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the g property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -14977,7 +14973,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the y property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -14988,7 +14984,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the y property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -15002,9 +14998,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -15017,8 +15013,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -15036,11 +15032,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the d property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getD() {
                                 return d;
@@ -15048,11 +15044,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the d property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setD(BigInteger value) {
                                 this.d = value;
@@ -15060,11 +15056,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the h property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getH() {
                                 return h;
@@ -15072,11 +15068,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the h property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setH(BigInteger value) {
                                 this.h = value;
@@ -15090,9 +15086,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -15105,8 +15101,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -15122,7 +15118,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the m property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -15133,7 +15129,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the m property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -15144,7 +15140,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the e property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -15155,7 +15151,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the e property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -15182,9 +15178,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;simpleContent&gt;
@@ -15194,8 +15190,8 @@ public class DTEDefType {
                      *   &lt;/simpleContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -15210,7 +15206,7 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the value property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     byte[]
@@ -15221,7 +15217,7 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the value property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     byte[]
@@ -15232,11 +15228,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the algoritmo property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getAlgoritmo() {
                             if (algoritmo == null) {
@@ -15248,11 +15244,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the algoritmo property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setAlgoritmo(String value) {
                             this.algoritmo = value;
@@ -15267,9 +15263,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;simpleContent&gt;
@@ -15286,8 +15282,8 @@ public class DTEDefType {
              *   &lt;/simpleContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -15302,7 +15298,7 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the value property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -15313,7 +15309,7 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the value property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -15324,11 +15320,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the algoritmo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getAlgoritmo() {
                     return algoritmo;
@@ -15336,11 +15332,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the algoritmo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setAlgoritmo(String value) {
                     this.algoritmo = value;
@@ -15355,9 +15351,9 @@ public class DTEDefType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -16493,8 +16489,8 @@ public class DTEDefType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -16531,11 +16527,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the encabezado property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Exportaciones.Encabezado }
-         *     
+         *
          */
         public DTEDefType.Exportaciones.Encabezado getEncabezado() {
             return encabezado;
@@ -16543,11 +16539,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the encabezado property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Exportaciones.Encabezado }
-         *     
+         *
          */
         public void setEncabezado(DTEDefType.Exportaciones.Encabezado value) {
             this.encabezado = value;
@@ -16555,25 +16551,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the detalle property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the detalle property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDetalle().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Exportaciones.Detalle }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Exportaciones.Detalle> getDetalle() {
             if (detalle == null) {
@@ -16584,25 +16580,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the subTotInfo property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the subTotInfo property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSubTotInfo().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Exportaciones.SubTotInfo }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Exportaciones.SubTotInfo> getSubTotInfo() {
             if (subTotInfo == null) {
@@ -16613,25 +16609,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the dscRcgGlobal property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the dscRcgGlobal property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDscRcgGlobal().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Exportaciones.DscRcgGlobal }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Exportaciones.DscRcgGlobal> getDscRcgGlobal() {
             if (dscRcgGlobal == null) {
@@ -16642,25 +16638,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the referencia property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the referencia property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getReferencia().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Exportaciones.Referencia }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Exportaciones.Referencia> getReferencia() {
             if (referencia == null) {
@@ -16671,11 +16667,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the ted property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Exportaciones.TED }
-         *     
+         *
          */
         public DTEDefType.Exportaciones.TED getTED() {
             return ted;
@@ -16683,11 +16679,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the ted property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Exportaciones.TED }
-         *     
+         *
          */
         public void setTED(DTEDefType.Exportaciones.TED value) {
             this.ted = value;
@@ -16695,11 +16691,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the tmstFirma property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public XMLGregorianCalendar getTmstFirma() {
             return tmstFirma;
@@ -16707,11 +16703,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the tmstFirma property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public void setTmstFirma(XMLGregorianCalendar value) {
             this.tmstFirma = value;
@@ -16719,11 +16715,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the id property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getID() {
             return id;
@@ -16731,11 +16727,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the id property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setID(String value) {
             this.id = value;
@@ -16744,9 +16740,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -16946,8 +16942,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -17027,7 +17023,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinDet property.
-             * 
+             *
              */
             public int getNroLinDet() {
                 return nroLinDet;
@@ -17035,7 +17031,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinDet property.
-             * 
+             *
              */
             public void setNroLinDet(int value) {
                 this.nroLinDet = value;
@@ -17043,25 +17039,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the cdgItem property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the cdgItem property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getCdgItem().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Exportaciones.Detalle.CdgItem }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Exportaciones.Detalle.CdgItem> getCdgItem() {
                 if (cdgItem == null) {
@@ -17072,11 +17068,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indExe property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndExe() {
                 return indExe;
@@ -17084,11 +17080,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indExe property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndExe(BigInteger value) {
                 this.indExe = value;
@@ -17096,11 +17092,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nmbItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getNmbItem() {
                 return nmbItem;
@@ -17108,11 +17104,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nmbItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setNmbItem(String value) {
                 this.nmbItem = value;
@@ -17120,11 +17116,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dscItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getDscItem() {
                 return dscItem;
@@ -17132,11 +17128,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dscItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setDscItem(String value) {
                 this.dscItem = value;
@@ -17144,11 +17140,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyRef() {
                 return qtyRef;
@@ -17156,11 +17152,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyRef(BigDecimal value) {
                 this.qtyRef = value;
@@ -17168,11 +17164,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdRef() {
                 return unmdRef;
@@ -17180,11 +17176,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdRef(String value) {
                 this.unmdRef = value;
@@ -17192,11 +17188,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcRef() {
                 return prcRef;
@@ -17204,11 +17200,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcRef(BigDecimal value) {
                 this.prcRef = value;
@@ -17216,11 +17212,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyItem() {
                 return qtyItem;
@@ -17228,11 +17224,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyItem(BigDecimal value) {
                 this.qtyItem = value;
@@ -17240,25 +17236,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subcantidad property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subcantidad property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubcantidad().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Exportaciones.Detalle.Subcantidad }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Exportaciones.Detalle.Subcantidad> getSubcantidad() {
                 if (subcantidad == null) {
@@ -17269,11 +17265,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchElabor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchElabor() {
                 return fchElabor;
@@ -17281,11 +17277,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchElabor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchElabor(XMLGregorianCalendar value) {
                 this.fchElabor = value;
@@ -17293,11 +17289,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchVencim property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchVencim() {
                 return fchVencim;
@@ -17305,11 +17301,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchVencim property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchVencim(XMLGregorianCalendar value) {
                 this.fchVencim = value;
@@ -17317,11 +17313,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdItem() {
                 return unmdItem;
@@ -17329,11 +17325,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdItem(String value) {
                 this.unmdItem = value;
@@ -17341,11 +17337,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcItem() {
                 return prcItem;
@@ -17353,11 +17349,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcItem(BigDecimal value) {
                 this.prcItem = value;
@@ -17365,11 +17361,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the otrMnda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Detalle.OtrMnda }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Detalle.OtrMnda getOtrMnda() {
                 return otrMnda;
@@ -17377,11 +17373,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the otrMnda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Detalle.OtrMnda }
-             *     
+             *
              */
             public void setOtrMnda(DTEDefType.Exportaciones.Detalle.OtrMnda value) {
                 this.otrMnda = value;
@@ -17389,11 +17385,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the descuentoPct property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getDescuentoPct() {
                 return descuentoPct;
@@ -17401,11 +17397,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the descuentoPct property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setDescuentoPct(BigDecimal value) {
                 this.descuentoPct = value;
@@ -17413,11 +17409,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the descuentoMonto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getDescuentoMonto() {
                 return descuentoMonto;
@@ -17425,11 +17421,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the descuentoMonto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setDescuentoMonto(BigInteger value) {
                 this.descuentoMonto = value;
@@ -17437,25 +17433,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subDscto property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subDscto property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubDscto().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Exportaciones.Detalle.SubDscto }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Exportaciones.Detalle.SubDscto> getSubDscto() {
                 if (subDscto == null) {
@@ -17466,11 +17462,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the recargoPct property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getRecargoPct() {
                 return recargoPct;
@@ -17478,11 +17474,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the recargoPct property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setRecargoPct(BigDecimal value) {
                 this.recargoPct = value;
@@ -17490,11 +17486,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the recargoMonto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getRecargoMonto() {
                 return recargoMonto;
@@ -17502,11 +17498,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the recargoMonto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setRecargoMonto(BigInteger value) {
                 this.recargoMonto = value;
@@ -17514,25 +17510,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subRecargo property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subRecargo property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubRecargo().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Exportaciones.Detalle.SubRecargo }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Exportaciones.Detalle.SubRecargo> getSubRecargo() {
                 if (subRecargo == null) {
@@ -17543,11 +17539,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the montoItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getMontoItem() {
                 return montoItem;
@@ -17555,11 +17551,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the montoItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setMontoItem(BigDecimal value) {
                 this.montoItem = value;
@@ -17568,9 +17564,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -17595,8 +17591,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -17612,11 +17608,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCodigo() {
                     return tpoCodigo;
@@ -17624,11 +17620,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCodigo(String value) {
                     this.tpoCodigo = value;
@@ -17636,11 +17632,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getVlrCodigo() {
                     return vlrCodigo;
@@ -17648,11 +17644,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setVlrCodigo(String value) {
                     this.vlrCodigo = value;
@@ -17663,9 +17659,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -17700,8 +17696,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -17729,11 +17725,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the prcOtrMon property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getPrcOtrMon() {
                     return prcOtrMon;
@@ -17741,11 +17737,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the prcOtrMon property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setPrcOtrMon(BigDecimal value) {
                     this.prcOtrMon = value;
@@ -17753,11 +17749,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the moneda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getMoneda() {
                     return moneda;
@@ -17765,11 +17761,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the moneda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setMoneda(String value) {
                     this.moneda = value;
@@ -17777,11 +17773,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fctConv property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getFctConv() {
                     return fctConv;
@@ -17789,11 +17785,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fctConv property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setFctConv(BigDecimal value) {
                     this.fctConv = value;
@@ -17801,11 +17797,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dctoOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getDctoOtrMnda() {
                     return dctoOtrMnda;
@@ -17813,11 +17809,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dctoOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setDctoOtrMnda(BigDecimal value) {
                     this.dctoOtrMnda = value;
@@ -17825,11 +17821,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the recargoOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getRecargoOtrMnda() {
                     return recargoOtrMnda;
@@ -17837,11 +17833,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the recargoOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setRecargoOtrMnda(BigDecimal value) {
                     this.recargoOtrMnda = value;
@@ -17849,11 +17845,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the montoItemOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMontoItemOtrMnda() {
                     return montoItemOtrMnda;
@@ -17861,11 +17857,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the montoItemOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMontoItemOtrMnda(BigDecimal value) {
                     this.montoItemOtrMnda = value;
@@ -17876,9 +17872,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -17898,8 +17894,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -17915,11 +17911,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDscto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTipoDscto() {
                     return tipoDscto;
@@ -17927,11 +17923,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDscto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTipoDscto(String value) {
                     this.tipoDscto = value;
@@ -17939,11 +17935,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the valorDscto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getValorDscto() {
                     return valorDscto;
@@ -17951,11 +17947,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the valorDscto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setValorDscto(BigDecimal value) {
                     this.valorDscto = value;
@@ -17966,9 +17962,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -17988,8 +17984,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -18005,11 +18001,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoRecargo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTipoRecargo() {
                     return tipoRecargo;
@@ -18017,11 +18013,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoRecargo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTipoRecargo(String value) {
                     this.tipoRecargo = value;
@@ -18029,11 +18025,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the valorRecargo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getValorRecargo() {
                     return valorRecargo;
@@ -18041,11 +18037,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the valorRecargo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setValorRecargo(BigDecimal value) {
                     this.valorRecargo = value;
@@ -18056,9 +18052,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -18085,8 +18081,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -18105,11 +18101,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subQty property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getSubQty() {
                     return subQty;
@@ -18117,11 +18113,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subQty property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setSubQty(BigDecimal value) {
                     this.subQty = value;
@@ -18129,11 +18125,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subCod property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSubCod() {
                     return subCod;
@@ -18141,11 +18137,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subCod property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSubCod(String value) {
                     this.subCod = value;
@@ -18153,11 +18149,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipCodSubQty property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTipCodSubQty() {
                     return tipCodSubQty;
@@ -18165,11 +18161,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipCodSubQty property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTipCodSubQty(String value) {
                     this.tipCodSubQty = value;
@@ -18182,9 +18178,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -18229,8 +18225,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -18262,11 +18258,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getNroLinDR() {
                 return nroLinDR;
@@ -18274,11 +18270,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setNroLinDR(BigInteger value) {
                 this.nroLinDR = value;
@@ -18286,11 +18282,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoMov property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoMov() {
                 return tpoMov;
@@ -18298,11 +18294,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoMov property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoMov(String value) {
                 this.tpoMov = value;
@@ -18310,11 +18306,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosaDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosaDR() {
                 return glosaDR;
@@ -18322,11 +18318,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosaDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosaDR(String value) {
                 this.glosaDR = value;
@@ -18334,11 +18330,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoValor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoValor() {
                 return tpoValor;
@@ -18346,11 +18342,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoValor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoValor(String value) {
                 this.tpoValor = value;
@@ -18358,11 +18354,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valorDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValorDR() {
                 return valorDR;
@@ -18370,11 +18366,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valorDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValorDR(BigDecimal value) {
                 this.valorDR = value;
@@ -18382,11 +18378,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valorDROtrMnda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValorDROtrMnda() {
                 return valorDROtrMnda;
@@ -18394,11 +18390,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valorDROtrMnda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValorDROtrMnda(BigDecimal value) {
                 this.valorDROtrMnda = value;
@@ -18406,11 +18402,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indExeDR property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndExeDR() {
                 return indExeDR;
@@ -18418,11 +18414,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indExeDR property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndExeDR(BigInteger value) {
                 this.indExeDR = value;
@@ -18433,9 +18429,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -19056,8 +19052,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -19085,11 +19081,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the idDoc property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.IdDoc }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.IdDoc getIdDoc() {
                 return idDoc;
@@ -19097,11 +19093,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the idDoc property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.IdDoc }
-             *     
+             *
              */
             public void setIdDoc(DTEDefType.Exportaciones.Encabezado.IdDoc value) {
                 this.idDoc = value;
@@ -19109,11 +19105,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the emisor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Emisor }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.Emisor getEmisor() {
                 return emisor;
@@ -19121,11 +19117,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the emisor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Emisor }
-             *     
+             *
              */
             public void setEmisor(DTEDefType.Exportaciones.Encabezado.Emisor value) {
                 this.emisor = value;
@@ -19133,11 +19129,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the receptor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Receptor }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.Receptor getReceptor() {
                 return receptor;
@@ -19145,11 +19141,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the receptor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Receptor }
-             *     
+             *
              */
             public void setReceptor(DTEDefType.Exportaciones.Encabezado.Receptor value) {
                 this.receptor = value;
@@ -19157,11 +19153,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the transporte property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Transporte }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.Transporte getTransporte() {
                 return transporte;
@@ -19169,11 +19165,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the transporte property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Transporte }
-             *     
+             *
              */
             public void setTransporte(DTEDefType.Exportaciones.Encabezado.Transporte value) {
                 this.transporte = value;
@@ -19181,11 +19177,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the totales property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Totales }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.Totales getTotales() {
                 return totales;
@@ -19193,11 +19189,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the totales property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.Totales }
-             *     
+             *
              */
             public void setTotales(DTEDefType.Exportaciones.Encabezado.Totales value) {
                 this.totales = value;
@@ -19205,11 +19201,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the otraMoneda property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.Encabezado.OtraMoneda }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.Encabezado.OtraMoneda getOtraMoneda() {
                 return otraMoneda;
@@ -19217,11 +19213,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the otraMoneda property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.Encabezado.OtraMoneda }
-             *     
+             *
              */
             public void setOtraMoneda(DTEDefType.Exportaciones.Encabezado.OtraMoneda value) {
                 this.otraMoneda = value;
@@ -19230,9 +19226,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -19320,8 +19316,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -19373,11 +19369,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTEmisor() {
                     return rutEmisor;
@@ -19385,11 +19381,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTEmisor(String value) {
                     this.rutEmisor = value;
@@ -19397,11 +19393,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSoc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSoc() {
                     return rznSoc;
@@ -19409,11 +19405,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSoc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSoc(String value) {
                     this.rznSoc = value;
@@ -19421,11 +19417,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroEmis() {
                     return giroEmis;
@@ -19433,11 +19429,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroEmis(String value) {
                     this.giroEmis = value;
@@ -19445,25 +19441,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the telefono property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the telefono property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getTelefono().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link String }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<String> getTelefono() {
                     if (telefono == null) {
@@ -19474,11 +19470,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoEmisor() {
                     return correoEmisor;
@@ -19486,11 +19482,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoEmisor(String value) {
                     this.correoEmisor = value;
@@ -19498,25 +19494,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the acteco property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the acteco property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getActeco().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link BigInteger }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<BigInteger> getActeco() {
                     if (acteco == null) {
@@ -19527,11 +19523,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the sucursal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSucursal() {
                     return sucursal;
@@ -19539,11 +19535,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the sucursal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSucursal(String value) {
                     this.sucursal = value;
@@ -19551,11 +19547,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getCdgSIISucur() {
                     return cdgSIISucur;
@@ -19563,11 +19559,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setCdgSIISucur(BigInteger value) {
                     this.cdgSIISucur = value;
@@ -19575,11 +19571,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the codAdicSucur property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCodAdicSucur() {
                     return codAdicSucur;
@@ -19587,11 +19583,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the codAdicSucur property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCodAdicSucur(String value) {
                     this.codAdicSucur = value;
@@ -19599,11 +19595,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirOrigen() {
                     return dirOrigen;
@@ -19611,11 +19607,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirOrigen(String value) {
                     this.dirOrigen = value;
@@ -19623,11 +19619,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaOrigen() {
                     return cmnaOrigen;
@@ -19635,11 +19631,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaOrigen(String value) {
                     this.cmnaOrigen = value;
@@ -19647,11 +19643,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadOrigen() {
                     return ciudadOrigen;
@@ -19659,11 +19655,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadOrigen(String value) {
                     this.ciudadOrigen = value;
@@ -19671,11 +19667,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgVendedor() {
                     return cdgVendedor;
@@ -19683,11 +19679,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgVendedor(String value) {
                     this.cdgVendedor = value;
@@ -19695,11 +19691,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the idAdicEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIdAdicEmisor() {
                     return idAdicEmisor;
@@ -19707,11 +19703,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the idAdicEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIdAdicEmisor(String value) {
                     this.idAdicEmisor = value;
@@ -19722,9 +19718,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -19845,8 +19841,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -19929,11 +19925,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDTE property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTipoDTE() {
                     return tipoDTE;
@@ -19941,11 +19937,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDTE property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTipoDTE(BigInteger value) {
                     this.tipoDTE = value;
@@ -19953,11 +19949,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the folio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFolio() {
                     return folio;
@@ -19965,11 +19961,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the folio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFolio(BigInteger value) {
                     this.folio = value;
@@ -19977,11 +19973,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchEmis() {
                     return fchEmis;
@@ -19989,11 +19985,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchEmis(XMLGregorianCalendar value) {
                     this.fchEmis = value;
@@ -20001,11 +19997,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDespacho property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTipoDespacho() {
                     return tipoDespacho;
@@ -20013,11 +20009,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDespacho property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTipoDespacho(BigInteger value) {
                     this.tipoDespacho = value;
@@ -20025,11 +20021,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indServicio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIndServicio() {
                     return indServicio;
@@ -20037,11 +20033,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indServicio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIndServicio(BigInteger value) {
                     this.indServicio = value;
@@ -20049,11 +20045,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fmaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFmaPago() {
                     return fmaPago;
@@ -20061,11 +20057,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fmaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFmaPago(BigInteger value) {
                     this.fmaPago = value;
@@ -20073,11 +20069,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fmaPagExp property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFmaPagExp() {
                     return fmaPagExp;
@@ -20085,11 +20081,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fmaPagExp property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFmaPagExp(BigInteger value) {
                     this.fmaPagExp = value;
@@ -20097,11 +20093,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchCancel() {
                     return fchCancel;
@@ -20109,11 +20105,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchCancel(XMLGregorianCalendar value) {
                     this.fchCancel = value;
@@ -20121,11 +20117,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntCancel() {
                     return mntCancel;
@@ -20133,11 +20129,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntCancel(BigInteger value) {
                     this.mntCancel = value;
@@ -20145,11 +20141,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the saldoInsol property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getSaldoInsol() {
                     return saldoInsol;
@@ -20157,11 +20153,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the saldoInsol property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setSaldoInsol(BigInteger value) {
                     this.saldoInsol = value;
@@ -20169,25 +20165,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getMntPagos().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Exportaciones.Encabezado.IdDoc.MntPagos }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Exportaciones.Encabezado.IdDoc.MntPagos> getMntPagos() {
                     if (mntPagos == null) {
@@ -20198,11 +20194,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoDesde property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoDesde() {
                     return periodoDesde;
@@ -20210,11 +20206,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoDesde property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoDesde(XMLGregorianCalendar value) {
                     this.periodoDesde = value;
@@ -20222,11 +20218,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoHasta property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoHasta() {
                     return periodoHasta;
@@ -20234,11 +20230,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoHasta property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoHasta(XMLGregorianCalendar value) {
                     this.periodoHasta = value;
@@ -20246,11 +20242,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the medioPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public MedioPagoType getMedioPago() {
                     return medioPago;
@@ -20258,11 +20254,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the medioPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public void setMedioPago(MedioPagoType value) {
                     this.medioPago = value;
@@ -20270,11 +20266,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCtaPago() {
                     return tpoCtaPago;
@@ -20282,11 +20278,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCtaPago(String value) {
                     this.tpoCtaPago = value;
@@ -20294,11 +20290,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the numCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getNumCtaPago() {
                     return numCtaPago;
@@ -20306,11 +20302,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the numCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setNumCtaPago(String value) {
                     this.numCtaPago = value;
@@ -20318,11 +20314,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the bcoPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getBcoPago() {
                     return bcoPago;
@@ -20330,11 +20326,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the bcoPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setBcoPago(String value) {
                     this.bcoPago = value;
@@ -20342,11 +20338,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoCdg() {
                     return termPagoCdg;
@@ -20354,11 +20350,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoCdg(String value) {
                     this.termPagoCdg = value;
@@ -20366,11 +20362,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoGlosa() {
                     return termPagoGlosa;
@@ -20378,11 +20374,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoGlosa(String value) {
                     this.termPagoGlosa = value;
@@ -20390,11 +20386,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoDias property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTermPagoDias() {
                     return termPagoDias;
@@ -20402,11 +20398,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoDias property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTermPagoDias(BigInteger value) {
                     this.termPagoDias = value;
@@ -20414,11 +20410,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchVenc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchVenc() {
                     return fchVenc;
@@ -20426,11 +20422,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchVenc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchVenc(XMLGregorianCalendar value) {
                     this.fchVenc = value;
@@ -20439,9 +20435,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -20461,8 +20457,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -20483,11 +20479,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the fchPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public XMLGregorianCalendar getFchPago() {
                         return fchPago;
@@ -20495,11 +20491,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the fchPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public void setFchPago(XMLGregorianCalendar value) {
                         this.fchPago = value;
@@ -20507,11 +20503,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getMntPago() {
                         return mntPago;
@@ -20519,11 +20515,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setMntPago(BigInteger value) {
                         this.mntPago = value;
@@ -20531,11 +20527,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the glosaPagos property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getGlosaPagos() {
                         return glosaPagos;
@@ -20543,11 +20539,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the glosaPagos property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setGlosaPagos(String value) {
                         this.glosaPagos = value;
@@ -20560,9 +20556,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -20577,8 +20573,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -20601,11 +20597,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public TipMonType getTpoMoneda() {
                     return tpoMoneda;
@@ -20613,11 +20609,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public void setTpoMoneda(TipMonType value) {
                     this.tpoMoneda = value;
@@ -20625,11 +20621,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCambio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getTpoCambio() {
                     return tpoCambio;
@@ -20637,11 +20633,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCambio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setTpoCambio(BigDecimal value) {
                     this.tpoCambio = value;
@@ -20649,11 +20645,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntExeOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntExeOtrMnda() {
                     return mntExeOtrMnda;
@@ -20661,11 +20657,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntExeOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntExeOtrMnda(BigDecimal value) {
                     this.mntExeOtrMnda = value;
@@ -20673,11 +20669,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntTotOtrMnda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntTotOtrMnda() {
                     return mntTotOtrMnda;
@@ -20685,11 +20681,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntTotOtrMnda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntTotOtrMnda(BigDecimal value) {
                     this.mntTotOtrMnda = value;
@@ -20700,9 +20696,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -20789,8 +20785,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -20839,11 +20835,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTRecep() {
                     return rutRecep;
@@ -20851,11 +20847,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTRecep(String value) {
                     this.rutRecep = value;
@@ -20863,11 +20859,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgIntRecep() {
                     return cdgIntRecep;
@@ -20875,11 +20871,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgIntRecep(String value) {
                     this.cdgIntRecep = value;
@@ -20887,11 +20883,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSocRecep() {
                     return rznSocRecep;
@@ -20899,11 +20895,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSocRecep(String value) {
                     this.rznSocRecep = value;
@@ -20911,11 +20907,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the extranjero property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Receptor.Extranjero }
-                 *     
+                 *
                  */
                 public DTEDefType.Exportaciones.Encabezado.Receptor.Extranjero getExtranjero() {
                     return extranjero;
@@ -20923,11 +20919,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the extranjero property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Receptor.Extranjero }
-                 *     
+                 *
                  */
                 public void setExtranjero(DTEDefType.Exportaciones.Encabezado.Receptor.Extranjero value) {
                     this.extranjero = value;
@@ -20935,11 +20931,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroRecep() {
                     return giroRecep;
@@ -20947,11 +20943,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroRecep(String value) {
                     this.giroRecep = value;
@@ -20959,11 +20955,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the contacto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getContacto() {
                     return contacto;
@@ -20971,11 +20967,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the contacto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setContacto(String value) {
                     this.contacto = value;
@@ -20983,11 +20979,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoRecep() {
                     return correoRecep;
@@ -20995,11 +20991,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoRecep(String value) {
                     this.correoRecep = value;
@@ -21007,11 +21003,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirRecep() {
                     return dirRecep;
@@ -21019,11 +21015,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirRecep(String value) {
                     this.dirRecep = value;
@@ -21031,11 +21027,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaRecep() {
                     return cmnaRecep;
@@ -21043,11 +21039,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaRecep(String value) {
                     this.cmnaRecep = value;
@@ -21055,11 +21051,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadRecep() {
                     return ciudadRecep;
@@ -21067,11 +21063,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadRecep(String value) {
                     this.ciudadRecep = value;
@@ -21079,11 +21075,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirPostal() {
                     return dirPostal;
@@ -21091,11 +21087,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirPostal(String value) {
                     this.dirPostal = value;
@@ -21103,11 +21099,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaPostal() {
                     return cmnaPostal;
@@ -21115,11 +21111,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaPostal(String value) {
                     this.cmnaPostal = value;
@@ -21127,11 +21123,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadPostal() {
                     return ciudadPostal;
@@ -21139,11 +21135,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadPostal(String value) {
                     this.ciudadPostal = value;
@@ -21152,9 +21148,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -21189,8 +21185,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -21209,11 +21205,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the numId property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNumId() {
                         return numId;
@@ -21221,11 +21217,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the numId property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNumId(String value) {
                         this.numId = value;
@@ -21233,11 +21229,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nacionalidad property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNacionalidad() {
                         return nacionalidad;
@@ -21245,11 +21241,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nacionalidad property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNacionalidad(String value) {
                         this.nacionalidad = value;
@@ -21257,11 +21253,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicRecep property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicRecep() {
                         return idAdicRecep;
@@ -21269,11 +21265,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicRecep property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicRecep(String value) {
                         this.idAdicRecep = value;
@@ -21286,9 +21282,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -21320,8 +21316,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -21341,11 +21337,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public TipMonType getTpoMoneda() {
                     return tpoMoneda;
@@ -21353,11 +21349,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoMoneda property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link TipMonType }
-                 *     
+                 *
                  */
                 public void setTpoMoneda(TipMonType value) {
                     this.tpoMoneda = value;
@@ -21365,11 +21361,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntExe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntExe() {
                     return mntExe;
@@ -21377,11 +21373,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntExe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntExe(BigDecimal value) {
                     this.mntExe = value;
@@ -21389,11 +21385,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntTotal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMntTotal() {
                     return mntTotal;
@@ -21401,11 +21397,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntTotal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMntTotal(BigDecimal value) {
                     this.mntTotal = value;
@@ -21416,9 +21412,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -21691,8 +21687,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -21723,11 +21719,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the patente property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getPatente() {
                     return patente;
@@ -21735,11 +21731,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the patente property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setPatente(String value) {
                     this.patente = value;
@@ -21747,11 +21743,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutTrans property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTTrans() {
                     return rutTrans;
@@ -21759,11 +21755,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutTrans property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTTrans(String value) {
                     this.rutTrans = value;
@@ -21771,11 +21767,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the chofer property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Transporte.Chofer }
-                 *     
+                 *
                  */
                 public DTEDefType.Exportaciones.Encabezado.Transporte.Chofer getChofer() {
                     return chofer;
@@ -21783,11 +21779,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the chofer property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Transporte.Chofer }
-                 *     
+                 *
                  */
                 public void setChofer(DTEDefType.Exportaciones.Encabezado.Transporte.Chofer value) {
                     this.chofer = value;
@@ -21795,11 +21791,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirDest() {
                     return dirDest;
@@ -21807,11 +21803,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirDest(String value) {
                     this.dirDest = value;
@@ -21819,11 +21815,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaDest() {
                     return cmnaDest;
@@ -21831,11 +21827,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaDest(String value) {
                     this.cmnaDest = value;
@@ -21843,11 +21839,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadDest property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadDest() {
                     return ciudadDest;
@@ -21855,11 +21851,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadDest property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadDest(String value) {
                     this.ciudadDest = value;
@@ -21867,11 +21863,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the aduana property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Transporte.Aduana }
-                 *     
+                 *
                  */
                 public DTEDefType.Exportaciones.Encabezado.Transporte.Aduana getAduana() {
                     return aduana;
@@ -21879,11 +21875,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the aduana property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Exportaciones.Encabezado.Transporte.Aduana }
-                 *     
+                 *
                  */
                 public void setAduana(DTEDefType.Exportaciones.Encabezado.Transporte.Aduana value) {
                     this.aduana = value;
@@ -21892,9 +21888,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -22122,8 +22118,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -22214,11 +22210,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codModVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodModVenta() {
                         return codModVenta;
@@ -22226,11 +22222,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codModVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodModVenta(BigInteger value) {
                         this.codModVenta = value;
@@ -22238,11 +22234,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codClauVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodClauVenta() {
                         return codClauVenta;
@@ -22250,11 +22246,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codClauVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodClauVenta(BigInteger value) {
                         this.codClauVenta = value;
@@ -22262,11 +22258,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totClauVenta property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getTotClauVenta() {
                         return totClauVenta;
@@ -22274,11 +22270,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totClauVenta property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setTotClauVenta(BigDecimal value) {
                         this.totClauVenta = value;
@@ -22286,11 +22282,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codViaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodViaTransp() {
                         return codViaTransp;
@@ -22298,11 +22294,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codViaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodViaTransp(BigInteger value) {
                         this.codViaTransp = value;
@@ -22310,11 +22306,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nombreTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNombreTransp() {
                         return nombreTransp;
@@ -22322,11 +22318,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nombreTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNombreTransp(String value) {
                         this.nombreTransp = value;
@@ -22334,11 +22330,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the rutCiaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getRUTCiaTransp() {
                         return rutCiaTransp;
@@ -22346,11 +22342,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the rutCiaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setRUTCiaTransp(String value) {
                         this.rutCiaTransp = value;
@@ -22358,11 +22354,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nomCiaTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNomCiaTransp() {
                         return nomCiaTransp;
@@ -22370,11 +22366,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nomCiaTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNomCiaTransp(String value) {
                         this.nomCiaTransp = value;
@@ -22382,11 +22378,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicTransp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicTransp() {
                         return idAdicTransp;
@@ -22394,11 +22390,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicTransp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicTransp(String value) {
                         this.idAdicTransp = value;
@@ -22406,11 +22402,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the booking property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getBooking() {
                         return booking;
@@ -22418,11 +22414,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the booking property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setBooking(String value) {
                         this.booking = value;
@@ -22430,11 +22426,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the operador property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getOperador() {
                         return operador;
@@ -22442,11 +22438,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the operador property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setOperador(String value) {
                         this.operador = value;
@@ -22454,11 +22450,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPtoEmbarque property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPtoEmbarque() {
                         return codPtoEmbarque;
@@ -22466,11 +22462,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPtoEmbarque property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPtoEmbarque(BigInteger value) {
                         this.codPtoEmbarque = value;
@@ -22478,11 +22474,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicPtoEmb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicPtoEmb() {
                         return idAdicPtoEmb;
@@ -22490,11 +22486,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicPtoEmb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicPtoEmb(String value) {
                         this.idAdicPtoEmb = value;
@@ -22502,11 +22498,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPtoDesemb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPtoDesemb() {
                         return codPtoDesemb;
@@ -22514,11 +22510,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPtoDesemb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPtoDesemb(BigInteger value) {
                         this.codPtoDesemb = value;
@@ -22526,11 +22522,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the idAdicPtoDesemb property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getIdAdicPtoDesemb() {
                         return idAdicPtoDesemb;
@@ -22538,11 +22534,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the idAdicPtoDesemb property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setIdAdicPtoDesemb(String value) {
                         this.idAdicPtoDesemb = value;
@@ -22550,11 +22546,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tara property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTara() {
                         return tara;
@@ -22562,11 +22558,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tara property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTara(BigInteger value) {
                         this.tara = value;
@@ -22574,11 +22570,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidMedTara property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidMedTara() {
                         return codUnidMedTara;
@@ -22586,11 +22582,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidMedTara property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidMedTara(BigInteger value) {
                         this.codUnidMedTara = value;
@@ -22598,11 +22594,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the pesoBruto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getPesoBruto() {
                         return pesoBruto;
@@ -22610,11 +22606,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the pesoBruto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setPesoBruto(BigDecimal value) {
                         this.pesoBruto = value;
@@ -22622,11 +22618,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidPesoBruto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidPesoBruto() {
                         return codUnidPesoBruto;
@@ -22634,11 +22630,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidPesoBruto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidPesoBruto(BigInteger value) {
                         this.codUnidPesoBruto = value;
@@ -22646,11 +22642,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the pesoNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getPesoNeto() {
                         return pesoNeto;
@@ -22658,11 +22654,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the pesoNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setPesoNeto(BigDecimal value) {
                         this.pesoNeto = value;
@@ -22670,11 +22666,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codUnidPesoNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodUnidPesoNeto() {
                         return codUnidPesoNeto;
@@ -22682,11 +22678,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codUnidPesoNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodUnidPesoNeto(BigInteger value) {
                         this.codUnidPesoNeto = value;
@@ -22694,11 +22690,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totItems property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTotItems() {
                         return totItems;
@@ -22706,11 +22702,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totItems property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTotItems(BigInteger value) {
                         this.totItems = value;
@@ -22718,11 +22714,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the totBultos property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getTotBultos() {
                         return totBultos;
@@ -22730,11 +22726,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the totBultos property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setTotBultos(BigInteger value) {
                         this.totBultos = value;
@@ -22742,25 +22738,25 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tipoBultos property.
-                     * 
+                     *
                      * <p>
                      * This accessor method returns a reference to the live list,
                      * not a snapshot. Therefore any modification you make to the
                      * returned list will be present inside the Jakarta XML Binding object.
                      * This is why there is not a <CODE>set</CODE> method for the tipoBultos property.
-                     * 
+                     *
                      * <p>
                      * For example, to add a new item, do as follows:
                      * <pre>
                      *    getTipoBultos().add(newItem);
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      * <p>
                      * Objects of the following type(s) are allowed in the list
                      * {@link DTEDefType.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos }
-                     * 
-                     * 
+                     *
+                     *
                      */
                     public List<DTEDefType.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos> getTipoBultos() {
                         if (tipoBultos == null) {
@@ -22771,11 +22767,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntFlete property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getMntFlete() {
                         return mntFlete;
@@ -22783,11 +22779,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntFlete property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setMntFlete(BigDecimal value) {
                         this.mntFlete = value;
@@ -22795,11 +22791,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntSeguro property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getMntSeguro() {
                         return mntSeguro;
@@ -22807,11 +22803,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntSeguro property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setMntSeguro(BigDecimal value) {
                         this.mntSeguro = value;
@@ -22819,11 +22815,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPaisRecep property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPaisRecep() {
                         return codPaisRecep;
@@ -22831,11 +22827,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPaisRecep property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPaisRecep(BigInteger value) {
                         this.codPaisRecep = value;
@@ -22843,11 +22839,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the codPaisDestin property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getCodPaisDestin() {
                         return codPaisDestin;
@@ -22855,11 +22851,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the codPaisDestin property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setCodPaisDestin(BigInteger value) {
                         this.codPaisDestin = value;
@@ -22868,9 +22864,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;complexContent&gt;
@@ -22923,8 +22919,8 @@ public class DTEDefType {
                      *   &lt;/complexContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -22952,11 +22948,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the codTpoBultos property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getCodTpoBultos() {
                             return codTpoBultos;
@@ -22964,11 +22960,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the codTpoBultos property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setCodTpoBultos(BigInteger value) {
                             this.codTpoBultos = value;
@@ -22976,11 +22972,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the cantBultos property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getCantBultos() {
                             return cantBultos;
@@ -22988,11 +22984,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the cantBultos property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setCantBultos(BigInteger value) {
                             this.cantBultos = value;
@@ -23000,11 +22996,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the marcas property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getMarcas() {
                             return marcas;
@@ -23012,11 +23008,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the marcas property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setMarcas(String value) {
                             this.marcas = value;
@@ -23024,11 +23020,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the idContainer property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getIdContainer() {
                             return idContainer;
@@ -23036,11 +23032,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the idContainer property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setIdContainer(String value) {
                             this.idContainer = value;
@@ -23048,11 +23044,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the sello property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getSello() {
                             return sello;
@@ -23060,11 +23056,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the sello property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setSello(String value) {
                             this.sello = value;
@@ -23072,11 +23068,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the emisorSello property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getEmisorSello() {
                             return emisorSello;
@@ -23084,11 +23080,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the emisorSello property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setEmisorSello(String value) {
                             this.emisorSello = value;
@@ -23101,9 +23097,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -23122,8 +23118,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -23139,11 +23135,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the rutChofer property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getRUTChofer() {
                         return rutChofer;
@@ -23151,11 +23147,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the rutChofer property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setRUTChofer(String value) {
                         this.rutChofer = value;
@@ -23163,11 +23159,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the nombreChofer property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getNombreChofer() {
                         return nombreChofer;
@@ -23175,11 +23171,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the nombreChofer property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setNombreChofer(String value) {
                         this.nombreChofer = value;
@@ -23194,9 +23190,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -23264,8 +23260,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -23302,7 +23298,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinRef property.
-             * 
+             *
              */
             public int getNroLinRef() {
                 return nroLinRef;
@@ -23310,7 +23306,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinRef property.
-             * 
+             *
              */
             public void setNroLinRef(int value) {
                 this.nroLinRef = value;
@@ -23318,11 +23314,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoDocRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoDocRef() {
                 return tpoDocRef;
@@ -23330,11 +23326,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoDocRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoDocRef(String value) {
                 this.tpoDocRef = value;
@@ -23342,11 +23338,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indGlobal property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndGlobal() {
                 return indGlobal;
@@ -23354,11 +23350,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indGlobal property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndGlobal(BigInteger value) {
                 this.indGlobal = value;
@@ -23366,11 +23362,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the folioRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getFolioRef() {
                 return folioRef;
@@ -23378,11 +23374,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the folioRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setFolioRef(String value) {
                 this.folioRef = value;
@@ -23390,11 +23386,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the rutOtr property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRUTOtr() {
                 return rutOtr;
@@ -23402,11 +23398,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the rutOtr property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRUTOtr(String value) {
                 this.rutOtr = value;
@@ -23414,11 +23410,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the idAdicOtr property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getIdAdicOtr() {
                 return idAdicOtr;
@@ -23426,11 +23422,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the idAdicOtr property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setIdAdicOtr(String value) {
                 this.idAdicOtr = value;
@@ -23438,11 +23434,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchRef() {
                 return fchRef;
@@ -23450,11 +23446,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchRef(XMLGregorianCalendar value) {
                 this.fchRef = value;
@@ -23462,11 +23458,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the codRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getCodRef() {
                 return codRef;
@@ -23474,11 +23470,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the codRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setCodRef(BigInteger value) {
                 this.codRef = value;
@@ -23486,11 +23482,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the razonRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRazonRef() {
                 return razonRef;
@@ -23498,11 +23494,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the razonRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRazonRef(String value) {
                 this.razonRef = value;
@@ -23513,9 +23509,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -23558,8 +23554,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -23596,7 +23592,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroSTI property.
-             * 
+             *
              */
             public int getNroSTI() {
                 return nroSTI;
@@ -23604,7 +23600,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroSTI property.
-             * 
+             *
              */
             public void setNroSTI(int value) {
                 this.nroSTI = value;
@@ -23612,11 +23608,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosaSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosaSTI() {
                 return glosaSTI;
@@ -23624,11 +23620,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosaSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosaSTI(String value) {
                 this.glosaSTI = value;
@@ -23636,11 +23632,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the ordenSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link Integer }
-             *     
+             *
              */
             public Integer getOrdenSTI() {
                 return ordenSTI;
@@ -23648,11 +23644,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the ordenSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link Integer }
-             *     
+             *
              */
             public void setOrdenSTI(Integer value) {
                 this.ordenSTI = value;
@@ -23660,11 +23656,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotNetoSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotNetoSTI() {
                 return subTotNetoSTI;
@@ -23672,11 +23668,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotNetoSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotNetoSTI(BigDecimal value) {
                 this.subTotNetoSTI = value;
@@ -23684,11 +23680,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotIVASTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotIVASTI() {
                 return subTotIVASTI;
@@ -23696,11 +23692,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotIVASTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotIVASTI(BigDecimal value) {
                 this.subTotIVASTI = value;
@@ -23708,11 +23704,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotAdicSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotAdicSTI() {
                 return subTotAdicSTI;
@@ -23720,11 +23716,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotAdicSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotAdicSTI(BigDecimal value) {
                 this.subTotAdicSTI = value;
@@ -23732,11 +23728,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotExeSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotExeSTI() {
                 return subTotExeSTI;
@@ -23744,11 +23740,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotExeSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotExeSTI(BigDecimal value) {
                 this.subTotExeSTI = value;
@@ -23756,11 +23752,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valSubtotSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValSubtotSTI() {
                 return valSubtotSTI;
@@ -23768,11 +23764,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valSubtotSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValSubtotSTI(BigDecimal value) {
                 this.valSubtotSTI = value;
@@ -23780,25 +23776,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the lineasDeta property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the lineasDeta property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getLineasDeta().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link BigInteger }
-             * 
-             * 
+             *
+             *
              */
             public List<BigInteger> getLineasDeta() {
                 if (lineasDeta == null) {
@@ -23812,9 +23808,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -23966,8 +23962,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -23986,11 +23982,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dd property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.TED.DD }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.TED.DD getDD() {
                 return dd;
@@ -23998,11 +23994,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dd property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.TED.DD }
-             *     
+             *
              */
             public void setDD(DTEDefType.Exportaciones.TED.DD value) {
                 this.dd = value;
@@ -24010,11 +24006,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the frmt property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Exportaciones.TED.FRMT }
-             *     
+             *
              */
             public DTEDefType.Exportaciones.TED.FRMT getFRMT() {
                 return frmt;
@@ -24022,11 +24018,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the frmt property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Exportaciones.TED.FRMT }
-             *     
+             *
              */
             public void setFRMT(DTEDefType.Exportaciones.TED.FRMT value) {
                 this.frmt = value;
@@ -24034,11 +24030,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the version property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getVersion() {
                 if (version == null) {
@@ -24050,11 +24046,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the version property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setVersion(String value) {
                 this.version = value;
@@ -24063,9 +24059,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -24190,8 +24186,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -24235,11 +24231,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the re property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRE() {
                     return re;
@@ -24247,11 +24243,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the re property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRE(String value) {
                     this.re = value;
@@ -24259,11 +24255,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the td property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTD() {
                     return td;
@@ -24271,11 +24267,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the td property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTD(BigInteger value) {
                     this.td = value;
@@ -24283,11 +24279,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the f property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getF() {
                     return f;
@@ -24295,11 +24291,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the f property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setF(BigInteger value) {
                     this.f = value;
@@ -24307,11 +24303,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFE() {
                     return fe;
@@ -24319,11 +24315,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFE(XMLGregorianCalendar value) {
                     this.fe = value;
@@ -24331,11 +24327,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRR() {
                     return rr;
@@ -24343,11 +24339,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRR(String value) {
                     this.rr = value;
@@ -24355,11 +24351,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rsr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRSR() {
                     return rsr;
@@ -24367,11 +24363,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rsr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRSR(String value) {
                     this.rsr = value;
@@ -24379,11 +24375,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mnt property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getMNT() {
                     return mnt;
@@ -24391,11 +24387,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mnt property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setMNT(BigDecimal value) {
                     this.mnt = value;
@@ -24403,11 +24399,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the it1 property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIT1() {
                     return it1;
@@ -24415,11 +24411,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the it1 property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIT1(String value) {
                     this.it1 = value;
@@ -24427,11 +24423,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the caf property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Exportaciones.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public DTEDefType.Exportaciones.TED.DD.CAF getCAF() {
                     return caf;
@@ -24439,11 +24435,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the caf property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Exportaciones.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public void setCAF(DTEDefType.Exportaciones.TED.DD.CAF value) {
                     this.caf = value;
@@ -24451,11 +24447,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tsted property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getTSTED() {
                     return tsted;
@@ -24463,11 +24459,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tsted property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setTSTED(XMLGregorianCalendar value) {
                     this.tsted = value;
@@ -24476,9 +24472,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -24561,8 +24557,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -24581,11 +24577,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the da property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public DTEDefType.Exportaciones.TED.DD.CAF.DA getDA() {
                         return da;
@@ -24593,11 +24589,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the da property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public void setDA(DTEDefType.Exportaciones.TED.DD.CAF.DA value) {
                         this.da = value;
@@ -24605,11 +24601,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the frma property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Exportaciones.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public DTEDefType.Exportaciones.TED.DD.CAF.FRMA getFRMA() {
                         return frma;
@@ -24617,11 +24613,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the frma property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Exportaciones.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public void setFRMA(DTEDefType.Exportaciones.TED.DD.CAF.FRMA value) {
                         this.frma = value;
@@ -24629,11 +24625,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the version property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getVersion() {
                         if (version == null) {
@@ -24645,11 +24641,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the version property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setVersion(String value) {
                         this.version = value;
@@ -24658,9 +24654,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;complexContent&gt;
@@ -24723,8 +24719,8 @@ public class DTEDefType {
                      *   &lt;/complexContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -24760,11 +24756,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the re property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRE() {
                             return re;
@@ -24772,11 +24768,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the re property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRE(String value) {
                             this.re = value;
@@ -24784,11 +24780,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rs property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRS() {
                             return rs;
@@ -24796,11 +24792,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rs property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRS(String value) {
                             this.rs = value;
@@ -24808,11 +24804,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the td property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getTD() {
                             return td;
@@ -24820,11 +24816,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the td property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setTD(BigInteger value) {
                             this.td = value;
@@ -24832,11 +24828,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rng property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public DTEDefType.Exportaciones.TED.DD.CAF.DA.RNG getRNG() {
                             return rng;
@@ -24844,11 +24840,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rng property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public void setRNG(DTEDefType.Exportaciones.TED.DD.CAF.DA.RNG value) {
                             this.rng = value;
@@ -24856,11 +24852,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the fa property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public XMLGregorianCalendar getFA() {
                             return fa;
@@ -24868,11 +24864,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the fa property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public void setFA(XMLGregorianCalendar value) {
                             this.fa = value;
@@ -24880,11 +24876,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Exportaciones.TED.DD.CAF.DA.RSAPK getRSAPK() {
                             return rsapk;
@@ -24892,11 +24888,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public void setRSAPK(DTEDefType.Exportaciones.TED.DD.CAF.DA.RSAPK value) {
                             this.rsapk = value;
@@ -24904,11 +24900,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the dsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Exportaciones.TED.DD.CAF.DA.DSAPK getDSAPK() {
                             return dsapk;
@@ -24916,11 +24912,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the dsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Exportaciones.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public void setDSAPK(DTEDefType.Exportaciones.TED.DD.CAF.DA.DSAPK value) {
                             this.dsapk = value;
@@ -24928,7 +24924,7 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the idk property.
-                         * 
+                         *
                          */
                         public long getIDK() {
                             return idk;
@@ -24936,7 +24932,7 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the idk property.
-                         * 
+                         *
                          */
                         public void setIDK(long value) {
                             this.idk = value;
@@ -24945,9 +24941,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -24962,8 +24958,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -24985,7 +24981,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the p property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -24996,7 +24992,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the p property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25007,7 +25003,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the q property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -25018,7 +25014,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the q property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25029,7 +25025,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the g property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -25040,7 +25036,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the g property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25051,7 +25047,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the y property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -25062,7 +25058,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the y property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25076,9 +25072,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -25091,8 +25087,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -25110,11 +25106,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the d property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getD() {
                                 return d;
@@ -25122,11 +25118,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the d property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setD(BigInteger value) {
                                 this.d = value;
@@ -25134,11 +25130,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the h property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getH() {
                                 return h;
@@ -25146,11 +25142,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the h property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setH(BigInteger value) {
                                 this.h = value;
@@ -25161,9 +25157,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -25176,8 +25172,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -25193,7 +25189,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the m property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -25204,7 +25200,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the m property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25215,7 +25211,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the e property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -25226,7 +25222,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the e property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -25242,9 +25238,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;simpleContent&gt;
@@ -25254,8 +25250,8 @@ public class DTEDefType {
                      *   &lt;/simpleContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -25270,7 +25266,7 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the value property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     byte[]
@@ -25281,7 +25277,7 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the value property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     byte[]
@@ -25292,11 +25288,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the algoritmo property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getAlgoritmo() {
                             if (algoritmo == null) {
@@ -25308,11 +25304,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the algoritmo property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setAlgoritmo(String value) {
                             this.algoritmo = value;
@@ -25327,9 +25323,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;simpleContent&gt;
@@ -25346,8 +25342,8 @@ public class DTEDefType {
              *   &lt;/simpleContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -25362,7 +25358,7 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the value property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     byte[]
@@ -25373,7 +25369,7 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the value property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     byte[]
@@ -25384,11 +25380,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the algoritmo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getAlgoritmo() {
                     return algoritmo;
@@ -25396,11 +25392,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the algoritmo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setAlgoritmo(String value) {
                     this.algoritmo = value;
@@ -25415,9 +25411,9 @@ public class DTEDefType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType&gt;
      *   &lt;complexContent&gt;
@@ -26103,8 +26099,8 @@ public class DTEDefType {
      *   &lt;/complexContent&gt;
      * &lt;/complexType&gt;
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -26141,11 +26137,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the encabezado property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Liquidacion.Encabezado }
-         *     
+         *
          */
         public DTEDefType.Liquidacion.Encabezado getEncabezado() {
             return encabezado;
@@ -26153,11 +26149,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the encabezado property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Liquidacion.Encabezado }
-         *     
+         *
          */
         public void setEncabezado(DTEDefType.Liquidacion.Encabezado value) {
             this.encabezado = value;
@@ -26165,25 +26161,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the detalle property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the detalle property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getDetalle().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Liquidacion.Detalle }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Liquidacion.Detalle> getDetalle() {
             if (detalle == null) {
@@ -26194,25 +26190,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the subTotInfo property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the subTotInfo property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSubTotInfo().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Liquidacion.SubTotInfo }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Liquidacion.SubTotInfo> getSubTotInfo() {
             if (subTotInfo == null) {
@@ -26223,25 +26219,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the referencia property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the referencia property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getReferencia().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Liquidacion.Referencia }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Liquidacion.Referencia> getReferencia() {
             if (referencia == null) {
@@ -26252,25 +26248,25 @@ public class DTEDefType {
 
         /**
          * Gets the value of the comisiones property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the Jakarta XML Binding object.
          * This is why there is not a <CODE>set</CODE> method for the comisiones property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getComisiones().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link DTEDefType.Liquidacion.Comisiones }
-         * 
-         * 
+         *
+         *
          */
         public List<DTEDefType.Liquidacion.Comisiones> getComisiones() {
             if (comisiones == null) {
@@ -26281,11 +26277,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the ted property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link DTEDefType.Liquidacion.TED }
-         *     
+         *
          */
         public DTEDefType.Liquidacion.TED getTED() {
             return ted;
@@ -26293,11 +26289,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the ted property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link DTEDefType.Liquidacion.TED }
-         *     
+         *
          */
         public void setTED(DTEDefType.Liquidacion.TED value) {
             this.ted = value;
@@ -26305,11 +26301,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the tmstFirma property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public XMLGregorianCalendar getTmstFirma() {
             return tmstFirma;
@@ -26317,11 +26313,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the tmstFirma property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link XMLGregorianCalendar }
-         *     
+         *
          */
         public void setTmstFirma(XMLGregorianCalendar value) {
             this.tmstFirma = value;
@@ -26329,11 +26325,11 @@ public class DTEDefType {
 
         /**
          * Gets the value of the id property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link String }
-         *     
+         *
          */
         public String getID() {
             return id;
@@ -26341,11 +26337,11 @@ public class DTEDefType {
 
         /**
          * Sets the value of the id property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link String }
-         *     
+         *
          */
         public void setID(String value) {
             this.id = value;
@@ -26354,9 +26350,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -26397,8 +26393,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -26429,7 +26425,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinCom property.
-             * 
+             *
              */
             public int getNroLinCom() {
                 return nroLinCom;
@@ -26437,7 +26433,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinCom property.
-             * 
+             *
              */
             public void setNroLinCom(int value) {
                 this.nroLinCom = value;
@@ -26445,11 +26441,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tipoMovim property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTipoMovim() {
                 return tipoMovim;
@@ -26457,11 +26453,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tipoMovim property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTipoMovim(String value) {
                 this.tipoMovim = value;
@@ -26469,11 +26465,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosa property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosa() {
                 return glosa;
@@ -26481,11 +26477,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosa property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosa(String value) {
                 this.glosa = value;
@@ -26493,11 +26489,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tasaComision property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getTasaComision() {
                 return tasaComision;
@@ -26505,11 +26501,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tasaComision property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setTasaComision(BigDecimal value) {
                 this.tasaComision = value;
@@ -26517,11 +26513,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComNeto property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComNeto() {
                 return valComNeto;
@@ -26529,11 +26525,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComNeto property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComNeto(BigInteger value) {
                 this.valComNeto = value;
@@ -26541,11 +26537,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComExe property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComExe() {
                 return valComExe;
@@ -26553,11 +26549,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComExe property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComExe(BigInteger value) {
                 this.valComExe = value;
@@ -26565,11 +26561,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valComIVA property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getValComIVA() {
                 return valComIVA;
@@ -26577,11 +26573,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valComIVA property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setValComIVA(BigInteger value) {
                 this.valComIVA = value;
@@ -26592,9 +26588,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -26710,8 +26706,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -26774,7 +26770,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinDet property.
-             * 
+             *
              */
             public int getNroLinDet() {
                 return nroLinDet;
@@ -26782,7 +26778,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinDet property.
-             * 
+             *
              */
             public void setNroLinDet(int value) {
                 this.nroLinDet = value;
@@ -26790,25 +26786,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the cdgItem property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the cdgItem property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getCdgItem().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Liquidacion.Detalle.CdgItem }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Liquidacion.Detalle.CdgItem> getCdgItem() {
                 if (cdgItem == null) {
@@ -26819,11 +26815,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoDocLiq property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoDocLiq() {
                 return tpoDocLiq;
@@ -26831,11 +26827,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoDocLiq property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoDocLiq(String value) {
                 this.tpoDocLiq = value;
@@ -26843,11 +26839,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indExe property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndExe() {
                 return indExe;
@@ -26855,11 +26851,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indExe property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndExe(BigInteger value) {
                 this.indExe = value;
@@ -26867,11 +26863,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nmbItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getNmbItem() {
                 return nmbItem;
@@ -26879,11 +26875,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nmbItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setNmbItem(String value) {
                 this.nmbItem = value;
@@ -26891,11 +26887,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dscItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getDscItem() {
                 return dscItem;
@@ -26903,11 +26899,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dscItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setDscItem(String value) {
                 this.dscItem = value;
@@ -26915,11 +26911,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyRef() {
                 return qtyRef;
@@ -26927,11 +26923,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyRef(BigDecimal value) {
                 this.qtyRef = value;
@@ -26939,11 +26935,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdRef() {
                 return unmdRef;
@@ -26951,11 +26947,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdRef(String value) {
                 this.unmdRef = value;
@@ -26963,11 +26959,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcRef() {
                 return prcRef;
@@ -26975,11 +26971,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcRef(BigDecimal value) {
                 this.prcRef = value;
@@ -26987,11 +26983,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the qtyItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getQtyItem() {
                 return qtyItem;
@@ -26999,11 +26995,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the qtyItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setQtyItem(BigDecimal value) {
                 this.qtyItem = value;
@@ -27011,25 +27007,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subcantidad property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the subcantidad property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSubcantidad().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link DTEDefType.Liquidacion.Detalle.Subcantidad }
-             * 
-             * 
+             *
+             *
              */
             public List<DTEDefType.Liquidacion.Detalle.Subcantidad> getSubcantidad() {
                 if (subcantidad == null) {
@@ -27040,11 +27036,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchElabor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchElabor() {
                 return fchElabor;
@@ -27052,11 +27048,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchElabor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchElabor(XMLGregorianCalendar value) {
                 this.fchElabor = value;
@@ -27064,11 +27060,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchVencim property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchVencim() {
                 return fchVencim;
@@ -27076,11 +27072,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchVencim property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchVencim(XMLGregorianCalendar value) {
                 this.fchVencim = value;
@@ -27088,11 +27084,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the unmdItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getUnmdItem() {
                 return unmdItem;
@@ -27100,11 +27096,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the unmdItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setUnmdItem(String value) {
                 this.unmdItem = value;
@@ -27112,11 +27108,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the prcItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getPrcItem() {
                 return prcItem;
@@ -27124,11 +27120,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the prcItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setPrcItem(BigDecimal value) {
                 this.prcItem = value;
@@ -27136,25 +27132,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the codImpAdic property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the codImpAdic property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getCodImpAdic().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link String }
-             * 
-             * 
+             *
+             *
              */
             public List<String> getCodImpAdic() {
                 if (codImpAdic == null) {
@@ -27165,11 +27161,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the montoItem property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getMontoItem() {
                 return montoItem;
@@ -27177,11 +27173,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the montoItem property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setMontoItem(BigInteger value) {
                 this.montoItem = value;
@@ -27190,9 +27186,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -27217,8 +27213,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -27234,11 +27230,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCodigo() {
                     return tpoCodigo;
@@ -27246,11 +27242,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCodigo(String value) {
                     this.tpoCodigo = value;
@@ -27258,11 +27254,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getVlrCodigo() {
                     return vlrCodigo;
@@ -27270,11 +27266,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the vlrCodigo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setVlrCodigo(String value) {
                     this.vlrCodigo = value;
@@ -27285,9 +27281,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -27306,8 +27302,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -27323,11 +27319,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subQty property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getSubQty() {
                     return subQty;
@@ -27335,11 +27331,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subQty property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setSubQty(BigDecimal value) {
                     this.subQty = value;
@@ -27347,11 +27343,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the subCod property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSubCod() {
                     return subCod;
@@ -27359,11 +27355,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the subCod property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSubCod(String value) {
                     this.subCod = value;
@@ -27376,9 +27372,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -27669,8 +27665,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -27692,11 +27688,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the idDoc property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.Encabezado.IdDoc }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.Encabezado.IdDoc getIdDoc() {
                 return idDoc;
@@ -27704,11 +27700,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the idDoc property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.Encabezado.IdDoc }
-             *     
+             *
              */
             public void setIdDoc(DTEDefType.Liquidacion.Encabezado.IdDoc value) {
                 this.idDoc = value;
@@ -27716,11 +27712,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the emisor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Emisor }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.Encabezado.Emisor getEmisor() {
                 return emisor;
@@ -27728,11 +27724,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the emisor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Emisor }
-             *     
+             *
              */
             public void setEmisor(DTEDefType.Liquidacion.Encabezado.Emisor value) {
                 this.emisor = value;
@@ -27740,11 +27736,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the receptor property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Receptor }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.Encabezado.Receptor getReceptor() {
                 return receptor;
@@ -27752,11 +27748,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the receptor property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Receptor }
-             *     
+             *
              */
             public void setReceptor(DTEDefType.Liquidacion.Encabezado.Receptor value) {
                 this.receptor = value;
@@ -27764,11 +27760,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the totales property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Totales }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.Encabezado.Totales getTotales() {
                 return totales;
@@ -27776,11 +27772,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the totales property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.Encabezado.Totales }
-             *     
+             *
              */
             public void setTotales(DTEDefType.Liquidacion.Encabezado.Totales value) {
                 this.totales = value;
@@ -27789,9 +27785,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -27864,8 +27860,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -27911,11 +27907,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTEmisor() {
                     return rutEmisor;
@@ -27923,11 +27919,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTEmisor(String value) {
                     this.rutEmisor = value;
@@ -27935,11 +27931,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSoc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSoc() {
                     return rznSoc;
@@ -27947,11 +27943,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSoc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSoc(String value) {
                     this.rznSoc = value;
@@ -27959,11 +27955,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroEmis() {
                     return giroEmis;
@@ -27971,11 +27967,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroEmis(String value) {
                     this.giroEmis = value;
@@ -27983,25 +27979,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the telefono property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the telefono property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getTelefono().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link String }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<String> getTelefono() {
                     if (telefono == null) {
@@ -28012,11 +28008,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoEmisor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoEmisor() {
                     return correoEmisor;
@@ -28024,11 +28020,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoEmisor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoEmisor(String value) {
                     this.correoEmisor = value;
@@ -28036,25 +28032,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the acteco property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the acteco property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getActeco().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link BigInteger }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<BigInteger> getActeco() {
                     if (acteco == null) {
@@ -28065,11 +28061,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the sucursal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getSucursal() {
                     return sucursal;
@@ -28077,11 +28073,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the sucursal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setSucursal(String value) {
                     this.sucursal = value;
@@ -28089,11 +28085,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getCdgSIISucur() {
                     return cdgSIISucur;
@@ -28101,11 +28097,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgSIISucur property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setCdgSIISucur(BigInteger value) {
                     this.cdgSIISucur = value;
@@ -28113,11 +28109,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirOrigen() {
                     return dirOrigen;
@@ -28125,11 +28121,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirOrigen(String value) {
                     this.dirOrigen = value;
@@ -28137,11 +28133,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaOrigen() {
                     return cmnaOrigen;
@@ -28149,11 +28145,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaOrigen(String value) {
                     this.cmnaOrigen = value;
@@ -28161,11 +28157,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadOrigen() {
                     return ciudadOrigen;
@@ -28173,11 +28169,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadOrigen property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadOrigen(String value) {
                     this.ciudadOrigen = value;
@@ -28185,11 +28181,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgVendedor() {
                     return cdgVendedor;
@@ -28197,11 +28193,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgVendedor property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgVendedor(String value) {
                     this.cdgVendedor = value;
@@ -28212,9 +28208,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -28325,8 +28321,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -28406,11 +28402,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tipoDTE property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTipoDTE() {
                     return tipoDTE;
@@ -28418,11 +28414,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tipoDTE property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTipoDTE(BigInteger value) {
                     this.tipoDTE = value;
@@ -28430,11 +28426,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the folio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFolio() {
                     return folio;
@@ -28442,11 +28438,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the folio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFolio(BigInteger value) {
                     this.folio = value;
@@ -28454,11 +28450,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchEmis property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchEmis() {
                     return fchEmis;
@@ -28466,11 +28462,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchEmis property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchEmis(XMLGregorianCalendar value) {
                     this.fchEmis = value;
@@ -28478,11 +28474,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the indServicio property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIndServicio() {
                     return indServicio;
@@ -28490,11 +28486,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the indServicio property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIndServicio(BigInteger value) {
                     this.indServicio = value;
@@ -28502,11 +28498,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntBruto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntBruto() {
                     return mntBruto;
@@ -28514,11 +28510,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntBruto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntBruto(BigInteger value) {
                     this.mntBruto = value;
@@ -28526,11 +28522,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fmaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getFmaPago() {
                     return fmaPago;
@@ -28538,11 +28534,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fmaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setFmaPago(BigInteger value) {
                     this.fmaPago = value;
@@ -28550,11 +28546,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchCancel() {
                     return fchCancel;
@@ -28562,11 +28558,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchCancel(XMLGregorianCalendar value) {
                     this.fchCancel = value;
@@ -28574,11 +28570,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntCancel property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntCancel() {
                     return mntCancel;
@@ -28586,11 +28582,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntCancel property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntCancel(BigInteger value) {
                     this.mntCancel = value;
@@ -28598,11 +28594,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the saldoInsol property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getSaldoInsol() {
                     return saldoInsol;
@@ -28610,11 +28606,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the saldoInsol property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setSaldoInsol(BigInteger value) {
                     this.saldoInsol = value;
@@ -28622,25 +28618,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the mntPagos property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getMntPagos().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Liquidacion.Encabezado.IdDoc.MntPagos }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Liquidacion.Encabezado.IdDoc.MntPagos> getMntPagos() {
                     if (mntPagos == null) {
@@ -28651,11 +28647,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoDesde property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoDesde() {
                     return periodoDesde;
@@ -28663,11 +28659,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoDesde property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoDesde(XMLGregorianCalendar value) {
                     this.periodoDesde = value;
@@ -28675,11 +28671,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the periodoHasta property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getPeriodoHasta() {
                     return periodoHasta;
@@ -28687,11 +28683,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the periodoHasta property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setPeriodoHasta(XMLGregorianCalendar value) {
                     this.periodoHasta = value;
@@ -28699,11 +28695,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the medioPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public MedioPagoType getMedioPago() {
                     return medioPago;
@@ -28711,11 +28707,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the medioPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link MedioPagoType }
-                 *     
+                 *
                  */
                 public void setMedioPago(MedioPagoType value) {
                     this.medioPago = value;
@@ -28723,11 +28719,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTpoCtaPago() {
                     return tpoCtaPago;
@@ -28735,11 +28731,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tpoCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTpoCtaPago(String value) {
                     this.tpoCtaPago = value;
@@ -28747,11 +28743,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the numCtaPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getNumCtaPago() {
                     return numCtaPago;
@@ -28759,11 +28755,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the numCtaPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setNumCtaPago(String value) {
                     this.numCtaPago = value;
@@ -28771,11 +28767,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the bcoPago property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getBcoPago() {
                     return bcoPago;
@@ -28783,11 +28779,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the bcoPago property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setBcoPago(String value) {
                     this.bcoPago = value;
@@ -28795,11 +28791,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoCdg() {
                     return termPagoCdg;
@@ -28807,11 +28803,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoCdg property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoCdg(String value) {
                     this.termPagoCdg = value;
@@ -28819,11 +28815,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getTermPagoGlosa() {
                     return termPagoGlosa;
@@ -28831,11 +28827,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoGlosa property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setTermPagoGlosa(String value) {
                     this.termPagoGlosa = value;
@@ -28843,11 +28839,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the termPagoDias property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTermPagoDias() {
                     return termPagoDias;
@@ -28855,11 +28851,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the termPagoDias property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTermPagoDias(BigInteger value) {
                     this.termPagoDias = value;
@@ -28867,11 +28863,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fchVenc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFchVenc() {
                     return fchVenc;
@@ -28879,11 +28875,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fchVenc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFchVenc(XMLGregorianCalendar value) {
                     this.fchVenc = value;
@@ -28892,9 +28888,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -28914,8 +28910,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -28936,11 +28932,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the fchPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public XMLGregorianCalendar getFchPago() {
                         return fchPago;
@@ -28948,11 +28944,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the fchPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link XMLGregorianCalendar }
-                     *     
+                     *
                      */
                     public void setFchPago(XMLGregorianCalendar value) {
                         this.fchPago = value;
@@ -28960,11 +28956,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the mntPago property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getMntPago() {
                         return mntPago;
@@ -28972,11 +28968,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the mntPago property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setMntPago(BigInteger value) {
                         this.mntPago = value;
@@ -28984,11 +28980,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the glosaPagos property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getGlosaPagos() {
                         return glosaPagos;
@@ -28996,11 +28992,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the glosaPagos property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setGlosaPagos(String value) {
                         this.glosaPagos = value;
@@ -29013,9 +29009,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -29068,8 +29064,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -29115,11 +29111,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rutRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRUTRecep() {
                     return rutRecep;
@@ -29127,11 +29123,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rutRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRUTRecep(String value) {
                     this.rutRecep = value;
@@ -29139,11 +29135,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCdgIntRecep() {
                     return cdgIntRecep;
@@ -29151,11 +29147,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cdgIntRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCdgIntRecep(String value) {
                     this.cdgIntRecep = value;
@@ -29163,11 +29159,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRznSocRecep() {
                     return rznSocRecep;
@@ -29175,11 +29171,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rznSocRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRznSocRecep(String value) {
                     this.rznSocRecep = value;
@@ -29187,11 +29183,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the giroRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getGiroRecep() {
                     return giroRecep;
@@ -29199,11 +29195,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the giroRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setGiroRecep(String value) {
                     this.giroRecep = value;
@@ -29211,11 +29207,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the contacto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getContacto() {
                     return contacto;
@@ -29223,11 +29219,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the contacto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setContacto(String value) {
                     this.contacto = value;
@@ -29235,11 +29231,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the correoRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCorreoRecep() {
                     return correoRecep;
@@ -29247,11 +29243,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the correoRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCorreoRecep(String value) {
                     this.correoRecep = value;
@@ -29259,11 +29255,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirRecep() {
                     return dirRecep;
@@ -29271,11 +29267,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirRecep(String value) {
                     this.dirRecep = value;
@@ -29283,11 +29279,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaRecep() {
                     return cmnaRecep;
@@ -29295,11 +29291,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaRecep(String value) {
                     this.cmnaRecep = value;
@@ -29307,11 +29303,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadRecep() {
                     return ciudadRecep;
@@ -29319,11 +29315,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadRecep property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadRecep(String value) {
                     this.ciudadRecep = value;
@@ -29331,11 +29327,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the dirPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getDirPostal() {
                     return dirPostal;
@@ -29343,11 +29339,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the dirPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setDirPostal(String value) {
                     this.dirPostal = value;
@@ -29355,11 +29351,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCmnaPostal() {
                     return cmnaPostal;
@@ -29367,11 +29363,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the cmnaPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCmnaPostal(String value) {
                     this.cmnaPostal = value;
@@ -29379,11 +29375,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getCiudadPostal() {
                     return ciudadPostal;
@@ -29391,11 +29387,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ciudadPostal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setCiudadPostal(String value) {
                     this.ciudadPostal = value;
@@ -29406,9 +29402,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -29455,8 +29451,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -29502,11 +29498,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntNeto property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntNeto() {
                     return mntNeto;
@@ -29514,11 +29510,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntNeto property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntNeto(BigInteger value) {
                     this.mntNeto = value;
@@ -29526,11 +29522,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntExe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntExe() {
                     return mntExe;
@@ -29538,11 +29534,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntExe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntExe(BigInteger value) {
                     this.mntExe = value;
@@ -29550,11 +29546,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tasaIVA property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public BigDecimal getTasaIVA() {
                     return tasaIVA;
@@ -29562,11 +29558,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tasaIVA property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigDecimal }
-                 *     
+                 *
                  */
                 public void setTasaIVA(BigDecimal value) {
                     this.tasaIVA = value;
@@ -29574,11 +29570,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the iva property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVA() {
                     return iva;
@@ -29586,11 +29582,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the iva property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVA(BigInteger value) {
                     this.iva = value;
@@ -29598,11 +29594,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaProp property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVAProp() {
                     return ivaProp;
@@ -29610,11 +29606,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaProp property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVAProp(BigInteger value) {
                     this.ivaProp = value;
@@ -29622,11 +29618,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the ivaTerc property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getIVATerc() {
                     return ivaTerc;
@@ -29634,11 +29630,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the ivaTerc property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setIVATerc(BigInteger value) {
                     this.ivaTerc = value;
@@ -29646,25 +29642,25 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the imptoReten property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the Jakarta XML Binding object.
                  * This is why there is not a <CODE>set</CODE> method for the imptoReten property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
                  * <pre>
                  *    getImptoReten().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link DTEDefType.Liquidacion.Encabezado.Totales.ImptoReten }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<DTEDefType.Liquidacion.Encabezado.Totales.ImptoReten> getImptoReten() {
                     if (imptoReten == null) {
@@ -29675,11 +29671,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the comisiones property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Liquidacion.Encabezado.Totales.Comisiones }
-                 *     
+                 *
                  */
                 public DTEDefType.Liquidacion.Encabezado.Totales.Comisiones getComisiones() {
                     return comisiones;
@@ -29687,11 +29683,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the comisiones property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Liquidacion.Encabezado.Totales.Comisiones }
-                 *     
+                 *
                  */
                 public void setComisiones(DTEDefType.Liquidacion.Encabezado.Totales.Comisiones value) {
                     this.comisiones = value;
@@ -29699,11 +29695,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mntTotal property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMntTotal() {
                     return mntTotal;
@@ -29711,11 +29707,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mntTotal property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMntTotal(BigInteger value) {
                     this.mntTotal = value;
@@ -29723,11 +29719,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the montoPeriodo property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMontoPeriodo() {
                     return montoPeriodo;
@@ -29735,11 +29731,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the montoPeriodo property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMontoPeriodo(BigInteger value) {
                     this.montoPeriodo = value;
@@ -29747,11 +29743,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the saldoAnterior property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getSaldoAnterior() {
                     return saldoAnterior;
@@ -29759,11 +29755,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the saldoAnterior property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setSaldoAnterior(BigInteger value) {
                     this.saldoAnterior = value;
@@ -29771,11 +29767,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the vlrPagar property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getVlrPagar() {
                     return vlrPagar;
@@ -29783,11 +29779,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the vlrPagar property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setVlrPagar(BigInteger value) {
                     this.vlrPagar = value;
@@ -29796,9 +29792,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -29812,8 +29808,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -29832,11 +29828,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComNeto property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComNeto() {
                         return valComNeto;
@@ -29844,11 +29840,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComNeto property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComNeto(BigInteger value) {
                         this.valComNeto = value;
@@ -29856,11 +29852,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComExe property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComExe() {
                         return valComExe;
@@ -29868,11 +29864,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComExe property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComExe(BigInteger value) {
                         this.valComExe = value;
@@ -29880,11 +29876,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the valComIVA property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getValComIVA() {
                         return valComIVA;
@@ -29892,11 +29888,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the valComIVA property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setValComIVA(BigInteger value) {
                         this.valComIVA = value;
@@ -29907,9 +29903,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -29923,8 +29919,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -29944,11 +29940,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tipoImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getTipoImp() {
                         return tipoImp;
@@ -29956,11 +29952,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tipoImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setTipoImp(String value) {
                         this.tipoImp = value;
@@ -29968,11 +29964,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the tasaImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public BigDecimal getTasaImp() {
                         return tasaImp;
@@ -29980,11 +29976,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the tasaImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigDecimal }
-                     *     
+                     *
                      */
                     public void setTasaImp(BigDecimal value) {
                         this.tasaImp = value;
@@ -29992,11 +29988,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the montoImp property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public BigInteger getMontoImp() {
                         return montoImp;
@@ -30004,11 +30000,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the montoImp property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link BigInteger }
-                     *     
+                     *
                      */
                     public void setMontoImp(BigInteger value) {
                         this.montoImp = value;
@@ -30023,9 +30019,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -30077,8 +30073,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -30110,7 +30106,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroLinRef property.
-             * 
+             *
              */
             public int getNroLinRef() {
                 return nroLinRef;
@@ -30118,7 +30114,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroLinRef property.
-             * 
+             *
              */
             public void setNroLinRef(int value) {
                 this.nroLinRef = value;
@@ -30126,11 +30122,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the tpoDocRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getTpoDocRef() {
                 return tpoDocRef;
@@ -30138,11 +30134,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the tpoDocRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setTpoDocRef(String value) {
                 this.tpoDocRef = value;
@@ -30150,11 +30146,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the indGlobal property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getIndGlobal() {
                 return indGlobal;
@@ -30162,11 +30158,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the indGlobal property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setIndGlobal(BigInteger value) {
                 this.indGlobal = value;
@@ -30174,11 +30170,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the folioRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getFolioRef() {
                 return folioRef;
@@ -30186,11 +30182,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the folioRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setFolioRef(String value) {
                 this.folioRef = value;
@@ -30198,11 +30194,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the fchRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public XMLGregorianCalendar getFchRef() {
                 return fchRef;
@@ -30210,11 +30206,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the fchRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link XMLGregorianCalendar }
-             *     
+             *
              */
             public void setFchRef(XMLGregorianCalendar value) {
                 this.fchRef = value;
@@ -30222,11 +30218,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the codRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public BigInteger getCodRef() {
                 return codRef;
@@ -30234,11 +30230,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the codRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigInteger }
-             *     
+             *
              */
             public void setCodRef(BigInteger value) {
                 this.codRef = value;
@@ -30246,11 +30242,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the razonRef property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getRazonRef() {
                 return razonRef;
@@ -30258,11 +30254,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the razonRef property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setRazonRef(String value) {
                 this.razonRef = value;
@@ -30273,9 +30269,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -30318,8 +30314,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -30356,7 +30352,7 @@ public class DTEDefType {
 
             /**
              * Gets the value of the nroSTI property.
-             * 
+             *
              */
             public int getNroSTI() {
                 return nroSTI;
@@ -30364,7 +30360,7 @@ public class DTEDefType {
 
             /**
              * Sets the value of the nroSTI property.
-             * 
+             *
              */
             public void setNroSTI(int value) {
                 this.nroSTI = value;
@@ -30372,11 +30368,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the glosaSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getGlosaSTI() {
                 return glosaSTI;
@@ -30384,11 +30380,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the glosaSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setGlosaSTI(String value) {
                 this.glosaSTI = value;
@@ -30396,11 +30392,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the ordenSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link Integer }
-             *     
+             *
              */
             public Integer getOrdenSTI() {
                 return ordenSTI;
@@ -30408,11 +30404,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the ordenSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link Integer }
-             *     
+             *
              */
             public void setOrdenSTI(Integer value) {
                 this.ordenSTI = value;
@@ -30420,11 +30416,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotNetoSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotNetoSTI() {
                 return subTotNetoSTI;
@@ -30432,11 +30428,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotNetoSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotNetoSTI(BigDecimal value) {
                 this.subTotNetoSTI = value;
@@ -30444,11 +30440,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotIVASTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotIVASTI() {
                 return subTotIVASTI;
@@ -30456,11 +30452,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotIVASTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotIVASTI(BigDecimal value) {
                 this.subTotIVASTI = value;
@@ -30468,11 +30464,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotAdicSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotAdicSTI() {
                 return subTotAdicSTI;
@@ -30480,11 +30476,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotAdicSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotAdicSTI(BigDecimal value) {
                 this.subTotAdicSTI = value;
@@ -30492,11 +30488,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the subTotExeSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getSubTotExeSTI() {
                 return subTotExeSTI;
@@ -30504,11 +30500,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the subTotExeSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setSubTotExeSTI(BigDecimal value) {
                 this.subTotExeSTI = value;
@@ -30516,11 +30512,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the valSubtotSTI property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public BigDecimal getValSubtotSTI() {
                 return valSubtotSTI;
@@ -30528,11 +30524,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the valSubtotSTI property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link BigDecimal }
-             *     
+             *
              */
             public void setValSubtotSTI(BigDecimal value) {
                 this.valSubtotSTI = value;
@@ -30540,25 +30536,25 @@ public class DTEDefType {
 
             /**
              * Gets the value of the lineasDeta property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the Jakarta XML Binding object.
              * This is why there is not a <CODE>set</CODE> method for the lineasDeta property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getLineasDeta().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link BigInteger }
-             * 
-             * 
+             *
+             *
              */
             public List<BigInteger> getLineasDeta() {
                 if (lineasDeta == null) {
@@ -30572,9 +30568,9 @@ public class DTEDefType {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         *
          * <pre>
          * &lt;complexType&gt;
          *   &lt;complexContent&gt;
@@ -30710,8 +30706,8 @@ public class DTEDefType {
          *   &lt;/complexContent&gt;
          * &lt;/complexType&gt;
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -30730,11 +30726,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the dd property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.TED.DD }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.TED.DD getDD() {
                 return dd;
@@ -30742,11 +30738,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the dd property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.TED.DD }
-             *     
+             *
              */
             public void setDD(DTEDefType.Liquidacion.TED.DD value) {
                 this.dd = value;
@@ -30754,11 +30750,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the frmt property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link DTEDefType.Liquidacion.TED.FRMT }
-             *     
+             *
              */
             public DTEDefType.Liquidacion.TED.FRMT getFRMT() {
                 return frmt;
@@ -30766,11 +30762,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the frmt property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link DTEDefType.Liquidacion.TED.FRMT }
-             *     
+             *
              */
             public void setFRMT(DTEDefType.Liquidacion.TED.FRMT value) {
                 this.frmt = value;
@@ -30778,11 +30774,11 @@ public class DTEDefType {
 
             /**
              * Gets the value of the version property.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getVersion() {
                 if (version == null) {
@@ -30794,11 +30790,11 @@ public class DTEDefType {
 
             /**
              * Sets the value of the version property.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setVersion(String value) {
                 this.version = value;
@@ -30807,9 +30803,9 @@ public class DTEDefType {
 
             /**
              * <p>Java class for anonymous complex type.
-             * 
+             *
              * <p>The following schema fragment specifies the expected content contained within this class.
-             * 
+             *
              * <pre>
              * &lt;complexType&gt;
              *   &lt;complexContent&gt;
@@ -30918,8 +30914,8 @@ public class DTEDefType {
              *   &lt;/complexContent&gt;
              * &lt;/complexType&gt;
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "", propOrder = {
@@ -30964,11 +30960,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the re property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRE() {
                     return re;
@@ -30976,11 +30972,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the re property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRE(String value) {
                     this.re = value;
@@ -30988,11 +30984,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the td property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getTD() {
                     return td;
@@ -31000,11 +30996,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the td property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setTD(BigInteger value) {
                     this.td = value;
@@ -31012,11 +31008,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the f property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getF() {
                     return f;
@@ -31024,11 +31020,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the f property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setF(BigInteger value) {
                     this.f = value;
@@ -31036,11 +31032,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the fe property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getFE() {
                     return fe;
@@ -31048,11 +31044,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the fe property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setFE(XMLGregorianCalendar value) {
                     this.fe = value;
@@ -31060,11 +31056,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRR() {
                     return rr;
@@ -31072,11 +31068,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRR(String value) {
                     this.rr = value;
@@ -31084,11 +31080,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the rsr property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getRSR() {
                     return rsr;
@@ -31096,11 +31092,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the rsr property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setRSR(String value) {
                     this.rsr = value;
@@ -31108,11 +31104,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the mnt property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public BigInteger getMNT() {
                     return mnt;
@@ -31120,11 +31116,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the mnt property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link BigInteger }
-                 *     
+                 *
                  */
                 public void setMNT(BigInteger value) {
                     this.mnt = value;
@@ -31132,11 +31128,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the it1 property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public String getIT1() {
                     return it1;
@@ -31144,11 +31140,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the it1 property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link String }
-                 *     
+                 *
                  */
                 public void setIT1(String value) {
                     this.it1 = value;
@@ -31156,11 +31152,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the caf property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link DTEDefType.Liquidacion.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public DTEDefType.Liquidacion.TED.DD.CAF getCAF() {
                     return caf;
@@ -31168,11 +31164,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the caf property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link DTEDefType.Liquidacion.TED.DD.CAF }
-                 *     
+                 *
                  */
                 public void setCAF(DTEDefType.Liquidacion.TED.DD.CAF value) {
                     this.caf = value;
@@ -31180,11 +31176,11 @@ public class DTEDefType {
 
                 /**
                  * Gets the value of the tsted property.
-                 * 
+                 *
                  * @return
                  *     possible object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public XMLGregorianCalendar getTSTED() {
                     return tsted;
@@ -31192,11 +31188,11 @@ public class DTEDefType {
 
                 /**
                  * Sets the value of the tsted property.
-                 * 
+                 *
                  * @param value
                  *     allowed object is
                  *     {@link XMLGregorianCalendar }
-                 *     
+                 *
                  */
                 public void setTSTED(XMLGregorianCalendar value) {
                     this.tsted = value;
@@ -31205,9 +31201,9 @@ public class DTEDefType {
 
                 /**
                  * <p>Java class for anonymous complex type.
-                 * 
+                 *
                  * <p>The following schema fragment specifies the expected content contained within this class.
-                 * 
+                 *
                  * <pre>
                  * &lt;complexType&gt;
                  *   &lt;complexContent&gt;
@@ -31283,8 +31279,8 @@ public class DTEDefType {
                  *   &lt;/complexContent&gt;
                  * &lt;/complexType&gt;
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  */
                 @XmlAccessorType(XmlAccessType.FIELD)
                 @XmlType(name = "", propOrder = {
@@ -31303,11 +31299,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the da property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public DTEDefType.Liquidacion.TED.DD.CAF.DA getDA() {
                         return da;
@@ -31315,11 +31311,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the da property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA }
-                     *     
+                     *
                      */
                     public void setDA(DTEDefType.Liquidacion.TED.DD.CAF.DA value) {
                         this.da = value;
@@ -31327,11 +31323,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the frma property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link DTEDefType.Liquidacion.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public DTEDefType.Liquidacion.TED.DD.CAF.FRMA getFRMA() {
                         return frma;
@@ -31339,11 +31335,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the frma property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link DTEDefType.Liquidacion.TED.DD.CAF.FRMA }
-                     *     
+                     *
                      */
                     public void setFRMA(DTEDefType.Liquidacion.TED.DD.CAF.FRMA value) {
                         this.frma = value;
@@ -31351,11 +31347,11 @@ public class DTEDefType {
 
                     /**
                      * Gets the value of the version property.
-                     * 
+                     *
                      * @return
                      *     possible object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public String getVersion() {
                         if (version == null) {
@@ -31367,11 +31363,11 @@ public class DTEDefType {
 
                     /**
                      * Sets the value of the version property.
-                     * 
+                     *
                      * @param value
                      *     allowed object is
                      *     {@link String }
-                     *     
+                     *
                      */
                     public void setVersion(String value) {
                         this.version = value;
@@ -31380,9 +31376,9 @@ public class DTEDefType {
 
                     /**
                      * <p>Java class for anonymous complex type.
-                     * 
+                     *
                      * <p>The following schema fragment specifies the expected content contained within this class.
-                     * 
+                     *
                      * <pre>
                      * &lt;complexType&gt;
                      *   &lt;complexContent&gt;
@@ -31438,8 +31434,8 @@ public class DTEDefType {
                      *   &lt;/complexContent&gt;
                      * &lt;/complexType&gt;
                      * </pre>
-                     * 
-                     * 
+                     *
+                     *
                      */
                     @XmlAccessorType(XmlAccessType.FIELD)
                     @XmlType(name = "", propOrder = {
@@ -31475,11 +31471,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the re property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRE() {
                             return re;
@@ -31487,11 +31483,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the re property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRE(String value) {
                             this.re = value;
@@ -31499,11 +31495,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rs property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public String getRS() {
                             return rs;
@@ -31511,11 +31507,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rs property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link String }
-                         *     
+                         *
                          */
                         public void setRS(String value) {
                             this.rs = value;
@@ -31523,11 +31519,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the td property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public BigInteger getTD() {
                             return td;
@@ -31535,11 +31531,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the td property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link BigInteger }
-                         *     
+                         *
                          */
                         public void setTD(BigInteger value) {
                             this.td = value;
@@ -31547,11 +31543,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rng property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public DTEDefType.Liquidacion.TED.DD.CAF.DA.RNG getRNG() {
                             return rng;
@@ -31559,11 +31555,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rng property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.RNG }
-                         *     
+                         *
                          */
                         public void setRNG(DTEDefType.Liquidacion.TED.DD.CAF.DA.RNG value) {
                             this.rng = value;
@@ -31571,11 +31567,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the fa property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public XMLGregorianCalendar getFA() {
                             return fa;
@@ -31583,11 +31579,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the fa property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link XMLGregorianCalendar }
-                         *     
+                         *
                          */
                         public void setFA(XMLGregorianCalendar value) {
                             this.fa = value;
@@ -31595,11 +31591,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the rsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Liquidacion.TED.DD.CAF.DA.RSAPK getRSAPK() {
                             return rsapk;
@@ -31607,11 +31603,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the rsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.RSAPK }
-                         *     
+                         *
                          */
                         public void setRSAPK(DTEDefType.Liquidacion.TED.DD.CAF.DA.RSAPK value) {
                             this.rsapk = value;
@@ -31619,11 +31615,11 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the dsapk property.
-                         * 
+                         *
                          * @return
                          *     possible object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public DTEDefType.Liquidacion.TED.DD.CAF.DA.DSAPK getDSAPK() {
                             return dsapk;
@@ -31631,11 +31627,11 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the dsapk property.
-                         * 
+                         *
                          * @param value
                          *     allowed object is
                          *     {@link DTEDefType.Liquidacion.TED.DD.CAF.DA.DSAPK }
-                         *     
+                         *
                          */
                         public void setDSAPK(DTEDefType.Liquidacion.TED.DD.CAF.DA.DSAPK value) {
                             this.dsapk = value;
@@ -31643,7 +31639,7 @@ public class DTEDefType {
 
                         /**
                          * Gets the value of the idk property.
-                         * 
+                         *
                          */
                         public long getIDK() {
                             return idk;
@@ -31651,7 +31647,7 @@ public class DTEDefType {
 
                         /**
                          * Sets the value of the idk property.
-                         * 
+                         *
                          */
                         public void setIDK(long value) {
                             this.idk = value;
@@ -31660,9 +31656,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -31677,8 +31673,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -31700,7 +31696,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the p property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -31711,7 +31707,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the p property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -31722,7 +31718,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the q property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -31733,7 +31729,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the q property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -31744,7 +31740,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the g property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -31755,7 +31751,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the g property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -31766,7 +31762,7 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the y property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     byte[]
@@ -31777,7 +31773,7 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the y property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     byte[]
@@ -31791,9 +31787,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -31806,8 +31802,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {
@@ -31825,11 +31821,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the d property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getD() {
                                 return d;
@@ -31837,11 +31833,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the d property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setD(BigInteger value) {
                                 this.d = value;
@@ -31849,11 +31845,11 @@ public class DTEDefType {
 
                             /**
                              * Gets the value of the h property.
-                             * 
+                             *
                              * @return
                              *     possible object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public BigInteger getH() {
                                 return h;
@@ -31861,11 +31857,11 @@ public class DTEDefType {
 
                             /**
                              * Sets the value of the h property.
-                             * 
+                             *
                              * @param value
                              *     allowed object is
                              *     {@link BigInteger }
-                             *     
+                             *
                              */
                             public void setH(BigInteger value) {
                                 this.h = value;
@@ -31876,9 +31872,9 @@ public class DTEDefType {
 
                         /**
                          * <p>Java class for anonymous complex type.
-                         * 
+                         *
                          * <p>The following schema fragment specifies the expected content contained within this class.
-                         * 
+                         *
                          * <pre>
                          * &lt;complexType&gt;
                          *   &lt;complexContent&gt;
@@ -31891,8 +31887,8 @@ public class DTEDefType {
                          *   &lt;/complexContent&gt;
                          * &lt;/complexType&gt;
                          * </pre>
-                         * 
-                         * 
+                         *
+                         *
                          */
                         @XmlAccessorType(XmlAccessType.FIELD)
                         @XmlType(name = "", propOrder = {

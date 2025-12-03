@@ -13,3 +13,6 @@ out
 FACTURA_EXENTA_993263.xml
 /Java/src/main/java/SiiEnvioApi/generatedClasses
 Java/certABC.pfx
+Springboot/demo/src/main/resources/certificado.pfx
+Springboot/demo/src/main/resources/FoliosSII609100003422295202510171815.xml
+Springboot/demo/src/main/resources/rutEnvia.txt

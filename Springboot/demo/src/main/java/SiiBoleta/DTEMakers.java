@@ -1,81 +1,116 @@
 package SiiBoleta;
 
-import javax.xml.crypto.MarshalException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.*;
-import java.security.cert.CertificateException;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.security.cert.X509Certificate;
-import java.util.Collections;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
-import javax.xml.crypto.dsig.*;
-import javax.xml.crypto.dsig.dom.DOMSignContext;
-import javax.xml.crypto.dsig.keyinfo.*;
-import javax.xml.crypto.dsig.spec.*;
-
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import jakarta.xml.bind.*;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.w3c.dom.Document;
+import SIIEnvio.EnvioDTE;
+import SiiSignature.SignatureType;
 
-import java.math.BigInteger;
-import java.security.*;
-import java.security.cert.X509Certificate;
-import java.util.Date;
+import org.w3c.dom.*;
 
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class DTEMakers {
+
+    /** Maker for < IdDoc >, which belongs to < Encabezado >
+     *
+     * @param folio Number of Document authorized by SII
+     * @param indServicio Type of Service provided:
+     *                      -1 for "Domestic Services" (Electricity Bill, Water Bill, Gas Bill, Phone Bill, Internet Bill, etc.)
+     *                      -2 for "Other Periodical Services" (Subscriptions, Rent, etc.)
+     *                      -3 for "Services Invoice"
+     *                      Only for Export Invoice:
+     *                      -4 for "Hospitality Services"
+     *                      -5 for "International Land Transport"
+     * @param fmaPago Payment Method:
+     *                -1 for "Efectivo" / "Cash"
+     *                -2 for "Tarjeta de Crédito" / "Credit Card"
+     *                -3 for "Gratuito" / "For Free"
+     *                According to SII
+     * @param medioPago Description for Payment Method:
+     *                  -"Efectivo" / "Cash"
+     *                  -"Tarjeta de Crédito" / "Credit Card"
+     *                  -"Transferencia bancaria" / "Bank Transfer"
+     *                  -"Cheque" / "Check"
+     * @return Object containing all < IdDoc > information.
+     * @throws DatatypeConfigurationException
+     */
     public static DTEDefType.Documento.Encabezado.IdDoc makeIdDoc
-            (int folio,
+            (int tipoDoc,
+             int folio,
              int indServicio,
              int fmaPago,
              MedioPagoType medioPago
             ) throws DatatypeConfigurationException {
         DTEDefType.Documento.Encabezado.IdDoc  idDoc = new DTEDefType.Documento.Encabezado.IdDoc();
-        idDoc.setTipoDTE(new BigInteger("34"));
+
+        /**
+         * All the documents refered here correspond to different types of Electronic Invoice:
+         * - 33 for "Electronic Invoice"
+         * - 34 for "Tax-Exempt Invoice"
+         * - 43 for "Settlement Invoice"
+         * - 46 for "Purchase Invoice"
+         * - 52 for "Dispatch Guide"
+         * - 56 for "Debit Note"
+         * - 61 for "Credit Note"
+         * - 110 for "Export Invoice"
+         * - 111 for "Export Debit Note"
+         * - 112 for "Export Credit Note"
+         */
+        // Sii DTE Document Type set to 34, representing a 'Factura Exenta' or an 'Electronic Tax-Exempt Invoice'
+        idDoc.setTipoDTE(BigInteger.valueOf(tipoDoc));
+
+        // @params folio
         idDoc.setFolio(BigInteger.valueOf(folio));
+
+        // Initializing a GregorianCalender
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
         xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+
+            // Issuing Date
         idDoc.setFchEmis(xmlDate);
+
+        // @params indServicio
         idDoc.setIndServicio(BigInteger.valueOf(indServicio));
+
+        // @params fmaPago
         idDoc.setFmaPago(BigInteger.valueOf(fmaPago));
+
+            // Payment Date
         idDoc.setFchCancel(xmlDate);
+
+        // @params medioPago
         idDoc.setMedioPago(medioPago);
+
+            // Expiring Date
         idDoc.setFchVenc(xmlDate);
+
         return idDoc;
     }
 
+    /** Default maker for < Emisor > or 'Issuing' object, containing default values for NIC Chile.
+     * < Emisor > belongs to < Encabezado >
+     *
+     * All setters arguments can be edited to create a new 'Emisor'.
+     *
+     * @return Instance of 'Emisor' class
+     */
     public static DTEDefType.Documento.Encabezado.Emisor makeEmisor
             (){
         DTEDefType.Documento.Encabezado.Emisor emisor = new DTEDefType.Documento.Encabezado.Emisor();
@@ -91,6 +126,17 @@ public class DTEMakers {
         return emisor;
     }
 
+    /** Maker for a < Receptor > or 'Receiver' object, which belongs to < Encabezado >
+     *
+     * @param RUTRecep Receptor/Receiver's RUT
+     * @param rznSoc Company Name
+     * @param giroRecep Business Line
+     * @param Contacto Receiver Company Name and Phone Number
+     * @param dirRecap Receiver Address
+     * @param cmnaRecap Receiver City Municipality
+     * @param ciudadRecep Receiver City
+     * @return Receptor Object containing all information required.
+     */
     public static DTEDefType.Documento.Encabezado.Receptor makeReceptor(
             String RUTRecep,
             String rznSoc,
@@ -111,14 +157,31 @@ public class DTEMakers {
         return receptor;
     }
 
+    /** Maker for a < Totales > section, which belongs to < Encabezado >.
+     *
+     * @param total Net Total Amount
+     * @return
+     */
     public static DTEDefType.Documento.Encabezado.Totales makeTotales
             (int total){
         DTEDefType.Documento.Encabezado.Totales totales = new DTEDefType.Documento.Encabezado.Totales();
+
+        // Total Sum for Tax-Exempt Items
         totales.setMntExe(BigInteger.valueOf(total));//totales.setMntExe(mntExe);
+
+        // Net Total Amount
         totales.setMntTotal(BigInteger.valueOf(total));//totales.setMntTotal(mntTotal);
         return totales;
     }
 
+    /** Maker for < Encabezado > section, which belongs to < Documento > section.
+     *
+     * @param idDoc Document ID
+     * @param emisor Emisor Object containing all < Emisor > information.
+     * @param receptor Receptor Object containing all < Receptor > information.
+     * @param totales Totales Object containing all < Totales > information.
+     * @return Encabezado object that contains all its subsections information.
+     */
     public static DTEDefType.Documento.Encabezado makeEncabezado(
             DTEDefType.Documento.Encabezado.IdDoc idDoc,
             DTEDefType.Documento.Encabezado.Emisor emisor,
@@ -132,217 +195,194 @@ public class DTEMakers {
         return encabezado;
     }
 
-    //se deberia calcular?
+    /** Maker for < Detalle > section, which belongs to < Documento > section.
+     *
+     * @param nroLinDet Number of detail lines
+     * @param nmbItem Name of the item.
+     * @param qtyItem Quantity of the item.
+     * @param prcItem Price of the item.
+     * @return Detalle object that contains all its subsections information.
+     */
     public static DTEDefType.Documento.Detalle makeDetalle(
             int nroLinDet,
             String nmbItem,
+            int qtyItem,
             double prcItem){
         DTEDefType.Documento.Detalle detalle = new DTEDefType.Documento.Detalle();
         detalle.setNroLinDet(nroLinDet); //Cantidad de lineas de detalle x es el numero de esta linea en especifico
         detalle.setNmbItem("dominio "+nmbItem); //Nombre del dominio, debe empezar por "dominio "
-        detalle.setQtyItem(BigDecimal.valueOf(1));// cantidad del item
+        detalle.setQtyItem(BigDecimal.valueOf(qtyItem));// cantidad del item
         detalle.setPrcItem(BigDecimal.valueOf(prcItem));// precio del item
-        detalle.setMontoItem(BigDecimal.valueOf(1).multiply(BigDecimal.valueOf(prcItem)).toBigInteger());//qty*prc
+        detalle.setMontoItem(BigDecimal.valueOf(qtyItem).multiply(BigDecimal.valueOf(prcItem)).toBigInteger());//qty*prc
         return detalle;
     }
 
-    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, DTEDefType.Documento.Detalle detalle,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
+    /** Idea: Add n detalles to < Detalle > section, from a JSON Array
+     * @param detallesJson JSON Array containing n detalles values
+     * @return List of Detalle objects
+     */
+    public static List<DTEDefType.Documento.Detalle> makeDetalles(JSONArray detallesJson) {
+        List<DTEDefType.Documento.Detalle> detalles = new ArrayList<>();
+        for (int i = 0; i < detallesJson.length(); i++) {
+            JSONObject detalleJson = detallesJson.getJSONObject(i);
+            int nroLinDet = i+1;
+            String nmbItem = detalleJson.getString("nmbItem");
+            int qtyItem = detalleJson.getInt("qtyItem");
+            double prcItem = detalleJson.getDouble("prcItem");
+
+            DTEDefType.Documento.Detalle detalle = makeDetalle(nroLinDet, nmbItem, qtyItem, prcItem);
+            detalles.add(detalle);
+        }
+        return detalles;
+    }
+
+    /**
+     * Reads JSON file
+     * @param ruta
+     * @return
+     * @throws Exception
+     */
+    public static JSONArray leerJsonArray(String ruta) throws Exception {
+        String contenido = new String(Files.readAllBytes(Paths.get(ruta)));
+        return new JSONArray(contenido);
+    }
+
+    /**
+     * Creates Documento with given values and returns it
+     * @param encabezado
+     * @param detalles
+     * @param ted
+     * @param id
+     * @return
+     * @throws DatatypeConfigurationException
+     */
+    public static DTEDefType.Documento makeDocumento(DTEDefType.Documento.Encabezado encabezado, List<DTEDefType.Documento.Detalle> detalles,DTEDefType.Documento.TED ted,String id) throws DatatypeConfigurationException {
         DTEDefType.Documento documento = new DTEDefType.Documento();
         documento.setEncabezado(encabezado);
         documento.initializeDetalle();
-        documento.addDetalle(detalle);
+        for (int i = 0; i < detalles.size(); i++) {
+            documento.addDetalle(detalles.get(i));
+        }
         GregorianCalendar calendar = new GregorianCalendar();
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
         documento.setTmstFirma(xmlDate);
         documento.setID(id);
         documento.setTED(ted);
         return documento;
     }
 
-    public static SignatureType makeSignature(DTEDefType.Documento documento) throws JAXBException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, KeyStoreException, IOException, UnrecoverableKeyException, CertificateException, MarshalException, XMLSignatureException, TransformerException, ParserConfigurationException, OperatorCreationException, KeyException {
-        /*2. Load the XML Document
-          Use a DOM parser to load your XML into a Document object:
-        */
-        /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        Document doc = dbf.newDocumentBuilder().parse(new FileInputStream("input.xml"));*/
+    /**
+     * Prints node for debugging
+     * @param node
+     * @throws Exception
+     */
+    public static void printNode(Node node) throws Exception {
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        // Indent and encoding properties, used for debugging purposes
+        //transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        //transformer.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
 
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-        // 1) Cargar el archivo .p12 o .pfx ===
-        /**
-         * AÑADAN SU ARCHIVO .PFX A LA CARPETA JAVA
-         * (CUIDADO CON SUBIRLA A GITHUB, PORFAVOR AÑADIRLA A SU GITIGNORE O ALGO)
-         * Y PEGAR SU RUTA A rutaPFX
-         */
-        String rutaPFX = "Java/certificado.pfx";
-        /**
-         * LA CONTRASEÑA ES LA MISMA QUE SE CREÓ CUANDO SE GENERÓ EL CERTIFICADO -- no la suban al discord
-         */
-        String password = "";
-
-        KeyStore ks = KeyStore.getInstance("PKCS12");
-        ks.load(new FileInputStream(rutaPFX), password.toCharArray());
-
-        // Obtener el alias (normalmente el primero)
-        String alias = ks.aliases().nextElement();
-
-        // Obtener la clave privada y el certificado
-        PrivateKey privateKey = (PrivateKey) ks.getKey(alias, password.toCharArray());
-        X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
-        PublicKey publicKey = cert.getPublicKey();
-
-        JAXBContext context = JAXBContext.newInstance(DTEDefType.Documento.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        Document doc = dbf.newDocumentBuilder().newDocument();
-
-        // Marshal directly into the DOM
-        JAXBElement<DTEDefType.Documento> jaxbElement = new JAXBElement<>(
-                new QName("Documento"), DTEDefType.Documento.class, documento);
-        marshaller.marshal(jaxbElement, doc);
-
-        doc.getDocumentElement().setIdAttribute("ID", true);
-
-        //3. Initialize the Signature Factory
-        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
-
-        //4. Create the Reference and SignedInfo
-        Reference ref = fac.newReference(
-                "#"+documento.getID(),
-                fac.newDigestMethod(DigestMethod.SHA1, null),
-                null,
-                null,
-                null
-        );
-
-        SignedInfo si = fac.newSignedInfo(
-                fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null),
-                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
-                Collections.singletonList(ref)
-        );
-
-        //5. Load the Key and Certificat
-        /*KeyStore ks = KeyStore.getInstance("PKCS12");
-        ks.load(new FileInputStream("keystore.p12"), "keystorePassword".toCharArray());
-        PrivateKey pk = (PrivateKey) ks.getKey("alias", "keyPassword".toCharArray());
-        X509Certificate cert = (X509Certificate) ks.getCertificate("alias");
-
-        //6. Create KeyInfo
-        KeyInfoFactory kif = fac.getKeyInfoFactory();
-        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kif.newX509Data(Collections.singletonList(cert))));*/
-
-        //7. Sign the Document
-        /*DOMSignContext dsc = new DOMSignContext(pk, doc.getDocumentElement());
-        XMLSignature signature = fac.newXMLSignature(si, ki);
-        signature.sign(dsc);*/
-
-        DOMSignContext dsc = new DOMSignContext(privateKey, doc.getDocumentElement());
-        /*KeyInfo ki = fac.getKeyInfoFactory().newKeyInfo(
-                Collections.singletonList(
-                        fac.getKeyInfoFactory().newX509Data(Collections.singletonList(cert))
-                )
-        );*/
-        KeyInfoFactory kif = fac.getKeyInfoFactory();
-
-        KeyValue keyValue = kif.newKeyValue(publicKey);
-
-        // Create X509Data from certificate
-        X509Data x509Data = kif.newX509Data(Collections.singletonList(cert));
-
-        // Combine both into KeyInfo
-        KeyInfo ki = kif.newKeyInfo(Arrays.asList(keyValue, x509Data));
-
-        XMLSignature signature = fac.newXMLSignature(si, ki);
-        signature.sign(dsc);
-
-        NodeList sigList = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-        Element signatureElement = (Element) sigList.item(0);
-
-        Unmarshaller unmarshaller = JAXBContext.newInstance(SignatureType.class).createUnmarshaller();
-        SignatureType signatureJaxb = (SignatureType) unmarshaller.unmarshal(new DOMSource((Node) signatureElement));
-        //DTEDefType dte = makeDTE(documento, signatureJaxb);           // your manually built SignatureType
-        //signatureJaxb.setURI(documento.getID());
-
-        return signatureJaxb;
+        transformer.transform(new DOMSource(node), new StreamResult(System.out));
     }
 
-    public static SignatureType makeSignature2(DTEDefType.Documento documento){
-        SignatureType signature = new SignatureType();
-
-        /* INFO **/
-        SignatureType.SignedInfo signedInfo = new SignatureType.SignedInfo();
-
-        SignatureType.SignedInfo.CanonicalizationMethod canon = new SignatureType.SignedInfo.CanonicalizationMethod();
-        canon.setAlgorithm("http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
-
-        SignatureType.SignedInfo.SignatureMethod signatureMethod = new SignatureType.SignedInfo.SignatureMethod();
-        signatureMethod.setAlgorithm("http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-
-        SignatureType.SignedInfo.Reference reference = new SignatureType.SignedInfo.Reference();
-        reference.setURI("#"+documento.getID());
-
-        SignatureType.SignedInfo.Reference.DigestMethod digest =  new SignatureType.SignedInfo.Reference.DigestMethod();
-        digest.setAlgorithm("http://www.w3.org/2000/09/xmldsig#sha1");
-
-        reference.setDigestMethod(digest);
-        /* FALTA CALCULAR EL DIGEST VALUE DE ACUERDO AL DOM
-         */
-        /*
-        CAMBIAR POR EL CALCULO REAL DE DIGESTVALUE
-         */
-        reference.setDigestValue("SOyUNEjemplo".getBytes());
-
-        signedInfo.setCanonicalizationMethod(canon);
-        signedInfo.setSignatureMethod(signatureMethod);
-        signedInfo.setReference(reference);
-
-        signature.setSignedInfo(signedInfo);
-
-        // SignatureValue
-        /*
-        CAMBIAR POR EL CALCULO REAL DE SIGNATURE VALUE
-         */
-        signature.setSignatureValue("SoyUnaFirmaSuperSecreta".getBytes());
-
-        // KeyInfo
-        SignatureType.KeyInfo keyInfo = new SignatureType.KeyInfo();
-        SignatureType.KeyInfo.KeyValue keyValue = new SignatureType.KeyInfo.KeyValue();
-
-        SignatureType.KeyInfo.KeyValue.RSAKeyValue rsaKeyValue = new SignatureType.KeyInfo.KeyValue.RSAKeyValue();
-
-        /*
-        CAMBIAR POR EL CALCULO REAL DE MODULUS
-         */
-        rsaKeyValue.setModulus("TIENESQUECAMBIARELMODULUS".getBytes());
-        /*
-        CAMBIAR POR EL CALCULO REAL DE EXPONENT
-         */
-        rsaKeyValue.setExponent("TIENESQUECAMBIARELEXPONENT".getBytes());
-
-        keyValue.setRSAKeyValue(rsaKeyValue);
-        keyInfo.setKeyValue(keyValue);
-
-        SignatureType.KeyInfo.X509Data x509Data = new SignatureType.KeyInfo.X509Data();
-        /*
-        CAMBIAR POR EL CALCULO REAL DE X509
-         */
-        x509Data.setX509Certificate("SoyUnEjemplo".getBytes());
-
-
-
-        signature.setKeyInfo(keyInfo);
-        signature.keyInfo.setX509Data(x509Data);
-
-        return signature;
-    };
-
+    /**
+     * Creates DTE with given values and returns it
+     * @param documento
+     * @param signature
+     * @return
+     */
     public static DTEDefType makeDTE(DTEDefType.Documento documento, SignatureType signature) {
         DTEDefType dte = new DTEDefType();
         dte.setDocumento(documento);
         dte.setSignature(signature);
+        dte.setVersion(BigDecimal.valueOf(1.0));
         return dte;
     }
+
+    /**
+     * Creates Caratula with given values and returns it
+     * @param rutEnvia
+     * @param rutEmisor
+     * @param rutReceptor
+     * @param nroResol
+     * @param subTotDTE
+     * @return
+     * @throws DatatypeConfigurationException
+     */
+    public static EnvioDTE.SetDTE.Caratula makeCaratula(String rutEnvia, String rutEmisor, String rutReceptor,
+                                                        /*XMLGregorianCalendar fchResol,*/ int nroResol,
+                                                        /*XMLGregorianCalendar tmstFirmaEnv,*/
+                                                        List<EnvioDTE.SetDTE.Caratula.SubTotDTE> subTotDTE) throws DatatypeConfigurationException {
+        EnvioDTE.SetDTE.Caratula caratula = new EnvioDTE.SetDTE.Caratula();
+        // Rut Contribuyente Emisor de los DTE
+        caratula.setRutEmisor(rutEmisor);
+        // Rut Persona que envía los DTE
+        caratula.setRutEnvia(rutEnvia);
+        // Rut Contribuyente Receptor de los DTE
+        caratula.setRutReceptor(rutReceptor);
+        GregorianCalendar calendar = new GregorianCalendar(2002, GregorianCalendar.OCTOBER,20);
+        GregorianCalendar calendarActual = new GregorianCalendar();
+        XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        xmlDate.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        xmlDate.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
+        // Fecha Resolución SII que autoriza al emisor
+        caratula.setFchResol(xmlDate);
+        // Nº de resolución SII que autoriza al emisor
+        caratula.setNroResol(BigInteger.valueOf(nroResol));
+        XMLGregorianCalendar xmlDate2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendarActual);
+        xmlDate2.setTimezone( DatatypeConstants.FIELD_UNDEFINED );
+        xmlDate2.setMillisecond( DatatypeConstants.FIELD_UNDEFINED );
+        // Fecha y hora de firma del envío AAAAMMDDHHMMSS
+        caratula.setTmstFirmaEnv(xmlDate2);
+        // Uno o más Subtotales por tipo de DTE
+        caratula.setSubTotDTE(subTotDTE);
+        caratula.setVersion(BigDecimal.valueOf(1.0));
+        return caratula;
+    }
+
+    /**
+     * Creates SubTotDTE with given values and returns it
+     * @param tpoDTE
+     * @param nroDTE
+     * @return
+     */
+    public static EnvioDTE.SetDTE.Caratula.SubTotDTE makeSubTotDTE(int tpoDTE,int nroDTE) {
+        EnvioDTE.SetDTE.Caratula.SubTotDTE subTot =  new EnvioDTE.SetDTE.Caratula.SubTotDTE();
+        subTot.setTpoDTE(BigInteger.valueOf(tpoDTE));
+        subTot.setNroDTE(BigInteger.valueOf(nroDTE));
+        return subTot;
+    }
+
+    /**
+     * Creates SetDTE with given values and returns it
+     * @param caratula
+     * @param DteList
+     * @param id
+     * @return
+     */
+    public static EnvioDTE.SetDTE makeSetDTE(EnvioDTE.SetDTE.Caratula caratula,List<SiiBoleta.DTEDefType> DteList,String id){
+        EnvioDTE.SetDTE  setDTE = new EnvioDTE.SetDTE();
+        setDTE.setCaratula(caratula);
+        setDTE.setDteList(DteList);
+        setDTE.setID(id);
+        return setDTE;
+    }
+
+    /**
+     * Creates EnvioDTE with given values and returns it
+     * @param setDTE
+     * @param signature
+     * @return
+     */
+    public static EnvioDTE makeEnvioDTE(EnvioDTE.SetDTE setDTE, SignatureType signature){
+        EnvioDTE envioDTE = new EnvioDTE();
+        envioDTE.setSetDTE(setDTE);
+        envioDTE.setSignature(signature);
+        envioDTE.setVersion(BigDecimal.valueOf(1.0));
+        return envioDTE;
+    }
+
 }
