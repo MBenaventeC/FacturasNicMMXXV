@@ -11,14 +11,13 @@ de dependencias y ejecución del proyecto.
 El working directory debe estar ubicado en la raíz del proyecto, es decir, *.../FacturasNicMMXXV*.
 
 ### Instalación de dependencias y entorno de ejecución
-En el proyecto se encuentran dos archivos **pom.xml**: uno para la creación y firma de 
-DTE's y otro para realizar el envío de los documentos utilizando la API que dispone el SII.
+En el proyecto se encuentra un archivo *pom.xml*, el cual contiene las dependencias utilizadas
+en el proceso completo. 
 
-Estos archivos se encuentran en las siguientes rutas en el proyecto, respectivamente:
+Este archivo se encuentra en la siguiente ruta del proyecto:
 - Java/pom.xml
-- Java/src/main/java/SiiEnvioApi/pom.xml
 
-Se deben instalar con el gestor de dependencias Maven.
+Y se deben instalar con el gestor de dependencias Maven.
 
 ### Archivos requeridos
 Para poder crear DTE's, se necesitan algunos archivos escenciales para la ejecución y se deben
