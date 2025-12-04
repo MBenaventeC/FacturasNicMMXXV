@@ -73,7 +73,9 @@ public class AppController {
             java.nio.file.Path pomPath = java.nio.file.Paths.get("Springboot", "demo", "pom.xml")
                 .toAbsolutePath().normalize();
             System.out.println("Invocando Maven con POM en: " + pomPath);
-            MavenLauncher.runRunEnvio(pomPath.toString());
+            String IDEnvio = MavenLauncher.runRunEnvio(pomPath.toString());
+            model.addAttribute("IDEnvio", IDEnvio);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +152,7 @@ public class AppController {
 
     @GetMapping("/descargarXML")
     public ResponseEntity<Resource> descargarXML() {
-        Resource resource = new FileSystemResource("test_files/xml/dte.xml");
+        Resource resource = new FileSystemResource("src/main/resources/out/signedEnvFixed.xml");
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=dte.xml")
             .contentType(MediaType.APPLICATION_XML)
@@ -159,7 +161,8 @@ public class AppController {
 
     @GetMapping("/descargarPDF")
     public ResponseEntity<Resource> descargarPDF() {
-        Resource resource = new FileSystemResource("test_files/Out/PDFDemo2.pdf");
+        String filePath = "src/main/resources/out/DTE-34-22325.pdf";
+        FileSystemResource resource = new FileSystemResource(filePath);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=PDFDemo2.pdf")
             .contentType(MediaType.APPLICATION_PDF)

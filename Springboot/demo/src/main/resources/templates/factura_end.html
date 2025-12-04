@@ -10,6 +10,8 @@
         <h1>Bienvenido a NicFacturasDemo</h1>
         <p>Portal Post-Pago</p>
         <p th:text="'Muchas gracias ' + ${nombre} + ', su compra ha sido realizada con éxito.'"></p>
+        <p th:text="'Porfavor revise el estado de su envio con: '"></p>
+        <p th:text="${IDEnvio}" class = "id-envio-box"></p>
         <div class="button-container">
             <a href="/descargarPDF" class="button">Descargar PDF</a>
             <a href="/descargarXML" class="button">Descargar XML</a>
